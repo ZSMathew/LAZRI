@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Timu Yetu</title>
-<style>
-    /* Reset */
+  <style>
     * {
       margin: 0;
       padding: 0;
@@ -16,30 +15,34 @@
     body {
       background: #f4f6f9;
       color: #333;
+      max-width: 100%;
+      overflow-x: hidden;
     }
 
     /* Header / Navbar */
     header {
       background: #fff;
-      padding: 20px 40px;
+      padding: 15px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      position: relative;
-      z-index: 100;
+      flex-wrap: wrap;
     }
 
     header h1 {
       color: #2563eb;
-      font-size: 24px;
+      font-size: 20px;
       font-weight: bold;
     }
 
     nav ul {
       list-style: none;
       display: flex;
-      gap: 20px;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding-left: 0;
+      margin: 0;
     }
 
     nav ul li {
@@ -51,8 +54,9 @@
       color: #333;
       font-weight: 500;
       transition: 0.3s;
-      padding: 8px 12px;
+      padding: 6px 10px;
       display: block;
+      font-size: 14px;
     }
 
     nav ul li a:hover {
@@ -68,29 +72,19 @@
       border-radius: 6px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       display: none;
-      min-width: 180px;
+      min-width: 160px;
     }
 
     nav ul li:hover ul {
       display: block;
     }
 
-    nav ul li ul li {
-      width: 100%;
-    }
-
     nav ul li ul li a {
-      padding: 10px 15px;
-      color: #333;
-      font-weight: normal;
+      padding: 8px 12px;
+      font-size: 14px;
     }
 
-    nav ul li ul li a:hover {
-      background: #f4f6f9;
-      color: #2563eb;
-    }
-
-    /* image */
+            /* image */
     img{
         width: 4rem;
         height: 4rem;
@@ -98,33 +92,34 @@
 
     /* Team Section */
     section {
-      padding: 60px 20px;
-      max-width: 1200px;
+      padding: 30px 15px;
+      max-width: 100%;
       margin: auto;
       text-align: center;
     }
 
     section h2 {
-      font-size: 32px;
+      font-size: 24px;
       margin-bottom: 10px;
       color: #111;
     }
 
     section p {
       color: #666;
-      margin-bottom: 40px;
+      margin-bottom: 25px;
+      font-size: 14px;
     }
 
     .team-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
     }
 
     .member {
       background: #fff;
-      border-radius: 15px;
-      padding: 20px;
+      border-radius: 12px;
+      padding: 15px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
@@ -135,15 +130,15 @@
     }
 
     .member img {
-      width: 120px;
-      height: 120px;
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
       object-fit: cover;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
     }
 
     .member h3 {
-      font-size: 20px;
+      font-size: 16px;
       font-weight: bold;
       margin-bottom: 5px;
     }
@@ -151,11 +146,12 @@
     .member p.role {
       color: #2563eb;
       font-weight: 600;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
+      font-size: 14px;
     }
 
     .member p.desc {
-      font-size: 14px;
+      font-size: 13px;
       color: #666;
     }
 
@@ -163,73 +159,76 @@
     footer {
       background: #111;
       color: #ccc;
-      padding: 20px;
+      padding: 15px;
       text-align: center;
-      margin-top: 40px;
+      margin-top: 30px;
+      font-size: 13px;
     }
 
-    /* Chat Icon */
-    #chat-icon {
+    /* Chatbot Button */
+    .chat-btn {
       position: fixed;
       bottom: 20px;
       right: 20px;
       background: #2563eb;
-      color: white;
+      color: #fff;
+      border: none;
       border-radius: 50%;
       width: 60px;
       height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      font-size: 24px;
       cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      font-size: 28px;
-      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
 
-    /* Chat Box */
-    #chat-box {
+    /* Chatbot Window */
+    .chat-window {
       position: fixed;
       bottom: 90px;
       right: 20px;
-      width: 600px;
-      height: 800px;
-      background: white;
+      width: 300px;
+      height: 400px;
+      background: #fff;
       border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
       display: none;
       flex-direction: column;
       overflow: hidden;
-      z-index: 1000;
     }
 
-    #chat-box header {
-      background:#2563eb; 
-      color:white; 
-      padding:10px;
-      font-weight:bold;
+    .chat-header {
+      background: #2563eb;
+      color: #fff;
+      padding: 10px;
+      text-align: center;
+      font-weight: bold;
     }
 
-    #chat-content {
-      flex:1; 
-      padding:10px; 
-      overflow-y:auto; 
+    .chat-body {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
       font-size: 14px;
     }
 
-    #chat-box input {
-      flex:1; 
-      border:none; 
-      padding:10px;
-      outline: none;
+    .chat-input {
+      display: flex;
+      border-top: 1px solid #ddd;
     }
 
-    #chat-box button {
-      background:#2563eb; 
-      color:white; 
-      border:none; 
-      padding:10px; 
-      cursor:pointer;
+    .chat-input input {
+      flex: 1;
+      border: none;
+      padding: 10px;
+      font-size: 14px;
+    }
+
+    .chat-input button {
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -250,7 +249,7 @@
           </ul>
         </li>
         <li><a href="#"><b>Huduma</b></a></li>
-        <li><a href="#"><b>Projects</b></a></li>
+        <li><a href="Project.html"><b>Projects</b></a></li>
         <li><a href="#"><b>Timu Yetu</b></a></li>
         <li><a href="#"><b>Mawasiliano</b></a></li>
       </ul>
@@ -310,70 +309,38 @@
     <p>&copy; 2025 Lazri Company Limited. Haki zote zimehifadhiwa.</p>
   </footer>
 
-  <!-- Chat Icon -->
-  <div id="chat-icon">💬</div>
+  <!-- Chatbot -->
+  <button class="chat-btn" onclick="toggleChat()">💬</button>
 
-  <!-- Chat Box -->
-  <div id="chat-box">
-    <header>🤖 AI Assistant</header>
-    <div id="chat-content"></div>
-    <div style="display:flex; border-top:1px solid #ddd;">
-      <input id="user-input" type="text" placeholder="Andika ujumbe...">
-      <button onclick="sendMessage()">➤</button>
+  <div class="chat-window" id="chatWindow">
+    <div class="chat-header">Msaada wa Haraka</div>
+    <div class="chat-body" id="chatBody">
+      <p><b>Bot:</b> Karibu! Nawezaje kukusaidia leo?</p>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="userInput" placeholder="Andika ujumbe...">
+      <button onclick="sendMessage()">▶</button>
     </div>
   </div>
 
-<script>
-  // toggle chat box
-  document.getElementById("chat-icon").onclick = function() {
-    let box = document.getElementById("chat-box");
-    box.style.display = (box.style.display === "none" || box.style.display === "") ? "flex" : "none";
-  };
-
-  // send message
-  async function sendMessage() {
-    let input = document.getElementById("user-input");
-    let message = input.value.trim();
-    if (!message) return;
-
-    let chat = document.getElementById("chat-content");
-
-    // Onyesha meseji ya user
-    chat.innerHTML += `<div style="text-align:right; margin:5px;"><b>You:</b> ${message}</div>`;
-    input.value = "";
-
-    // Onyesha "typing..."
-    let typing = document.createElement("div");
-    typing.innerHTML = `<i>🤖 AI is typing...</i>`;
-    chat.appendChild(typing);
-    chat.scrollTop = chat.scrollHeight;
-
-    try {
-      // Request kwa AI (OpenAI API)
-      let response = await fetch("https://api.openai.com/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer YOUR_API_KEY" // 👈 weka API key yako hapa
-        },
-        body: JSON.stringify({
-          model: "gpt-3.5-turbo",
-          messages: [{role:"user", content: message}]
-        })
-      });
-
-      let data = await response.json();
-      typing.remove();
-
-      // Onyesha jibu la AI
-      chat.innerHTML += `<div style="text-align:left; margin:5px;"><b>AI:</b> ${data.choices[0].message.content}</div>`;
-      chat.scrollTop = chat.scrollHeight;
-    } catch (error) {
-      typing.remove();
-      chat.innerHTML += `<div style="color:red; margin:5px;">⚠️ Hitilafu: Hakuna majibu kwa sasa.</div>`;
+  <script>
+    function toggleChat() {
+      const chat = document.getElementById("chatWindow");
+      chat.style.display = chat.style.display === "flex" ? "none" : "flex";
     }
-  }
-</script>
+
+    function sendMessage() {
+      const input = document.getElementById("userInput");
+      const body = document.getElementById("chatBody");
+      if (input.value.trim() !== "") {
+        body.innerHTML += "<p><b>Wewe:</b> " + input.value + "</p>";
+        // simple bot reply
+        body.innerHTML += "<p><b>Bot:</b> Asante kwa ujumbe wako!</p>";
+        input.value = "";
+        body.scrollTop = body.scrollHeight;
+      }
+    }
+  </script>
 
 </body>
 </html>

@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Timu Yetu</title>
-  <style>
-    /* Reset all */
+<style>
+    /* Reset */
     * {
       margin: 0;
       padding: 0;
@@ -18,7 +18,7 @@
       color: #333;
     }
 
-    /* Header */
+    /* Header / Navbar */
     header {
       background: #fff;
       padding: 20px 40px;
@@ -26,6 +26,8 @@
       justify-content: space-between;
       align-items: center;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 100;
     }
 
     header h1 {
@@ -40,22 +42,60 @@
       gap: 20px;
     }
 
+    nav ul li {
+      position: relative;
+    }
+
     nav ul li a {
       text-decoration: none;
       color: #333;
       font-weight: 500;
       transition: 0.3s;
+      padding: 8px 12px;
+      display: block;
     }
 
     nav ul li a:hover {
       color: #2563eb;
     }
 
-    /* image */
+    /* Dropdown */
+    nav ul li ul {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: #fff;
+      border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      display: none;
+      min-width: 180px;
+    }
+
+    nav ul li:hover ul {
+      display: block;
+    }
+
+    nav ul li ul li {
+      width: 100%;
+    }
+
+    nav ul li ul li a {
+      padding: 10px 15px;
+      color: #333;
+      font-weight: normal;
+    }
+
+    nav ul li ul li a:hover {
+      background: #f4f6f9;
+      color: #2563eb;
+    }
+
+        /* image */
     img{
         width: 4rem;
         height: 4rem;
     }
+
 
     /* Team Section */
     section {
@@ -72,7 +112,7 @@
     }
 
     section p {
-      color: gray;
+      color: #666;
       margin-bottom: 40px;
     }
 
@@ -83,7 +123,7 @@
     }
 
     .member {
-      background: white;
+      background: #fff;
       border-radius: 15px;
       padding: 20px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
@@ -117,12 +157,12 @@
 
     .member p.desc {
       font-size: 14px;
-      color: gray;
+      color: #666;
     }
 
     /* Footer */
     footer {
-      background: blue;
+      background: #111;
       color: #ccc;
       padding: 20px;
       text-align: center;
@@ -138,10 +178,17 @@
     <nav>
       <ul>
         <li><a href="#"><b>Nyumbani</b></a></li>
-        <li><a href="#"><b>Kuhusu</b></a></li>
+        <li>
+          <a href="#"><b>Kuhusu ▾</b></a>
+          <ul>
+            <li><a href="#"><b>Mission</b></a></li>
+            <li><a href="#"><b>Vision</b></a></li>
+            <li><a href="#"><b>Headquarters</b></a></li>
+          </ul>
+        </li>
         <li><a href="#"><b>Huduma</b></a></li>
         <li><a href="#"><b>Projects</b></a></li>
-        <li><a href="#"><b>Timu</b></a></li>
+        <li><a href="#"><b>Timu Yetu</b></a></li>
         <li><a href="#"><b>Mawasiliano</b></a></li>
       </ul>
     </nav>

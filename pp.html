@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timu Yetu</title>
+<style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f4f6f9;
+      color: #333;
+    }
+
+    /* Header / Navbar */
+    header {
+      background: #fff;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 100;
+    }
+
+    header h1 {
+      color: #2563eb;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav ul li {
+      position: relative;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      transition: 0.3s;
+      padding: 8px 12px;
+      display: block;
+    }
+
+    nav ul li a:hover {
+      color: #2563eb;
+    }
+
+    /* Dropdown */
+    nav ul li ul {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: #fff;
+      border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      display: none;
+      min-width: 180px;
+    }
+
+    nav ul li:hover ul {
+      display: block;
+    }
+
+    nav ul li ul li {
+      width: 100%;
+    }
+
+    nav ul li ul li a {
+      padding: 10px 15px;
+      color: #333;
+      font-weight: normal;
+    }
+
+    nav ul li ul li a:hover {
+      background: #f4f6f9;
+      color: #2563eb;
+    }
+
+    /* image */
+    img{
+        width: 4rem;
+        height: 4rem;
+    }
+
+    /* Team Section */
+    section {
+      padding: 60px 20px;
+      max-width: 1200px;
+      margin: auto;
+      text-align: center;
+    }
+
+    section h2 {
+      font-size: 32px;
+      margin-bottom: 10px;
+      color: #111;
+    }
+
+    section p {
+      color: #666;
+      margin-bottom: 40px;
+    }
+
+    .team-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .member {
+      background: #fff;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .member:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    }
+
+    .member img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 15px;
+    }
+
+    .member h3 {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .member p.role {
+      color: #2563eb;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .member p.desc {
+      font-size: 14px;
+      color: #666;
+    }
+
+    /* Footer */
+    footer {
+      background: #111;
+      color: #ccc;
+      padding: 20px;
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    /* Chat Icon */
+    #chat-icon {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #2563eb;
+      color: white;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      font-size: 28px;
+      z-index: 1000;
+    }
+
+    /* Chat Box */
+    #chat-box {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 600px;
+      height: 800px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 1000;
+    }
+
+    #chat-box header {
+      background:#2563eb; 
+      color:white; 
+      padding:10px;
+      font-weight:bold;
+    }
+
+    #chat-content {
+      flex:1; 
+      padding:10px; 
+      overflow-y:auto; 
+      font-size: 14px;
+    }
+
+    #chat-box input {
+      flex:1; 
+      border:none; 
+      padding:10px;
+      outline: none;
+    }
+
+    #chat-box button {
+      background:#2563eb; 
+      color:white; 
+      border:none; 
+      padding:10px; 
+      cursor:pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1><img src="./images/Logo.png"></h1>
+    <nav>
+      <ul>
+        <li><a href="#"><b>Nyumbani</b></a></li>
+        <li>
+          <a href="#"><b>Kuhusu ▾</b></a>
+          <ul>
+            <li><a href="#"><b>Mission</b></a></li>
+            <li><a href="#"><b>Vision</b></a></li>
+            <li><a href="#"><b>Headquarters</b></a></li>
+          </ul>
+        </li>
+        <li><a href="#"><b>Huduma</b></a></li>
+        <li><a href="#"><b>Projects</b></a></li>
+        <li><a href="#"><b>Timu Yetu</b></a></li>
+        <li><a href="#"><b>Mawasiliano</b></a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Team Section -->
+  <section>
+    <h2>Wajumbe wa Timu Yetu</h2>
+    <p>Hawa ndio watu wanaounda timu bora ya kampuni yetu.</p>
+
+    <div class="team-container">
+      <!-- Member 1 -->
+      <div class="member">
+        <img src="./images/ino.png" alt="Member 1">
+        <h3>Inocenti Gabriel</h3>
+        <p class="role">CEO & Mwanzilishi</p>
+        <p class="desc">Mchambuzi na mtaalamu wa maendeleo ya kampuni.</p>
+      </div>
+
+      <!-- Member 2 -->
+      <div class="member">
+        <img src="https://via.placeholder.com/150" alt="Member 2">
+        <h3>Lucy Nguzo</h3>
+        <p class="role">Exclusive Secretary & Mwanzilishi</p>
+        <p class="desc">Msaidizi mkuu wa CEO na mtunza taarifa wa kampuni.</p>
+      </div>
+
+      <!-- Member 3 -->
+      <div class="member">
+        <img src="https://via.placeholder.com/150" alt="Member 3">
+        <h3>Raynell Robert</h3>
+        <p class="role">CFO & Mwanzilishi</p>
+        <p class="desc">Mhasibu na msimamizi wa masuala ya kifedha.</p>
+      </div>
+
+      <!-- Member 4 -->
+      <div class="member">
+        <img src="https://via.placeholder.com/150" alt="Member 4">
+        <h3>Zakaria Stephano</h3>
+        <p class="role">COO, CHRO & Mwanzilishi</p>
+        <p class="desc">Msimamizi wa shughuli zote za kampuni & Rasilimali watu.</p>
+      </div>
+
+      <!-- Member 5 -->
+      <div class="member">
+        <img src="https://via.placeholder.com/150" alt="Member 5">
+        <h3>Anthony Kaping</h3>
+        <p class="role">CMO, CTO & Mwanzilishi</p>
+        <p class="desc">Mhandisi mkuu wa teknolojia na ubunifu & Mkuu wa masoko na uhusiano wa umma.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Lazri Company Limited. Haki zote zimehifadhiwa.</p>
+  </footer>
+
+  <!-- Chat Icon -->
+  <div id="chat-icon">💬</div>
+
+  <!-- Chat Box -->
+  <div id="chat-box">
+    <header>🤖 AI Assistant</header>
+    <div id="chat-content"></div>
+    <div style="display:flex; border-top:1px solid #ddd;">
+      <input id="user-input" type="text" placeholder="Andika ujumbe...">
+      <button onclick="sendMessage()">➤</button>
+    </div>
+  </div>
+
+<script>
+  // toggle chat box
+  document.getElementById("chat-icon").onclick = function() {
+    let box = document.getElementById("chat-box");
+    box.style.display = (box.style.display === "none" || box.style.display === "") ? "flex" : "none";
+  };
+
+  // send message
+  async function sendMessage() {
+    let input = document.getElementById("user-input");
+    let message = input.value.trim();
+    if (!message) return;
+
+    let chat = document.getElementById("chat-content");
+
+    // Onyesha meseji ya user
+    chat.innerHTML += `<div style="text-align:right; margin:5px;"><b>You:</b> ${message}</div>`;
+    input.value = "";
+
+    // Onyesha "typing..."
+    let typing = document.createElement("div");
+    typing.innerHTML = `<i>🤖 AI is typing...</i>`;
+    chat.appendChild(typing);
+    chat.scrollTop = chat.scrollHeight;
+
+    try {
+      // Request kwa AI (OpenAI API)
+      let response = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer YOUR_API_KEY" // 👈 weka API key yako hapa
+        },
+        body: JSON.stringify({
+          model: "gpt-3.5-turbo",
+          messages: [{role:"user", content: message}]
+        })
+      });
+
+      let data = await response.json();
+      typing.remove();
+
+      // Onyesha jibu la AI
+      chat.innerHTML += `<div style="text-align:left; margin:5px;"><b>AI:</b> ${data.choices[0].message.content}</div>`;
+      chat.scrollTop = chat.scrollHeight;
+    } catch (error) {
+      typing.remove();
+      chat.innerHTML += `<div style="color:red; margin:5px;">⚠️ Hitilafu: Hakuna majibu kwa sasa.</div>`;
+    }
+  }
+</script>
+
+</body>
+</html>

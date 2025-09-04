@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timu Yetu</title>
+  <style>
+    /* Reset all */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f4f6f9;
+      color: #333;
+    }
+
+    /* Header */
+    header {
+      background: #fff;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      color: #2563eb;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #2563eb;
+    }
+
+    /* image */
+    img{
+        width: 4rem;
+        height: 4rem;
+    }
+
+    /* Team Section */
+    section {
+      padding: 60px 20px;
+      max-width: 1200px;
+      margin: auto;
+      text-align: center;
+    }
+
+    section h2 {
+      font-size: 32px;
+      margin-bottom: 10px;
+      color: #111;
+    }
+
+    section p {
+      color: gray;
+      margin-bottom: 40px;
+    }
+
+    .team-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .member {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .member:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    }
+
+    .member img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 15px;
+    }
+
+    .member h3 {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .member p.role {
+      color: #2563eb;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .member p.desc {
+      font-size: 14px;
+      color: gray;
+    }
+
+    /* Footer */
+    footer {
+      background: blue;
+      color: #ccc;
+      padding: 20px;
+      text-align: center;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1><img src="./images/Logo.png"></h1>
+    <nav>
+      <ul>
+        <li><a href="#">Nyumbani</a></li>
+        <li><a href="#">Kuhusu</a></li>
+        <li><a href="#">Huduma</a></li>
+        <li><a href="#">Projects</a></li>
+        <li><a href="#">Timu</a></li>
+        <li><a href="#">Mawasiliano</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Team Section -->
+  <section>
+    <h2>Wajumbe wa Timu Yetu</h2>
+    <p>Hawa ndio watu wanaounda timu bora ya kampuni yetu.</p>
+
+    <div class="team-container">
+      <!-- Member 1 -->
+      <div class="member">
+        <img src="https://via.placeholder.com/150" alt="Member 1">
+        <h3>Inocenti Gabriel</h3>
+        <p class="role">CEO & Mwanzilishi</p>
+        <p class="desc">Mchambuzi na mtaalamu wa maendeleo ya kampuni.</p>
+      </div>
+
+      <!-- Member 2 -->
+      <div class="member">
+        <img src="https://via.placeholder.com/150" alt="Member 2">
+        <h3>Lucy Nguzo</h3>
+        <p class="role">Exclusive Secretary & Mwanzilishi</p>
+        <p class="desc">Msaidizi mkuu wa CEO na mtunza taarifa wa kampuni.</p>
+      </div>
+
+      <!-- Member 3 -->
+      <div class="member">
+        <img src="https://via.placeholder.com/150" alt="Member 3">
+        <h3>Raynell Robert</h3>
+        <p class="role">CFO & Mwanzilishi</p>
+        <p class="desc">Mhasibu na msimamizi wa masuala ya kifedha.</p>
+      </div>
+
+      <!-- Member 4 -->
+      <div class="member">
+        <img src="https://via.placeholder.com/150" alt="Member 4">
+        <h3>Zakaria Stephano</h3>
+        <p class="role">COO, CHRO & Mwanzilishi</p>
+        <p class="desc">Msimamizi wa shughuli zote za kampuni & Rasilimali watu.</p>
+      </div>
+
+      <!-- Member 5 -->
+      <div class="member">
+        <img src="https://via.placeholder.com/150" alt="Member 5">
+        <h3>Anthony Kaping</h3>
+        <p class="role">CMO, CTO & Mwanzilishi</p>
+        <p class="desc">Mhandisi mkuu wa teknolojia na ubunifu & Mkuu wa masoko na uhusiano wa umma.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Lazri Company Limited. Haki zote zimehifadhiwa.</p>
+  </footer>
+
+</body>
+</html>

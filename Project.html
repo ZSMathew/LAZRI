@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects</title>
+    <style>
+        * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f4f6f9;
+      color: #333;
+    }
+
+    /* Header */
+    #header {
+      background: #fff;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    #header h1 {
+      color: #2563eb;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #2563eb;
+    }
+
+    /* image */
+    img{
+        width: 4rem;
+        height: 4rem;
+    }
+        header {
+      background: #2a0483;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 20px auto;
+    }
+
+    .filters {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .filters button {
+      padding: 10px 20px;
+      margin: 5px;
+      border: none;
+      border-radius: 5px;
+      background: #333;
+      color: white;
+      cursor: pointer;
+    }
+
+    .filters button:hover {
+      background: #555;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+    }
+
+    .card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 15px;
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 20px;
+      color: #222;
+    }
+
+    .card p {
+      font-size: 14px;
+      color: #555;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 15px;
+      font-size: 12px;
+      margin-top: 10px;
+      color: white;
+    }
+
+    .completed { background: green; }
+    .ongoing { background: orange; }
+    .upcoming { background: blue; }
+    </style>
+</head>
+<body>
+      <!-- Header -->
+  <header id="header">
+    <h1><img src="./images/Logo.png"></h1>
+    <nav>
+      <ul>
+        <li><a href="#">Nyumbani</a></li>
+        <li><a href="#">Kuhusu</a></li>
+        <li><a href="#">Huduma</a></li>
+        <li><a href="#">Projects</a></li>
+        <li><a href="our team.html">Timu yetu</a></li>
+        <li><a href="#">Mawasiliano</a></li>
+        <li><a href="Setting.html"><b>Setting</b></a></li>
+      </ul>
+    </nav>
+  </header>
+    <header>
+    <h1>Our Projects</h1>
+  </header>
+
+   <div class="container">
+    <div class="filters">
+      <button class="active" data-filter="all">All</button>
+      <button data-filter="ongoing">Ongoing</button>
+      <button data-filter="completed">Completed</button>
+      <button data-filter="upcoming">Upcoming</button>
+    </div>
+
+    <div class="projects">
+      <!-- Project Card -->
+      <div class="card" data-status="ongoing">
+        <img src="/images/Logo.png" alt="Project Image">
+        <div class="card-content">
+          <h3>Health Awareness Campaign</h3>
+          <p>A project aimed at educating society about health and wellness.</p>
+          <span class="status ongoing">Ongoing</span>
+        </div>
+      </div>
+
+      <div class="card" data-status="completed">
+        <img src="/images/Logo.png" alt="Project Image">
+        <div class="card-content">
+          <h3>Community Tech Hub</h3>
+          <p>Building a center to empower youth with technology skills.</p>
+          <span class="status completed">Completed</span>
+        </div>
+      </div>
+
+      <div class="card" data-status="upcoming">
+        <img src="/images/Logo.png" alt="Project Image">
+        <div class="card-content">
+          <h3>Future Leaders Program</h3>
+          <p>A mentorship program to guide students into leadership roles.</p>
+          <span class="status upcoming">Upcoming</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const filterButtons = document.querySelectorAll(".filters button");
+    const projectCards = document.querySelectorAll(".card");
+
+    filterButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        // remove active class from all
+        filterButtons.forEach(btn => btn.classList.remove("active"));
+        button.classList.add("active");
+
+        const filter = button.getAttribute("data-filter");
+
+        projectCards.forEach(card => {
+          if (filter === "all" || card.getAttribute("data-status") === filter) {
+            card.style.display = "block";
+          } else {
+            card.style.display = "none";
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Services</title>
+<style>
+    :root{
+      --blue: #0b66ff;      /* primary blue */
+      --dark-blue: #053a9b;
+      --gray: #f3f4f6;
+      --muted: #6b7280;
+      --white: #ffffff;
+      --card-shadow: 0 6px 20px rgba(11,102,255,0.08);
+      --glass: rgba(255,255,255,0.6);
+      --max-width: 100%;
+      --radius: 14px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color:#0f1724;
+      background: linear-gradient(180deg, #fbfdff 0%, #f8fbff 100%);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      padding-bottom:40px;
+    }
+
+    .container{
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 28px;
+    }
+
+    /* Header / Navbar */
+    header {
+      background: #fff;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 100;
+    }
+
+    header h1 {
+      color: #2563eb;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav ul li {
+      position: relative;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      transition: 0.3s;
+      padding: 8px 12px;
+      display: block;
+    }
+
+    nav ul li a:hover {
+      color: #2563eb;
+    }
+
+    /* Dropdown */
+    nav ul li ul {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: #fff;
+      border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      display: none;
+      min-width: 180px;
+    }
+
+    nav ul li:hover ul {
+      display: block;
+    }
+
+    nav ul li ul li {
+      width: 100%;
+    }
+
+    nav ul li ul li a {
+      padding: 10px 15px;
+      color: #333;
+      font-weight: normal;
+    }
+
+    nav ul li ul li a:hover {
+      background: #f4f6f9;
+      color: #2563eb;
+      border-radius: 2rem;
+    }
+
+        /* image */
+    img{
+        width: 4rem;
+        height: 4rem;
+    }
+
+        /* dropdown */
+    .dropdown{
+      position:relative;
+    }
+    .drop-btn{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      cursor:pointer;
+      user-select:none;
+    }
+    .drop-menu{
+      position:absolute;
+      top:44px;
+      left:0;
+      min-width:320px;
+      background:var(--white);
+      border-radius:12px;
+      padding:10px;
+      box-shadow: 0 10px 30px rgba(2,6,23,0.07);
+      display:none;
+      border:1px solid rgba(15,23,36,0.04);
+    }
+    .drop-menu a{
+      display:block;
+      padding:8px 10px;
+      color:#0f1724;
+      text-decoration:none;
+      font-weight:600;
+      border-radius:8px;
+      margin-bottom:6px;
+    }
+    .drop-menu a:hover{ background:var(--gray) }
+    .show{ display:block; }
+
+    /* Hero */
+    .hero{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:18px;
+      align-items:center;
+      padding:28px 0 40px 0;
+    }
+    .hero-card{
+      background: linear-gradient(180deg, rgba(11,102,255,0.03), rgba(255,255,255,0.6));
+      padding:18px;
+      border-radius:16px;
+      display:flex;
+      gap:18px;
+      align-items:center;
+      justify-content:space-between;
+      box-shadow: var(--card-shadow);
+    }
+    .hero-left h2{
+      margin:0 0 8px 0;
+      font-size:22px;
+      color:var(--dark-blue);
+    }
+    .hero-left p{ margin:0; color:var(--muted) }
+    .hero-actions{ display:flex; gap:50px; margin-top:12px; }
+    .btn{
+      border:0; padding:10px 14px; border-radius:10px; cursor:pointer; font-weight:700;
+      font-size:14px;
+    }
+    .btn-primary{ background:var(--blue); color:white; box-shadow: 0 8px 26px rgba(11,102,255,0.12) }
+    .btn-outline{ background:transparent; border:1px solid rgba(11,102,255,0.12); color:var(--dark-blue) }
+
+    /* Services grid */
+    .services{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+      margin-top:22px;
+    }
+    .card{
+      background:var(--white);
+      padding:18px;
+      border-radius:12px;
+      box-shadow: var(--card-shadow);
+      border:1px solid rgba(11,102,255,0.04);
+      min-height:150px;
+    }
+    .card h3{ margin:0 0 6px 0; font-size:18px; color:var(--dark-blue) }
+    .card p{ color:var(--muted); margin:0 0 12px 0; font-size:14px; }
+    /* .tag{ display:inline-block; font-size:12px; padding:6px 8px; border-radius:8px; background:rgba(11,102,255,0.06); color:var(--dark-blue); font-weight:700 } */
+
+
+
+    /* Contact */
+    .contact{
+      margin-top:26px;
+      padding:18px;
+      border-radius:12px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(243,244,246,0.8));
+      border:1px solid rgba(11,102,255,0.04);
+    }
+    form .row{ display:flex; gap:10px; }
+    input, textarea{
+      width:100%;
+      padding:10px 12px;
+      border-radius:10px;
+      border:1px solid rgba(15,23,36,0.06);
+      font-size:14px;
+      resize:vertical;
+    }
+    .muted{ color:var(--muted); font-size:13px }
+
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .services{ grid-template-columns:repeat(2,1fr) }
+      .two-col{ grid-template-columns:1fr }
+      .nav-inner{ padding:10px }
+    }
+    @media (max-width: 560px){
+      .services{ grid-template-columns:1fr }
+      .hero-left h2{ font-size:20px }
+      nav ul{ display:none } /* hide desktop menu on small screens */
+      .mobile-menu-btn{ display:inline-flex }
+    }
+
+    /* mobile menu */
+    .mobile-menu{
+      display:none;
+      position: absolute;
+      top:64px;
+      right:16px;
+      background:var(--white);
+      padding:12px;
+      border-radius:12px;
+      box-shadow: 0 12px 36px rgba(11,102,255,0.08);
+    }
+    .mobile-menu.show{ display:block }
+    .mobile-menu a{ display:block; padding:8px 6px; border-radius:8px; color:var(--dark-blue); text-decoration:none }
+    .mobile-menu a + a{ margin-top:6px }
+
+    .kicker{ font-size:12px; color:var(--blue); font-weight:800; letter-spacing:0.6px }
+    .lead{ font-size:15px; color:var(--muted) }
+
+        /* Footer */
+    footer {
+      background: #111;
+      color: #ccc;
+      padding: 20px;
+      text-align: center;
+      margin-top: 40px;
+    }
+</style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1><img src="./images/Logo.png"></h1>
+    <nav>
+      <ul>
+        <li><a href="#"><b>Home</b></a></li>
+        <li>
+          <a href="#"><b>About Us ▾</b></a>
+          <ul>
+            <li><a href="#"><b>Our background</b></a></li>
+            <li><a href="our team.html"><b>Our Team</b></a></li>
+            <li><a href="#"><b>Vission, Mission & core Value</b></a></li>
+          </ul>
+        </li>
+        <li><a href="our service.html"><b>Our Service</b></a></li>
+        <li><a href="Project.html"><b>Our Projects</b></a></li>
+        <li><a href="#"><b>News & Promotion</b></a></li>
+        <li><a href="#"><b>Contact Us</b></a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <!-- Hero -->
+    <section class="hero" aria-labelledby="heroTitle">
+      <div class="hero-card" role="region" aria-label="Hero">
+        <div class="hero-left">
+          <div class="kicker">Our Services</div>
+          <h2 id="heroTitle">Tunaweka biashara yako kwenye dunia dijitali — Usalama, Ubunifu, & Utekelezaji.</h2>
+          <p class="lead">LAZRI ni kampuni iliyoanzishwa mwaka 2025 na timu ya wataalamu; tunaelekea kutoa huduma za ICT consultancy, CCTV installation, na multimedia solutions ili kukuza biashara yako kwa njia salama na ya kisasa.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" onclick="scrollToSection('huduma')">loock Our Services</button>
+            <button class="btn btn-primary" onclick="scrollToSection('faq')">FAQ</button>
+            <button class="btn btn-outline" onclick="scrollToSection('contact')">Get Quote</button>
+          </div>
+        </div>
+        <div style="max-width:360px; text-align:right;">
+          <!-- simple illustrative SVG -->
+          <svg width="240" height="160" viewBox="0 0 240 160" aria-hidden="true">
+            <rect x="8" y="8" rx="14" ry="14" width="224" height="144" fill="#f7fbff" stroke="#e6f0ff" />
+            <circle cx="60" cy="80" r="28" fill="#eaf3ff"/>
+            <rect x="110" y="40" width="100" height="20" rx="6" fill="#eaf3ff"/>
+            <rect x="110" y="72" width="72" height="14" rx="6" fill="#eaf3ff"/>
+            <rect x="110" y="96" width="40" height="12" rx="6" fill="#eaf3ff"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Services -->
+      <div id="huduma" style="margin-top:6px">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px">
+          <div>
+            <h3 style="margin:0;color:var(--dark-blue)">Huduma Tunazotoa</h3>
+            <div class="muted">Huduma zilizoangaliwa kwa soko na mahitaji ya wateja.</div>
+          </div>
+          <div style="font-size:13px;color:var(--muted)"></div>
+        </div>
+
+        <div class="services" role="list">
+          <article class="card" role="listitem" aria-labelledby="svc1">
+            <div class="tag">ICT & Consultancy</div>
+            <h3 id="svc1">ICT Services & Consultancy</h3>
+            <p>Tunatoa ushauri wa IT, maendeleo ya mifumo, usimamizi wa mtandao, na utekelezaji wa suluhisho za kibiashara zinazolenga kuongeza ufanisi wa shirika lako.</p>
+            <div style="margin-top:10px"><strong>Features:</strong>
+              <ul style="margin:8px 0 0 18px;color:var(--muted)">
+                <li>Development & Integration</li>
+                <li>Network design & maintenance</li>
+                <li>Cloud readiness & migration</li>
+              </ul>
+            </div>
+          </article>
+
+        <article class="card" role="listitem" aria-labelledby="svc1">
+            <div class="tag">Web Design & Systems Development</div>
+            <h3 id="svc1">Web Design & Systems Development</h3>
+            <p>Tunatoa ushauri wa IT, maendeleo ya mifumo, usimamizi wa mtandao, na utekelezaji wa suluhisho za kibiashara zinazolenga kuongeza ufanisi wa shirika lako.</p>
+            <div style="margin-top:10px"><strong>Features:</strong>
+              <ul style="margin:8px 0 0 18px;color:var(--muted)">
+                <li>Systems Development & maintenance</li>
+                <li>Wed Design & maintenance</li>
+                <li>Systems & Web Rebeulding</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="card" role="listitem" aria-labelledby="svc2">
+            <div class="tag">Security</div>
+            <h3 id="svc2">CCTV Camera Installation</h3>
+            <p>Ubunifu, usakinishaji na ufuatiliaji wa mifumo ya usalama (CCTV) kwa biashara na makazi. Tunaleta vifaa vya ubora, mipangilio ya kurekodi, na remote monitoring.</p>
+            <div style="margin-top:10px"><strong>Features:</strong>
+              <ul style="margin:8px 0 0 18px;color:var(--muted)">
+                <li>Design & site survey</li>
+                <li>24/7 monitoring options</li>
+                <li>Integration na alarm & access control</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="card" role="listitem" aria-labelledby="svc3">
+            <div class="tag">Multimedia</div>
+            <h3 id="svc3">Multimedia & Media Solutions</h3>
+            <p>Huduma za multimedia: utengenezaji wa video, live streaming setup, event AV, na suluhisho za mawasiliano ya ufanisi ya kidijitali.</p>
+            <div style="margin-top:10px"><strong>Features:</strong>
+              <ul style="margin:8px 0 0 18px;color:var(--muted)">
+                <li>Video production</li>
+                <li>Live streaming & broadcasts</li>
+                <li>Event AV setup</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  
+  <!-- FAQ -->
+    <section id="faq" class="faq" style="margin-top:22px">
+      <div class="card">
+        <h3>Maswali Yanayoulizwa Mara kwa Mara</h3>
+        <details style="margin-top:10px"><summary style="cursor:pointer;font-weight:700">Je, mnapangia Wilaya gani?</summary><div class="muted" style="margin-top:8px">Tunaweza kufanya kazi Tanzania nzima na tukitoa solutions kwa wateja wa kimataifa kulingana na mradi.</div></details>
+
+        <details style="margin-top:10px"><summary style="cursor:pointer;font-weight:700">Je, mnauza vifaa vya CCTV au mnainstall tu?</summary><div class="muted" style="margin-top:8px">Tunauza na pia tunaweka (supply & install). Tunasaidia kuteua vifaa vinavyofaa kulingana na bajeti na mahitaji ya wateja.</div></details>
+
+        <details style="margin-top:10px"><summary style="cursor:pointer;font-weight:700">Muda gani wa kawaida wa mradi?</summary><div class="muted" style="margin-top:8px">Inategemea ukubwa wa mradi — tunaweza kutoa kama estimate mara tu tukaendesha site survey au tukapata maelezo ya mradi.</div></details>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="contact" aria-labelledby="contactTitle">
+      <h3 id="contactTitle">Ombia Quote / Wasiliana</h3>
+      <p class="muted">Tuma maelezo ya mradi wako hapa chini — tutakujibu haraka iwezekanavyo.</p>
+
+      <form id="contactForm" onsubmit="return handleSubmit(event)" style="margin-top:12px">
+        <div style="display:grid;gap:10px">
+          <input type="text" id="name" placeholder="Jina lako / Company" required />
+          <input type="email" id="email" placeholder="Barua pepe (email)" required />
+          <input type="text" id="phone" placeholder="Simu (optional)" />
+          <textarea id="message" rows="5" placeholder="Maelezo mafupi ya huduma unazotaka / bajeti / location..." required></textarea>
+          <div style="display:flex;gap:10px;align-items:center">
+            <button class="btn btn-primary" type="submit">Tuma Ombi</button>
+            <button type="button" class="btn btn-outline" onclick="clearForm()">Ondoa</button>
+            <div id="formMsg" class="muted" style="margin-left:12px"></div>
+          </div>
+        </div>
+      </form>
+
+    </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Lazri Company Limited. Haki zote zimehifadhiwa.</p>
+  </footer>
+
+  </main>
+
+  <script>
+    // Small UI behaviors
+    const dropBtn = document.getElementById('dropBtn');
+    const dropMenu = document.getElementById('dropMenu');
+    dropBtn?.addEventListener('click', () => {
+      dropMenu.classList.toggle('show');
+    });
+    window.addEventListener('click', (e) => {
+      if (!document.getElementById('dropWrap').contains(e.target)) {
+        dropMenu.classList.remove('show');
+      }
+    });
+
+    // Mobile menu
+    const mBtn = document.getElementById('mBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    function toggleMobile(){
+      mobileMenu.classList.toggle('show');
+    }
+    mBtn?.addEventListener('click', toggleMobile);
+
+    // Scroll helper
+    function scrollToSection(id){
+      const el = document.getElementById(id);
+      if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    // Form handling (local demo: doesn't send to server)
+    function handleSubmit(e){
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const message = document.getElementById('message').value.trim();
+      const msgEl = document.getElementById('formMsg');
+
+      if(!name || !email || !message){
+        msgEl.textContent = "Tafadhali jaza sehemu zilizohitajika.";
+        return false;
+      }
+
+      // Basic email check
+      const re = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+      if(!re.test(email)){
+        msgEl.textContent = "Barua pepe sio sahihi.";
+        return false;
+      }
+
+      // Since this is static demo, we'll just show success
+      msgEl.style.color = "green";
+      msgEl.textContent = "Asante! Ombi lako limetumwa (demo). Tutawasiliana nawe hivi karibuni.";
+      // In real site: send fetch() to your backend endpoint here.
+      return false;
+    }
+    function clearForm(){
+      document.getElementById('contactForm').reset();
+      const msgEl = document.getElementById('formMsg');
+      msgEl.textContent = "";
+    }
+
+    // Make mobile menu button visible on small screens
+    function checkWidth(){
+      if(window.innerWidth <= 560){
+        document.querySelector('.mobile-menu-btn').style.display = 'inline-flex';
+      } else {
+        document.querySelector('.mobile-menu-btn').style.display = 'none';
+        mobileMenu.classList.remove('show');
+      }
+    }
+    window.addEventListener('resize', checkWidth);
+    checkWidth();
+  </script>
+</body>
+</html>

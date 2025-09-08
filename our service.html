@@ -6,172 +6,174 @@
   <title>Lazri Company - Our Services</title>
 
   <style>
-    :root {
-      --blue: #0b66ff;
-      --dark-blue: #053a9b;
-      --gray: #f3f4f6;
-      --muted: #6b7280;
-      --white: #ffffff;
-      --card-shadow: 0 6px 20px rgba(11,102,255,0.08);
-      --radius: 14px;
-    }
+:root {
+  --blue: #0b66ff;
+  --dark-blue: #053a9b;
+  --gray: #f3f4f6;
+  --muted: #6b7280;
+  --white: #ffffff;
+  --shadow: 0 4px 10px rgba(0,0,0,0.1);
+  --radius: 12px;
+}
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: "Segoe UI", Roboto, Arial, sans-serif;
-      background: linear-gradient(180deg, #fbfdff 0%, #f8fbff 100%);
-      color: #0f1724;
-      line-height: 1.6;
-    }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #f8fbff;
+  color: #0f1724;
+  line-height: 1.6;
+}
 
-    .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+.container { max-width: 1200px; margin: auto; padding: 20px; }
 
-    /* Header */
-    header {
-      background: var(--white);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 24px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-    header img { height: 50px; }
-    nav ul { display: flex; gap: 20px; list-style: none; }
-    nav ul li { position: relative; }
-    nav ul li a {
-      text-decoration: none;
-      color: #333;
-      font-weight: 500;
-      padding: 8px 12px;
-      transition: 0.3s;
-    }
-    nav ul li a:hover { color: var(--blue); }
+/* Header */
+header {
+  background: var(--white);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+header img { height: 50px; }
+nav ul { display: flex; gap: 20px; list-style: none; }
+nav ul li { position: relative; }
+nav ul li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  padding: 8px 12px;
+  transition: 0.3s;
+}
+nav ul li a:hover { color: var(--blue); }
 
-    /* Dropdown */
-    nav ul li ul {
-      display: none;
-      position: absolute;
-      top: 110%;
-      left: 0;
-      background: var(--white);
-      border-radius: var(--radius);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      min-width: 200px;
-      padding: 10px 0;
-    }
-    nav ul li:hover ul { display: block; }
-    nav ul li ul li a {
-      display: block;
-      padding: 10px 16px;
-      color: #333;
-    }
-    nav ul li ul li a:hover {
-      background: var(--gray);
-      color: var(--blue);
-      border-radius: 8px;
-    }
+/* Dropdown */
+nav ul li ul {
+  display: none;
+  position: absolute;
+  top: 110%;
+  left: 0;
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  min-width: 200px;
+  padding: 8px 0;
+}
+nav ul li:hover ul { display: block; }
+nav ul li ul li a {
+  display: block;
+  padding: 8px 16px;
+  color: #333;
+}
+nav ul li ul li a:hover {
+  background: var(--gray);
+  color: var(--blue);
+  border-radius: 6px;
+}
 
-    /* Hero */
-    .hero {
-      display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
-      gap: 30px;
-      align-items: center;
-      padding: 40px 0;
-    }
-    .hero-left h2 { font-size: 28px; color: var(--dark-blue); margin-bottom: 12px; }
-    .hero-left p { color: var(--muted); margin-bottom: 20px; }
-    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
-    .btn {
-      padding: 10px 16px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: 600;
-      border: none;
-      transition: 0.3s;
-    }
-    .btn-primary { background: var(--blue); color: var(--white); }
-    .btn-primary:hover { background: var(--dark-blue); }
-
+/* Hero */
+.hero {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+  gap: 30px;
+  align-items: center;
+  padding: 40px 0;
+}
+.hero-left h2 { font-size: 28px; color: var(--dark-blue); margin-bottom: 12px; }
+.hero-left p { color: var(--muted); margin-bottom: 20px; }
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn {
+  padding: 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  border: none;
+  transition: 0.3s;
+}
+.btn-primary { background: var(--blue); color: var(--white); }
+.btn-primary:hover { background: var(--dark-blue); }
 .hero-image img {
   width: 100%;
   max-height: 350px;
   border-radius: var(--radius);
   object-fit: cover;
-  box-shadow: var(--card-shadow);
-  transition: opacity 1s ease-in-out;
+  box-shadow: var(--shadow);
 }
 
-    /* Services */
-    .services {
-      display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
-      gap: 20px;
-      margin-top: 30px;
-    }
-    .card {
-      background: var(--white);
-      border-radius: var(--radius);
-      box-shadow: var(--card-shadow);
-      padding: 16px;
-      transition: transform 0.3s;
-    }
-    .card:hover { transform: translateY(-5px); }
-    .card img {
-      width: 100%;
-      height: 160px;
-      object-fit: cover;
-      border-radius: var(--radius);
-      margin-bottom: 12px;
-    }
-    .card h3 { color: var(--dark-blue); margin-bottom: 8px; }
-    .card p { font-size: 14px; color: var(--muted); margin-bottom: 10px; }
-    .card ul { font-size: 14px; color: var(--muted); padding-left: 20px; }
-
-    /* FAQ */
-    .faq .card {
-     margin-top: 30px; }
-    details {
-     margin-top: 10px; }
-    summary {
-     cursor: pointer; font-weight: bold; color: var(--dark-blue); }
-
-    /* Contact */
-    .contact {
-      margin-top: 40px;
-      background: #f9fafe;
-      padding: 20px;
-      border-radius: var(--radius);
-      box-shadow: var(--card-shadow);
-    }
-    .contact input, .contact textarea {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 10px;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-    }
-
-    /* Footer */
-    footer {
-      background: #111;
-      color: #ccc;
-      text-align: center;
-      padding: 20px;
-      margin-top: 40px;
-    }
-
-    /* Responsive nav */
-    @media(max-width: 768px) {
-      nav ul { display: none; }
-    }
-
-   section {
-  scroll-margin-top: 80px;
+/* Services */
+.services {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+  gap: 20px;
+  margin-top: 30px;
 }
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px;
+  transition: transform 0.3s;
+}
+.card:hover { transform: translateY(-5px); }
+.card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  margin-bottom: 12px;
+}
+.card h3 { color: var(--dark-blue); margin-bottom: 8px; }
+.card p, .card ul { font-size: 14px; color: var(--muted); }
+
+/* FAQ */
+.faq .card { margin-top: 30px; }
+.faq details { margin-top: 10px; }
+summary { cursor: pointer; font-weight: bold; color: var(--dark-blue); }
+
+/* Contact */
+.contact {
+  margin-top: 40px;
+  background: #f9fafe;
+  padding: 20px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.contact input, 
+.contact textarea,
+.styled-select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 15px;
+}
+.contact input:hover,
+.contact textarea:hover,
+.styled-select:hover {
+  border-color: var(--blue);
+  background: #fff;
+  box-shadow: 0 0 6px rgba(0,123,255,0.3);
+}
+.styled-select:focus {
+  outline: none;
+  border-color: var(--dark-blue);
+  box-shadow: 0 0 8px rgba(0,86,179,0.4);
+}
+
+/* Footer */
+footer {
+  background: #111;
+  color: #ccc;
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+}
+
+section { scroll-margin-top: 80px; }
   </style>
 </head>
 <body>
@@ -192,7 +194,7 @@
         </li>
         <li><a href="our service.html"><b>Our Services</b></a></li>
         <li><a href="Project.html"><b>Our Projects</b></a></li>
-        <li><a href="#"><b>Send Request</b></a></li>
+        <li><a href="#"><b>contact Us</b></a></li>
       </ul>
     </nav>
   </header>
@@ -272,20 +274,58 @@
       </div>
     </section>
 
-    <!-- Contact -->
-    <section id="contact" class="contact">
-      <h2>Place your order now</h2>
-      <p class="muted">Send us your project details, we will respond as soon as possible.</p>
-      <form>
-        <input type="text" placeholder="Your Name / Company" required>
-        <input type="email" placeholder="Email" required>
-        <input type="text" placeholder="Phone (Optional)" required>
-        <input type="text" placeholder="~Select Service~">
-        <input type="text" placeholder="Phone (Optional)">
-        <textarea rows="5" placeholder="Details of the services you need..." required></textarea>
-        <button class="btn btn-primary" type="submit">Send a Request</button>
-      </form>
-    </section>
+<!-- Contact -->
+<section id="contact" class="contact">
+  <h2>Place your order now</h2>
+  <p class="muted">Send us your project details, we will respond as soon as possible.</p>
+  <form>
+    <input type="text" placeholder="Your Name / Company" required>
+    <input type="email" placeholder="Email" required>
+    <input type="text" placeholder="Phone" required>
+
+    <!-- ✅ Improved Select with Placeholder -->
+    <label for="services"><b>Select Service:</b></label>
+    <select id="services" name="services" required class="styled-select">
+      <option value="" disabled selected>~ Select service ~</option>
+
+      <optgroup label="ICT Services & Consultancy">
+        <option value="consult">Consultancy</option>
+        <option value="network">Networking</option>
+        <option value="software">Software Solutions</option>
+      </optgroup>
+
+      <optgroup label="Web Design & Development">
+        <option value="webdev">Website Development</option>
+        <option value="hosting">Hosting</option>
+        <option value="seo">SEO Optimization</option>
+      </optgroup>
+
+      <optgroup label="CCTV & Security">
+        <option value="install">Installation</option>
+        <option value="maintain">Maintenance</option>
+        <option value="monitoring">24/7 Monitoring</option>
+      </optgroup>
+
+      <optgroup label="Multimedia Solutions">
+        <option value="design">Graphic Design</option>
+        <option value="video">Video Production</option>
+        <option value="stream">Live Streaming</option>
+      </optgroup>
+
+      <optgroup label="Other Services">
+        <option value="training">Training</option>
+        <option value="repair">Hardware Repair</option>
+        <option value="custom">Custom Project</option>
+      </optgroup>
+    </select>
+    <input type="text" placeholder="Specify Service" required>
+
+
+    <textarea rows="5" placeholder="Details of the services you need..." required></textarea>
+    <button class="btn btn-primary" type="submit">Send a Request</button>
+  </form>
+</section>
+
   </main>
 
   <!-- Footer -->

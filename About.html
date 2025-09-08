@@ -1,14 +1,227 @@
- <html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About</title>
     <style>
+        body {
+            background: #f9f9f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        /* Header / Navbar */
         
+        header {
+            background: #fff;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 100;
+        }
+        
+        header h1 {
+            color: #2563eb;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+        
+        nav ul li {
+            position: relative;
+            font-size: larger;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: 0.3s;
+            padding: 8px 12px;
+            display: block;
+        }
+        
+        nav ul li a:hover {
+            color: #2563eb;
+        }
+        /* image */
+        
+        img {
+            width: 4rem;
+            height: 4rem;
+        }
+        /* Team Section */
+        
+        section {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: auto;
+            text-align: center;
+        }
+        
+        section h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: #111;
+        }
+        
+        h3 {
+            text-transform: uppercase;
+        }
+        
+        section p {
+            color: #666;
+            margin-bottom: 40px;
+        }
+        
+        .team-container {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .member {
+            background: #fff;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+        }
+        
+        .member img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+        
+        .member h3 {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .member p.role {
+            color: #2563eb;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .member p.desc {
+            font-size: 14px;
+            color: #666;
+        }
+        /* Footer */
+        
+        footer {
+            background: #111;
+            color: #ccc;
+            padding: 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
     </style>
 </head>
+
 <body>
 
+    <!-- Header -->
+    <header>
+        <h1><img src="./images/Logo.png"></h1>
+        <nav>
+            <ul>
+                <li><a href="index.html"><b>Home</b></a></li>
+                <li>
+                    <a href="About.html"><b>About Us</b></a>
+                </li>
+                <li><a href="our service.html"><b>Our Services</b></a></li>
+                <li><a href="Project.html"><b>Our Projects</b></a></li>
+                <li><a href="contact.html"><b>Contact Us</b></a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Team Section -->
+    <section>
+        <h2>WHO ARE WE?</h2>
+        <p>We are a team of dedicated professionals committed to delivering exceptional results.</p>
+
+        <div class="team-container">
+            <!-- Member 1 -->
+            <div class="member">
+                <img src="./images/ino.png" alt="Member 1">
+                <h3>Inocenti Gabriel</h3>
+                <p class="role">CEO & Founder</p>
+                <p class="desc">Analyst and company development expert.</p>
+            </div>
+
+            <!-- Member 2 -->
+            <div class="member">
+                <img src="https://via.placeholder.com/150" alt="Member 2">
+                <h3>Lucy Nguzo</h3>
+                <p class="role">Chief Executive Secretary & Founder</p>
+                <p class="desc">Chief assistant to the CEO and company records keeper.</p>
+            </div>
+
+            <!-- Member 3 -->
+            <div class="member">
+                <img src="https://via.placeholder.com/150" alt="Member 3">
+                <h3>Raynell Robert</h3>
+                <p class="role">CFO & Founder</p>
+                <p class="desc">Accountant and financial affairs manager.</p>
+            </div>
+
+            <!-- Member 4 -->
+            <div class="member">
+                <img src="https://via.placeholder.com/150" alt="Member 4">
+                <h3>Zakaria Stephano</h3>
+                <p class="role">COO, CHRO & Co-Founder</p>
+                <p class="desc">Manager of all company operations & Human Resources.</p>
+            </div>
+
+            <!-- Member 5 -->
+            <div class="member">
+                <img src="https://via.placeholder.com/150" alt="Member 5">
+                <h3>Anthony Kapinga</h3>
+                <p class="role">CMO, CTO & Founder</p>
+                <p class="desc">Chief technology and innovation engineer & Head of marketing and public relations.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission section -->
+    <section>
+        <h2>WHY WE ARE HERE</h2>
+        <p>To offer high-quality, affordable and customer-centric solutions that empower businesses and individuals to thrive in the digital era.</p>
+    </section>
+
+    <!-- Vision section -->
+    <section>
+        <h2>WHAT WE WANT TO BECOME</h2>
+        <p>To be a globally recognized leader in innovative technology solutions, renowned for our commitment to excellence, customer satisfaction, and positive impact on society.</p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Lazri Company Limited. All rights reserved.</p>
+    </footer>
+
 </body>
+
 </html>

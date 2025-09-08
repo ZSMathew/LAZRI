@@ -141,8 +141,67 @@ summary { cursor: pointer; font-weight: bold; color: var(--dark-blue); }
   border-radius: var(--radius);
   box-shadow: var(--shadow);
 }
-.contact input, 
-.contact textarea,
+
+/* Floating label wrapper */
+.form-group {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+/* Inputs & textarea */
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 15px;
+  background: transparent;
+  transition: 0.3s;
+}
+
+/* Hover effect (imerudishwa) */
+.form-group input:hover,
+.form-group textarea:hover {
+  border-color: var(--blue);
+  background: #fff;
+  box-shadow: 0 0 6px rgba(0,123,255,0.3);
+}
+
+/* Focus effect */
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--dark-blue);
+  box-shadow: 0 0 8px rgba(0,86,179,0.4);
+}
+
+/* Floating label */
+.form-group label {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  color: var(--muted);
+  font-size: 15px;
+  pointer-events: none;
+  transition: 0.3s ease;
+  background: #f9fafe;
+  padding: 0 6px;
+}
+
+/* Wakati imefocus au imejazwa */
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label,
+.form-group textarea:focus + label,
+.form-group textarea:not(:placeholder-shown) + label {
+  top: -8px;
+  left: 10px;
+  font-size: 12px;
+  color: var(--blue);
+}
+
+/* Select bado inabaki na style zako */
 .styled-select {
   width: 100%;
   padding: 12px;
@@ -150,9 +209,8 @@ summary { cursor: pointer; font-weight: bold; color: var(--dark-blue); }
   border: 1px solid #ddd;
   border-radius: 10px;
   font-size: 15px;
+  transition: 0.3s;
 }
-.contact input:hover,
-.contact textarea:hover,
 .styled-select:hover {
   border-color: var(--blue);
   background: #fff;
@@ -277,51 +335,63 @@ section { scroll-margin-top: 80px; }
 <!-- Contact -->
 <section id="contact" class="contact">
   <h2>Place your order now</h2>
-  <p class="muted">Send us your project details, we will respond as soon as possible.</p>
+  <p class="muted">Send us your project details, we will respond as soon as possible.</p><br>
   <form>
-    <input type="text" placeholder="Your Name / Company" required>
-    <input type="email" placeholder="Email" required>
-    <input type="text" placeholder="Phone" required>
+    <div class="form-group">
+      <input type="text" placeholder=" " required>
+      <label>Your Name / Company</label>
+    </div>
 
-    <!-- ✅ Improved Select with Placeholder -->
-    <label for="services"><b>Select Service:</b></label>
+    <div class="form-group">
+      <input type="email" placeholder=" " required>
+      <label>Email</label>
+    </div>
+
+    <div class="form-group">
+      <input type="text" placeholder=" " required>
+      <label>Phone</label>
+    </div>
+
+    <!-- Select haibadiliki (haina floating label kwa sasa) -->
     <select id="services" name="services" required class="styled-select">
       <option value="" disabled selected>~ Select service ~</option>
-
       <optgroup label="ICT Services & Consultancy">
         <option value="consult">Consultancy</option>
         <option value="network">Networking</option>
         <option value="software">Software Solutions</option>
       </optgroup>
-
       <optgroup label="Web Design & Development">
         <option value="webdev">Website Development</option>
         <option value="hosting">Hosting</option>
         <option value="seo">SEO Optimization</option>
       </optgroup>
-
       <optgroup label="CCTV & Security">
         <option value="install">Installation</option>
         <option value="maintain">Maintenance</option>
         <option value="monitoring">24/7 Monitoring</option>
       </optgroup>
-
       <optgroup label="Multimedia Solutions">
         <option value="design">Graphic Design</option>
         <option value="video">Video Production</option>
         <option value="stream">Live Streaming</option>
       </optgroup>
-
       <optgroup label="Other Services">
         <option value="training">Training</option>
         <option value="repair">Hardware Repair</option>
         <option value="custom">Custom Project</option>
       </optgroup>
     </select>
-    <input type="text" placeholder="Specify Service" required>
 
+    <div class="form-group">
+      <input type="text" placeholder=" " required>
+      <label>Specify Service</label>
+    </div>
 
-    <textarea rows="5" placeholder="Details of the services you need..." required></textarea>
+    <div class="form-group">
+      <textarea rows="5" placeholder=" " required></textarea>
+      <label>Details of the services you need...</label>
+    </div>
+
     <button class="btn btn-primary" type="submit">Send a Request</button>
   </form>
 </section>

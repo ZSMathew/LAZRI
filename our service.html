@@ -13,8 +13,8 @@
             --gray: #f3f4f6;
             --muted: #6b7280;
             --white: #ffffff;
-            --card-shadow: 0 6px 20px rgba(11, 102, 255, 0.08);
-            --radius: 14px;
+            --shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            --radius: 12px;
         }
         
         * {
@@ -24,15 +24,15 @@
         }
         
         body {
-            font-family: "Segoe UI", Roboto, Arial, sans-serif;
-            background: linear-gradient(180deg, #fbfdff 0%, #f8fbff 100%);
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f8fbff;
             color: #0f1724;
             line-height: 1.6;
         }
         
         .container {
             max-width: 1200px;
-            margin: 0 auto;
+            margin: auto;
             padding: 20px;
         }
         /* Header */
@@ -43,7 +43,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 12px 24px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -83,9 +83,9 @@
             left: 0;
             background: var(--white);
             border-radius: var(--radius);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow);
             min-width: 200px;
-            padding: 10px 0;
+            padding: 8px 0;
         }
         
         nav ul li:hover ul {
@@ -94,14 +94,14 @@
         
         nav ul li ul li a {
             display: block;
-            padding: 10px 16px;
+            padding: 8px 16px;
             color: #333;
         }
         
         nav ul li ul li a:hover {
             background: var(--gray);
             color: var(--blue);
-            border-radius: 8px;
+            border-radius: 6px;
         }
         /* Hero */
         
@@ -153,8 +153,7 @@
             max-height: 350px;
             border-radius: var(--radius);
             object-fit: cover;
-            box-shadow: var(--card-shadow);
-            transition: opacity 1s ease-in-out;
+            box-shadow: var(--shadow);
         }
         /* Services */
         
@@ -168,7 +167,7 @@
         .card {
             background: var(--white);
             border-radius: var(--radius);
-            box-shadow: var(--card-shadow);
+            box-shadow: var(--shadow);
             padding: 16px;
             transition: transform 0.3s;
         }
@@ -190,16 +189,10 @@
             margin-bottom: 8px;
         }
         
-        .card p {
-            font-size: 14px;
-            color: var(--muted);
-            margin-bottom: 10px;
-        }
-        
+        .card p,
         .card ul {
             font-size: 14px;
             color: var(--muted);
-            padding-left: 20px;
         }
         /* FAQ */
         
@@ -207,7 +200,7 @@
             margin-top: 30px;
         }
         
-        details {
+        .faq details {
             margin-top: 10px;
         }
         
@@ -223,16 +216,32 @@
             background: #f9fafe;
             padding: 20px;
             border-radius: var(--radius);
-            box-shadow: var(--card-shadow);
+            box-shadow: var(--shadow);
         }
         
         .contact input,
-        .contact textarea {
+        .contact textarea,
+        .styled-select {
             width: 100%;
             padding: 12px;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             border: 1px solid #ddd;
             border-radius: 10px;
+            font-size: 15px;
+        }
+        
+        .contact input:hover,
+        .contact textarea:hover,
+        .styled-select:hover {
+            border-color: var(--blue);
+            background: #fff;
+            box-shadow: 0 0 6px rgba(0, 123, 255, 0.3);
+        }
+        
+        .styled-select:focus {
+            outline: none;
+            border-color: var(--dark-blue);
+            box-shadow: 0 0 8px rgba(0, 86, 179, 0.4);
         }
         /* Footer */
         
@@ -243,13 +252,6 @@
             padding: 20px;
             margin-top: 40px;
         }
-        /* Responsive nav */
-        
-        @media(max-width: 768px) {
-            nav ul {
-                display: none;
-            }
-        }
         
         section {
             scroll-margin-top: 80px;
@@ -259,104 +261,142 @@
 
 <body>
 
-    <!-- Header -->
-    <header>
-        <h1><img src="./images/Logo.png" alt="Lazri Logo"></h1>
-        <nav>
-            <ul>
-                <li><a href="index.html"><b>Home</b></a></li>
-                <li><a href="About.html"><b>About Us</b></a></li>
-                <li><a href="our service.html"><b>Our Services</b></a></li>
-                <li><a href="Project.html"><b>Our Projects</b></a></li>
-                <li><a href="contact.html"><b>Contact Us</b></a></li>
-            </ul>
-        </nav>
-    </header>
+    <<<<<<< HEAD <!-- Header -->
+        <header>
+            <h1><img src="./images/Logo.png" alt="Lazri Logo"></h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html"><b>Home</b></a></li>
+                    <li><a href="About.html"><b>About Us</b></a></li>
+                    <li><a href="our service.html"><b>Our Services</b></a></li>
+                    <li><a href="Project.html"><b>Our Projects</b></a></li>
+                    <li><a href="contact.html"><b>Contact Us</b></a></li>
+                </ul>
+            </nav>
+        </header>
+        =======
+        <!-- Header -->
+        <header>
+            <h1><img src="./images/Logo.png" alt="Lazri Logo"></h1>
+            <nav>
+                <ul>
+                    <li><a href="#"><b>Home</b></a></li>
+                    <li>
+                        <a href="#"><b>About Us ▾</b></a>
+                        <ul>
+                            <li><a href="#">Our Background</a></li>
+                            <li><a href="our team.html">Our Team</a></li>
+                            <li><a href="#">Vision, Mission & Values</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="our service.html"><b>Our Services</b></a></li>
+                    <li><a href="Project.html"><b>Our Projects</b></a></li>
+                    <li><a href="#"><b>contact Us</b></a></li>
+                </ul>
+            </nav>
+        </header>
+        >>>>>>> 6963f47d5001f0540dfc6dd8165a4b587c1a2067
 
-    <!-- Hero -->
-    <main class="container">
-        <section class="hero">
-            <div class="hero-left">
-                <h2>We serve you digitally — Security, Quality, Innovation, & Implementation.</h2>
-                <p>LAZRI is a company established in 2025 by a team of professionals; we provide Website Development & Design, ICT consultancy & Maintenance, CCTV installation, and multimedia solutions to grow your business in a secure and modern way.</p>
-                <div class="hero-actions">
-                    <button class="btn btn-primary" onclick="scrollToSection('huduma')">Check out Services</button>
-                    <button class="btn btn-primary" onclick="scrollToSection('faq')">FAQ</button>
-                    <button class="btn btn-primary" onclick="scrollToSection('contact')">Place oder</button>
+        <!-- Hero -->
+        <main class="container">
+            <section class="hero">
+                <div class="hero-left">
+                    <h2>We serve you digitally — Security, Quality, Innovation, & Implementation.</h2>
+                    <p>LAZRI is a company established in 2025 by a team of professionals; we provide Website Development & Design, ICT consultancy & Maintenance, CCTV installation, and multimedia solutions to grow your business in a secure and modern way.</p>
+                    <div class="hero-actions">
+                        <button class="btn btn-primary" onclick="scrollToSection('huduma')">Check out Services</button>
+                        <button class="btn btn-primary" onclick="scrollToSection('faq')">FAQ</button>
+                        <button class="btn btn-primary" onclick="scrollToSection('contact')">Place oder</button>
+                    </div>
                 </div>
-            </div>
-            <div class="hero-image">
-                <img id="slideshow" src="./images/serv.jpg" alt="Our Services">
-            </div>
-        </section>
+                <div class="hero-image">
+                    <img id="slideshow" src="./images/serv.jpg" alt="Our Services">
+                </div>
+            </section>
 
-        <!-- Services -->
-        <section id="huduma">
-            <h2>Services We Provide</h2>
-            <p class="muted">Our services are focused on the market and the needs of modern customers.</p>
-            <div class="services">
-                <div class="card">
-                    <img src="./images/ict.jpg" alt="ICT">
-                    <h3>ICT Services & Consultancy</h3>
-                    <p>We provide IT consulting, systems development, network management, cloud solutions, and Software & Hardware Maintenance and repair.</p>
-                    <ul>
-                        <li>Development & Integration</li>
-                        <li>Network Design & Maintenance</li>
-                        <li>Software & Hardware Maintenance</li>
-                    </ul>
+            <!-- Services -->
+            <section id="huduma">
+                <h2>Services We Provide</h2>
+                <p class="muted">Our services are focused on the market and the needs of modern customers.</p>
+                <div class="services">
+                    <div class="card">
+                        <img src="./images/ict.jpg" alt="ICT">
+                        <h3>ICT Services & Consultancy</h3>
+                        <p>We provide IT consulting, systems development, network management, cloud solutions, and Software & Hardware Maintenance and repair.</p>
+                        <ul>
+                            <li>Development & Integration</li>
+                            <li>Network Design & Maintenance</li>
+                            <li>Software & Hardware Maintenance</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <img src="./images/serv.jpg" alt="Web Design">
+                        <h3>Web Design & Systems Development</h3>
+                        <p> we provide modern services for designing and developing websites and systems that grow with your business.</p>
+                        <ul>
+                            <li>Systems Development</li>
+                            <li>Website Design & Maintenance</li>
+                            <li>System Rebuilding</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <img src="./images/cctv.jpg" alt="CCTV">
+                        <h3>CCTV Camera Installation</h3>
+                        <p>Installation of CCTV systems for your homes and businesses for security and others security systems</p>
+                        <ul>
+                            <li>Design & Site Survey</li>
+                            <li>24/7 Monitoring Options</li>
+                            <li>Integration with Alarm Systems</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <img src="./images/malt.jpg" alt="Multimedia">
+                        <h3>Multimedia & Media Solutions</h3>
+                        <p> we provide modern services for Posters, banners, video production, live streaming, and event AV setup services for better communication.</p>
+                        <ul>
+                            <li>Video Production</li>
+                            <li>Live Streaming</li>
+                            <li>Event AV Setup</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="card">
-                    <img src="./images/serv.jpg" alt="Web Design">
-                    <h3>Web Design & Systems Development</h3>
-                    <p> we provide modern services for designing and developing websites and systems that grow with your business.</p>
-                    <ul>
-                        <li>Systems Development</li>
-                        <li>Website Design & Maintenance</li>
-                        <li>System Rebuilding</li>
-                    </ul>
-                </div>
-                <div class="card">
-                    <img src="./images/cctv.jpg" alt="CCTV">
-                    <h3>CCTV Camera Installation</h3>
-                    <p>Installation of CCTV systems for your homes and businesses for security and others security systems</p>
-                    <ul>
-                        <li>Design & Site Survey</li>
-                        <li>24/7 Monitoring Options</li>
-                        <li>Integration with Alarm Systems</li>
-                    </ul>
-                </div>
-                <div class="card">
-                    <img src="./images/malt.jpg" alt="Multimedia">
-                    <h3>Multimedia & Media Solutions</h3>
-                    <p> we provide modern services for Posters, banners, video production, live streaming, and event AV setup services for better communication.</p>
-                    <ul>
-                        <li>Video Production</li>
-                        <li>Live Streaming</li>
-                        <li>Event AV Setup</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- FAQ -->
-        <section id="faq" class="faq">
-            <div class="card">
-                <h2>Frequently Asked Questions</h2>
-                <details>
-                    <summary>In which district are you located?</summary>
-                    <p>We provide services throughout Tanzania and also internationally.</p>
-                </details>
-                <details>
-                    <summary>Do you sell CCTV equipment?</summary>
-                    <p>Yes, we sell and install CCTV equipment.</p>
-                </details>
-                <details>
-                    <summary>What is the project duration?</summary>
-                    <p>Depending on the size of the project, we provide an estimate after a site survey.</p>
-                </details>
-            </div>
-        </section>
+            <!-- FAQ -->
+            <section id="faq" class="faq">
+                <div class="card">
+                    <h2>Frequently Asked Questions</h2>
+                    <details>
+                        <summary>In which district are you located?</summary>
+                        <p>We provide services throughout Tanzania and also internationally.</p>
+                    </details>
+                    <details>
+                        <summary>Do you sell CCTV equipment?</summary>
+                        <p>Yes, we sell and install CCTV equipment.</p>
+                    </details>
+                    <details>
+                        <summary>What is the project duration?</summary>
+                        <p>Depending on the size of the project, we provide an estimate after a site survey.</p>
+                    </details>
+                </div>
+            </section>
 
+            <<<<<<< HEAD <!-- Contact -->
+                <section id="contact" class="contact">
+                    <h2>Place your order now</h2>
+                    <p class="muted">Send us your project details, we will respond as soon as possible.</p>
+                    <form>
+                        <input type="text" placeholder="Your Name / Company" required>
+                        <input type="email" placeholder="Email" required>
+                        <input type="text" placeholder="Phone (Optional)" required>
+                        <input type="text" placeholder="~Select Service~">
+                        <input type="text" placeholder="Phone (Optional)">
+                        <textarea rows="5" placeholder="Details of the services you need..." required></textarea>
+                        <button class="btn btn-primary" type="submit">Send a Request</button>
+                    </form>
+                </section>
+        </main>
+        =======
         <!-- Contact -->
         <section id="contact" class="contact">
             <h2>Place your order now</h2>
@@ -364,45 +404,84 @@
             <form>
                 <input type="text" placeholder="Your Name / Company" required>
                 <input type="email" placeholder="Email" required>
-                <input type="text" placeholder="Phone (Optional)" required>
-                <input type="text" placeholder="~Select Service~">
-                <input type="text" placeholder="Phone (Optional)">
+                <input type="text" placeholder="Phone" required>
+
+                <!-- ✅ Improved Select with Placeholder -->
+                <label for="services"><b>Select Service:</b></label>
+                <select id="services" name="services" required class="styled-select">
+      <option value="" disabled selected>~ Select service ~</option>
+
+      <optgroup label="ICT Services & Consultancy">
+        <option value="consult">Consultancy</option>
+        <option value="network">Networking</option>
+        <option value="software">Software Solutions</option>
+      </optgroup>
+
+      <optgroup label="Web Design & Development">
+        <option value="webdev">Website Development</option>
+        <option value="hosting">Hosting</option>
+        <option value="seo">SEO Optimization</option>
+      </optgroup>
+
+      <optgroup label="CCTV & Security">
+        <option value="install">Installation</option>
+        <option value="maintain">Maintenance</option>
+        <option value="monitoring">24/7 Monitoring</option>
+      </optgroup>
+
+      <optgroup label="Multimedia Solutions">
+        <option value="design">Graphic Design</option>
+        <option value="video">Video Production</option>
+        <option value="stream">Live Streaming</option>
+      </optgroup>
+
+      <optgroup label="Other Services">
+        <option value="training">Training</option>
+        <option value="repair">Hardware Repair</option>
+        <option value="custom">Custom Project</option>
+      </optgroup>
+    </select>
+                <input type="text" placeholder="Specify Service" required>
+
+
                 <textarea rows="5" placeholder="Details of the services you need..." required></textarea>
                 <button class="btn btn-primary" type="submit">Send a Request</button>
             </form>
         </section>
-    </main>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 Lazri Company Limited. All rights reserved.</p>
-    </footer>
+        </main>
+        >>>>>>> 6963f47d5001f0540dfc6dd8165a4b587c1a2067
 
-    <script>
-        function scrollToSection(id) {
-            document.getElementById(id).scrollIntoView({
-                behavior: 'smooth'
-            });
-        }
-        // slide images
-        const images = [
-            "./images/serv.jpg",
-            "./images/ict.jpg",
-            "./images/cctv.jpg",
-            "./images/malt.jpg"
-        ];
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2025 Lazri Company Limited. All rights reserved.</p>
+        </footer>
 
-        let index = 0;
-        const slide = document.getElementById("slideshow");
+        <script>
+            function scrollToSection(id) {
+                document.getElementById(id).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+            // slide images
+            const images = [
+                "./images/serv.jpg",
+                "./images/ict.jpg",
+                "./images/cctv.jpg",
+                "./images/malt.jpg"
+            ];
 
-        function changeImage() {
-            index = (index + 1) % images.length; // ikifika mwisho inaanza mwanzo
-            slide.src = images[index];
-        }
+            let index = 0;
+            const slide = document.getElementById("slideshow");
 
-        // badilisha kila sekunde 4
-        setInterval(changeImage, 4000);
-    </script>
+            function changeImage() {
+                index = (index + 1) % images.length; // ikifika mwisho inaanza mwanzo
+                slide.src = images[index];
+            }
+
+            // badilisha kila sekunde 4
+            setInterval(changeImage, 4000);
+        </script>
 </body>
 
 </html>

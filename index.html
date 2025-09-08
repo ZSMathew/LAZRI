@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>lazri Website</title>
+  <style>
+    * {margin:0; padding:0; box-sizing:border-box;}
+    body {font-family: Arial, sans-serif; line-height:1.6;}
+
+    /* Top Bar */
+    .top-bar {
+      background: #000;
+      color: #2563eb;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px 40px;
+      font-size: 14px;
+    }
+    .top-bar .left {font-weight: bold;}
+    .top-bar .right span {margin-left: 15px;}
+
+    /* Navbar */
+    .navbar {
+      background: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 40px;
+    }
+    .navbar .logo img {
+      height: 60px;
+    }
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+    .navbar ul li {
+      position: relative;
+    }
+    .navbar ul li a {
+      text-decoration: none;
+      color: #000;
+      font-weight: bold;
+    }
+    .navbar ul li a:hover {
+      color: blue;
+    }
+    .lang-switch {
+      display: flex;
+      gap: 10px;
+    }
+    .lang-switch button {
+      border: 1px solid #000;
+      padding: 4px 10px;
+      cursor: pointer;
+      background: #fff;
+      font-weight: bold;
+    }
+
+    /* Hero Section */
+    .hero {
+      display: flex;
+      align-items: center;
+      background: linear-gradient(to right, #00bfff, rgba(128, 128, 128, 0.692));
+      padding: 40px;
+    }
+    .hero-text {
+      flex: 1;
+      color: white;
+      font-size: 26px;
+      font-weight: bold;
+    }
+    .hero-box {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 20px;
+      color: black;
+      font-weight: bold;
+    }
+    .hero-img {
+      flex: 1;
+      text-align: center;
+    }
+    .hero-img img {
+      /* max-width: 100%; */
+      border-radius: 10px;
+       width: 30rem;
+       height: 19rem;
+    }
+
+     footer {
+      background: #111;
+      color: #ddd;
+      padding: 40px 80px 20px;
+    }
+
+    .footer-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+    }
+
+    .footer-col h3 {
+      color:  #2563eb;
+      margin-bottom: 15px;
+      font-size: 18px;
+      font-weight: bold;
+      border-bottom: 2px solid  #2563eb;
+      display: inline-block;
+      padding-bottom: 3px;
+    }
+
+    .footer-col p, 
+    .footer-col a {
+      font-size: 14px;
+      color: #ddd;
+      line-height: 1.8;
+      text-decoration: none;
+      display: block;
+    }
+
+    .footer-col a:hover {
+      color:  #2563eb;
+    }
+
+    .footer-col i {
+      margin-right: 8px;
+    }
+
+    .social-icons {
+      margin-top: 15px;
+    }
+
+    .social-icons a {
+      display: inline-block;
+      width: 35px;
+      height: 35px;
+      margin-right: 8px;
+      border-radius: 50%;
+      /* background: #e40909; */
+      color: #fff;
+      text-align: center;
+      line-height: 35px;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+
+    .social-icons a:hover {
+      background:  #2563eb;
+      color: #111;
+    }
+
+    .footer-bottom {
+      margin-top: 40px;
+      border-top: 1px solid #333;
+      text-align: center;
+      padding-top: 15px;
+      font-size: 13px;
+      color: #bbb;
+    }
+
+    .footer-links {
+      margin: 15px 0;
+    }
+
+    .footer-links a {
+      margin: 0 10px;
+      color: #ddd;
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      color:  #2563eb;
+    }
+
+    /* Back to Top Button */
+    .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background:  #2563eb;
+      color: #111;
+      width: 40px;
+      height: 40px;
+      text-align: center;
+      line-height: 40px;
+      border-radius: 5px;
+      font-size: 20px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .back-to-top:hover {
+      background: #fff;
+      color: #111;
+    }
+  </style>
+  <script src="https://kit.fontawesome.com/yourkitid.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- Top bar -->
+  <div class="top-bar">
+    <div class="left">LAZRI</div>
+    <div class="right">
+      <span>📧 info@lazri.co.tz</span>
+      <span>📞 +255 756 457 678</span>
+      <span>🔗 [socials]</span>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="logo">
+      <img src="./images/Logo.png" alt="Lazri Logo">
+    </div>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="About.html">About Us</a></li>
+      <li><a href="our service.html">Our Service </a></li>
+      <li><a href="Project.html">Our Project</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+    </ul>
+    <div class="lang-switch">
+      <button>🇬🇧 EN</button>
+      <button>🇹🇿 SW</button>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <div class="hero">
+    <div class="hero-text">
+      FURAHIA HUDUMA ZETU ZENYE LENGO LA KUBORESHA MASLAI YA KAMPUNI YAKO
+      <div class="hero-box">
+        <p>1. Huduma za uharaka zaidi</p>
+        <p>2. Huduma za uhakika masaa 24</p>
+        <p>3. Kufikia malengo ya kibiashara yako</p>
+        <p>4. Malengo ya kibiashara ya hali ya juu</p>
+      </div>
+    </div>
+    <div class="hero-img">
+      <img src="./images/campany.jpg" alt="Customer Image">
+    </div>
+  </div>
+
+
+   <footer>
+    <div class="footer-container">
+
+      <!-- Contact Us -->
+      <div class="footer-col">
+        <h3>Contact Us</h3>
+        <p><i class="fas fa-map-marker-alt"></i>
+        LAZRI, <br>
+        Samora Street, <br>
+        P.O. BOX 90, <br>Dar es Salaam, Tanzania</p>
+        <p><i class="fas fa-phone"></i> +255 756 457 678</p>
+        <p><i class="fas fa-envelope"></i> info@lazri.co.tz</p>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+
+      <!-- Related Links -->
+      <div class="footer-col">
+        <h3>Quick Links</h3>
+        <a href="#">Home</a>
+        <a href="#">About Us</a>
+        <a href="#">Our Services</a>
+        <a href="#">Our Team</a>
+        <a href="#">Projects</a>
+        <a href="#">Settings</a>
+        <a href="#">Contacts</a>
+      </div>
+
+      <!-- Online Services -->
+      <div class="footer-col">
+        <h3>Online Services</h3>
+        <a href="#">Web hosting</a>
+        <a href="#">Domains</a>
+        <a href="#">Online Marketing</a>
+        <a href="#">Emails & Security</a>
+        <a href="#">Software & Apps</a>
+      </div>
+
+      <!-- Business Hours -->
+      <div class="footer-col">
+        <h3>Business Hours</h3>
+        <p>Monday - Friday<br>08:00 - 16:30</p>
+        <p>Saturday<br>Closed</p>
+        <p>Sunday<br>Closed</p>
+      </div>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a> |
+        <a href="#">Staff Mail</a> |
+        <a href="#">FAQs</a> |
+        <a href="#">Terms and Conditions</a>
+      </div>
+      <p>Copyright © 2025 - lazri | All rights reserved</p>
+    </div>
+  </footer>
+
+  <!-- Back to top button -->
+  <a href="#" class="back-to-top">&#8679;</a>
+</body>
+</html>

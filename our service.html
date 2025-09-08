@@ -95,16 +95,15 @@
     }
     .btn-primary { background: var(--blue); color: var(--white); }
     .btn-primary:hover { background: var(--dark-blue); }
-    .btn-outline { border: 1px solid var(--blue); color: var(--dark-blue); background: transparent; }
-    .btn-outline:hover { background: var(--blue); color: var(--white); }
 
-    .hero img {
-      width: 100%;
-      max-height: 350px;
-      border-radius: var(--radius);
-      object-fit: cover;
-      box-shadow: var(--card-shadow);
-    }
+.hero-image img {
+  width: 100%;
+  max-height: 350px;
+  border-radius: var(--radius);
+  object-fit: cover;
+  box-shadow: var(--card-shadow);
+  transition: opacity 1s ease-in-out;
+}
 
     /* Services */
     .services {
@@ -133,9 +132,12 @@
     .card ul { font-size: 14px; color: var(--muted); padding-left: 20px; }
 
     /* FAQ */
-    .faq .card { margin-top: 30px; }
-    details { margin-top: 10px; }
-    summary { cursor: pointer; font-weight: bold; color: var(--dark-blue); }
+    .faq .card {
+     margin-top: 30px; }
+    details {
+     margin-top: 10px; }
+    summary {
+     cursor: pointer; font-weight: bold; color: var(--dark-blue); }
 
     /* Contact */
     .contact {
@@ -166,6 +168,10 @@
     @media(max-width: 768px) {
       nav ul { display: none; }
     }
+
+   section {
+  scroll-margin-top: 80px;
+}
   </style>
 </head>
 <body>
@@ -186,8 +192,7 @@
         </li>
         <li><a href="our service.html"><b>Our Services</b></a></li>
         <li><a href="Project.html"><b>Our Projects</b></a></li>
-        <li><a href="#"><b>News & Promotion</b></a></li>
-        <li><a href="#"><b>Contact Us</b></a></li>
+        <li><a href="#"><b>Send Request</b></a></li>
       </ul>
     </nav>
   </header>
@@ -196,38 +201,38 @@
   <main class="container">
     <section class="hero">
       <div class="hero-left">
-        <h2>Tunaweka biashara yako kwenye dunia dijitali — Usalama, Ubunifu, & Utekelezaji.</h2>
-        <p>LAZRI ni kampuni iliyoanzishwa mwaka 2025 na timu ya wataalamu; tunatoa ICT consultancy, CCTV installation, na multimedia solutions kukuza biashara yako kwa njia salama na ya kisasa.</p>
+        <h2>We serve you digitally — Security, Quality, Innovation, & Implementation.</h2>
+        <p>LAZRI is a company established in 2025 by a team of professionals; we provide Website Development & Design, ICT consultancy & Maintenance, CCTV installation, and multimedia solutions to grow your business in a secure and modern way.</p>
         <div class="hero-actions">
-          <button class="btn btn-primary" onclick="scrollToSection('huduma')">Angalia Huduma</button>
+          <button class="btn btn-primary" onclick="scrollToSection('huduma')">Check out Services</button>
           <button class="btn btn-primary" onclick="scrollToSection('faq')">FAQ</button>
-          <button class="btn btn-outline" onclick="scrollToSection('contact')">Wasiliana Nasi</button>
+          <button class="btn btn-primary" onclick="scrollToSection('contact')">Place oder</button>
         </div>
       </div>
-      <div>
-        <img src="./images/serv.jpg" alt="Our Services">
-      </div>
+<div class="hero-image">
+  <img id="slideshow" src="./images/serv.jpg" alt="Our Services">
+</div>
     </section>
 
     <!-- Services -->
     <section id="huduma">
-      <h2>Huduma Tunazotoa</h2>
-      <p class="muted">Huduma zetu zinalenga soko na mahitaji ya wateja wa kisasa.</p>
+      <h2>Services We Provide</h2>
+      <p class="muted">Our services are focused on the market and the needs of modern customers.</p>
       <div class="services">
         <div class="card">
           <img src="./images/ict.jpg" alt="ICT">
           <h3>ICT Services & Consultancy</h3>
-          <p>Tunatoa ushauri wa IT, systems development, network management na cloud solutions.</p>
+          <p>We provide IT consulting, systems development, network management, cloud solutions, and Software & Hardware Maintenance and repair.</p>
           <ul>
             <li>Development & Integration</li>
             <li>Network Design & Maintenance</li>
-            <li>Cloud Migration</li>
+            <li>Software & Hardware Maintenance</li>
           </ul>
         </div>
         <div class="card">
           <img src="./images/serv.jpg" alt="Web Design">
           <h3>Web Design & Systems Development</h3>
-          <p>Huduma za kisasa za kutengeneza websites na mifumo inayokua na biashara yako.</p>
+          <p> we provide modern services for designing and developing websites and systems that grow with your business.</p>
           <ul>
             <li>Systems Development</li>
             <li>Website Design & Maintenance</li>
@@ -237,7 +242,7 @@
         <div class="card">
           <img src="./images/cctv.jpg" alt="CCTV">
           <h3>CCTV Camera Installation</h3>
-          <p>Usakinishaji wa mifumo ya CCTV kwa makazi na biashara zako kwa usalama wa hali ya juu.</p>
+          <p>Installation of CCTV systems for your homes and businesses for security and others security systems</p>
           <ul>
             <li>Design & Site Survey</li>
             <li>24/7 Monitoring Options</li>
@@ -247,7 +252,7 @@
         <div class="card">
           <img src="./images/malt.jpg" alt="Multimedia">
           <h3>Multimedia & Media Solutions</h3>
-          <p>Huduma za video production, live streaming, na event AV setup kwa mawasiliano bora.</p>
+          <p> we provide modern services for Posters, banners, video production, live streaming, and event AV setup services for better communication.</p>
           <ul>
             <li>Video Production</li>
             <li>Live Streaming</li>
@@ -260,36 +265,56 @@
     <!-- FAQ -->
     <section id="faq" class="faq">
       <div class="card">
-        <h2>Maswali Yanayoulizwa Sana</h2>
-        <details><summary>Je, mnapangia Wilaya gani?</summary><p>Tunatoa huduma Tanzania nzima na pia kimataifa.</p></details>
-        <details><summary>Mnauza vifaa vya CCTV?</summary><p>Ndio, tunauza na kusakinisha vifaa vya CCTV.</p></details>
-        <details><summary>Muda wa mradi ni upi?</summary><p>Inategemea ukubwa wa mradi, tunatoa estimate baada ya site survey.</p></details>
+        <h2>Frequently Asked Questions</h2>
+        <details><summary>In which district are you located?</summary><p>We provide services throughout Tanzania and also internationally.</p></details>
+        <details><summary>Do you sell CCTV equipment?</summary><p>Yes, we sell and install CCTV equipment.</p></details>
+        <details><summary>What is the project duration?</summary><p>Depending on the size of the project, we provide an estimate after a site survey.</p></details>
       </div>
     </section>
 
     <!-- Contact -->
     <section id="contact" class="contact">
-      <h2>Wasiliana Nasi</h2>
-      <p class="muted">Tuma maelezo ya mradi wako, tutakujibu haraka iwezekanavyo.</p>
+      <h2>Place your order now</h2>
+      <p class="muted">Send us your project details, we will respond as soon as possible.</p>
       <form>
-        <input type="text" placeholder="Jina lako / Kampuni" required>
-        <input type="email" placeholder="Barua pepe" required>
-        <input type="text" placeholder="Simu (Optional)">
-        <textarea rows="5" placeholder="Maelezo ya huduma unazohitaji..." required></textarea>
-        <button class="btn btn-primary" type="submit">Tuma Ombi</button>
+        <input type="text" placeholder="Your Name / Company" required>
+        <input type="email" placeholder="Email" required>
+        <input type="text" placeholder="Phone (Optional)" required>
+        <input type="text" placeholder="~Select Service~">
+        <input type="text" placeholder="Phone (Optional)">
+        <textarea rows="5" placeholder="Details of the services you need..." required></textarea>
+        <button class="btn btn-primary" type="submit">Send a Request</button>
       </form>
     </section>
   </main>
 
   <!-- Footer -->
   <footer>
-    <p>&copy; 2025 Lazri Company Limited. Haki zote zimehifadhiwa.</p>
+    <p>&copy; 2025 Lazri Company Limited. All rights reserved.</p>
   </footer>
 
   <script>
     function scrollToSection(id){
       document.getElementById(id).scrollIntoView({behavior:'smooth'});
     }
+    // slide images
+  const images = [
+    "./images/serv.jpg",
+    "./images/ict.jpg",
+    "./images/cctv.jpg",
+    "./images/malt.jpg"
+  ];
+
+  let index = 0; 
+  const slide = document.getElementById("slideshow");
+
+  function changeImage() {
+    index = (index + 1) % images.length; // ikifika mwisho inaanza mwanzo
+    slide.src = images[index];
+  }
+
+  // badilisha kila sekunde 4
+  setInterval(changeImage, 4000);
   </script>
 </body>
 </html>

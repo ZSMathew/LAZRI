@@ -4,8 +4,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        body {
+            background: #f9f9f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+          header {
+            background: #fff;
+            padding: 5px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 100;
+        }
+        
+        header h1 {
+            color: #2563eb;
+            font-size: 25px;
+            font-weight: bold;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+        
+        nav ul li {
+            position: relative;
+            font-size: larger;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: 0.3s;
+            padding: 8px 12px;
+            display: block;
+        }
+        
+        nav ul li a:hover {
+            color: #2563eb;
+        }
+        img {
+            width: 4rem;
+            height: 4rem;
+        }
+        /* Team Section */
+    </style>
 </head>
 <body>
-    
+     <!-- Header -->
+    <header>
+        <h1><img src="./images/Logo.png"></h1>
+        <nav>
+            <ul>
+                <li><a href="index.html"><b>Home</b></a></li>
+                <li><a href="our service.html"><b>Our Services</b></a></li>
+                <li><a href="Project.html"><b>Our Projects</b></a></li>
+                <li><a href="About.html"><b>About Us</b></a></li>
+                <li><a href="contact.html"><b>Contact Us</b></a></li>
+            </ul>
+        </nav>
+    </header>
+     
 </body>
 </html>

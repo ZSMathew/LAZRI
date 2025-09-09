@@ -24,7 +24,7 @@ body {
   line-height: 1.6;
 }
 
-.container { max-width: 1200px; margin: auto; padding: 20px; }
+.container { max-width: 99%; margin: auto; padding: 20px; }
 section { scroll-margin-top: 80px; }
 
 /* Header */
@@ -50,30 +50,6 @@ nav ul li a {
   transition: 0.3s;
 }
 nav ul li a:hover { color: var(--blue); }
-
-/* Dropdown */
-nav ul li ul {
-  display: none;
-  position: absolute;
-  top: 110%;
-  left: 0;
-  background: var(--white);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  min-width: 200px;
-  padding: 8px 0;
-}
-nav ul li:hover ul { display: block; }
-nav ul li ul li a {
-  display: block;
-  padding: 8px 16px;
-  color: #333;
-}
-nav ul li ul li a:hover {
-  background: var(--gray);
-  color: var(--blue);
-  border-radius: 6px;
-}
 
 /* Hero */
 .hero {
@@ -128,6 +104,10 @@ nav ul li ul li a:hover {
 }
 .card h3 { color: var(--dark-blue); margin-bottom: 8px; }
 .card p, .card ul { font-size: 14px; color: var(--muted); }
+
+ul{
+  margin-left: 2rem;
+}
 
 /* FAQ */
 .faq .card { margin-top: 30px; }
@@ -212,18 +192,11 @@ footer {
     <h1><img src="./images/Logo.png" alt="Lazri Logo"></h1>
     <nav>
       <ul>
-        <li><a href="#"><b>Home</b></a></li>
-        <li>
-          <a href="#"><b>About Us ▾</b></a>
-          <ul>
-            <li><a href="#">Our Background</a></li>
-            <li><a href="our team.html">Our Team</a></li>
-            <li><a href="#">Vision, Mission & Values</a></li>
-          </ul>
-        </li>
+        <li><a href="index.html"><b>Home</b></a></li>
         <li><a href="our service.html"><b>Our Services</b></a></li>
         <li><a href="Project.html"><b>Our Projects</b></a></li>
-        <li><a href="#"><b>Contact Us</b></a></li>
+        <li><a href="About.html"><b>About Us</b></a></li>
+        <li><a href="contact.html"><b>Contact Us</b></a></li>
       </ul>
     </nav>
   </header>
@@ -310,7 +283,7 @@ footer {
       <form>
         <div class="form-group">
           <input type="text" placeholder=" " required>
-          <label>Your Name / Company</label>
+          <label>Your Full Name</label>
         </div>
 
         <div class="form-group">
@@ -320,7 +293,7 @@ footer {
 
         <div class="form-group">
           <input type="text" placeholder=" " required>
-          <label>Phone</label>
+          <label>Phone Number</label>
         </div>
 
         <!-- Select -->
@@ -354,8 +327,8 @@ footer {
         </select>
 
         <div class="form-group">
-          <input type="text" placeholder=" " required>
-          <label>Specify Service</label>
+          <input type="text" placeholder=" (option)">
+          <label>Others Service You may need</label>
         </div>
 
         <div class="form-group">
@@ -389,6 +362,7 @@ footer {
     let index = 0; 
     const slide = document.getElementById("slideshow");
 
+    //images change function
     function changeImage() {
       index = (index + 1) % images.length;
       slide.src = images[index];

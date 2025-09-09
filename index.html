@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>lazri Website</title>
+  <title>Lazri Website</title>
   <style>
     * {margin:0; padding:0; box-sizing:border-box;}
     body {font-family: Arial, sans-serif; line-height:1.6;}
@@ -37,9 +37,6 @@
       display: flex;
       gap: 20px;
     }
-    .navbar ul li {
-      position: relative;
-    }
     .navbar ul li a {
       text-decoration: none;
       color: #000;
@@ -58,6 +55,10 @@
       cursor: pointer;
       background: #fff;
       font-weight: bold;
+    }
+    .lang-switch button:hover{
+      background: #2563eb;
+      color: #fff;
     }
 
     /* Hero Section */
@@ -86,13 +87,164 @@
       text-align: center;
     }
     .hero-img img {
-      /* max-width: 100%; */
       border-radius: 10px;
-       width: 30rem;
-       height: 19rem;
+      width: 30rem;
+      height: 19rem;
+      object-fit: cover;
+    } 
+
+     /* our services */
+    .services-section {
+      text-align: center;
+      padding: 50px 20px;
     }
 
-     footer {
+    .services-section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      color: #2c3e50;
+    }
+
+    .services-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .service-box {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .service-box:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+
+    .service-box img {
+      /* width: 80px; */
+      margin-bottom: 15px;
+      width: 10rem;
+      height: 10rem;
+    }
+
+    .service-box h3 {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      color: #004aad;
+    }
+
+    .service-box p {
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+
+    .more-btn {
+      margin-top: 40px;
+    }
+
+    .more-btn a {
+      display: inline-block;
+      padding: 12px 25px;
+      background: #004aad;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: background 0.3s ease;
+    }
+
+    .more-btn a:hover {
+      background: #003080;
+    }
+
+    /* testmony */
+    .testimonials {
+      padding: 60px 20px;
+    }
+
+    .testimonials h2 {
+      font-size: 28px;
+      font-weight: bold;
+      color: #0a1a3a;
+      margin-bottom: 40px;
+    }
+
+    .testimonial-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .testimonial-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      width: 300px;
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      cursor: pointer;
+    }
+
+    .testimonial-card img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 15px;
+    }
+
+    .testimonial-card h3 {
+      margin: 10px 0 5px;
+      color: #0a1a3a;
+    }
+
+    .testimonial-card h4 {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 15px;
+    }
+
+    .testimonial-card p {
+      font-size: 14px;
+      color: #444;
+      margin-bottom: 15px;
+    }
+
+    .stars {
+      color: #003080;
+      font-size: 16px;
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-10px) scale(1.03);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    }
+
+    .testimonial-card.active {
+      transform: translateY(-15px) scale(1.08);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+      animation: bounceIn 0.4s ease;
+    }
+
+    @keyframes bounceIn {
+      0% { transform: scale(1) translateY(0); }
+      50% { transform: scale(1.1) translateY(-18px); }
+      70% { transform: scale(0.98) translateY(-13px); }
+      100% { transform: scale(1.08) translateY(-15px); }
+    }
+
+    footer {
       background: #111;
       color: #ddd;
       padding: 40px 80px 20px;
@@ -141,7 +293,6 @@
       height: 35px;
       margin-right: 8px;
       border-radius: 50%;
-      /* background: #e40909; */
       color: #fff;
       text-align: center;
       line-height: 35px;
@@ -183,7 +334,7 @@
       position: fixed;
       bottom: 20px;
       right: 20px;
-      background:  #2563eb;
+      background:  #fff;
       color: #111;
       width: 40px;
       height: 40px;
@@ -196,7 +347,7 @@
     }
 
     .back-to-top:hover {
-      background: #fff;
+      background: #2563eb;
       color: #111;
     }
   </style>
@@ -206,37 +357,37 @@
 
   <!-- Top bar -->
   <div class="top-bar">
-    <div class="left">LAZRI</div>
+    <div class="left" id="corpName">LAZRI</div>
     <div class="right">
-      <span>📧 info@lazri.co.tz</span>
-      <span>📞 +255 756 457 678</span>
-      <span>🔗 [socials]</span>
+      <span id="topEmail">📧 info@lazri.co.tz</span>
+      <span id="topPhone">📞 +255 756 457 678</span>
+      <span id="topSocial">🔗 [socials]</span>
     </div>
   </div>
 
   <!-- Navbar -->
   <div class="navbar">
     <div class="logo">
-      <img src="./images/Logo.png" alt="Lazri Logo">
+      <a href="#"><img src="./images/Logo.png" alt="Lazri Logo"></a>
     </div>
     <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="About.html">About Us</a></li>
-      <li><a href="our service.html">Our Service </a></li>
-      <li><a href="Project.html">Our Project</a></li>
-      <li><a href="contact.html">Contact Us</a></li>
+      <li><a href="#" id="navHome">Home</a></li>
+      <li><a href="About.html" id="navAbout">About Us</a></li>
+      <li><a href="our service.html" id="navServices">Our Services</a></li>
+      <li><a href="Project.html" id="navProjects">Our Projects</a></li>
+      <li><a href="contact.html" id="navContact">Contact Us</a></li>
     </ul>
     <div class="lang-switch">
-      <button>🇬🇧 EN</button>
-      <button>🇹🇿 SW</button>
+      <button onclick="setLanguage('en')">🇬🇧 EN</button>
+      <button onclick="setLanguage('sw')">🇹🇿 SW</button>
     </div>
   </div>
 
   <!-- Hero Section -->
   <div class="hero">
-    <div class="hero-text">
+    <div class="hero-text" id="heroTitle">
       FURAHIA HUDUMA ZETU ZENYE LENGO LA KUBORESHA MASLAI YA KAMPUNI YAKO
-      <div class="hero-box">
+      <div class="hero-box" id="heroBox">
         <p>1. Huduma za uharaka zaidi</p>
         <p>2. Huduma za uhakika masaa 24</p>
         <p>3. Kufikia malengo ya kibiashara yako</p>
@@ -244,17 +395,83 @@
       </div>
     </div>
     <div class="hero-img">
-      <img src="./images/campany.jpg" alt="Customer Image">
+      <img id="heroImage" src="./images/campany.jpg" alt="company">
     </div>
   </div>
 
+  <!-- our services -->
+  <section class="services-section">
+   <h2 style="color: #2563eb;" id="servicesTitle">Our Services</h2>
 
-   <footer>
+   <div class="services-container">
+    <div class="service-box">
+      <img src="images/ict.jpg" alt="ICT Consultancy">
+      <h3 id="s1Title">ICT Services & Consultancy</h3>
+      <p id="s1Desc">We provide IT consulting, systems development, network management, cloud solutions, and software & hardware maintenance.</p>
+    </div>
+
+    <div class="service-box">
+      <img src="images/serv.jpg" alt="Web Design">
+      <h3 id="s2Title">Web Design & Systems Development</h3>
+      <p id="s2Desc">We design and develop websites and systems that grow with your business.</p>
+    </div>
+
+    <div class="service-box">
+      <img src="images/cctv.jpg" alt="CCTV">
+      <h3 id="s3Title">CCTV Camera Installation</h3>
+      <p id="s3Desc">Installation of CCTV systems for homes and businesses for security and monitoring.</p>
+    </div>
+
+    <div class="service-box">
+      <img src="images/malt.jpg" alt="Multimedia">
+      <h3 id="s4Title">Multimedia & Media Solutions</h3>
+      <p id="s4Desc">We provide modern media services for posters, banners, video production, live streaming, and event AV setup.</p>
+    </div>
+  </div>
+
+  <div class="more-btn">
+    <a href="our service.html" id="moreBtn">More Services</a>
+  </div>
+  </section>
+
+  <!-- testmony -->
+  <section class="testimonials">
+    <h2 style="text-align: center; color: #2563eb;" id="testimonialsTitle">Our Customer Say</h2>
+    <div class="testimonial-container">
+      <div class="testimonial-card">
+        <img src="images/anthony.png" alt="Anthony">
+        <h3 style="color: #003080;">Anthony Kapinga</h3>
+        <h4 id="t1Role">Founder & CEO</h4>
+        <p id="t1Text" style="text-align: start;">Lazri is nothing short of amazing.They have been with me every step of the way as I created my first print product.
+           They helped to ensure I had exactly what I needed (correct paper, perfect sizing, and very quick shipping). 
+           They are also so quick to respond to all of my questions!The cherry on top was the paper sample they sent so I could really feel exactly what I was getting before I ordered.
+           I won’t trust anyone else with my journals!</p>
+        <div class="stars">★★★★★</div>
+      </div>
+      
+      <div class="testimonial-card">
+        <img src="images/janet.jpg" alt="Janet">
+        <h3 style="color: #003080;">Janet Komba</h3>
+        <h4 id="t2Role">Manager</h4>
+        <p id="t2Text" style="text-align: start;">I was in contact with Komba from Lazri to order t-shirts he was a pleasure to work with. he was incredibly patient and attentive to every detail of the design.
+           I would used Lazri again and again and highly recommend them to anyone looking to order shirts</p>
+        <div class="stars">★★★★★</div>
+      </div>
+      
+      <div class="testimonial-card">
+        <img src="images/innocent.jpg" alt="Innocent">
+        <h3 style="color: #003080;">Innocent Gabriel</h3>
+        <h4 id="t3Role">Managing Director</h4>
+        <p id="t3Text" style="text-align: start;">Great experience and impressive product.It was a very professional and technically competent job from the whole team.</p>
+        <div class="stars">★★★★☆</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
     <div class="footer-container">
-
-      <!-- Contact Us -->
       <div class="footer-col">
-        <h3>Contact Us</h3>
+        <h3 id="footerContactTitle">Contact Us</h3>
         <p><i class="fas fa-map-marker-alt"></i>
         LAZRI, <br>
         Samora Street, <br>
@@ -269,50 +486,205 @@
         </div>
       </div>
 
-      <!-- Related Links -->
       <div class="footer-col">
-        <h3>Quick Links</h3>
-        <a href="#">Home</a>
-        <a href="#">About Us</a>
-        <a href="#">Our Services</a>
-        <a href="#">Our Team</a>
-        <a href="#">Projects</a>
-        <a href="#">Settings</a>
-        <a href="#">Contacts</a>
+        <h3 id="footerQuickLinks">Quick Links</h3>
+        <a href="#" id="fHome">Home</a>
+        <a href="#" id="fAbout">About Us</a>
+        <a href="#" id="fServices">Our Services</a>
+        <a href="#" id="fTeam">Our Team</a>
+        <a href="#" id="fProjects">Projects</a>
+        <a href="#" id="fSettings">Settings</a>
+        <a href="#" id="fContacts">Contacts</a>
       </div>
 
-      <!-- Online Services -->
       <div class="footer-col">
-        <h3>Online Services</h3>
-        <a href="#">Web hosting</a>
-        <a href="#">Domains</a>
-        <a href="#">Online Marketing</a>
-        <a href="#">Emails & Security</a>
-        <a href="#">Software & Apps</a>
+        <h3 id="footerOnline">Online Services</h3>
+        <a href="#" id="fo1">Web hosting</a>
+        <a href="#" id="fo2">Domains</a>
+        <a href="#" id="fo3">Online Marketing</a>
+        <a href="#" id="fo4">Emails & Security</a>
+        <a href="#" id="fo5">Software & Apps</a>
       </div>
 
-      <!-- Business Hours -->
       <div class="footer-col">
-        <h3>Business Hours</h3>
-        <p>Monday - Friday<br>08:00 - 16:30</p>
-        <p>Saturday<br>Closed</p>
-        <p>Sunday<br>Closed</p>
+        <h3 id="footerHours">Business Hours</h3>
+        <p id="bh1">Monday - Friday<br>08:00 - 16:30</p>
+        <p id="bh2">Saturday<br>Closed</p>
+        <p id="bh3">Sunday<br>Closed</p>
       </div>
     </div>
 
-    <!-- Footer Bottom -->
     <div class="footer-bottom">
       <div class="footer-links">
-        <a href="#">Privacy Policy</a> |
-        <a href="#">Staff Mail</a> |
-        <a href="#">FAQs</a> |
-        <a href="#">Terms and Conditions</a>
+        <a href="#" id="pp">Privacy Policy</a> |
+        <a href="#" id="sm">Staff Mail</a> |
+        <a href="#" id="faq">FAQs</a> |
+        <a href="#" id="tc">Terms and Conditions</a>
       </div>
-      <p>Copyright © 2025 - lazri | All rights reserved</p>
+      <p id="copyright">Copyright © 2025 - Lazri | All rights reserved</p>
     </div>
   </footer>
 
-  <!-- Back to top button -->
   <a href="#" class="back-to-top">&#8679;</a>
+
+  <!-- Language & Slider Script -->
+  <script>
+    const translations = {
+      en: {
+        navHome: "Home",
+        navAbout: "About Us",
+        navServices: "Our Services",
+        navProjects: "Our Projects",
+        navContact: "Contact Us",
+        heroTitle: "ENJOY OUR SERVICES AIMED AT IMPROVING YOUR COMPANY'S BENEFITS",
+        heroBox: `
+          <p>1. Faster services</p>
+          <p>2. Reliable 24/7 services</p>
+          <p>3. Achieve your business goals</p>
+          <p>4. Higher business standards</p>
+        `,
+        servicesTitle: "Our Services",
+        moreBtn: "More Services",
+        testimonialsTitle: "Our Customers Say",
+        footerContactTitle: "Contact Us",
+        footerQuickLinks: "Quick Links",
+        footerOnline: "Online Services",
+        footerHours: "Business Hours",
+        fHome: "Home",
+        fAbout: "About Us",
+        fServices: "Our Services",
+        fTeam: "Our Team",
+        fProjects: "Projects",
+        fSettings: "Settings",
+        fContacts: "Contacts",
+        fo1: "Web hosting",
+        fo2: "Domains",
+        fo3: "Online Marketing",
+        fo4: "Emails & Security",
+        fo5: "Software & Apps",
+        bh1: "Monday - Friday<br>08:00 - 16:30",
+        bh2: "Saturday<br>Closed",
+        bh3: "Sunday<br>Closed",
+        pp: "Privacy Policy",
+        sm: "Staff Mail",
+        faq: "FAQs",
+        tc: "Terms and Conditions"
+      },
+      sw: {
+        navHome: "Mwanzo",
+        navAbout: "Kuhusu Sisi",
+        navServices: "Huduma Zetu",
+        navProjects: "Miradi Yetu",
+        navContact: "Wasiliana Nasi",
+        heroTitle: "FURAHIA HUDUMA ZETU ZENYE LENGO LA KUBORESHA MASLAI YA KAMPUNI YAKO",
+        heroBox: `
+          <p>1. Huduma za uharaka zaidi</p>
+          <p>2. Huduma za uhakika masaa 24</p>
+          <p>3. Kufikia malengo ya kibiashara yako</p>
+          <p>4. Malengo ya kibiashara ya hali ya juu</p>
+        `,
+        servicesTitle: "Huduma Zetu",
+        moreBtn: "Huduma Zingine",
+        testimonialsTitle: "Wateja Wetu Wanasema",
+        footerContactTitle: "Wasiliana Nasi",
+        footerQuickLinks: "Viungo vya Haraka",
+        footerOnline: "Huduma Mtandaoni",
+        footerHours: "Saa za Biashara",
+        fHome: "Mwanzo",
+        fAbout: "Kuhusu Sisi",
+        fServices: "Huduma Zetu",
+        fTeam: "Timu Yetu",
+        fProjects: "Miradi",
+        fSettings: "Mipangilio",
+        fContacts: "Mawasiliano",
+        fo1: "Huduma za Mtandao",
+        fo2: "Majina ya Wavuti",
+        fo3: "Masoko Mtandaoni",
+        fo4: "Barua Pepe & Usalama",
+        fo5: "Programu & App",
+        bh1: "Jumatatu - Ijumaa<br>08:00 - 16:30",
+        bh2: "Jumamosi<br>Imefungwa",
+        bh3: "Jumapili<br>Imefungwa",
+        pp: "Sera ya Faragha",
+        sm: "Barua ya Wafanyakazi",
+        faq: "Maswali ya Mara kwa Mara",
+        tc: "Sheria na Masharti"
+      }
+    };
+
+    function setLanguage(lang) {
+      const t = translations[lang];
+      document.getElementById("navHome").textContent = t.navHome;
+      document.getElementById("navAbout").textContent = t.navAbout;
+      document.getElementById("navServices").textContent = t.navServices;
+      document.getElementById("navProjects").textContent = t.navProjects;
+      document.getElementById("navContact").textContent = t.navContact;
+      document.getElementById("heroTitle").childNodes[0].textContent = t.heroTitle;
+      document.getElementById("heroBox").innerHTML = t.heroBox;
+      document.getElementById("servicesTitle").textContent = t.servicesTitle;
+      document.getElementById("moreBtn").textContent = t.moreBtn;
+      document.getElementById("testimonialsTitle").textContent = t.testimonialsTitle;
+      document.getElementById("footerContactTitle").textContent = t.footerContactTitle;
+      document.getElementById("footerQuickLinks").textContent = t.footerQuickLinks;
+      document.getElementById("footerOnline").textContent = t.footerOnline;
+      document.getElementById("footerHours").textContent = t.footerHours;
+      document.getElementById("fHome").textContent = t.fHome;
+      document.getElementById("fAbout").textContent = t.fAbout;
+      document.getElementById("fServices").textContent = t.fServices;
+      document.getElementById("fTeam").textContent = t.fTeam;
+      document.getElementById("fProjects").textContent = t.fProjects;
+      document.getElementById("fSettings").textContent = t.fSettings;
+      document.getElementById("fContacts").textContent = t.fContacts;
+      document.getElementById("fo1").textContent = t.fo1;
+      document.getElementById("fo2").textContent = t.fo2;
+      document.getElementById("fo3").textContent = t.fo3;
+      document.getElementById("fo4").textContent = t.fo4;
+      document.getElementById("fo5").textContent = t.fo5;
+      document.getElementById("bh1").innerHTML = t.bh1;
+      document.getElementById("bh2").innerHTML = t.bh2;
+      document.getElementById("bh3").innerHTML = t.bh3;
+      document.getElementById("pp").textContent = t.pp;
+      document.getElementById("sm").textContent = t.sm;
+      document.getElementById("faq").textContent = t.faq;
+      document.getElementById("tc").textContent = t.tc;
+    }
+
+    // Hero Image Auto Change
+    const heroImages = [
+      "./images/campany.jpg",
+      "./images/company2.jpg",
+      "./images/company3.jpg",
+      "./images/company4.jpg",
+      "./images/company5.jpg"
+    ];
+    let currentIndex = 0;
+    const heroImageEl = document.getElementById("heroImage");
+    setInterval(() => {
+      currentIndex = (currentIndex + 1) % heroImages.length;
+      heroImageEl.src = heroImages[currentIndex];
+    }, 2500);
+
+    // testimony active toggle
+    const cards = document.querySelectorAll(".testimonial-card");
+    cards.forEach(card => {
+      card.addEventListener("click", () => {
+        if (card.classList.contains("active")) {
+          card.classList.remove("active");
+        } else {
+          cards.forEach(c => c.classList.remove("active"));
+          card.classList.add("active");
+        }
+      });
+      card.addEventListener("touchstart", () => {
+        cards.forEach(c => c.classList.remove("active"));
+        card.classList.add("active");
+      });
+    });
+    document.addEventListener("click", (e) => {
+      if (!e.target.closest(".testimonial-card")) {
+        cards.forEach(c => c.classList.remove("active"));
+      }
+    });
+  </script>
 </body>
 </html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team Profiles</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f6fa;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .team-container {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .card {
+      background: #fff;
+      width: 300px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      overflow: hidden;
+      text-align: center;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+    }
+
+    .card-header {
+      height: 80px;
+      background: blue;
+    }
+
+    .card img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 5px solid #fff;
+      position: absolute;
+      top: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .online-status {
+      width: 18px;
+      height: 18px;
+      background: #2ecc71;
+      border-radius: 50%;
+      position: absolute;
+      top: 120px;
+      left: 58%;
+      border: 3px solid #fff;
+    }
+
+    .card-body {
+      padding: 70px 20px 20px;
+    }
+
+    .card-body h3 {
+      margin: 10px 0 5px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #2c3e50;
+    }
+
+    .position {
+      font-weight: bold;
+      color: blue;
+      margin-bottom: 8px;
+    }
+
+    .company {
+      color: #34495e;
+      margin-bottom: 5px;
+    }
+
+    .location {
+      color: #7f8c8d;
+      margin-bottom: 15px;
+    }
+
+    .highlights {
+      text-align: left;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .highlights li {
+      margin: 6px 0;
+      list-style: none;
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .highlights li::before {
+      content: "🔑";
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background: blue;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      opacity: 0.85;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="team-container">
+    
+    <!-- Card 1 -->
+    <div class="card">
+      <div class="card-header"></div>
+      <img src="./images/innocent.jpg" alt="Spencer Minja">
+      <div class="online-status"></div>
+      <div class="card-body">
+        <h3>Inocenti Gabriel</h3>
+        <p class="position">Founder & C.E.O</p>
+        <p class="company">LAZRI Company Limited</p>
+        <p class="location">📍 Tanzania</p>
+        <ul class="highlights">
+          <li>UNESCO National Technical Advisory Team</li>
+          <li>University of Dar es Salaam President 2022-2023</li>
+        </ul>
+        <a href="#" class="btn">View Profile</a>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="card">
+      <div class="card-header"></div>
+      <img src="./images/anthony.png" alt="Mr. Abiner Alfayo Mushi">
+      <div class="online-status"></div>
+      <div class="card-body">
+        <h3>anthony Kapinga</h3>
+        <p class="position">C.O.O</p>
+        <p class="company">LAZRI Company Limited</p>
+        <p class="location">📍 Tanzania</p>
+        <ul class="highlights">
+          <li>Johns Hopkins University Certification</li>
+          <li>Public Health Specialist</li>
+        </ul>
+        <a href="#" class="btn">View Profile</a>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="card">
+      <div class="card-header"></div>
+      <img src="./images/janet.jpg" alt="Avilla Julius">
+      <div class="online-status"></div>
+      <div class="card-body">
+        <h3>LUUh</h3>
+        <p class="position">Secretary</p>
+        <p class="company">LAZRI Company Limited</p>
+        <p class="location">📍 Tanzania</p>
+        <ul class="highlights">
+          <li>Bachelor's in Human Resource Management</li>
+          <li>Administrative Excellence</li>
+        </ul>
+        <a href="#" class="btn">View Profile</a>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

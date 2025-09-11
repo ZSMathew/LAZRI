@@ -88,44 +88,80 @@
         .team-container {
             display: flex;
             gap: 20px;
+            flex-wrap: nowrap;
+            /* Prevent wrapping to next line */
+            justify-content: flex-start;
+            overflow-x: auto;
+            /* Allow horizontal scroll if needed */
+            padding-bottom: 20px;
+            /* Optional: space for scroll bar */
         }
         
-        .member {
+        .card {
+            width: 280px;
             background: #fff;
             border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
         }
         
-        .member:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+        .card-header {
+            background: #0047FF;
+            height: 80px;
+            position: relative;
         }
         
-        .member img {
-            width: 120px;
-            height: 120px;
+        .card-header img {
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
+            border: 4px solid white;
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #fff;
             object-fit: cover;
-            margin-bottom: 15px;
         }
         
-        .member h3 {
+        .card-body {
+            padding: 60px 20px 20px;
+        }
+        
+        .card-body h3 {
+            margin: 10px 0 5px;
             font-size: 20px;
             font-weight: bold;
-            margin-bottom: 5px;
+            color: #2c3e50;
         }
         
-        .member p.role {
-            color: #2563eb;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-        
-        .member p.desc {
+        .card-body p {
+            margin: 5px 0;
             font-size: 14px;
-            color: #666;
+            color: #555;
+        }
+        
+        .card-body p strong {
+            color: #0047FF;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 10px;
+            background: #0047FF;
+            color: white;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        
+        .btn:hover {
+            background: #0033cc;
         }
         /* Footer */
         
@@ -157,48 +193,68 @@
 
     <!-- Team Section -->
     <section>
-        <h2>WHO ARE WE?</h2>
+        <h2>WHO ARE WE</h2>
         <p>We are a team of dedicated professionals committed to delivering exceptional results.</p>
 
         <div class="team-container">
             <!-- Member 1 -->
-            <div class="member">
-                <img src="./images/ino.png" alt="Member 1">
-                <h3>Inocenti Gabriel</h3>
-                <p class="role">CEO & Founder</p>
-                <p class="desc">Analyst and company development expert.</p>
+            <div class="card">
+                <div class="card-header">
+                    <img src="./images/innocent.jpg" alt="Inocenti Gabriel">
+                </div>
+                <div class="card-body">
+                    <h3>Inocenti Gabriel</h3>
+                    <p><strong>CEO & Founder</strong></p>
+                    <p>Analyst and company development expert.</p>
+                </div>
             </div>
 
             <!-- Member 2 -->
-            <div class="member">
-                <img src="https://via.placeholder.com/150" alt="Member 2">
-                <h3>Lucy Nguzo</h3>
-                <p class="role">Chief Executive Secretary & Founder</p>
-                <p class="desc">Chief assistant to the CEO and company records keeper.</p>
+            <div class="card">
+                <div class="card-header">
+                    <img src="images/janet.jpg" alt="Lucy Nguzo">
+                </div>
+                <div class="card-body">
+                    <h3>Lucy Nguzo</h3>
+                    <p><strong>Chief Executive Secretary & Founder</strong></p>
+                    <p>Chief assistant to the CEO and company records keeper.</p>
+                </div>
             </div>
 
             <!-- Member 3 -->
-            <div class="member">
-                <img src="https://via.placeholder.com/150" alt="Member 3">
-                <h3>Raynell Robert</h3>
-                <p class="role">CFO & Founder</p>
-                <p class="desc">Accountant and financial affairs manager.</p>
+            <div class="card">
+                <div class="card-header">
+                    <img src="images/anthony.png" alt="Raynell Robert">
+                </div>
+                <div class="card-body">
+                    <h3>Raynell Robert</h3>
+                    <p><strong>CFO & Founder</strong></p>
+                    <p>Accountant and financial affairs manager.</p>
+                </div>
             </div>
 
             <!-- Member 4 -->
-            <div class="member">
-                <img src="https://via.placeholder.com/150" alt="Member 4">
-                <h3>Zakaria Stephano</h3>
-                <p class="role">COO, CHRO & Co-Founder</p>
-                <p class="desc">Manager of all company operations & Human Resources.</p>
+            <div class="card">
+                <div class="card-header">
+                    <img src="images/innocent.jpg" alt="Zakaria Stephano">
+                </div>
+                <div class="card-body">
+                    <h3>Zakaria Stephano</h3>
+                    <p><strong>COO, CHRO & Co-Founder</strong></p>
+                    <p>Manager of all company operations & Human Resources.</p>
+                </div>
             </div>
 
             <!-- Member 5 -->
-            <div class="member">
-                <img src="https://via.placeholder.com/150" alt="Member 5">
-                <h3>Anthony Kapinga</h3>
-                <p class="role">CMO, CTO & Founder</p>
-                <p class="desc">Chief technology and innovation engineer & Head of marketing and public relations.</p>
+            <div class="card">
+                <div class="card-header">
+                    <img src="images/anthony.png" alt="Anthony Kapinga">
+                </div>
+                <div class="card-body">
+                    <h3>Anthony Kapinga</h3>
+                    <p><strong>CMO, CTO & Founder</strong></p>
+                    <p>Chief technology and innovation engineer & Head of marketing and public relations.</p>
+                </div>
             </div>
         </div>
     </section>

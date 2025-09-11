@@ -3,189 +3,141 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Team Profiles</title>
+  <title>Stats Section</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f5f6fa;
       margin: 0;
-      padding: 20px;
+      font-family: Arial, sans-serif;
+      background:  #f8fbff;
+      color: #0f1724;
+    }
+
+    .stats-section {
       display: flex;
       justify-content: center;
       align-items: center;
-    }
-
-    .team-container {
-      display: flex;
-      gap: 20px;
+      gap: 60px;
+      padding: 80px 20px;
       flex-wrap: wrap;
-      justify-content: center;
     }
 
-    .card {
-      background: #fff;
-      width: 300px;
-      border-radius: 15px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      overflow: hidden;
+    .stat-box {
       text-align: center;
+      max-width: 280px;
       position: relative;
-      transition: transform 0.3s ease;
     }
 
-    .card:hover {
-      transform: translateY(-8px);
+    /* Container ya duara na namba */
+    .circle-wrapper {
+      position: relative;
+      width: 160px;
+      height: 160px;
+      margin: 0 auto 20px;
     }
 
-    .card-header {
-      height: 80px;
-      background: blue;
-    }
+    .circle-wrapper {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  margin: 0 auto 40px; /* sasa gape ni kubwa zaidi */
+}
 
-    .card img {
-      width: 120px;
-      height: 120px;
+    /* Duara linalozunguka */
+    .circle-outer {
+      width: 100%;
+      height: 100%;
+      border: 12px solid #0096ff;
+      border-top-color: blue;
       border-radius: 50%;
-      border: 5px solid #fff;
+      animation: spin 6s linear infinite;
+    }
+
+    /* Namba static katikati */
+    .circle-inner {
       position: absolute;
-      top: 30px;
+      top: 50%;
       left: 50%;
-      transform: translateX(-50%);
-    }
-
-    .online-status {
-      width: 18px;
-      height: 18px;
-      background: #2ecc71;
-      border-radius: 50%;
-      position: absolute;
-      top: 120px;
-      left: 58%;
-      border: 3px solid #fff;
-    }
-
-    .card-body {
-      padding: 70px 20px 20px;
-    }
-
-    .card-body h3 {
-      margin: 10px 0 5px;
-      font-size: 20px;
-      font-weight: bold;
-      color: #2c3e50;
-    }
-
-    .position {
+      transform: translate(-50%, -50%);
+      font-size: 48px;
       font-weight: bold;
       color: blue;
-      margin-bottom: 8px;
     }
 
-    .company {
-      color: #34495e;
-      margin-bottom: 5px;
-    }
-
-    .location {
-      color: #7f8c8d;
-      margin-bottom: 15px;
-    }
-
-    .highlights {
-      text-align: left;
-      font-size: 14px;
-      margin-bottom: 20px;
-    }
-
-    .highlights li {
-      margin: 6px 0;
-      list-style: none;
-      position: relative;
-      padding-left: 20px;
-    }
-
-    .highlights li::before {
-      content: "🔑";
-      position: absolute;
-      left: 0;
-      top: 0;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 10px 20px;
-      background: blue;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 30px;
+    .stat-title {
       font-weight: bold;
-      transition: 0.3s;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      color: blue;
     }
 
-    .btn:hover {
-      opacity: 0.85;
+    .stat-desc {
+      font-size: 15px;
+      line-height: 1.6;
+      text-align: left;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .stats-section {
+        flex-direction: column;
+        gap: 40px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <div class="team-container">
-    
-    <!-- Card 1 -->
-    <div class="card">
-      <div class="card-header"></div>
-      <img src="./images/innocent.jpg" alt="Spencer Minja">
-      <div class="online-status"></div>
-      <div class="card-body">
-        <h3>Inocenti Gabriel</h3>
-        <p class="position">Founder & C.E.O</p>
-        <p class="company">LAZRI Company Limited</p>
-        <p class="location">📍 Tanzania</p>
-        <ul class="highlights">
-          <li>UNESCO National Technical Advisory Team</li>
-          <li>University of Dar es Salaam President 2022-2023</li>
-        </ul>
-        <a href="#" class="btn">View Profile</a>
+  <section class="stats-section">
+    <!-- Box 1 -->
+    <div class="stat-box">
+      <div class="circle-wrapper">
+        <div class="circle-outer"></div>
+        <div class="circle-inner">07</div>
+      </div>
+      <div class="stat-title">Years In</div>
+      <div class="stat-desc">
+        🔵 Design Thinking <br>
+        🔵 Wireframing <br>
+        🔵 Coding <br>
+        🔵 Debugging
       </div>
     </div>
 
-    <!-- Card 2 -->
-    <div class="card">
-      <div class="card-header"></div>
-      <img src="./images/anthony.png" alt="Mr. Abiner Alfayo Mushi">
-      <div class="online-status"></div>
-      <div class="card-body">
-        <h3>anthony Kapinga</h3>
-        <p class="position">C.O.O</p>
-        <p class="company">LAZRI Company Limited</p>
-        <p class="location">📍 Tanzania</p>
-        <ul class="highlights">
-          <li>Johns Hopkins University Certification</li>
-          <li>Public Health Specialist</li>
-        </ul>
-        <a href="#" class="btn">View Profile</a>
+    <!-- Box 2 -->
+    <div class="stat-box">
+      <div class="circle-wrapper">
+        <div class="circle-outer"></div>
+        <div class="circle-inner">15</div>
+      </div>
+      <div class="stat-title">People As</div>
+      <div class="stat-desc">
+        🔵 UI Designers <br>
+        🔵 UX Experts <br>
+        🔵 Developers <br>
+        🔵 Project Managers
       </div>
     </div>
 
-    <!-- Card 3 -->
-    <div class="card">
-      <div class="card-header"></div>
-      <img src="./images/janet.jpg" alt="Avilla Julius">
-      <div class="online-status"></div>
-      <div class="card-body">
-        <h3>LUUh</h3>
-        <p class="position">Secretary</p>
-        <p class="company">LAZRI Company Limited</p>
-        <p class="location">📍 Tanzania</p>
-        <ul class="highlights">
-          <li>Bachelor's in Human Resource Management</li>
-          <li>Administrative Excellence</li>
-        </ul>
-        <a href="#" class="btn">View Profile</a>
+    <!-- Box 3 -->
+    <div class="stat-box">
+      <div class="circle-wrapper">
+        <div class="circle-outer"></div>
+        <div class="circle-inner">50</div>
+      </div>
+      <div class="stat-title">Projects In</div>
+      <div class="stat-desc">
+        🔵 E-Commerce <br>
+        🔵 Promo-sites (Landing) <br>
+        🔵 Corporate Sites <br>
+        🔵 Mobile Applications
       </div>
     </div>
-
-  </div>
+  </section>
 
 </body>
 </html>

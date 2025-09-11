@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LAZRI | FAQ & AI Assistant</title>
+  <meta name="description" content="FAQs for Lazri Companies Limited + AI Assistant for common questions" />
+  <style>
+    :root{
+      --blue:#0b66ff;
+      --dark:#053a9b;
+      --gray:#e6e9ee;
+      --muted:#6b7280;
+      --white:#ffffff;
+      --card-radius:14px;
+      font-family:Inter,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,var(--gray),#f8fbff);color:#0f1724}
+
+    /* Header */
+header {
+  background: var(--dark);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+header img { height: 50px; }
+nav ul { display: flex; gap: 20px; list-style: none; }
+nav ul li { position: relative; }
+nav ul li a {
+  text-decoration: none;
+  color: var(--white);
+  font-weight: 500;
+  padding: 8px 12px;
+  transition: 0.3s;
+}
+nav ul li a:hover { color: var(--blue); }
+
+    .container{max-width:1100px;margin:0 auto;padding:28px}
+    .brand{display:flex;gap:16px;align-items:center}
+    .logo{width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,#ffffff22,#ffffff11);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px}
+    h1{margin:0;font-size:24px}
+    p.lead{margin:6px 0 0;color:rgba(255,255,255,0.95)}
+
+    main{margin-top:18px}
+    .grid{display:grid;grid-template-columns:1fr 380px;gap:22px}
+
+    /* Left column (FAQ) */
+    .card{background:var(--white);border-radius:var(--card-radius);padding:18px;box-shadow:0 8px 30px rgba(13,38,76,0.08)}
+    .search{display:flex;gap:8px;margin-bottom:14px}
+    .search input{flex:1;padding:12px 14px;border-radius:10px;border:1px solid #e6e9ee;font-size:14px}
+    .search button{background:var(--blue);color:var(--white);border:none;padding:12px 14px;border-radius:10px;cursor:pointer}
+
+    .faq-item{border-top:1px solid #f1f5f9;padding:14px 0}
+    .faq-item:first-of-type{border-top:0}
+    .question{display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+    .question h3{margin:0;font-size:15px}
+    .answer{margin-top:10px;color:var(--muted);display:none}
+
+    /* Right column (AI + contact) */
+    .assistant{position:sticky;top:28px}
+    .chat-window{height:420px;overflow:auto;border-radius:12px;padding:12px;border:1px solid #f1f5f9;background:linear-gradient(180deg,#fff,#fbfcff)}
+    .message{margin:10px 0;display:flex}
+    .message.user{justify-content:flex-end}
+    .bubble{max-width:78%;padding:10px 12px;border-radius:12px;background:#f1f5f9;color:#0f1724}
+    .message.user .bubble{background:var(--blue);color:var(--white)}
+    .controls{display:flex;gap:8px;margin-top:10px}
+    .controls textarea{flex:1;padding:10px;border-radius:10px;border:1px solid #e6e9ee;resize:vertical;min-height:56px}
+    .controls button{padding:10px 14px;border-radius:10px;border:none;background:var(--dark);color:var(--white);cursor:pointer}
+
+    footer{margin-top:26px;padding:18px 0;color: black;font-size:14px;text-align:center}
+
+    /* Responsive */
+    @media (max-width:980px){.grid{grid-template-columns:1fr;}.assistant{position:relative;}}
+
+  </style>
+</head>
+<body>
+      <!-- Header -->
+  <header>
+    <h1><img src="./images/Logo2.png" alt="Lazri Logo"></h1>
+    <nav>
+      <ul>
+        <li><a href="index.html"><b>Home</b></a></li>
+        <li><a href="our service.html"><b>Our Services</b></a></li>
+        <li><a href="Project.html"><b>Our Projects</b></a></li>
+        <li><a href="About.html"><b>About Us</b></a></li>
+        <li><a href="contact.html"><b>Contact Us</b></a></li>
+      </ul>
+    </nav>
+  </header>
+    <div class="container">
+      <div class="brand">
+        <div>
+          <h1>LAZRI COMPANIES LIMITED - FAQ</h1>
+          <p class="lead" style="color: black;"><b>"Innovate · Connect · Evolve"</b> — Frequently Asked Questions and AI Assistant</p>
+        </div>
+      </div>
+    </div>
+
+  <main class="container">
+    <div class="grid">
+      <!-- LEFT: FAQ -->
+      <section class="card" aria-labelledby="faq-title">
+        <h2 id="faq-title">Frequently Asked Questions (FAQ)</h2>
+
+        <div class="search" style="margin-top:12px;">
+          <input id="faqSearch" placeholder="Search question (e.g., service, license, address)" />
+          <button id="btnSearch">Search</button>
+        </div>
+
+        <div id="faqList">
+          <!-- FAQ items inserted by JS -->
+        </div>
+
+      </section>
+
+      <!-- RIGHT: AI Assistant + Contact -->
+      <aside class="assistant">
+        <div class="card">
+          <h3>AI Assistant (FAQ Bot)</h3>
+          <p style="margin-top:6px;color:var(--muted);font-size:13px">Ask questions about LAZRI — AI will try to answer using the FAQ content here.</p>
+
+          <div class="chat-window" id="chatWindow" role="log" aria-live="polite">
+            <div class="message">
+              <div class="bubble">Hello! How can I assist you today? Ask a question or search by keyword.</div>
+            </div>
+          </div>
+
+          <div class="controls">
+            <textarea id="userInput" placeholder="Type your question here..." aria-label="Question"></textarea>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <button id="askBtn">Ask</button>
+              <button id="clearBtn" style="background:#f3f4f6;color:#0f1724">Clear</button>
+            </div>
+          </div>
+
+          <small style="display:block;margin-top:10px;color:var(--muted)">Examples: "Do you provide CCTV services?" | "HQ address?" | "How can I contact you?"</small>
+        </div>
+
+        <div class="card" style="margin-top:14px;">
+          <h3>Company Information</h3>
+          <p style="margin:6px 0;color:var(--muted)"><strong>Website:</strong> www.lazri.co.tz<br><strong>Email:</strong> info@lazri.co.tz<br><strong>Motto:</strong> Innovate, Connect, Evolve</p>
+          <a href="mailto:info@lazri.co.tz" style="display:inline-block;margin-top:8px;padding:8px 12px;border-radius:8px;background:var(--blue);color:var(--white);text-decoration:none">Send Email</a>
+        </div>
+
+      </aside>
+
+    </div>
+
+    <footer>
+      <small>© LAZRI COMPANIES LIMITED — All rights reserved.</small>
+    </footer>
+  </main>
+
+  <script>
+    // --- FAQ content sourced from your specification ---
+    const FAQS = [
+      {q: 'What is Lazri Companies Limited?', a: 'Lazri Companies Limited is a private company in Tanzania providing ICT services, consulting, CCTV installation, and multimedia services. Motto: "Innovate, Connect, Evolve."'},
+      {q: 'What is the official name of the company?', a: 'The official name of the company is LAZRI.'},
+      {q: 'Does Lazri have a logo?', a: 'Yes. Lazri has an official logo representing the company with graphics, emblem, and motto.'},
+      {q: 'What is the company motto?', a: 'The motto is "Innovate, Connect, Evolve."'},
+      {q: 'What are the official colors of the company?', a: 'The official colors are Blue, Gray, and White (💙 Blue, 🩶 Gray, 🤍 White).'},
+      {q: 'What is Lazri\'s vision?', a: 'The vision is to be a trusted service provider and a leader in innovation, security, and digital excellence.'},
+      {q: 'What is Lazri\'s mission?', a: 'The mission is to provide quality, affordable, and innovative solutions that enable individuals and businesses to thrive in the digital era.'},
+      {q: 'What are the core values?', a: 'Innovation, Integrity, Customer Focus, Quality, Teamwork, Security & Privacy.'},
+      {q: 'Where is Lazri available online?', a: 'Website: www.lazri.co.tz; Email: info@lazri.co.tz; Social media: Facebook, Instagram, LinkedIn.'},
+      {q: 'What is the company history?', a: 'Lazri was founded on 17/05/2025 in Dar es Salaam by university friends. On 16/06/2025 a female member joined. Services include ICT, consulting, CCTV, and multimedia.'},
+      {q: 'Who are the founders of Lazri?', a: 'Founders are Zakaria Stephano, Anthony Kapinga, Raynell William, Inocenti Gabriel, and Lucy Nguzo. Leadership is governed by the Board of Directors.'},
+      {q: 'Is Lazri legally registered?', a: 'Yes. Lazri is legally registered in Tanzania. BRELA No, TIN No, and business licenses are available in company records.'},
+      {q: 'Where is Lazri HQ located?', a: 'Headquarters are in Dar es Salaam, Tanzania. Full address will be added when officially finalized.'}
+    ];
+
+    // Render FAQ list as accordion
+    const faqList = document.getElementById('faqList');
+    FAQS.forEach((item, idx) => {
+      const div = document.createElement('div');
+      div.className = 'faq-item';
+      div.innerHTML = `
+        <div class="question" data-idx="${idx}">
+          <h3>${item.q}</h3>
+          <div style="font-size:13px;color:var(--muted)">+</div>
+        </div>
+        <div class="answer">${item.a}</div>
+      `;
+      faqList.appendChild(div);
+    });
+
+    // Accordion toggle
+    faqList.addEventListener('click', (e)=>{
+      const q = e.target.closest('.question');
+      if(!q) return;
+      const idx = q.dataset.idx;
+      const item = q.nextElementSibling;
+      const toggle = q.querySelector('div');
+      const open = item.style.display === 'block';
+      item.style.display = open ? 'none' : 'block';
+      toggle.textContent = open ? '+' : '−';
+    });
+
+    // Simple keyword search for FAQ items
+    function searchFaqs(text){
+      const t = text.trim().toLowerCase();
+      if(!t) return FAQS.map((f,i)=>({score:0,i}));
+      const tokens = t.split(/\W+/).filter(Boolean);
+      return FAQS.map((f,i)=>{
+        const hay = (f.q + ' ' + f.a).toLowerCase();
+        let score = tokens.reduce((s,tk)=> s + (hay.includes(tk) ? 1 : 0), 0);
+        if(hay.includes(t)) score += 1;
+        return {score, i};
+      }).sort((a,b)=>b.score - a.score);
+    }
+
+    document.getElementById('btnSearch').addEventListener('click', ()=>{
+      const q = document.getElementById('faqSearch').value;
+      const results = searchFaqs(q).filter(r=>r.score>0);
+      if(results.length===0){
+        faqList.innerHTML = `<p style="color:var(--muted);padding:12px 0">No results. Try words like "CCTV", "address" or "license".</p>`;
+        return;
+      }
+      faqList.innerHTML = '';
+      results.forEach(r=>{
+        const item = FAQS[r.i];
+        const div = document.createElement('div');
+        div.className = 'faq-item';
+        div.innerHTML = `<div class="question" data-idx="${r.i}"><h3>${item.q}</h3><div style="font-size:13px;color:var(--muted)">+</div></div><div class="answer" style="display:block">${item.a}</div>`;
+        faqList.appendChild(div);
+      });
+    });
+
+    // AI Assistant: uses simple semantic match over FAQS
+    const chatWindow = document.getElementById('chatWindow');
+    function appendMessage(text, from='bot'){
+      const div = document.createElement('div');
+      div.className = 'message ' + (from==='user' ? 'user' : 'bot');
+      const bubble = document.createElement('div');
+      bubble.className = 'bubble';
+      bubble.innerHTML = text.replace(/\n/g,'<br>');
+      div.appendChild(bubble);
+      chatWindow.appendChild(div);
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+
+    document.getElementById('askBtn').addEventListener('click', ()=>{
+      const text = document.getElementById('userInput').value.trim();
+      if(!text) return;
+      appendMessage(text,'user');
+      document.getElementById('userInput').value = '';
+
+      const ranked = searchFaqs(text);
+      const best = ranked[0];
+      if(!best || best.score===0){
+        const reply = `Sorry, I couldn't find a complete answer in the FAQ. Here is some helpful info:\n- Website: www.lazri.co.tz\n- Email: info@lazri.co.tz\nYou can ask another question or click "Search" in the FAQ.`;
+        appendMessage(reply,'bot');
+        return;
+      }
+
+      const top = ranked.filter(r=>r.score>0).slice(0,2).map(r=>FAQS[r.i]);
+      let reply = '';
+      if(top.length===1) reply = `<strong>${top[0].q}</strong>\n${top[0].a}`;
+      else reply = top.map(t=>`<strong>${t.q}</strong><br>${t.a}`).join('<hr>');
+      appendMessage(reply,'bot');
+    });
+
+    document.getElementById('clearBtn').addEventListener('click', ()=>{
+      document.getElementById('userInput').value = '';
+      chatWindow.innerHTML = '<div class="message"><div class="bubble">Hello! How can I assist you today? Ask a question or search by keyword.</div></div>';
+    });
+
+    document.getElementById('userInput').addEventListener('keydown', (e)=>{
+      if(e.key==='Enter' && !e.shiftKey){
+        e.preventDefault();
+        document.getElementById('askBtn').click();
+      }
+    });
+
+  </script>
+</body>
+</html>

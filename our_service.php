@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lazri Company - Our Services</title>
+
+  <style>
+:root {
+  --blue: #0b66ff;
+  --dark-blue: #053a9b;
+  --gray: #f3f4f6;
+  --muted: #6b7280;
+  --white: #ffffff;
+  --shadow: 0 4px 10px rgba(0,0,0,0.1);
+  --radius: 12px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #f8fbff;
+  color: #0f1724;
+  line-height: 1.6;
+}
+
+.container { max-width: 99%; margin: auto; padding: 20px; }
+section { scroll-margin-top: 80px; }
+
+/* Header */
+header {
+  background: var(--white);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+header img { height: 50px; }
+nav ul { display: flex; gap: 20px; list-style: none; }
+nav ul li { position: relative; }
+nav ul li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  padding: 8px 12px;
+  transition: 0.3s;
+}
+nav ul li a:hover { color: var(--blue); }
+
+/* Hero */
+.hero {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+  gap: 30px;
+  align-items: center;
+  padding: 40px 0;
+}
+.hero-left h2 { font-size: 28px; color: var(--dark-blue); margin-bottom: 12px; }
+.hero-left p { color: var(--muted); margin-bottom: 20px; }
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn {
+  padding: 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  border: none;
+  transition: 0.3s;
+}
+.btn-primary { background: var(--blue); color: var(--white); }
+.btn-primary:hover { background: var(--dark-blue); }
+.hero-image img {
+  width: 100%;
+  max-height: 350px;
+  border-radius: var(--radius);
+  object-fit: cover;
+  box-shadow: var(--shadow);
+}
+
+/* Services */
+.services {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+  gap: 20px;
+  margin-top: 30px;
+}
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px;
+  transition: transform 0.3s;
+}
+.card:hover { transform: translateY(-5px); }
+.card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  margin-bottom: 12px;
+}
+.card h3 { color: var(--dark-blue); margin-bottom: 8px; }
+.card p, .card ul { font-size: 14px; color: var(--muted); }
+
+ul{
+  margin-left: 2rem;
+}
+
+/* FAQ */
+.faq .card { margin-top: 30px; }
+summary { cursor: pointer; font-weight: bold; color: var(--dark-blue); }
+
+/* Contact */
+.contact {
+  margin-top: 40px;
+  background: #f9fafe;
+  padding: 20px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* Floating label wrapper */
+.form-group { position: relative; margin-bottom: 16px; }
+
+/* Inputs, textarea & select */
+.form-group input,
+.form-group textarea,
+.styled-select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 15px;
+  background: transparent;
+  transition: 0.3s;
+}
+.form-group input:hover,
+.form-group textarea:hover,
+.styled-select:hover {
+  border-color: var(--blue);
+  background: #fff;
+  box-shadow: 0 0 6px rgba(0,123,255,0.3);
+}
+.form-group input:focus,
+.form-group textarea:focus,
+.styled-select:focus {
+  outline: none;
+  border-color: var(--dark-blue);
+  box-shadow: 0 0 8px rgba(0,86,179,0.4);
+}
+
+/* Floating label */
+.form-group label {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  color: var(--muted);
+  font-size: 15px;
+  pointer-events: none;
+  transition: 0.3s ease;
+  background: #f9fafe;
+  padding: 0 6px;
+}
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label,
+.form-group textarea:focus + label,
+.form-group textarea:not(:placeholder-shown) + label {
+  top: -8px;
+  left: 10px;
+  font-size: 12px;
+  color: var(--blue);
+}
+
+/* Footer */
+footer {
+  background: #111;
+  color: #ccc;
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+}
+  </style>
+</head>
+<body>
+<?php
+// ======= DB CONNECTION =======
+$host = "localhost"; 
+$user = "root";      // weka user wa db
+$pass = "";          // password ya db
+$db   = "LAZRI";  
+
+$conn = new mysqli($host, $user, $pass, $db);
+if ($conn->connect_error) {
+  die("DB connection failed: " . $conn->connect_error);
+}
+
+$successMsg = "";
+
+// ======= HANDLE FORM SUBMIT =======
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $fullname = $conn->real_escape_string($_POST['fullname']);
+  $email    = $conn->real_escape_string($_POST['email']);
+  $phone    = $conn->real_escape_string($_POST['phone']);
+  $service  = $conn->real_escape_string($_POST['services']);
+  $others   = $conn->real_escape_string($_POST['otherservice']);
+  $details  = $conn->real_escape_string($_POST['details']);
+
+$sql = "INSERT INTO orders (fullname,email,phone,service,otherservice,details) 
+        VALUES ('$fullname','$email','$phone','$service','$others','$details')";
+
+  if ($conn->query($sql) === TRUE) {
+    $successMsg = "✅ Your request has been sent successfully!";
+  } else {
+    $successMsg = "❌ Error: " . $conn->error;
+  }
+}
+?>
+
+  <!-- Header -->
+  <header>
+    <h1><img src="./images/Logo.png" alt="Lazri Logo"></h1>
+    <nav>
+      <ul>
+        <li><a href="index.html"><b>Home</b></a></li>
+        <li><a href="our service.html"><b>Our Services</b></a></li>
+        <li><a href="Project.html"><b>Our Projects</b></a></li>
+        <li><a href="About.html"><b>About Us</b></a></li>
+        <li><a href="contact.html"><b>Contact Us</b></a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <main class="container">
+    <section class="hero">
+      <div class="hero-left">
+        <h2>We serve you digitally — Security, Quality, Innovation, & Implementation.</h2>
+        <p>LAZRI is a company established in 2025 by a team of professionals; we provide Website Development & Design, ICT consultancy & Maintenance, CCTV installation, and multimedia solutions to grow your business in a secure and modern way.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" onclick="scrollToSection('huduma')">Check out Services</button>
+          <button class="btn btn-primary" onclick="scrollToSection('faq')">FAQ</button>
+          <button class="btn btn-primary" onclick="scrollToSection('contact')">Place order</button>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img id="slideshow" src="./images/serv.jpg" alt="Our Services">
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section id="huduma">
+      <h2>Services We Provide</h2>
+      <p class="muted">Our services are focused on the market and the needs of modern customers.</p>
+      <div class="services">
+        <div class="card">
+          <img src="./images/ict.jpg" alt="ICT">
+          <h3>ICT Services & Consultancy</h3>
+          <p>We provide IT consulting, systems development, network management, cloud solutions, and Software & Hardware Maintenance and repair.</p>
+          <ul>
+            <li>Development & Integration</li>
+            <li>Network Design & Maintenance</li>
+            <li>Software & Hardware Maintenance</li>
+          </ul>
+        </div>
+        <div class="card">
+          <img src="./images/serv.jpg" alt="Web Design">
+          <h3>Web Design & Systems Development</h3>
+          <p>We provide modern services for designing and developing websites and systems that grow with your business.</p>
+          <ul>
+            <li>Systems Development</li>
+            <li>Website Design & Maintenance</li>
+            <li>System Rebuilding</li>
+          </ul>
+        </div>
+        <div class="card">
+          <img src="./images/cctv.jpg" alt="CCTV">
+          <h3>CCTV Camera Installation</h3>
+          <p>Installation of CCTV systems for your homes and businesses for security and other security systems.</p>
+          <ul>
+            <li>Design & Site Survey</li>
+            <li>24/7 Monitoring Options</li>
+            <li>Integration with Alarm Systems</li>
+          </ul>
+        </div>
+        <div class="card">
+          <img src="./images/malt.jpg" alt="Multimedia">
+          <h3>Multimedia & Media Solutions</h3>
+          <p>We provide modern services for posters, banners, video production, live streaming, and event AV setup services for better communication.</p>
+          <ul>
+            <li>Video Production</li>
+            <li>Live Streaming</li>
+            <li>Event AV Setup</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="faq">
+      <div class="card">
+        <h2>Frequently Asked Questions</h2>
+        <details><summary>In which district are you located?</summary><p>We provide services throughout Tanzania and also internationally.</p></details>
+        <details><summary>Do you sell CCTV equipment?</summary><p>Yes, we sell and install CCTV equipment.</p></details>
+        <details><summary>What is the project duration?</summary><p>Depending on the size of the project, we provide an estimate after a site survey.</p></details>
+      </div>
+    </section>
+
+<!-- Contact -->
+    <section id="contact" class="contact">
+      <h2>Place your order now</h2>
+      <p class="muted">Send us your project details, we will respond as soon as possible.</p><br>
+
+      <!-- Show Success Message -->
+      <?php if($successMsg != ""): ?>
+        <p style="color:green;font-weight:bold;"><?= $successMsg ?></p>
+      <?php endif; ?>
+
+      <form method="POST" action="">
+        <div class="form-group">
+          <input type="text" name="fullname" placeholder=" " required>
+          <label>Your Full Name</label>
+        </div>
+
+        <div class="form-group">
+          <input type="email" name="email" placeholder=" " required>
+          <label>Email</label>
+        </div>
+
+        <div class="form-group">
+          <input type="text" name="phone" placeholder=" " required>
+          <label>Phone Number</label>
+        </div>
+
+        <!-- Select -->
+        <select id="services" name="services" required class="styled-select">
+          <option value="" disabled selected>~ Select service ~</option>
+          <optgroup label="ICT Services & Consultancy">
+            <option value="consult">Consultancy</option>
+            <option value="network">Networking</option>
+            <option value="software">Software Solutions</option>
+          </optgroup>
+          <optgroup label="Web Design & Development">
+            <option value="webdev">Website Development</option>
+            <option value="hosting">Hosting</option>
+            <option value="seo">SEO Optimization</option>
+          </optgroup>
+          <optgroup label="CCTV & Security">
+            <option value="install">Installation</option>
+            <option value="maintain">Maintenance</option>
+            <option value="monitoring">24/7 Monitoring</option>
+          </optgroup>
+          <optgroup label="Multimedia Solutions">
+            <option value="design">Graphic Design</option>
+            <option value="video">Video Production</option>
+            <option value="stream">Live Streaming</option>
+          </optgroup>
+          <optgroup label="Other Services">
+            <option value="training">Training</option>
+            <option value="repair">Hardware Repair</option>
+            <option value="custom">Custom Project</option>
+          </optgroup>
+        </select>
+
+        <div class="form-group">
+          <input type="text" name="otherservice" placeholder=" (option)">
+          <label>Others Service You may need</label>
+        </div>
+
+        <div class="form-group">
+          <textarea rows="5" name="details" placeholder=" " required></textarea>
+          <label>Details of the services you need...</label>
+        </div>
+
+        <button class="btn btn-primary" type="submit">Send a Request</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Lazri Company Limited. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function scrollToSection(id){
+      document.getElementById(id).scrollIntoView({behavior:'smooth'});
+    }
+
+    // slide images
+    const images = [
+      "./images/serv.jpg",
+      "./images/ict.jpg",
+      "./images/cctv.jpg",
+      "./images/malt.jpg"
+    ];
+
+    let index = 0; 
+    const slide = document.getElementById("slideshow");
+
+    function changeImage() {
+      index = (index + 1) % images.length;
+      slide.src = images[index];
+    }
+    setInterval(changeImage, 4000);
+  </script>
+</body>
+</html>

@@ -6,11 +6,12 @@
   <title>Lazri Company - Our Services</title>
 
   <style>
+  <style>
 :root {
   --blue: #0b66ff;
   --dark-blue: #053a9b;
   --gray: #f3f4f6;
-  --muted: #6b7280;
+  --muted: rgb(63, 63, 63);
   --white: #ffffff;
   --shadow: 0 4px 10px rgba(0,0,0,0.1);
   --radius: 12px;
@@ -27,9 +28,8 @@ body {
 .container { max-width: 99%; margin: auto; padding: 20px; }
 section { scroll-margin-top: 80px; }
 
-/* Header */
 header {
-  background: var(--white);
+  background: var(--dark-blue);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -44,12 +44,12 @@ nav ul { display: flex; gap: 20px; list-style: none; }
 nav ul li { position: relative; }
 nav ul li a {
   text-decoration: none;
-  color: #333;
+  color: var(--white);
   font-weight: 500;
   padding: 8px 12px;
   transition: 0.3s;
 }
-nav ul li a:hover { color: var(--blue); }
+nav ul li a:hover { color: black; }
 
 /* Hero */
 .hero {
@@ -105,27 +105,19 @@ nav ul li a:hover { color: var(--blue); }
 .card h3 { color: var(--dark-blue); margin-bottom: 8px; }
 .card p, .card ul { font-size: 14px; color: var(--muted); }
 
-ul{
-  margin-left: 2rem;
-}
+ul{ margin-left: 2rem; }
 
-/* FAQ */
-.faq .card { margin-top: 30px; }
-summary { cursor: pointer; font-weight: bold; color: var(--dark-blue); }
-
-/* Contact */
-.contact {
-  margin-top: 40px;
-  background: #f9fafe;
+/* Footer */
+footer {
+  background: var(--muted);
+  color: var(--white);
+  text-align: center;
   padding: 20px;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  margin-top: 40px;
 }
 
-/* Floating label wrapper */
+/* Form Inputs */
 .form-group { position: relative; margin-bottom: 16px; }
-
-/* Inputs, textarea & select */
 .form-group input,
 .form-group textarea,
 .styled-select {
@@ -151,8 +143,6 @@ summary { cursor: pointer; font-weight: bold; color: var(--dark-blue); }
   border-color: var(--dark-blue);
   box-shadow: 0 0 8px rgba(0,86,179,0.4);
 }
-
-/* Floating label */
 .form-group label {
   position: absolute;
   top: 50%;
@@ -175,13 +165,39 @@ summary { cursor: pointer; font-weight: bold; color: var(--dark-blue); }
   color: var(--blue);
 }
 
-/* Footer */
-footer {
-  background: #111;
-  color: #ccc;
-  text-align: center;
+/* Popup Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5);
+}
+.modal-content {
+  background: var(--white);
+  margin: 5% auto;
   padding: 20px;
-  margin-top: 40px;
+  border-radius: var(--radius);
+  width: 90%;
+  max-width: 500px;
+  box-shadow: var(--shadow);
+  animation: fadeIn 0.3s ease-in-out;
+}
+.close {
+  color: var(--muted);
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.close:hover { color: var(--dark-blue); }
+@keyframes fadeIn {
+  from {opacity: 0; transform: scale(0.9);}
+  to {opacity: 1; transform: scale(1);}
 }
   </style>
 </head>
@@ -222,7 +238,7 @@ $sql = "INSERT INTO orders (fullname,email,phone,service,otherservice,details)
 
   <!-- Header -->
   <header>
-    <h1><img src="./images/Logo.png" alt="Lazri Logo"></h1>
+    <h1><img src="./images/Logo2.png" alt="Lazri Logo"></h1>
     <nav>
       <ul>
         <li><a href="index.html"><b>Home</b></a></li>
@@ -242,8 +258,8 @@ $sql = "INSERT INTO orders (fullname,email,phone,service,otherservice,details)
         <p>LAZRI is a company established in 2025 by a team of professionals; we provide Website Development & Design, ICT consultancy & Maintenance, CCTV installation, and multimedia solutions to grow your business in a secure and modern way.</p>
         <div class="hero-actions">
           <button class="btn btn-primary" onclick="scrollToSection('huduma')">Check out Services</button>
-          <button class="btn btn-primary" onclick="scrollToSection('faq')">FAQ</button>
-          <button class="btn btn-primary" onclick="scrollToSection('contact')">Place order</button>
+          <a href="faq.html"><button class="btn btn-primary">Ask Any Question & FAQ</button></a>
+          <button class="btn btn-primary" onclick="openModal()">Place order</button>
         </div>
       </div>
       <div class="hero-image">
@@ -298,44 +314,30 @@ $sql = "INSERT INTO orders (fullname,email,phone,service,otherservice,details)
         </div>
       </div>
     </section>
+  </main>
 
-    <!-- FAQ -->
-    <section id="faq" class="faq">
-      <div class="card">
-        <h2>Frequently Asked Questions</h2>
-        <details><summary>In which district are you located?</summary><p>We provide services throughout Tanzania and also internationally.</p></details>
-        <details><summary>Do you sell CCTV equipment?</summary><p>Yes, we sell and install CCTV equipment.</p></details>
-        <details><summary>What is the project duration?</summary><p>Depending on the size of the project, we provide an estimate after a site survey.</p></details>
-      </div>
-    </section>
-
-<!-- Contact -->
-    <section id="contact" class="contact">
+  <!-- Popup Modal -->
+  <div id="orderModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
       <h2>Place your order now</h2>
       <p class="muted">Send us your project details, we will respond as soon as possible.</p><br>
-
-      <!-- Show Success Message -->
-      <?php if($successMsg != ""): ?>
-        <p style="color:green;font-weight:bold;"><?= $successMsg ?></p>
-      <?php endif; ?>
-
-      <form method="POST" action="">
+      <form>
         <div class="form-group">
-          <input type="text" name="fullname" placeholder=" " required>
+          <input type="text" placeholder=" " required>
           <label>Your Full Name</label>
         </div>
 
         <div class="form-group">
-          <input type="email" name="email" placeholder=" " required>
+          <input type="email" placeholder=" " required>
           <label>Email</label>
         </div>
 
         <div class="form-group">
-          <input type="text" name="phone" placeholder=" " required>
+          <input type="text" placeholder=" " required>
           <label>Phone Number</label>
         </div>
 
-        <!-- Select -->
         <select id="services" name="services" required class="styled-select">
           <option value="" disabled selected>~ Select service ~</option>
           <optgroup label="ICT Services & Consultancy">
@@ -366,19 +368,19 @@ $sql = "INSERT INTO orders (fullname,email,phone,service,otherservice,details)
         </select>
 
         <div class="form-group">
-          <input type="text" name="otherservice" placeholder=" (option)">
+          <input type="text" placeholder=" (option)">
           <label>Others Service You may need</label>
         </div>
 
         <div class="form-group">
-          <textarea rows="5" name="details" placeholder=" " required></textarea>
+          <textarea rows="5" placeholder=" " required></textarea>
           <label>Details of the services you need...</label>
         </div>
 
         <button class="btn btn-primary" type="submit">Send a Request</button>
       </form>
-    </section>
-  </main>
+    </div>
+  </div>
 
   <!-- Footer -->
   <footer>
@@ -397,15 +399,27 @@ $sql = "INSERT INTO orders (fullname,email,phone,service,otherservice,details)
       "./images/cctv.jpg",
       "./images/malt.jpg"
     ];
-
     let index = 0; 
     const slide = document.getElementById("slideshow");
-
     function changeImage() {
       index = (index + 1) % images.length;
       slide.src = images[index];
     }
     setInterval(changeImage, 4000);
+
+    // Modal Functions
+    function openModal() {
+      document.getElementById("orderModal").style.display = "block";
+    }
+    function closeModal() {
+      document.getElementById("orderModal").style.display = "none";
+    }
+    window.onclick = function(event) {
+      let modal = document.getElementById("orderModal");
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
   </script>
 </body>
 </html>

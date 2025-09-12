@@ -2,146 +2,384 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stats Section</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Team & Stats — Interactive</title>
     <style>
+         :root {
+            --blue: #0096ff;
+            --dark: #0f1724;
+            --card-bg: #ffffff;
+            --muted: #6b7280;
+            --glass: rgba(255, 255, 255, 0.85);
+        }
+        
+        * {
+            box-sizing: border-box
+        }
+        
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f8fbff;
-            color: #0f1724;
+            font-family: Inter, Arial, Helvetica, sans-serif;
+            background: offwhite;
+            color: var(--dark);
+            -webkit-font-smoothing: antialiased;
         }
+        /* Team cards container */
+        
+        .team-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 28px;
+            padding: 48px 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+            align-items: start;
+        }
+        
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(15, 23, 36, 0.06);
+            overflow: hidden;
+            text-align: center;
+            position: relative;
+            padding-bottom: 20px;
+            transform: translateZ(0);
+            transition: transform .18s ease, box-shadow .18s ease;
+            cursor: default;
+        }
+        /* hover & focus interactions */
+        
+        .card:hover,
+        .card:focus-within {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 40px rgba(15, 23, 36, 0.12);
+        }
+        
+        .card-header {
+            height: 72px;
+            background: linear-gradient(90deg, var(--blue), #0059d6)
+        }
+        
+        .card img {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #fff;
+            position: relative;
+            top: -55px;
+            box-shadow: 0 6px 12px rgba(15, 23, 36, 0.12);
+            background: #fff;
+            transition: transform .18s ease;
+        }
+        
+        .card:hover img {
+            transform: scale(1.04)
+        }
+        
+        .online-status {
+            width: 14px;
+            height: 14px;
+            background: #34d399;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            position: absolute;
+            top: 58px;
+            right: 20px;
+            box-shadow: 0 2px 6px rgba(15, 23, 36, 0.12)
+        }
+        
+        .card-body {
+            padding: 0 18px 18px;
+            margin-top: -28px
+        }
+        
+        .card-body h3 {
+            margin: 2px 0 6px;
+            font-size: 18px;
+            text-transform: capitalize;
+            color: var(--dark)
+        }
+        
+        .position {
+            margin: 0;
+            font-weight: 600;
+            color: var(--blue);
+            font-size: 13px
+        }
+        
+        .company,
+        .location {
+            margin: 6px 0;
+            color: var(--muted);
+            font-size: 13px
+        }
+        
+        .highlights {
+            text-align: left;
+            padding-left: 18px;
+            margin: 10px 0 14px;
+            color: var(--muted);
+            font-size: 14px
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            background: var(--blue);
+            color: #fff;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: transform .12s ease, box-shadow .12s ease;
+            outline: none;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 22px rgba(0, 150, 255, 0.12)
+        }
+        /* focus-visible for keyboard users */
+        
+        .btn:focus-visible {
+            box-shadow: 0 0 0 4px rgba(0, 150, 255, 0.18);
+            border-radius: 10px;
+        }
+        /* Stats section */
         
         .stats-section {
             display: flex;
             justify-content: center;
-            align-items: center;
-            gap: 60px;
-            padding: 80px 20px;
+            gap: 40px;
+            padding: 40px 20px 80px;
             flex-wrap: wrap;
+            max-width: 1100px;
+            margin: 0 auto 60px
         }
         
         .stat-box {
             text-align: center;
-            max-width: 280px;
-            position: relative;
-        }
-        /* Container ya duara na namba */
-        
-        .circle-wrapper {
-            position: relative;
-            width: 160px;
-            height: 160px;
-            margin: 0 auto 20px;
+            max-width: 280px
         }
         
         .circle-wrapper {
             position: relative;
             width: 160px;
             height: 160px;
-            margin: 0 auto 40px;
-            /* sasa gape ni kubwa zaidi */
+            margin: 0 auto 20px
         }
-        /* Duara linalozunguka */
         
         .circle-outer {
             width: 100%;
             height: 100%;
-            border: 12px solid #0096ff;
-            border-top-color: blue;
+            border: 12px solid rgba(0, 150, 255, 0.25);
+            border-top-color: var(--blue);
             border-radius: 50%;
-            animation: spin 6s linear infinite;
+            animation: spin 6s linear infinite
         }
-        /* Namba static katikati */
         
         .circle-inner {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 48px;
-            font-weight: bold;
-            color: blue;
+            font-size: 40px;
+            font-weight: 700;
+            color: var(--blue)
         }
         
         .stat-title {
-            font-weight: bold;
+            font-weight: 700;
             text-transform: uppercase;
             margin-bottom: 10px;
-            color: blue;
+            color: var(--blue);
+            letter-spacing: 0.6px
         }
         
         .stat-desc {
             font-size: 15px;
             line-height: 1.6;
             text-align: left;
+            color: var(--muted)
         }
         
         @keyframes spin {
             from {
-                transform: rotate(0deg);
+                transform: rotate(0)
             }
             to {
-                transform: rotate(360deg);
+                transform: rotate(360deg)
             }
         }
-        /* Responsive */
         
-        @media (max-width: 768px) {
-            .stats-section {
-                flex-direction: column;
-                gap: 40px;
+        @media (max-width:768px) {
+            .team-container {
+                padding: 28px 12px
             }
+            .stats-section {
+                padding: 28px 12px
+            }
+            .circle-inner {
+                font-size: 34px
+            }
+        }
+        
+        @media (prefers-reduced-motion:reduce) {
+            .circle-outer {
+                animation: none
+            }
+            .card {
+                transition: none
+            }
+        }
+        /* Modal styles */
+        
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(6, 8, 15, 0.45);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 1200
+        }
+        
+        .modal-overlay[aria-hidden="false"] {
+            display: flex
+        }
+        
+        .modal {
+            background: var(--glass);
+            backdrop-filter: blur(6px);
+            border-radius: 12px;
+            max-width: 720px;
+            width: 100%;
+            box-shadow: 0 18px 50px rgba(6, 8, 15, 0.4);
+            overflow: hidden
+        }
+        
+        .modal-content {
+            display: flex;
+            gap: 20px;
+            padding: 20px
+        }
+        
+        .modal-left {
+            min-width: 160px;
+            display: flex;
+            flex-direction: column;
+            align-items: center
+        }
+        
+        .modal-left img {
+            width: 120px;
+            height: 120px;
+            border-radius: 12px;
+            object-fit: cover
+        }
+        
+        .modal-right {
+            flex: 1
+        }
+        
+        .modal-right h2 {
+            margin: 0 0 6px
+        }
+        
+        .modal-right p {
+            margin: 4px 0;
+            color: var(--muted)
+        }
+        
+        .modal-highlights {
+            margin-top: 8px;
+            padding-left: 18px;
+            color: var(--muted)
+        }
+        
+        .modal-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+            padding: 12px 20px;
+            border-top: 1px solid rgba(15, 23, 36, 0.05);
+            background: transparent
+        }
+        
+        .modal-close {
+            background: transparent;
+            border: 0;
+            color: var(--muted);
+            font-size: 16px;
+            padding: 8px;
+            cursor: pointer
+        }
+        
+        .primary-action {
+            background: var(--blue);
+            color: #fff;
+            border-radius: 8px;
+            padding: 8px 14px;
+            border: 0;
+            cursor: pointer
+        }
+        /* Make modal focusable outline visible */
+        
+        .primary-action:focus,
+        .modal-close:focus {
+            outline: 3px solid rgba(0, 150, 255, 0.18);
+            outline-offset: 2px
         }
     </style>
 </head>
 
 <body>
 
-    <<<<<<< HEAD <div class="team-container">
+    <main class="team-container" aria-label="Team members">
 
-        <!-- Card 1 -->
-        <div class="card">
-            <div class="card-header"></div>
-            <img src="./images/innocent.jpg" alt="Spencer Minja">
-            <div class="online-status"></div>
+        <article class="card" tabindex="0" data-name="Inocenti Gabriel" data-title="Founder & CEO" data-company="LAZRI Company Limited" data-location="Tanzania" data-highlights="UNESCO National Technical Advisory Team;University of Dar es Salaam President 2022–2023">
+            <div class="card-header" aria-hidden="true"></div>
+            <img src="./images/innocent.jpg" alt="Inocenti Gabriel portrait" loading="lazy">
+            <div class="online-status" title="Online" aria-hidden="true"></div>
             <div class="card-body">
                 <h3>Inocenti Gabriel</h3>
-                <p class="position">Founder & C.E.O</p>
+                <p class="position">Founder &amp; CEO</p>
                 <p class="company">LAZRI Company Limited</p>
                 <p class="location">📍 Tanzania</p>
                 <ul class="highlights">
                     <li>UNESCO National Technical Advisory Team</li>
-                    <li>University of Dar es Salaam President 2022-2023</li>
+                    <li>University of Dar es Salaam President 2022–2023</li>
                 </ul>
-                <a href="#" class="btn">View Profile</a>
+                <button class="btn" type="button" aria-haspopup="dialog">View Profile</button>
             </div>
-        </div>
+        </article>
 
-        <!-- Card 2 -->
-        <div class="card">
-            <div class="card-header"></div>
-            <img src="./images/anthony.png" alt="Mr. Abiner Alfayo Mushi">
-            <div class="online-status"></div>
+        <article class="card" tabindex="0" data-name="Anthony Kapinga" data-title="Chief Operating Officer" data-company="LAZRI Company Limited" data-location="Tanzania" data-highlights="Johns Hopkins University Certification;Public Health Specialist">
+            <div class="card-header" aria-hidden="true"></div>
+            <img src="./images/anthony.png" alt="Anthony Kapinga portrait" loading="lazy">
+            <div class="online-status" title="Online" aria-hidden="true"></div>
             <div class="card-body">
-                <h3>anthony Kapinga</h3>
-                <p class="position">C.O.O</p>
+                <h3>Anthony Kapinga</h3>
+                <p class="position">Chief Operating Officer</p>
                 <p class="company">LAZRI Company Limited</p>
                 <p class="location">📍 Tanzania</p>
                 <ul class="highlights">
                     <li>Johns Hopkins University Certification</li>
                     <li>Public Health Specialist</li>
                 </ul>
-                <a href="#" class="btn">View Profile</a>
+                <button class="btn" type="button" aria-haspopup="dialog">View Profile</button>
             </div>
-        </div>
+        </article>
 
-        <!-- Card 3 -->
-        <div class="card">
-            <div class="card-header"></div>
-            <img src="./images/janet.jpg" alt="Avilla Julius">
-            <div class="online-status"></div>
+        <article class="card" tabindex="0" data-name="LUUh" data-title="Secretary" data-company="LAZRI Company Limited" data-location="Tanzania" data-highlights="Bachelor's in Human Resource Management;Administrative Excellence">
+            <div class="card-header" aria-hidden="true"></div>
+            <img src="./images/janet.jpg" alt="Luuh portrait" loading="lazy">
+            <div class="online-status" title="Online" aria-hidden="true"></div>
             <div class="card-body">
                 <h3>LUUh</h3>
                 <p class="position">Secretary</p>
@@ -151,50 +389,194 @@
                     <li>Bachelor's in Human Resource Management</li>
                     <li>Administrative Excellence</li>
                 </ul>
-                <a href="#" class="btn">View Profile</a>
+                <button class="btn" type="button" aria-haspopup="dialog">View Profile</button>
+            </div>
+        </article>
+
+    </main>
+
+    <section class="stats-section" aria-label="Statistics and skills">
+
+        <div class="stat-box" role="group" aria-labelledby="stat-years">
+            <div class="circle-wrapper" aria-hidden="true">
+                <div class="circle-outer"></div>
+                <div class="circle-inner" id="stat-years">07</div>
+            </div>
+            <div class="stat-title">Years In</div>
+            <div class="stat-desc">
+                ▪ Design Thinking<br> ▪ Wireframing<br> ▪ Coding<br> ▪ Debugging
             </div>
         </div>
 
+        <div class="stat-box" role="group" aria-labelledby="stat-people">
+            <div class="circle-wrapper" aria-hidden="true">
+                <div class="circle-outer"></div>
+                <div class="circle-inner" id="stat-people">15</div>
+            </div>
+            <div class="stat-title">People As</div>
+            <div class="stat-desc">
+                ▪ UI Designers<br> ▪ UX Experts<br> ▪ Developers<br> ▪ Project Managers
+            </div>
         </div>
-        =======
-        <section class="stats-section">
-            <!-- Box 1 -->
-            <div class="stat-box">
-                <div class="circle-wrapper">
-                    <div class="circle-outer"></div>
-                    <div class="circle-inner">07</div>
-                </div>
-                <div class="stat-title">Years In</div>
-                <div class="stat-desc">
-                    🔵 Design Thinking <br> 🔵 Wireframing <br> 🔵 Coding <br> 🔵 Debugging
-                </div>
-            </div>
 
-            <!-- Box 2 -->
-            <div class="stat-box">
-                <div class="circle-wrapper">
-                    <div class="circle-outer"></div>
-                    <div class="circle-inner">15</div>
-                </div>
-                <div class="stat-title">People As</div>
-                <div class="stat-desc">
-                    🔵 UI Designers <br> 🔵 UX Experts <br> 🔵 Developers <br> 🔵 Project Managers
-                </div>
+        <div class="stat-box" role="group" aria-labelledby="stat-projects">
+            <div class="circle-wrapper" aria-hidden="true">
+                <div class="circle-outer"></div>
+                <div class="circle-inner" id="stat-projects">50</div>
             </div>
+            <div class="stat-title">Projects In</div>
+            <div class="stat-desc">
+                ▪ E‑Commerce<br> ▪ Promo sites (Landing pages)<br> ▪ Corporate Sites<br> ▪ Mobile Applications
+            </div>
+        </div>
 
-            <!-- Box 3 -->
-            <div class="stat-box">
-                <div class="circle-wrapper">
-                    <div class="circle-outer"></div>
-                    <div class="circle-inner">50</div>
+    </section>
+
+    <!-- Accessible modal (hidden by default) -->
+    <div id="profileModal" class="modal-overlay" role="dialog" aria-hidden="true" aria-labelledby="modalTitle" aria-modal="true">
+        <div class="modal" role="document">
+            <div class="modal-content">
+                <div class="modal-left">
+                    <img id="modalImage" src="" alt="Profile image">
                 </div>
-                <div class="stat-title">Projects In</div>
-                <div class="stat-desc">
-                    🔵 E-Commerce <br> 🔵 Promo-sites (Landing) <br> 🔵 Corporate Sites <br> 🔵 Mobile Applications
+                <div class="modal-right">
+                    <h2 id="modalTitle">Name</h2>
+                    <p id="modalTitleSmall" style="font-weight:600;color:var(--blue)"></p>
+                    <p id="modalCompany" style="margin:6px 0;color:var(--muted)"></p>
+                    <p id="modalLocation" style="margin:2px 0;color:var(--muted)"></p>
+                    <div class="modal-highlights" id="modalHighlights"></div>
                 </div>
             </div>
-        </section>
-        >>>>>>> 18e9f39d712af6f82fc69a040d7dd544393f0e7f
+            <div class="modal-actions">
+                <button class="modal-close" aria-label="Close dialog">Close</button>
+                <button class="primary-action">View Full Profile</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Accessible modal behavior + open from each card's button
+        (function() {
+            const modalOverlay = document.getElementById('profileModal');
+            const modal = modalOverlay.querySelector('.modal');
+            const closeBtn = modalOverlay.querySelector('.modal-close');
+            const primaryAction = modalOverlay.querySelector('.primary-action');
+            const imgEl = document.getElementById('modalImage');
+            const titleEl = document.getElementById('modalTitle');
+            const titleSmallEl = document.getElementById('modalTitleSmall');
+            const companyEl = document.getElementById('modalCompany');
+            const locationEl = document.getElementById('modalLocation');
+            const highlightsEl = document.getElementById('modalHighlights');
+
+            let lastFocused = null;
+
+            function openModalFromCard(card) {
+                lastFocused = document.activeElement;
+                const name = card.dataset.name || '';
+                const title = card.dataset.title || '';
+                const company = card.dataset.company || '';
+                const location = card.dataset.location || '';
+                const highlights = (card.dataset.highlights || '').split(';').filter(Boolean);
+
+                const imgEl = card.querySelector('img');
+                const img = imgEl ? imgEl.src : '';
+
+                // ...rest of your logic that uses name, title, company, location, highlights, img
+            }
+
+            function openModalFromCard(card) {
+                lastFocused = document.activeElement;
+                const name = card.dataset.name || '';
+                const title = card.dataset.title || '';
+                const company = card.dataset.company || '';
+                const location = card.dataset.location || '';
+                const highlights = (card.dataset.highlights || '').split(';').filter(Boolean);
+
+                const imgEl = card.querySelector('img');
+                const img = imgEl ? imgEl.src : '';
+
+                imgEl.src = img;
+                imgEl.alt = name + ' portrait';
+                titleEl.textContent = name;
+                titleSmallEl.textContent = title;
+                companyEl.textContent = company;
+                locationEl.textContent = '📍 ' + location;
+                highlightsEl.innerHTML = highlights.map(h => '<div>▪ ' + h.trim() + '</div>').join('');
+
+                modalOverlay.setAttribute('aria-hidden', 'false');
+                // make the modal visible
+                // trap focus: focus close button first
+                closeBtn.focus();
+                document.body.style.overflow = 'hidden';
+
+                // keyboard handlers
+                document.addEventListener('keydown', onKeyDown);
+            }
+
+            function closeModal() {
+                modalOverlay.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+                document.removeEventListener('keydown', onKeyDown);
+                // restore focus
+                if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+            }
+
+            function onKeyDown(e) {
+                if (e.key === 'Escape') {
+                    closeModal();
+                }
+                // basic focus trap (Tab)
+                if (e.key === 'Tab') {
+                    const focusable = modalOverlay.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+                    const focusableArr = Array.prototype.filter.call(focusable, function(el) {
+                        return el.offsetParent !== null;
+                    });
+                    if (focusableArr.length === 0) return;
+                    const first = focusableArr[0];
+                    const last = focusableArr[focusableArr.length - 1];
+
+                    if (!e.shiftKey && document.activeElement === last) {
+                        e.preventDefault();
+                        first.focus();
+                    } else if (e.shiftKey && document.activeElement === first) {
+                        e.preventDefault();
+                        last.focus();
+                    }
+                }
+            }
+
+            // Open modal when clicking any "View Profile" button
+            document.querySelectorAll('.card .btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const card = this.closest('.card');
+                    openModalFromCard(card);
+                });
+            });
+
+            // Also open on Enter/Space when card focused
+            document.querySelectorAll('.card').forEach(card => {
+                card.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        openModalFromCard(card);
+                    }
+                });
+            });
+
+            closeBtn.addEventListener('click', closeModal);
+            modalOverlay.addEventListener('click', function(e) {
+                if (e.target === modalOverlay) closeModal();
+            });
+
+            primaryAction.addEventListener('click', function() {
+                // Example: go to a profile page — you can customize this
+                // For now just close and log
+                console.log('Open full profile (implement link)');
+                closeModal();
+            });
+
+        })();
+    </script>
 
 </body>
 

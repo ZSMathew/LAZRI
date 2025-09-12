@@ -7,7 +7,7 @@
     <title>Lazri Company - About</title>
     <style>
         body {
-            background: #f9f9f9;
+            background: cornsilk;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
@@ -191,6 +191,119 @@
             text-align: center;
             margin-top: 40px;
         }
+        /* ===== Core Values styles (centered header, grey colors, grey icons) ===== */
+        
+        #core-values {
+            margin-top: 30px;
+            text-align: center;
+            /* center the heading + paragraph */
+        }
+        
+        .cv-wrapper {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        
+        #core-values header {
+            display: flex;
+            flex-direction: column;
+            /* stack title + paragraph */
+            align-items: center;
+            text-align: center;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+        
+        #core-values h2 {
+            margin: 0;
+            color: #111;
+            /* grey header */
+            font-size: 26px;
+            text-transform: uppercase;
+            /* ensure uppercase VALUES */
+            letter-spacing: 0.6px;
+        }
+        
+        #core-values p.lead {
+            margin: 6px 0 18px 0;
+            color: #6b7280;
+            /* grey paragraph */
+            font-size: 0.98rem;
+            max-width: 900px;
+            text-transform: lowercase;
+            /* ensure lowercase paragraph */
+        }
+        
+        .values-grid {
+            display: grid;
+            gap: 14px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        }
+        
+        .value-card {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            background: #fff;
+            padding: 14px;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.04);
+            transition: transform .18s ease, box-shadow .18s ease;
+        }
+        
+        .value-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 36px rgba(0, 0, 0, 0.12);
+        }
+        
+        .value-icon {
+            width: 46px;
+            height: 46px;
+            flex: 0 0 46px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, rgba(107, 114, 128, 0.08), rgba(107, 114, 128, 0.02));
+            display: grid;
+            place-items: center;
+        }
+        
+        .value-icon svg {
+            width: 22px;
+            height: 22px;
+        }
+        /* make icon paths grey */
+        
+        .value-icon svg path {
+            fill: #6b7280;
+        }
+        
+        .value-content h3 {
+            margin: 0 0 6px 0;
+            color: #0047FF;
+            /* keep titles in accent color for contrast */
+            font-size: 16px;
+        }
+        
+        .value-content p {
+            margin: 0;
+            color: #555;
+            font-size: 14px;
+            line-height: 1.35;
+        }
+        /* responsive small screens tweak */
+        
+        @media (max-width:520px) {
+            .card {
+                width: 230px;
+            }
+            #core-values p.lead {
+                font-size: 0.95rem;
+            }
+        }
     </style>
 </head>
 
@@ -198,7 +311,7 @@
 
     <!-- Header -->
     <header>
-        <h1><img src="./images/Logo.png"></h1>
+        <h1><img src="./images/Logo.png" alt="Lazri logo"></h1>
         <nav>
             <ul>
                 <li><a href="index.html"><b>Home</b></a></li>
@@ -213,7 +326,7 @@
     <!-- Team Section -->
     <section>
         <h2>WHO ARE WE</h2>
-        <p>We are a team of dedicated professionals committed to delivering exceptional results.</p>
+        <p>Lazri Company is dedicated to delivering innovative IT solutions and services to help businesses thrive in a digital-first world. With a focus on customer satisfaction, integrity, and professionalism, we aim to set new standards in the industry.</p>
 
         <div class="team-container">
             <!-- Member 1 -->
@@ -289,6 +402,87 @@
         <h2>WHAT WE WANT TO BECOME</h2>
         <p>To be a globally recognized leader in innovative technology solutions, renowned for our commitment to excellence, customer satisfaction, and positive impact on society.</p>
     </section>
+
+    <!-- ===== Integrated Core Values (placed directly AFTER Vision section) ===== -->
+    <section id="core-values" aria-labelledby="core-values-heading">
+        <div class="cv-wrapper">
+            <header>
+                <div>
+                    <h2 id="core-values-heading">VALUES</h2>
+                    <p class="lead">the guiding principles that drive company behaviour and decision-making.</p>
+                </div>
+            </header>
+
+            <div class="values-grid" role="list">
+                <article class="value-card" role="listitem" tabindex="0">
+                    <div class="value-icon" aria-hidden="true">
+                        <!-- innovation icon -->
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+                    </div>
+                    <div class="value-content">
+                        <h3>Innovation</h3>
+                        <p>We embrace new technologies and creative solutions to meet evolving client needs.</p>
+                    </div>
+                </article>
+
+                <article class="value-card" role="listitem" tabindex="0">
+                    <div class="value-icon" aria-hidden="true">
+                        <!-- integrity icon -->
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 1l3 6 6 1-4.5 4 1 6L12 17l-5.5 3 1-6L3 8l6-1 3-6z"/></svg>
+                    </div>
+                    <div class="value-content">
+                        <h3>Integrity</h3>
+                        <p>We act with honesty, transparency, and professionalism in all our dealings.</p>
+                    </div>
+                </article>
+
+                <article class="value-card" role="listitem" tabindex="0">
+                    <div class="value-icon" aria-hidden="true">
+                        <!-- customer focus icon -->
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 12a4 4 0 100-8 4 4 0 000 8zm0 2c-4.418 0-8 2.239-8 5v1h16v-1c0-2.761-3.582-5-8-5z"/></svg>
+                    </div>
+                    <div class="value-content">
+                        <h3>Customer Focus</h3>
+                        <p>We prioritize customer satisfaction by delivering personalized and reliable services.</p>
+                    </div>
+                </article>
+
+                <article class="value-card" role="listitem" tabindex="0">
+                    <div class="value-icon" aria-hidden="true">
+                        <!-- quality icon -->
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3 6 6 1-4 3 1 7-6-4-6 4 1-7-4-3 6-1 3-6z"/></svg>
+                    </div>
+                    <div class="value-content">
+                        <h3>Quality</h3>
+                        <p>We are committed to delivering services that meet the highest standards.</p>
+                    </div>
+                </article>
+
+                <article class="value-card" role="listitem" tabindex="0">
+                    <div class="value-icon" aria-hidden="true">
+                        <!-- teamwork icon -->
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 12a3 3 0 100-6 3 3 0 000 6zm6 1c1.657 0 3 1.343 3 3v1H3v-1c0-1.657 1.343-3 3-3h12z"/></svg>
+                    </div>
+                    <div class="value-content">
+                        <h3>Teamwork</h3>
+                        <p>We believe in collaboration, respect, and shared success.</p>
+                    </div>
+                </article>
+
+                <article class="value-card" role="listitem" tabindex="0">
+                    <div class="value-icon" aria-hidden="true">
+                        <!-- security icon -->
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17 8V7a5 5 0 10-10 0v1H5v12h14V8h-2zM9 8V7a3 3 0 116 0v1H9z"/></svg>
+                    </div>
+                    <div class="value-content">
+                        <h3>Security &amp; Privacy</h3>
+                        <p>We ensure that all our systems and services are designed with safety and confidentiality in mind.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+    <!-- ===== End Core Values ===== -->
 
     <!-- Footer -->
     <footer>

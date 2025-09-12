@@ -16,7 +16,10 @@
   --radius: 12px;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* { box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
+}
 body {
   font-family: "Segoe UI", Arial, sans-serif;
   background: #f8fbff;
@@ -24,12 +27,17 @@ body {
   line-height: 1.6;
 }
 
-.container { max-width: 99%; margin: auto; padding: 20px; }
-section { scroll-margin-top: 80px; }
+.container { 
+  max-width: 99%; 
+  margin: auto; 
+  padding: 20px; 
+}
+section { 
+  scroll-margin-top: 80px; 
+}
 
-/* Header */
 header {
-  background: var(--white);
+  background: var(--dark-blue);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -39,17 +47,27 @@ header {
   top: 0;
   z-index: 1000;
 }
-header img { height: 50px; }
-nav ul { display: flex; gap: 20px; list-style: none; }
-nav ul li { position: relative; }
+header img { 
+  height: 50px; 
+}
+nav ul { 
+  display: flex; 
+  gap: 20px; 
+  list-style: none; 
+}
+nav ul li {
+   position: relative; 
+  }
 nav ul li a {
   text-decoration: none;
-  color: #333;
+  color: var(--white);
   font-weight: 500;
   padding: 8px 12px;
   transition: 0.3s;
 }
-nav ul li a:hover { color: var(--blue); }
+nav ul li a:hover { 
+  color: var(--muted); 
+}
 
 /* Hero */
 .hero {
@@ -59,9 +77,19 @@ nav ul li a:hover { color: var(--blue); }
   align-items: center;
   padding: 40px 0;
 }
-.hero-left h2 { font-size: 28px; color: var(--dark-blue); margin-bottom: 12px; }
-.hero-left p { color: var(--muted); margin-bottom: 20px; }
-.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.hero-left h2 { 
+  font-size: 28px; 
+  color: var(--dark-blue); 
+  margin-bottom: 12px; }
+.hero-left p { 
+  color: var(--muted); 
+  margin-bottom: 20px; 
+}
+.hero-actions { 
+  display: flex; 
+  gap: 12px; 
+  flex-wrap: wrap; 
+}
 .btn {
   padding: 10px 16px;
   border-radius: 10px;
@@ -70,8 +98,13 @@ nav ul li a:hover { color: var(--blue); }
   border: none;
   transition: 0.3s;
 }
-.btn-primary { background: var(--blue); color: var(--white); }
-.btn-primary:hover { background: var(--dark-blue); }
+.btn-primary { 
+  background: var(--blue); 
+  color: var(--white); 
+}
+.btn-primary:hover { 
+  background: var(--dark-blue); 
+}
 .hero-image img {
   width: 100%;
   max-height: 350px;
@@ -94,7 +127,9 @@ nav ul li a:hover { color: var(--blue); }
   padding: 16px;
   transition: transform 0.3s;
 }
-.card:hover { transform: translateY(-5px); }
+.card:hover { 
+  transform: translateY(-5px); 
+}
 .card img {
   width: 100%;
   height: 160px;
@@ -102,16 +137,28 @@ nav ul li a:hover { color: var(--blue); }
   border-radius: var(--radius);
   margin-bottom: 12px;
 }
-.card h3 { color: var(--dark-blue); margin-bottom: 8px; }
-.card p, .card ul { font-size: 14px; color: var(--muted); }
+.card h3 { 
+  color: var(--dark-blue); 
+  margin-bottom: 8px; 
+}
+.card p, .card ul { 
+  font-size: 14px; 
+  color: var(--muted); 
+}
 
 ul{
   margin-left: 2rem;
 }
 
 /* FAQ */
-.faq .card { margin-top: 30px; }
-summary { cursor: pointer; font-weight: bold; color: var(--dark-blue); }
+.faq .card { 
+  margin-top: 30px; 
+}
+summary { 
+  cursor: pointer; 
+  font-weight: bold; 
+  color: var(--dark-blue); 
+}
 
 /* Contact */
 .contact {
@@ -123,7 +170,10 @@ summary { cursor: pointer; font-weight: bold; color: var(--dark-blue); }
 }
 
 /* Floating label wrapper */
-.form-group { position: relative; margin-bottom: 16px; }
+.form-group { 
+  position: relative; 
+  margin-bottom: 16px; 
+}
 
 /* Inputs, textarea & select */
 .form-group input,
@@ -177,19 +227,20 @@ summary { cursor: pointer; font-weight: bold; color: var(--dark-blue); }
 
 /* Footer */
 footer {
-  background: #111;
-  color: #ccc;
+  background: var(--muted);
+  color: var(--white);
   text-align: center;
   padding: 20px;
   margin-top: 40px;
 }
+
   </style>
 </head>
 <body>
 
   <!-- Header -->
   <header>
-    <h1><img src="./images/Logo.png" alt="Lazri Logo"></h1>
+    <h1><img src="./images/Logo2.png" alt="Lazri Logo"></h1>
     <nav>
       <ul>
         <li><a href="index.html"><b>Home</b></a></li>
@@ -209,7 +260,7 @@ footer {
         <p>LAZRI is a company established in 2025 by a team of professionals; we provide Website Development & Design, ICT consultancy & Maintenance, CCTV installation, and multimedia solutions to grow your business in a secure and modern way.</p>
         <div class="hero-actions">
           <button class="btn btn-primary" onclick="scrollToSection('huduma')">Check out Services</button>
-          <button class="btn btn-primary" onclick="scrollToSection('faq')">FAQ</button>
+          <button class="btn btn-primary" onclick="scrollToSection('faq')"><a href="faq.html">FAQ</a></button>
           <button class="btn btn-primary" onclick="scrollToSection('contact')">Place order</button>
         </div>
       </div>

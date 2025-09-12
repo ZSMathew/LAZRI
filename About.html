@@ -61,7 +61,7 @@
             width: 4rem;
             height: 4rem;
         }
-        /* Team Section */
+        /* Section base */
         
         section {
             padding: 60px 20px;
@@ -84,21 +84,68 @@
             color: #666;
             margin-bottom: 40px;
         }
+        /* Team / Cards */
         
         .team-container {
             display: flex;
             gap: 20px;
             flex-wrap: nowrap;
-            /* Prevent wrapping to next line */
-            justify-content: flex-start;
-            overflow-x: auto;
-            /* Allow horizontal scroll if needed */
-            padding-bottom: 20px;
-            /* Optional: space for scroll bar */
+            /* keep single line on large screens */
+            justify-content: space-between;
+            align-items: stretch;
+            overflow-x: hidden;
+            /* prevent horizontal scroll on desktop */
+            padding-bottom: 0;
+        }
+        /* keep cards fixed width inside the horizontal scroller */
+        
+        .team-container .card {
+            flex: 0 0 calc((100% - 80px) / 5);
+            /* 5 cards on one row for desktop */
+            max-width: calc((100% - 80px) / 5);
+            width: 100%;
+        }
+        /* Responsive breakpoints: switch to wrapped grid on smaller screens */
+        
+        @media (max-width: 1000px) {
+            .team-container {
+                flex-wrap: wrap;
+                overflow-x: visible;
+                justify-content: center;
+            }
+            .team-container .card {
+                flex: 1 1 calc((100% - 60px) / 4);
+                max-width: calc((100% - 60px) / 4);
+            }
+        }
+        
+        @media (max-width: 800px) {
+            .team-container .card {
+                flex: 1 1 calc((100% - 40px) / 3);
+                max-width: calc((100% - 40px) / 3);
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .team-container .card {
+                flex: 1 1 calc((100% - 20px) / 2);
+                max-width: calc((100% - 20px) / 2);
+            }
+        }
+        
+        @media (max-width: 420px) {
+            .team-container {
+                flex-wrap: wrap;
+            }
+            .team-container .card {
+                flex: 1 1 100%;
+                max-width: 420px;
+            }
         }
         
         .card {
-            width: 280px;
+            width: 100%;
+            max-width: 280px;
             background: #fff;
             border-radius: 15px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
@@ -191,6 +238,27 @@
             text-align: center;
             margin-top: 40px;
         }
+        /* ===== Section card wrapper (white table/grid look) ===== */
+        
+        .section-card {
+            background: #fff;
+            padding: 22px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            max-width: 1100px;
+            margin: 0 auto 30px auto;
+            text-align: left;
+        }
+        
+        .section-card h2 {
+            text-align: center;
+        }
+        
+        .section-card p {
+            text-align: left;
+            color: #555;
+        }
         /* ===== Core Values styles (centered header, grey colors, grey icons) ===== */
         
         #core-values {
@@ -220,7 +288,7 @@
         
         #core-values h2 {
             margin: 0;
-            color: #111;
+            color: #6b7280;
             /* grey header */
             font-size: 26px;
             text-transform: uppercase;
@@ -298,101 +366,17 @@
         
         @media (max-width:520px) {
             .card {
-                width: 230px;
+                width: 100%;
+                max-width: 320px;
             }
             #core-values p.lead {
                 font-size: 0.95rem;
             }
-        }
-        /* Vision timeline */
-        
-        .mv-vision {
-            padding: 48px 20px;
-            background: transparent;
-        }
-        
-        .mv-vision-inner {
-            max-width: 900px;
-            margin: 0 auto;
-            text-align: left;
-        }
-        
-        .mv-vision h2 {
-            font-size: 28px;
-            margin-bottom: 8px;
-        }
-        
-        .mv-vision-intro {
-            color: #444;
-            margin-bottom: 18px;
-        }
-        
-        .mv-timeline {
-            border-left: 3px solid rgba(0, 0, 0, 0.06);
-            padding-left: 22px;
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-        }
-        
-        .mv-step {
-            display: flex;
-            gap: 12px;
-            align-items: flex-start;
-            position: relative;
-        }
-        
-        .mv-dot {
-            width: 14px;
-            height: 14px;
-            background: #fff;
-            border: 3px solid #0047FF;
-            border-radius: 50%;
-            margin-top: 6px;
-        }
-        
-        .mv-step-body h4 {
-            margin: 0 0 6px;
-            font-size: 16px;
-            color: #111;
-        }
-        
-        .mv-step-body p {
-            margin: 0;
-            color: #555;
-            font-size: 14px;
-        }
-        /* make it inline center at small widths */
-        
-        @media (max-width:520px) {
-            .mv-vision-inner {
-                text-align: center
+            .section-card {
+                padding: 18px;
             }
-            .mv-timeline {
-                padding-left: 10px
-            }
-            .mv-step {
-                flex-direction: column;
-                align-items: center
-            }
-            .mv-step-body {
-                text-align: center
-            }
-        }
-        /* responsive */
-        
-        @media (max-width:880px) {
-            .mv-inner {
-                flex-direction: column-reverse
-            }
-            .mv-media {
-                width: 100%
-            }
-            .mv-text {
-                text-align: center
-            }
-            .mv-stats {
-                justify-content: center
+            section {
+                padding: 40px 14px;
             }
         }
     </style>
@@ -414,115 +398,129 @@
         </nav>
     </header>
 
-    <!-- Team Section -->
+    <!-- Team Section (now wrapped in white card/grid) -->
     <section>
-        <h2>WHO ARE WE</h2>
-        <p>Lazri Company is dedicated to delivering innovative IT solutions and services to help businesses thrive in a digital-first world. With a focus on customer satisfaction, integrity, and professionalism, we aim to set new standards in the industry.</p>
+        <div class="section-card">
+            <h2>WHO ARE WE</h2>
+            <p>Lazri Company is dedicated to delivering innovative IT solutions and services to help businesses thrive in a digital-first world. With a focus on customer satisfaction, integrity, and professionalism, we aim to set new standards in the industry.</p>
 
-        <div class="team-container">
-            <!-- Member 1 -->
-            <div class="card" tabindex="0">
-                <div class="card-header">
-                    <img src="./images/innocent.jpg" alt="Inocenti Gabriel">
+            <div class="team-container">
+                <!-- Member 1 -->
+                <div class="card" tabindex="0">
+                    <div class="card-header">
+                        <img src="./images/innocent.jpg" alt="Inocenti Gabriel">
+                    </div>
+                    <div class="card-body">
+                        <h3>Inocenti Gabriel</h3>
+                        <p><strong>CEO & Founder</strong></p>
+                        <p>Analyst and company development expert.</p>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <h3>Inocenti Gabriel</h3>
-                    <p><strong>CEO & Founder</strong></p>
-                    <p>Analyst and company development expert.</p>
-                </div>
-            </div>
 
-            <!-- Member 2 -->
-            <div class="card" tabindex="0">
-                <div class="card-header">
-                    <img src="images/janet.jpg" alt="Lucy Nguzo">
+                <!-- Member 2 -->
+                <div class="card" tabindex="0">
+                    <div class="card-header">
+                        <img src="images/janet.jpg" alt="Lucy Nguzo">
+                    </div>
+                    <div class="card-body">
+                        <h3>Lucy Nguzo</h3>
+                        <p><strong>Chief Executive Secretary & Founder</strong></p>
+                        <p>Chief assistant to the CEO and company records keeper.</p>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <h3>Lucy Nguzo</h3>
-                    <p><strong>Chief Executive Secretary & Founder</strong></p>
-                    <p>Chief assistant to the CEO and company records keeper.</p>
-                </div>
-            </div>
 
-            <!-- Member 3 -->
-            <div class="card" tabindex="0">
-                <div class="card-header">
-                    <img src="images/anthony.png" alt="Raynell Robert">
+                <!-- Member 3 -->
+                <div class="card" tabindex="0">
+                    <div class="card-header">
+                        <img src="images/anthony.png" alt="Raynell Robert">
+                    </div>
+                    <div class="card-body">
+                        <h3>Raynell Robert</h3>
+                        <p><strong>CFO & Founder</strong></p>
+                        <p>Accountant and financial affairs manager.</p>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <h3>Raynell Robert</h3>
-                    <p><strong>CFO & Founder</strong></p>
-                    <p>Accountant and financial affairs manager.</p>
-                </div>
-            </div>
 
-            <!-- Member 4 -->
-            <div class="card" tabindex="0">
-                <div class="card-header">
-                    <img src="images/innocent.jpg" alt="Zakaria Stephano">
+                <!-- Member 4 -->
+                <div class="card" tabindex="0">
+                    <div class="card-header">
+                        <img src="images/innocent.jpg" alt="Zakaria Stephano">
+                    </div>
+                    <div class="card-body">
+                        <h3>Zakaria Stephano</h3>
+                        <p><strong>COO, CHRO & Founder</strong></p>
+                        <p>Manager of all company operations & Human Resources.</p>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <h3>Zakaria Stephano</h3>
-                    <p><strong>COO, CHRO & Founder</strong></p>
-                    <p>Manager of all company operations & Human Resources.</p>
-                </div>
-            </div>
 
-            <!-- Member 5 -->
-            <div class="card" tabindex="0">
-                <div class="card-header">
-                    <img src="images/anthony.png" alt="Anthony Kapinga">
-                </div>
-                <div class="card-body">
-                    <h3>Anthony Kapinga</h3>
-                    <p><strong>CMO, CTO & Founder</strong></p>
-                    <p>Chief technology and innovation engineer & Head of marketing and public relations.</p>
+                <!-- Member 5 -->
+                <div class="card" tabindex="0">
+                    <div class="card-header">
+                        <img src="images/anthony.png" alt="Anthony Kapinga">
+                    </div>
+                    <div class="card-body">
+                        <h3>Anthony Kapinga</h3>
+                        <p><strong>CMO, CTO & Founder</strong></p>
+                        <p>Chief technology and innovation engineer & Head of marketing and public relations.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Mission section -->
+    <!-- Mission section (now white card with two-column feel) -->
     <section>
-        <h2>WHY WE ARE HERE</h2>
-        <p>To offer high-quality, affordable and customer-centric solutions that empower businesses and individuals to thrive in the digital era.</p>
+        <div class="section-card">
+            <h2>WHY WE ARE HERE</h2>
+            <div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;">
+                <div style="flex:1;min-width:260px;">
+                    <p>To offer high-quality, affordable and customer-centric solutions that empower businesses and individuals to thrive in the digital era.</p>
+                    <div style="margin-top:10px;">
+                        <a class="btn" href="contact.html">Get a Quote</a>
+                        <a style="margin-left:12px;border-radius:20px;padding:8px 14px;border:1px solid rgba(0,71,255,0.08);text-decoration:none;color:#0047FF;" href="our service.html">Explore Services</a>
+                    </div>
+                </div>
+                <div style="flex:1;min-width:220px;display:grid;place-items:center;">
+                    <!-- small illustrative SVG as a placeholder for an image -->
+                    <svg width="220" height="120" viewBox="0 0 220 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="mission illustration"><rect width="220" height="120" rx="10" fill="#f3f4f6"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#9ca3af" font-size="12">Illustration / Image</text></svg>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <!-- Vision: Timeline -->
-    <section class="mv-vision">
-        <div class="mv-vision-inner">
+    <!-- Vision section (now white card with timeline-like bullets) -->
+    <section>
+        <div class="section-card">
             <h2>WHAT WE WANT TO BECOME</h2>
-            <p class="mv-vision-intro">To be a globally recognized leader in innovative technology solutions, renowned for our commitment to excellence, customer satisfaction, and positive impact on society.</p>
+            <p>To be a globally recognized leader in innovative technology solutions, renowned for our commitment to excellence, customer satisfaction, and positive impact on society.</p>
 
-            <div class="mv-timeline" role="list">
-                <div class="mv-step" role="listitem">
-                    <div class="mv-dot"></div>
-                    <div class="mv-step-body">
-                        <h4>2025 — Strengthen Local Impact</h4>
-                        <p>Expand partnerships with SMEs across Tanzania and East Africa to deliver tailored digital solutions.</p>
+            <div style="display:grid;gap:14px;margin-top:8px;">
+                <div style="display:flex;gap:12px;align-items:flex-start;">
+                    <div style="width:14px;height:14px;border-radius:50%;background:#0047FF;margin-top:6px;"></div>
+                    <div>
+                        <strong>2025 — Strengthen Local Impact</strong>
+                        <div style="color:#555;">Expand partnerships with SMEs across Tanzania and East Africa to deliver tailored digital solutions.</div>
                     </div>
                 </div>
 
-                <div class="mv-step" role="listitem">
-                    <div class="mv-dot"></div>
-                    <div class="mv-step-body">
-                        <h4>2027 — Regional Recognition</h4>
-                        <p>Grow product offerings and earn recognition through case studies that demonstrate measurable client success.</p>
+                <div style="display:flex;gap:12px;align-items:flex-start;">
+                    <div style="width:14px;height:14px;border-radius:50%;background:#0047FF;margin-top:6px;"></div>
+                    <div>
+                        <strong>2027 — Regional Recognition</strong>
+                        <div style="color:#555;">Grow product offerings and earn recognition through case studies that demonstrate measurable client success.</div>
                     </div>
                 </div>
 
-                <div class="mv-step" role="listitem">
-                    <div class="mv-dot"></div>
-                    <div class="mv-step-body">
-                        <h4>2030 — Global Quality Standards</h4>
-                        <p>Operate with internationally certified processes while staying true to local value and affordability.</p>
+                <div style="display:flex;gap:12px;align-items:flex-start;">
+                    <div style="width:14px;height:14px;border-radius:50%;background:#0047FF;margin-top:6px;"></div>
+                    <div>
+                        <strong>2030 — Global Quality Standards</strong>
+                        <div style="color:#555;">Operate with internationally certified processes while staying true to local value and affordability.</div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- End Vision -->
-
 
     <!-- ===== Integrated Core Values (placed directly AFTER Vision section) ===== -->
     <section id="core-values" aria-labelledby="core-values-heading">

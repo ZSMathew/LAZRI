@@ -304,6 +304,97 @@
                 font-size: 0.95rem;
             }
         }
+        /* Vision timeline */
+        
+        .mv-vision {
+            padding: 48px 20px;
+            background: transparent;
+        }
+        
+        .mv-vision-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        
+        .mv-vision h2 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+        
+        .mv-vision-intro {
+            color: #444;
+            margin-bottom: 18px;
+        }
+        
+        .mv-timeline {
+            border-left: 3px solid rgba(0, 0, 0, 0.06);
+            padding-left: 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        
+        .mv-step {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            position: relative;
+        }
+        
+        .mv-dot {
+            width: 14px;
+            height: 14px;
+            background: #fff;
+            border: 3px solid #0047FF;
+            border-radius: 50%;
+            margin-top: 6px;
+        }
+        
+        .mv-step-body h4 {
+            margin: 0 0 6px;
+            font-size: 16px;
+            color: #111;
+        }
+        
+        .mv-step-body p {
+            margin: 0;
+            color: #555;
+            font-size: 14px;
+        }
+        /* make it inline center at small widths */
+        
+        @media (max-width:520px) {
+            .mv-vision-inner {
+                text-align: center
+            }
+            .mv-timeline {
+                padding-left: 10px
+            }
+            .mv-step {
+                flex-direction: column;
+                align-items: center
+            }
+            .mv-step-body {
+                text-align: center
+            }
+        }
+        /* responsive */
+        
+        @media (max-width:880px) {
+            .mv-inner {
+                flex-direction: column-reverse
+            }
+            .mv-media {
+                width: 100%
+            }
+            .mv-text {
+                text-align: center
+            }
+            .mv-stats {
+                justify-content: center
+            }
+        }
     </style>
 </head>
 
@@ -397,11 +488,41 @@
         <p>To offer high-quality, affordable and customer-centric solutions that empower businesses and individuals to thrive in the digital era.</p>
     </section>
 
-    <!-- Vision section -->
-    <section>
-        <h2>WHAT WE WANT TO BECOME</h2>
-        <p>To be a globally recognized leader in innovative technology solutions, renowned for our commitment to excellence, customer satisfaction, and positive impact on society.</p>
+    <!-- Vision: Timeline -->
+    <section class="mv-vision">
+        <div class="mv-vision-inner">
+            <h2>WHAT WE WANT TO BECOME</h2>
+            <p class="mv-vision-intro">To be a globally recognized leader in innovative technology solutions, renowned for our commitment to excellence, customer satisfaction, and positive impact on society.</p>
+
+            <div class="mv-timeline" role="list">
+                <div class="mv-step" role="listitem">
+                    <div class="mv-dot"></div>
+                    <div class="mv-step-body">
+                        <h4>2025 — Strengthen Local Impact</h4>
+                        <p>Expand partnerships with SMEs across Tanzania and East Africa to deliver tailored digital solutions.</p>
+                    </div>
+                </div>
+
+                <div class="mv-step" role="listitem">
+                    <div class="mv-dot"></div>
+                    <div class="mv-step-body">
+                        <h4>2027 — Regional Recognition</h4>
+                        <p>Grow product offerings and earn recognition through case studies that demonstrate measurable client success.</p>
+                    </div>
+                </div>
+
+                <div class="mv-step" role="listitem">
+                    <div class="mv-dot"></div>
+                    <div class="mv-step-body">
+                        <h4>2030 — Global Quality Standards</h4>
+                        <p>Operate with internationally certified processes while staying true to local value and affordability.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
+    <!-- End Vision -->
+
 
     <!-- ===== Integrated Core Values (placed directly AFTER Vision section) ===== -->
     <section id="core-values" aria-labelledby="core-values-heading">

@@ -8,6 +8,13 @@
   <style>
     * { margin:0; padding:0; box-sizing:border-box; font-family: 'Poppins', sans-serif;}
     body { background:#f0f4f8; color:#333; scroll-behavior:smooth; }
+    /* { font-family: Arial, sans-serif; background:#f4f4f4; padding:20px; } */
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px; }
+    .card { background:white; border-radius:8px; overflow:hidden; box-shadow:0 2px 6px rgba(0,0,0,0.1); }
+    img { width:100%; height:180px; object-fit:cover; }
+    .card-body { padding:15px; }
+    h3 { margin:0 0 10px; }
+    p { font-size:14px; color:#555; }
 
     /* Hero Banner */
     .hero {
@@ -120,6 +127,19 @@
     </div>
 
     <div class="projects-grid">
+      <?php
+      $result = $conn->query("SELECT * FROM projects ORDER BY created_at DESC");
+      while($row = $result->fetch_assoc()){
+        echo "<div class='card'>
+          <img src='{$row['image_path']}' alt='{$row['title']}'>
+          <div class='card-body'>
+            <h3>{$row['title']}</h3>
+            <p>{$row['description']}</p>
+            <small>{$row['category']}</small>
+          </div>
+        </div>";
+      }
+    ?>
       <div class="project-card" data-category="web">
         <img src="images/Logo.png" alt="Web Project">
         <div class="project-content">

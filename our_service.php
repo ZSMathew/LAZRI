@@ -6,7 +6,6 @@
   <title>Lazri Company - Our Services</title>
 
   <style>
-  <style>
 :root {
   --blue: #0b66ff;
   --dark-blue: #053a9b;
@@ -28,6 +27,7 @@ body {
 .container { max-width: 99%; margin: auto; padding: 20px; }
 section { scroll-margin-top: 80px; }
 
+/* ====== HEADER ====== */
 header {
   background: var(--dark-blue);
   display: flex;
@@ -43,21 +43,35 @@ header img { height: 50px; }
 nav ul { display: flex; gap: 20px; list-style: none; }
 nav ul li { position: relative; }
 nav ul li a {
+  position: relative;
   text-decoration: none;
   color: var(--white);
   font-weight: 500;
   padding: 8px 12px;
-  transition: 0.3s;
+  transition: color 0.3s;
 }
-nav ul li a:hover { color: black; }
+nav ul li a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 0%;
+  background: var(--white);
+  transition: width 0.3s ease;
+}
+nav ul li a:hover { color: var(--muted); }
+nav ul li a:hover::after { width: 100%; }
+nav ul li a.active::after { width: 100%; }
 
-/* Hero */
+/* ====== HERO ====== */
 .hero {
   display: grid;
   grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
   gap: 30px;
   align-items: center;
   padding: 40px 0;
+  animation: fadeIn 1.2s ease-in-out;
 }
 .hero-left h2 { font-size: 28px; color: var(--dark-blue); margin-bottom: 12px; }
 .hero-left p { color: var(--muted); margin-bottom: 20px; }
@@ -68,19 +82,20 @@ nav ul li a:hover { color: black; }
   cursor: pointer;
   font-weight: 600;
   border: none;
-  transition: 0.3s;
+  transition: transform 0.3s, background 0.3s;
 }
 .btn-primary { background: var(--blue); color: var(--white); }
-.btn-primary:hover { background: var(--dark-blue); }
+.btn-primary:hover { background: var(--dark-blue); transform: scale(1.05); }
 .hero-image img {
   width: 100%;
   max-height: 350px;
   border-radius: var(--radius);
   object-fit: cover;
   box-shadow: var(--shadow);
+  animation: zoomIn 2s ease-in-out;
 }
 
-/* Services */
+/* ====== SERVICES ====== */
 .services {
   display: grid;
   grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
@@ -92,9 +107,18 @@ nav ul li a:hover { color: black; }
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   padding: 16px;
-  transition: transform 0.3s;
+  transition: transform 0.3s, box-shadow 0.3s;
+  opacity: 0;
+  animation: slideUp 1s ease forwards;
 }
-.card:hover { transform: translateY(-5px); }
+.card:nth-child(1){animation-delay:0.3s;}
+.card:nth-child(2){animation-delay:0.6s;}
+.card:nth-child(3){animation-delay:0.9s;}
+.card:nth-child(4){animation-delay:1.2s;}
+.card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
 .card img {
   width: 100%;
   height: 160px;
@@ -107,16 +131,17 @@ nav ul li a:hover { color: black; }
 
 ul{ margin-left: 2rem; }
 
-/* Footer */
+/* ====== FOOTER ====== */
 footer {
   background: var(--muted);
   color: var(--white);
   text-align: center;
   padding: 20px;
   margin-top: 40px;
+  animation: fadeIn 1.5s ease-in;
 }
 
-/* Form Inputs */
+/* ====== FORM INPUTS ====== */
 .form-group { position: relative; margin-bottom: 16px; }
 .form-group input,
 .form-group textarea,
@@ -126,7 +151,7 @@ footer {
   border: 1px solid #ddd;
   border-radius: 10px;
   font-size: 15px;
-  background: transparent;
+  background: var(--white);
   transition: 0.3s;
 }
 .form-group input:hover,
@@ -134,14 +159,14 @@ footer {
 .styled-select:hover {
   border-color: var(--blue);
   background: #fff;
-  box-shadow: 0 0 6px rgba(0,123,255,0.3);
+  box-shadow: 0 0 6px var(--dark-blue);
 }
 .form-group input:focus,
 .form-group textarea:focus,
 .styled-select:focus {
   outline: none;
   border-color: var(--dark-blue);
-  box-shadow: 0 0 8px rgba(0,86,179,0.4);
+  box-shadow: 0 0 8px var(--dark-blue);
 }
 .form-group label {
   position: absolute;
@@ -165,7 +190,7 @@ footer {
   color: var(--blue);
 }
 
-/* Popup Modal */
+/* ====== POPUP MODAL ====== */
 .modal {
   display: none;
   position: fixed;
@@ -178,7 +203,7 @@ footer {
   background-color: rgba(0,0,0,0.5);
 }
 .modal-content {
-  background: var(--white);
+  background: var(--gray);
   margin: 5% auto;
   padding: 20px;
   border-radius: var(--radius);
@@ -195,9 +220,19 @@ footer {
   cursor: pointer;
 }
 .close:hover { color: var(--dark-blue); }
+
+/* ====== ANIMATIONS ====== */
 @keyframes fadeIn {
-  from {opacity: 0; transform: scale(0.9);}
-  to {opacity: 1; transform: scale(1);}
+  from {opacity: 0; transform: translateY(20px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+@keyframes slideUp {
+  from {opacity:0; transform: translateY(40px);}
+  to {opacity:1; transform: translateY(0);}
+}
+@keyframes zoomIn {
+  from {transform: scale(0.9); opacity:0;}
+  to {transform: scale(1); opacity:1;}
 }
   </style>
 </head>
@@ -242,7 +277,7 @@ $sql = "INSERT INTO orders (fullname,email,phone,service,otherservice,details)
     <nav>
       <ul>
         <li><a href="index.html"><b>Home</b></a></li>
-        <li><a href="our service.html"><b>Our Services</b></a></li>
+        <li><a href="our service.html" class="active"><b>Our Services</b></a></li>
         <li><a href="Project.html"><b>Our Projects</b></a></li>
         <li><a href="About.html"><b>About Us</b></a></li>
         <li><a href="contact.html"><b>Contact Us</b></a></li>
@@ -395,9 +430,9 @@ $sql = "INSERT INTO orders (fullname,email,phone,service,otherservice,details)
     // slide images
     const images = [
       "./images/serv.jpg",
-      "./images/ict.jpg",
-      "./images/cctv.jpg",
-      "./images/malt.jpg"
+      "./images/campany.jpg",
+      "./images/company5.jpg",
+      "./images/company3.jpg"
     ];
     let index = 0; 
     const slide = document.getElementById("slideshow");

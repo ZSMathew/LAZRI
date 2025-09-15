@@ -78,7 +78,7 @@ nav ul li a::after {
   background: var(--white);
   transition: width 0.3s ease;
 }
-nav ul li a:hover { color: var(--muted); }
+nav ul li a:hover { color: #ffd700 }
 nav ul li a:hover::after { width: 100%; }
 nav ul li a.active {
   color: #ffd700;

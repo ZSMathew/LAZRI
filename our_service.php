@@ -67,7 +67,6 @@ nav ul li a.active {
   font-weight: bold;}
 
 nav ul li a.active::after { width: 100%; }  
-
 /* ====== HERO ====== */
 .hero {
   display: grid;

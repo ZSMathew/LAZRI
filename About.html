@@ -1,72 +1,108 @@
 <!DOCTYPE html>
-<html lang="sw">
+<html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lazri Company - About Us</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lazri Company - About Us</title>
 
-  <style>
-:root {
-  --blue: #0b66ff;
-  --dark-blue: #053a9b;
-  --gray: #f3f4f6;
-  --muted: rgb(63, 63, 63);
-  --white: #ffffff;
-  --shadow: 0 4px 10px rgba(0,0,0,0.1);
-  --radius: 12px;
-}
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  font-family: "Segoe UI", Arial, sans-serif;
-  background: #f8fbff;
-  color: #0f1724;
-  line-height: 1.6;
-}
-
-.container { max-width: 99%; margin: auto; padding: 20px; }
-section { scroll-margin-top: 80px; }
-
-/* ====== HEADER ====== */
-header {
-  background: var(--dark-blue);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 24px;
-  box-shadow: var(--shadow);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-header img { height: 50px; }
-nav ul { display: flex; gap: 20px; list-style: none; }
-nav ul li { position: relative; }
-nav ul li a {
-  position: relative;
-  text-decoration: none;
-  color: var(--white);
-  font-weight: 500;
-  padding: 8px 12px;
-  transition: color 0.3s;
-}
-nav ul li a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 2px;
-  width: 0%;
-  background: var(--white);
-  transition: width 0.3s ease;
-}
-nav ul li a:hover { color: #ffd700 }
-nav ul li a:hover::after { width: 100%; }
-nav ul li a.active {
-  color: #ffd700;
-  font-weight: bold;}
-
-nav ul li a.active::after { width: 100%; }  
+    <style>
+         :root {
+            --blue: #0b66ff;
+            --dark-blue: #053a9b;
+            --gray: #f3f4f6;
+            --muted: rgb(63, 63, 63);
+            --white: #ffffff;
+            --shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            --radius: 12px;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f8fbff;
+            color: #0f1724;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 99%;
+            margin: auto;
+            padding: 20px;
+        }
+        
+        section {
+            scroll-margin-top: 80px;
+        }
+        /* ====== HEADER ====== */
+        
+        header {
+            background: var(--dark-blue);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 24px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        header img {
+            height: 50px;
+        }
+        
+        nav ul {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+        
+        nav ul li {
+            position: relative;
+        }
+        
+        nav ul li a {
+            position: relative;
+            text-decoration: none;
+            color: var(--white);
+            font-weight: 500;
+            padding: 8px 12px;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 2px;
+            width: 0%;
+            background: var(--white);
+            transition: width 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: #ffd700
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        nav ul li a.active {
+            color: #ffd700;
+            font-weight: bold;
+        }
+        
+        nav ul li a.active::after {
+            width: 100%;
+        }
         /* Section base */
         
         section {
@@ -154,7 +190,7 @@ nav ul li a.active::after { width: 100%; }
             max-width: 280px;
             background: #fff;
             border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
             overflow: hidden;
             text-align: center;
             margin-bottom: 20px;
@@ -235,23 +271,23 @@ nav ul li a.active::after { width: 100%; }
         .btn:hover {
             background: #0033cc;
         }
-/* ====== FOOTER ====== */
-footer {
-  background: var(--muted);
-  color: var(--white);
-  text-align: center;
-  padding: 20px;
-  margin-top: 40px;
-  animation: fadeIn 1.5s ease-in;
-}
-
+        /* ====== FOOTER ====== */
+        
+        footer {
+            background: var(--muted);
+            color: var(--white);
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            animation: fadeIn 1.5s ease-in;
+        }
         /* ===== Section card wrapper (white table/grid look) ===== */
         
         .section-card {
             background: #fff;
             padding: 22px;
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
             border: 1px solid rgba(0, 0, 0, 0.04);
             max-width: 1100px;
             margin: 0 auto 30px auto;
@@ -282,6 +318,7 @@ footer {
             max-width: 1100px;
             margin: 0 auto;
         }
+        /* Replace the existing #core-values header rule with this */
         
         #core-values header {
             display: flex;
@@ -291,6 +328,17 @@ footer {
             text-align: center;
             gap: 8px;
             margin-bottom: 18px;
+            /* Make header white and visually separate it */
+            background: #ffffff;
+            padding: 16px 18px;
+            border-radius: 8px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+            width: calc(100% - 48px);
+            /* keep some breathing room inside cv-wrapper */
+            max-width: 980px;
+            /* optional: prevents it stretching too wide on very large screens */
+            margin-left: auto;
+            margin-right: auto;
         }
         
         #core-values h2 {
@@ -409,7 +457,7 @@ footer {
             padding: 14px;
             border-radius: 10px;
             border: 1px solid rgba(0, 0, 0, 0.04);
-            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
             transition: transform .18s ease, box-shadow .18s ease;
         }
         
@@ -473,19 +521,19 @@ footer {
 
 <body>
 
-  <!-- Header -->
-  <header>
-    <h1><img src="./images/Logo2.png" alt="Lazri Logo"></h1>
-    <nav>
-      <ul>
-        <li><a href="index.html"><b>Home</b></a></li>
-        <li><a href="our service.html"><b>Our Services</b></a></li>
-        <li><a href="Project.html"><b>Our Projects</b></a></li>
-        <li><a href="About.html" class="active"><b>About Us</b></a></li>
-        <li><a href="contact.html"><b>Contact Us</b></a></li>
-      </ul>
-    </nav>
-  </header>
+    <!-- Header -->
+    <header>
+        <h1><img src="./images/Logo2.png" alt="Lazri Logo"></h1>
+        <nav>
+            <ul>
+                <li><a href="index.html"><b>Home</b></a></li>
+                <li><a href="our service.html"><b>Our Services</b></a></li>
+                <li><a href="Project.html"><b>Our Projects</b></a></li>
+                <li><a href="About.html" class="active"><b>About Us</b></a></li>
+                <li><a href="contact.html"><b>Contact Us</b></a></li>
+            </ul>
+        </nav>
+    </header>
     <!-- Team Section (now wrapped in white card/grid) -->
     <section>
         <div class="section-card">

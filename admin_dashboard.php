@@ -57,11 +57,40 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] !== true) {
       <meta name="viewport" content="width=device-width,initial-scale=1">
       <title>Admin Login - Lazri</title>
       <style>
-        body{font-family:Arial,Segoe UI;background:#f4f7fb;display:flex;align-items:center;justify-content:center;height:100vh}
-        .card{background:#fff;padding:28px;border-radius:12px;box-shadow:0 6px 24px rgba(10,20,40,0.08);width:360px}
-        input{width:100%;padding:10px;margin:8px 0;border-radius:8px;border:1px solid #ddd}
-        button{background:#0b66ff;color:#fff;padding:10px;border-radius:8px;border:none;width:100%}
-        .err{color:#c53030;margin-bottom:10px}
+        body{
+          font-family:Arial,Segoe UI;
+          background:#f4f7fb;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          height:100vh;
+        }
+        .card{
+          background:#fff;
+          padding:28px;
+          border-radius:12px;
+          box-shadow:0 6px 24px rgba(10,20,40,0.08);
+          width:360px
+        }
+        input{
+          width:100%;
+          padding:10px;
+          margin:8px 0;
+          border-radius:8px;
+          border:1px solid #ddd;
+        }
+        button{
+          background:#0b66ff;
+          color:#fff;
+          padding:10px;
+          border-radius:8px;
+          border:none;
+          width:100%;
+        }
+        .err{
+          color:#c53030;
+          margin-bottom:10px
+        }
       </style>
     </head>
     <body>
@@ -183,33 +212,130 @@ $orders_count = $orders_res ? $orders_res->num_rows : 0;
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Admin Dashboard - Lazri</title>
   <style>
-    :root{--blue:#0b66ff;--dark:#053a9b;--muted:#6b7280}
-    body{font-family:Segoe UI,Arial;background:#f3f6fb;margin:0}
-    header{background:var(--dark);color:#fff;padding:12px 20px;display:flex;justify-content:space-between;align-items:center}
-    .container{max-width:1200px;margin:20px auto;padding:0 16px}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-    .card{background:#fff;padding:16px;border-radius:12px;box-shadow:0 8px 30px rgba(12,24,40,0.06)}
-    table{width:100%;border-collapse:collapse}
-    th,td{padding:10px;border-bottom:1px solid #eee;text-align:left}
-    img.thumb{width:100px;height:60px;object-fit:cover;border-radius:8px}
-    .actions button{margin-right:6px}
-    .btn{background:var(--blue);color:#fff;padding:8px 12px;border-radius:8px;border:none;cursor:pointer}
-    .danger{background:#e11d48}
-    form.inline{display:inline}
-    .msg{padding:10px;background:#e6ffed;border:1px solid #b7f3c7;margin-bottom:12px;border-radius:8px;
-          position: fixed; top: 20px; right: 20px; z-index: 999; box-shadow:0 4px 12px rgba(0,0,0,0.1);
-          opacity: 0; animation: fadein 0.5s forwards, fadeout 0.5s 3.5s forwards;}
-    @keyframes fadein {from {opacity:0; transform: translateY(-10px);} to {opacity:1; transform: translateY(0);}}
-    @keyframes fadeout {from {opacity:1;} to {opacity:0;}}
-    input,select,textarea{width:100%;padding:8px;border-radius:8px;border:1px solid #ddd;margin:6px 0}
-    .small{font-size:13px;color:var(--muted)}
+:root {
+  --blue: #0b66ff;
+  --dark-blue: #053a9b;
+  --gray: #f3f4f6;
+  --muted: rgb(63, 63, 63);
+  --white: #ffffff;
+  --shadow: 0 4px 10px rgba(0,0,0,0.1);
+  --radius: 12px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+    body{
+      font-family:Segoe UI,Arial;
+      background:#f3f6fb;
+      margin:0;
+    }
+header {
+  background: var(--dark-blue);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+header img { 
+  height: 50px; 
+}
+    .container{
+      max-width:1200px;
+      margin:20px auto;
+      padding:0 16px;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:16px;
+    }
+    .card{
+      background:#fff;
+      padding:16px;
+      border-radius:12px;
+      box-shadow:0 8px 30px rgba(12,24,40,0.06);
+    }
+    table{
+      width:100%;
+      border-collapse:collapse;
+    }
+    th,td{
+      padding:10px;
+      border-bottom:1px solid #eee;
+      text-align:left;
+    }
+    img.thumb{
+      width:100px;
+      height:60px;
+      object-fit:cover;
+      border-radius:8px;
+    }
+    .actions button{
+      margin-right:6px;
+    }
+    .btn{
+      background:var(--blue);
+      color:#fff;
+      padding:8px 12px;
+      border-radius:8px;
+      border:none;cursor:pointer;
+    }
+    .danger{
+      background:#e11d48;
+    }
+    form.inline{
+      display:inline;
+    }
+.msg {
+    padding: 10px;
+    background: #e6ffed;
+    border: 1px solid #b7f3c7;
+    border-radius: 8px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    opacity: 0;
+    animation: fadein 0.5s forwards, fadeout 0.5s 7.5s forwards;
+}
+
+@keyframes fadein {
+    from {opacity:0; transform: translate(-50%, -60%);}
+    to {opacity:1; transform: translate(-50%, -50%);}
+}
+
+@keyframes fadeout {
+    from {opacity:1;}
+    to {opacity:0;}
+}
+    input,select,textarea{
+      width:100%;
+      padding:8px;
+      border-radius:8px;
+      border:1px solid #ddd;
+      margin:6px 0;
+    }
+    .small{
+      font-size:13px;
+      color:var(--muted)
+    }
+
+.h{
+  text-align: center;
+}
   </style>
 </head>
 <body>
   <header>
-    <div><strong>Lazri Admin</strong></div>
+      <h1><img src="./images/Logo2.png" alt="Lazri Logo"></h1>
+    <div class="h"><strong>Lazri Admin</strong></div>
     <div>
-      <a href="../index.php" style="color:#fff;text-decoration:none;margin-right:12px">View Site</a>
+      <a href="index.php" style="color:#fff;text-decoration:none;margin-right:12px">View Site</a>
       <a href="?action=logout" style="color:#fff;text-decoration:none">Logout</a>
     </div>
   </header>

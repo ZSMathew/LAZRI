@@ -1,0 +1,343 @@
+<?php
+// ====== DB Connection ======
+$host = "localhost";
+$user = "root"; // badilisha kulingana na user wako
+$pass = "";     // password ya DB
+$db   = "lazri"; 
+
+$conn = new mysqli($host, $user, $pass, $db);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Kusoma projects zote
+$sql = "SELECT * FROM projects ORDER BY created_at DESC";
+$result = $conn->query($sql);
+?>
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Our completed, ongoing and upcoming projects at Lazri Company Limited.">
+  <title>Lazri Company - Our Projects</title>
+    <style>
+:root {
+  --blue: #0b66ff;
+  --dark-blue: #053a9b;
+  --gray: #f3f4f6;
+  --muted: rgb(63, 63, 63);
+  --white: #ffffff;
+  --shadow: 0 4px 10px rgba(0,0,0,0.1);
+  --radius: 12px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #f8fbff;
+  color: #0f1724;
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* body lazima iwe angalau screen nzima */
+}
+
+/* ====== HEADER ====== */
+header {
+  background: var(--dark-blue);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  flex-wrap: wrap;
+}
+header img { height: 50px; }
+nav ul { display: flex; gap: 20px; list-style: none; flex-wrap: wrap; }
+nav ul li { position: relative; }
+nav ul li a {
+  position: relative;
+  text-decoration: none;
+  color: var(--white);
+  font-weight: 500;
+  padding: 8px 12px;
+  transition: color 0.3s;
+}
+nav ul li a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 0%;
+  background: var(--white);
+  transition: width 0.3s ease;
+}
+nav ul li a:hover { color: var(--muted); }
+nav ul li a:hover::after { width: 100%; }
+nav ul li a.active {
+  color: #ffd700;
+  font-weight: bold;
+}
+nav ul li a.active::after { width: 100%; }
+
+.h1{
+  text-align: center;
+  margin-top: 1rem;
+}
+
+/* Filter Buttons */
+.filter-buttons {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.filter-buttons button {
+  background: #fff;
+  border: 2px solid var(--dark-blue);
+  color: var(--dark-blue);
+  padding: 0.6rem 1.2rem;
+  margin: 0.3rem;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-buttons button.active,
+.filter-buttons button:hover {
+  background: var(--dark-blue);
+  color: #fff;
+}
+
+main {
+  flex: 1; /* Hii ndio inasukuma footer chini */
+  display: flex;
+  flex-direction: column;
+}
+
+section {
+  padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: auto;
+  width: 100%;
+}
+
+section h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: var(--dark-blue);
+  position: relative;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease;
+}
+
+section h2.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+section h2::after {
+  content: '';
+  width: 60px;
+  height: 3px;
+  background: var(--dark-blue);
+  display: block;
+  margin: 0.5rem auto 0;
+  border-radius: 2px;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.project-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  overflow: hidden;
+  transform: translateY(40px);
+  opacity: 0;
+  transition: transform 0.6s ease, box-shadow 0.3s ease, opacity 0.6s ease;
+}
+
+.project-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.project-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.project-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.project-card:hover .project-image {
+  transform: scale(1.1);
+}
+
+.project-content {
+  padding: 1.2rem;
+}
+
+.project-content h3 {
+  font-size: 1.3rem;
+  margin-bottom: .5rem;
+  color: var(--dark-blue);
+}
+
+.project-content p {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+footer {
+  background: var(--muted);
+  color: #fff;
+  text-align: center;
+  padding: 1.5rem;
+}
+
+footer p {
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+
+/* Hidden class for filter */
+.project-card.hidden {
+  opacity: 0;
+  transform: scale(0.9);
+  pointer-events: none;
+  transition: all 0.4s ease;
+  display: none; /* fix layout */
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .filter-buttons button {
+    width: 100%;
+  }
+  header {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <h1><img src="./images/Logo2.png" alt="Lazri Company Logo"></h1>
+    <nav>
+      <ul>
+        <li><a href="index.php"><b>Home</b></a></li>
+        <li><a href="our_service.php"><b>Our Services</b></a></li>
+        <li><a href="Project.php" class="active"><b>Our Projects</b></a></li>
+        <li><a href="About.php"><b>About Us</b></a></li>
+        <li><a href="contact.php"><b>Contact Us</b></a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main content -->
+  <main>
+    <div class="h1">
+      <h1>Our Projects</h1>
+      <p>The Work We Have Done, We Are Doing and We Plan to Do</p>
+    </div>
+
+    <!-- Filter Buttons -->
+    <div class="filter-buttons">
+      <button class="active" data-filter="all">All</button>
+      <button data-filter="completed">✅ Completed</button>
+      <button data-filter="ongoing">🔄 Ongoing</button>
+      <button data-filter="upcoming">🚀 Upcoming</button>
+    </div>
+
+    <!-- Projects Section -->
+    <section>
+      <div class="projects-grid">
+        <?php if ($result->num_rows > 0): ?>
+          <?php while($row = $result->fetch_assoc()): ?>
+            <div class="project-card <?php echo htmlspecialchars($row['category']); ?>">
+              <img src="uploads/<?php echo htmlspecialchars($row['image']); ?>" 
+                   alt="<?php echo htmlspecialchars($row['title']); ?>" 
+                   class="project-image" loading="lazy">
+              <div class="project-content">
+                <h3><?php echo htmlspecialchars($row['title']); ?></h3>
+                <p><?php echo htmlspecialchars($row['description']); ?></p>
+              </div>
+            </div>
+          <?php endwhile; ?>
+        <?php else: ?>
+          <p style="text-align:center; color:red;">No projects uploaded yet.</p>
+        <?php endif; ?>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Lazri Company Limited. All Rights Reserved.</p>
+  </footer>
+
+  <!-- Scroll Reveal & Filter Script -->
+  <script>
+    // Scroll Reveal
+    const elements = document.querySelectorAll("section h2, .project-card");
+    const revealOnScroll = () => {
+      let windowHeight = window.innerHeight;
+      elements.forEach(el => {
+        let position = el.getBoundingClientRect().top;
+        if (position < windowHeight - 100) {
+          el.classList.add("visible");
+        }
+      });
+    };
+    window.addEventListener("scroll", revealOnScroll);
+    window.addEventListener("load", revealOnScroll);
+
+    // Filter Function
+    const buttons = document.querySelectorAll(".filter-buttons button");
+    const cards = document.querySelectorAll(".project-card");
+    buttons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        buttons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        const filter = btn.getAttribute("data-filter");
+        cards.forEach(card => {
+          if (filter === "all" || card.classList.contains(filter)) {
+            card.style.display = "block";
+            setTimeout(() => {
+              card.classList.remove("hidden");
+              card.classList.add("visible");
+            }, 50);
+          } else {
+            card.classList.remove("visible");
+            setTimeout(() => {
+              card.classList.add("hidden");
+              card.style.display = "none";
+            }, 400);
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
+<?php $conn->close(); ?>

@@ -245,7 +245,7 @@ footer {
 $host = "localhost"; 
 $user = "root";      // weka user wa db
 $pass = "";          // password ya db
-$db   = "LAZRI";  
+$db   = "lazri";  
 
 $conn = new mysqli($host, $user, $pass, $db);
 if ($conn->connect_error) {

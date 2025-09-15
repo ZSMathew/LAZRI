@@ -327,6 +327,8 @@ header img {
 
 .h{
   text-align: center;
+   color: var(--white);
+ font-weight: 100;
 }
   </style>
 </head>

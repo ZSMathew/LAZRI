@@ -277,11 +277,11 @@ $sql = "INSERT INTO orders (fullname,email,phone,service,otherservice,details)
     <h1><img src="./images/Logo2.png" alt="Lazri Logo"></h1>
     <nav>
       <ul>
-        <li><a href="index.html"><b>Home</b></a></li>
+        <li><a href="index.php"><b>Home</b></a></li>
         <li><a href="our_service.php" class="active"><b>Our Services</b></a></li>
         <li><a href="Project.php"><b>Our Projects</b></a></li>
-        <li><a href="About.html"><b>About Us</b></a></li>
-        <li><a href="contact.html"><b>Contact Us</b></a></li>
+        <li><a href="About.php"><b>About Us</b></a></li>
+        <li><a href="contact.php"><b>Contact Us</b></a></li>
       </ul>
     </nav>
   </header>

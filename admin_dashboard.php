@@ -328,7 +328,15 @@ header img {
 .h{
   text-align: center;
    color: var(--white);
- font-weight: 100;
+   font-size: xx-large;
+}
+a {
+  color: var(--white);
+  font-weight: 500;
+}
+
+header a:hover {
+  color: #ffd700 !important;
 }
   </style>
 </head>

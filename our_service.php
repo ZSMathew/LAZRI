@@ -360,26 +360,71 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </nav>
 </header>
 
-<!-- Hero -->
-<main class="container">
-  <section class="hero">
-    <div class="hero-left">
-      <h2>We serve you digitally — Security, Quality, Innovation, & Implementation.</h2>
-      <p>LAZRI is a company established in 2025 by a team of professionals; we provide Website Development & Design, ICT consultancy & Maintenance, CCTV installation, and multimedia solutions to grow your business in a secure and modern way.</p>
-      <div class="hero-actions">
-        <button class="btn btn-primary" onclick="scrollToSection('huduma')">Check out Services</button>
-        <a href="faq.html"><button class="btn btn-primary">Ask Any Question & FAQ</button></a>
-        <button class="btn btn-primary" onclick="openModal()">Place order</button>
+  <!-- Hero -->
+  <main class="container">
+    <section class="hero">
+      <div class="hero-left">
+        <h2>We serve you digitally — Security, Quality, Innovation, & Implementation.</h2>
+        <p>LAZRI is a company established in 2025 by a team of professionals; we provide Website Development & Design, ICT consultancy & Maintenance, CCTV installation, and multimedia solutions to grow your business in a secure and modern way.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" onclick="scrollToSection('huduma')">Check out Services</button>
+          <a href="faq.html"><button class="btn btn-primary">Ask Any Question & FAQ</button></a>
+          <button class="btn btn-primary" onclick="openModal()">Place order</button>
+        </div>
       </div>
-    </div>
-    <div class="hero-image">
-      <img id="slideshow" src="./images/serv.jpg" alt="Our Services">
-    </div>
-  </section>
+      <div class="hero-image">
+        <img id="slideshow" src="./images/serv.jpg" alt="Our Services">
+      </div>
+    </section>
 
-  <!-- Services Section omitted for brevity; copy your original here -->
-
-</main>
+    <!-- Services -->
+    <section id="huduma">
+      <h2>Services We Provide</h2>
+      <p class="muted">Our services are focused on the market and the needs of modern customers.</p>
+      <div class="services">
+        <div class="card">
+          <img src="./images/ict.jpg" alt="ICT">
+          <h3>ICT Services & Consultancy</h3>
+          <p>We provide IT consulting, systems development, network management, cloud solutions, and Software & Hardware Maintenance and repair.</p>
+          <ul>
+            <li>Development & Integration</li>
+            <li>Network Design & Maintenance</li>
+            <li>Software & Hardware Maintenance</li>
+          </ul>
+        </div>
+        <div class="card">
+          <img src="./images/serv.jpg" alt="Web Design">
+          <h3>Web Design & Systems Development</h3>
+          <p>We provide modern services for designing and developing websites and systems that grow with your business.</p>
+          <ul>
+            <li>Systems Development</li>
+            <li>Website Design & Maintenance</li>
+            <li>System Rebuilding</li>
+          </ul>
+        </div>
+        <div class="card">
+          <img src="./images/cctv.jpg" alt="CCTV">
+          <h3>CCTV Camera Installation</h3>
+          <p>Installation of CCTV systems for your homes and businesses for security and other security systems.</p>
+          <ul>
+            <li>Design & Site Survey</li>
+            <li>24/7 Monitoring Options</li>
+            <li>Integration with Alarm Systems</li>
+          </ul>
+        </div>
+        <div class="card">
+          <img src="./images/malt.jpg" alt="Multimedia">
+          <h3>Multimedia & Media Solutions</h3>
+          <p>We provide modern services for posters, banners, video production, live streaming, and event AV setup services for better communication.</p>
+          <ul>
+            <li>Video Production</li>
+            <li>Live Streaming</li>
+            <li>Event AV Setup</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
 
 <!-- Popup Modal -->
 <div id="orderModal" class="modal">
@@ -461,30 +506,46 @@ function scrollToSection(id){
 }
 
 // slide images
-const images = ["./images/serv.jpg","./images/campany.jpg","./images/company5.jpg","./images/company3.jpg"];
-let index = 0; 
-const slide = document.getElementById("slideshow");
-function changeImage() {
-  index = (index + 1) % images.length;
-  slide.src = images[index];
-}
-setInterval(changeImage, 4000);
+const images = [
+  "./images/serv.jpg"
+  ,"./images/campany.jpg",
+  "./images/company5.jpg",
+  "./images/ict.jpg",
+  "./images/malt.jpg",
+  "./images/cctv.jpg"
+];
+let index = 0;
+setInterval(() => {
+  document.getElementById("slideshow").src = images[index];
+  index = (index+1)%images.length;
+}, 3000);
 
-// Modal Functions
+// modal functions
 function openModal() {
   document.getElementById("orderModal").style.display = "block";
 }
 function closeModal() {
   document.getElementById("orderModal").style.display = "none";
 }
+
+// close modal when clicking outside content
 window.onclick = function(event) {
-  let modal = document.getElementById("orderModal");
-  if (event.target == modal) modal.style.display = "none";
+  const modal = document.getElementById("orderModal");
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
 }
 
 // Popup message show/hide
 window.onload = function() {
   var msg = document.getElementById('orderMsg');
-  if(msg.textContent.trim() !== "") {
+  if (msg.textContent.trim() !== "") {
     msg.style.display = "block";
-    setTimeout(() => { msg.style.display = "none"; }, 10000); // disappear after 
+    setTimeout(() => { 
+      msg.style.display = "none"; 
+    }, 10000); // disappear after 10 sec
+  }
+};
+</script>
+</body>
+</html>

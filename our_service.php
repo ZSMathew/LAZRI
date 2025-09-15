@@ -400,7 +400,7 @@ $sql = "INSERT INTO orders (fullname,email,phone,service,otherservice,details)
             <option value="repair">Hardware Repair</option>
             <option value="custom">Custom Project</option>
           </optgroup>
-        </select>
+        </select><br><br>
 
         <div class="form-group">
           <input type="text" placeholder=" (option)">

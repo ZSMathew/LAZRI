@@ -38,7 +38,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'login') {
         $_SESSION['admin'] = true;
         header('Location: admin_dashboard.php'); exit;
     } else {
-        $error = 'Taarifa za kuingia si sahihi.';
+        $error = 'Incorrect login credentials.';
     }
 }
 if (isset($_GET['action']) && $_GET['action'] === 'logout') {
@@ -51,7 +51,7 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] !== true) {
     // show login form
     ?>
     <!doctype html>
-    <html lang="sw">
+    <html lang="en">
     <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -66,17 +66,17 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] !== true) {
     </head>
     <body>
       <div class="card">
-        <h2>Ingia kama Admin</h2>
+        <h2>Admin Login</h2>
         <?php if(!empty($error)): ?><div class="err"><?php echo e($error); ?></div><?php endif; ?>
         <form method="post">
           <input type="hidden" name="action" value="login">
-          <label>Jina la mtumiaji</label>
+          <label>Username</label>
           <input type="text" name="username" required>
-          <label>Nywila</label>
+          <label>Password</label>
           <input type="password" name="password" required>
-          <button type="submit">Ingia</button>
+          <button type="submit">Login</button>
         </form>
-        <p style="font-size:12px;color:#666;margin-top:10px">Badilisha admin credentials ndani ya faili <code>admin_dashboard.php</code> kabla ya kutumia production.</p>
+        <p style="font-size:12px;color:#666;margin-top:10px">Change admin credentials inside <code>admin_dashboard.php</code> before using production.</p>
       </div>
     </body>
     </html>
@@ -105,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
             $allowed = ['jpg','jpeg','png','webp','gif'];
             if (!in_array(strtolower($ext), $allowed)) {
-                $msg = 'Aina ya picha haikubaliwa.';
+                $msg = 'Image type not allowed.';
             } else {
                 if (!is_dir('uploads')) mkdir('uploads', 0755, true);
                 $imageName = time() . '_' . preg_replace('/[^a-z0-9_\.-]/i','', $_FILES['image']['name']);
@@ -124,13 +124,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt = $conn->prepare($sql);
                 $stmt->bind_param('sssi', $title, $desc, $category, $id);
             }
-            if ($stmt->execute()) $msg = 'Project imesasishwa.'; else $msg = 'Hitilafu: ' . $stmt->error;
+            if ($stmt->execute()) $msg = 'Project updated successfully.'; else $msg = 'Error: ' . $stmt->error;
             $stmt->close();
         } else {
             $sql = "INSERT INTO projects (title, description, category, image, created_at) VALUES (?, ?, ?, ?, NOW())";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param('ssss', $title, $desc, $category, $imageName);
-            if ($stmt->execute()) $msg = 'Project imeongezwa.'; else $msg = 'Hitilafu: ' . $stmt->error;
+            if ($stmt->execute()) $msg = 'Project added successfully.'; else $msg = 'Error: ' . $stmt->error;
             $stmt->close();
         }
     }
@@ -147,7 +147,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         $stmt = $conn->prepare("DELETE FROM projects WHERE id=?");
         $stmt->bind_param('i',$pid);
-        if ($stmt->execute()) $msg = 'Project imefutwa.'; else $msg = 'Hitilafu: ' . $stmt->error;
+        if ($stmt->execute()) $msg = 'Project deleted successfully.'; else $msg = 'Error: ' . $stmt->error;
         $stmt->close();
     }
 
@@ -156,14 +156,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $oid = intval($_POST['mark_order']);
         $stmt = $conn->prepare("UPDATE orders SET status='processed' WHERE id=?");
         $stmt->bind_param('i',$oid);
-        if ($stmt->execute()) $msg = 'Order imesemwa kama processed.'; else $msg = 'Hitilafu: ' . $stmt->error;
+        if ($stmt->execute()) $msg = 'Order marked as processed.'; else $msg = 'Error: ' . $stmt->error;
         $stmt->close();
     }
     if (isset($_POST['delete_order'])) {
         $oid = intval($_POST['delete_order']);
         $stmt = $conn->prepare("DELETE FROM orders WHERE id=?");
         $stmt->bind_param('i',$oid);
-        if ($stmt->execute()) $msg = 'Order imefutwa.'; else $msg = 'Hitilafu: ' . $stmt->error;
+        if ($stmt->execute()) $msg = 'Order deleted successfully.'; else $msg = 'Error: ' . $stmt->error;
         $stmt->close();
     }
 }
@@ -177,7 +177,7 @@ $orders_count = $orders_res ? $orders_res->num_rows : 0;
 // ====== PAGE OUTPUT ======
 ?>
 <!doctype html>
-<html lang="sw">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -196,7 +196,11 @@ $orders_count = $orders_res ? $orders_res->num_rows : 0;
     .btn{background:var(--blue);color:#fff;padding:8px 12px;border-radius:8px;border:none;cursor:pointer}
     .danger{background:#e11d48}
     form.inline{display:inline}
-    .msg{padding:10px;background:#e6ffed;border:1px solid #b7f3c7;margin-bottom:12px;border-radius:8px}
+    .msg{padding:10px;background:#e6ffed;border:1px solid #b7f3c7;margin-bottom:12px;border-radius:8px;
+          position: fixed; top: 20px; right: 20px; z-index: 999; box-shadow:0 4px 12px rgba(0,0,0,0.1);
+          opacity: 0; animation: fadein 0.5s forwards, fadeout 0.5s 3.5s forwards;}
+    @keyframes fadein {from {opacity:0; transform: translateY(-10px);} to {opacity:1; transform: translateY(0);}}
+    @keyframes fadeout {from {opacity:1;} to {opacity:0;}}
     input,select,textarea{width:100%;padding:8px;border-radius:8px;border:1px solid #ddd;margin:6px 0}
     .small{font-size:13px;color:var(--muted)}
   </style>
@@ -212,7 +216,7 @@ $orders_count = $orders_res ? $orders_res->num_rows : 0;
 
   <div class="container">
     <?php if($msg): ?>
-      <div class="msg"><?php echo e($msg); ?></div>
+      <div id="popup-msg" class="msg"><?php echo e($msg); ?></div>
     <?php endif; ?>
 
     <div class="grid">
@@ -266,7 +270,7 @@ $orders_count = $orders_res ? $orders_res->num_rows : 0;
                 <td><?php echo e($p['created_at']); ?></td>
                 <td class="actions">
                   <button class="btn" onclick='populate(<?php echo json_encode($p); ?>)'>Edit</button>
-                  <form method="post" class="inline" onsubmit="return confirm('Unataka kufuta project hii?')">
+                  <form method="post" class="inline" onsubmit="return confirm('Are you sure you want to delete this project?')">
                     <input type="hidden" name="csrf" value="<?php echo e($csrf); ?>">
                     <button class="btn danger" name="delete_project" value="<?php echo $p['id']; ?>">Delete</button>
                   </form>
@@ -276,7 +280,7 @@ $orders_count = $orders_res ? $orders_res->num_rows : 0;
           </tbody>
         </table>
         <?php else: ?>
-          <p class="small">Hakuna project iliyo uploaded.</p>
+          <p class="small">No projects uploaded yet.</p>
         <?php endif; ?>
       </div>
 
@@ -299,7 +303,7 @@ $orders_count = $orders_res ? $orders_res->num_rows : 0;
                     <input type="hidden" name="csrf" value="<?php echo e($csrf); ?>">
                     <button class="btn" name="mark_order" value="<?php echo $o['id']; ?>">Mark Processed</button>
                   </form>
-                  <form method="post" class="inline" onsubmit="return confirm('Unataka kufuta order hii?')">
+                  <form method="post" class="inline" onsubmit="return confirm('Are you sure you want to delete this order?')">
                     <input type="hidden" name="csrf" value="<?php echo e($csrf); ?>">
                     <button class="btn danger" name="delete_order" value="<?php echo $o['id']; ?>">Delete</button>
                   </form>
@@ -310,7 +314,7 @@ $orders_count = $orders_res ? $orders_res->num_rows : 0;
           </tbody>
         </table>
         <?php else: ?>
-          <p class="small">Hakuna order mpya.</p>
+          <p class="small">No new orders.</p>
         <?php endif; ?>
       </div>
     </div>
@@ -319,7 +323,6 @@ $orders_count = $orders_res ? $orders_res->num_rows : 0;
 
   <script>
     function populate(obj){
-      // obj arrives as an object because PHP json_encode used
       document.getElementById('proj_id').value = obj.id || '';
       document.getElementById('proj_title').value = obj.title || '';
       document.getElementById('proj_desc').value = obj.description || '';
@@ -341,4 +344,3 @@ $orders_count = $orders_res ? $orders_res->num_rows : 0;
 </html>
 
 <?php $conn->close(); ?>
-

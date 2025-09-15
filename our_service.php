@@ -62,8 +62,11 @@ nav ul li a::after {
 }
 nav ul li a:hover { color: var(--muted); }
 nav ul li a:hover::after { width: 100%; }
-nav ul li a.active::after { width: 100%; }
-nav ul li a.active::after { width: 100%; }
+nav ul li a.active {
+  color: #ffd700;
+  font-weight: bold;}
+
+nav ul li a.active::after { width: 100%; }  
 
 /* ====== HERO ====== */
 .hero {

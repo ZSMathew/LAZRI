@@ -308,8 +308,90 @@
         
         .values-grid {
             display: flex;
-            gap: 10px;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 14px;
+            flex-wrap: wrap;
+            /* allow wrapping when viewport narrows */
+            justify-content: flex-start;
+            /* align horizontally on wide screens */
+            align-items: stretch;
+        }
+        /* Layout: 6 per row on very wide screens, then progressively fewer per row */
+        
+        .value-card {
+            box-sizing: border-box;
+            /* ensure padding doesn't break widths */
+            flex: 0 0 calc((100% - 5 * 14px) / 6);
+            /* six cards in one row on wide screens */
+            max-width: calc((100% - 5 * 14px) / 6);
+        }
+        
+        @media (max-width:1200px) {
+            .value-card {
+                flex: 0 0 calc((100% - 4 * 14px) / 5);
+                max-width: calc((100% - 4 * 14px) / 5);
+            }
+        }
+        
+        @media (max-width:1000px) {
+            .value-card {
+                flex: 0 0 calc((100% - 3 * 14px) / 4);
+                max-width: calc((100% - 3 * 14px) / 4);
+            }
+        }
+        
+        @media (max-width:800px) {
+            .value-card {
+                flex: 0 0 calc((100% - 2 * 14px) / 3);
+                max-width: calc((100% - 2 * 14px) / 3);
+            }
+        }
+        
+        @media (max-width:600px) {
+            .value-card {
+                flex: 0 0 calc((100% - 1 * 14px) / 2);
+                max-width: calc((100% - 1 * 14px) / 2);
+            }
+        }
+        
+        @media (max-width:420px) {
+            .value-card {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+        }
+        /* responsive: 3 per row desktop, 2 per row tablet, 1 per row mobile */
+        
+        @media (min-width: 901px) {
+            .value-card {
+                display: flex;
+                gap: 12px;
+                align-items: flex-start;
+                background: #fff;
+                padding: 14px;
+                border-radius: 10px;
+                border: 1px solid rgba(0, 0, 0, 0.04);
+                box-shadow: 0 6px 14px rgba(0, 0, 0, 0.04);
+                transition: transform .18s ease, box-shadow .18s ease;
+                box-sizing: border-box;
+            }
+            .value-card:hover {
+                transform: translateY(-6px);
+                box-shadow: 0 18px 36px rgba(0, 0, 0, 0.12);
+            }
+        }
+        
+        @media (max-width: 900px) and (min-width: 521px) {
+            .value-card {
+                flex: 0 0 calc((100% - 14px)/2);
+                max-width: calc((100% - 14px)/2);
+            }
+        }
+        
+        @media (max-width: 520px) {
+            .value-card {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
         }
         
         .value-card {

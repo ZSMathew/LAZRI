@@ -33,7 +33,11 @@ $result = $conn->query($sql);
   --radius: 12px;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* {
+   box-sizing: border-box;
+    margin: 0; 
+    padding: 0;
+  }
 body {
   font-family: "Segoe UI", Arial, sans-serif;
   background: #f8fbff;
@@ -57,9 +61,18 @@ header {
   z-index: 1000;
   flex-wrap: wrap;
 }
-header img { height: 50px; }
-nav ul { display: flex; gap: 20px; list-style: none; flex-wrap: wrap; }
-nav ul li { position: relative; }
+header img {
+   height: 50px; 
+  }
+nav ul {
+   display: flex;
+    gap: 20px; 
+    list-style: none;
+     flex-wrap: wrap; 
+    }
+nav ul li {
+   position: relative; 
+  }
 nav ul li a {
   position: relative;
   text-decoration: none;
@@ -78,13 +91,19 @@ nav ul li a::after {
   background: var(--white);
   transition: width 0.3s ease;
 }
-nav ul li a:hover { color: #ffd700 }
-nav ul li a:hover::after { width: 100%; }
+nav ul li a:hover {
+   color: #ffd700;
+  }
+nav ul li a:hover::after {
+   width: 100%;
+   }
 nav ul li a.active {
   color: #ffd700;
   font-weight: bold;
 }
-nav ul li a.active::after { width: 100%; }
+nav ul li a.active::after { 
+  width: 100%;
+ }
 
 .h1{
   text-align: center;

@@ -16,7 +16,11 @@
   --radius: 12px;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* { 
+  box-sizing: border-box;
+   margin: 0; 
+   padding: 0;
+   }
 body {
   font-family: "Segoe UI", Arial, sans-serif;
   background: #f8fbff;
@@ -24,8 +28,14 @@ body {
   line-height: 1.6;
 }
 
-.container { max-width: 99%; margin: auto; padding: 20px; }
-section { scroll-margin-top: 80px; }
+.container {
+   max-width: 99%;
+    margin: auto;
+     padding: 20px;
+     }
+section { 
+  scroll-margin-top: 80px; 
+}
 
 /* ====== HEADER ====== */
 header {
@@ -39,9 +49,17 @@ header {
   top: 0;
   z-index: 1000;
 }
-header img { height: 50px; }
-nav ul { display: flex; gap: 20px; list-style: none; }
-nav ul li { position: relative; }
+header img { 
+  height: 50px; 
+}
+nav ul {
+   display: flex;
+    gap: 20px;
+     list-style: none;
+     }
+nav ul li {
+   position: relative; 
+  }
 nav ul li a {
   position: relative;
   text-decoration: none;
@@ -60,13 +78,20 @@ nav ul li a::after {
   background: var(--white);
   transition: width 0.3s ease;
 }
-nav ul li a:hover { color: #ffd700; }
-nav ul li a:hover::after { width: 100%; }
+nav ul li a:hover {
+   color: #ffd700;
+   }
+nav ul li a:hover::after {
+   width: 100%; 
+  }
 nav ul li a.active {
   color: #ffd700;
-  font-weight: bold;}
+  font-weight: bold;
+}
 
-nav ul li a.active::after { width: 100%; }  
+nav ul li a.active::after { 
+  width: 100%;
+ }  
 /* ====== HERO ====== */
 .hero {
   display: grid;
@@ -76,9 +101,20 @@ nav ul li a.active::after { width: 100%; }
   padding: 40px 0;
   animation: fadeIn 1.2s ease-in-out;
 }
-.hero-left h2 { font-size: 28px; color: var(--dark-blue); margin-bottom: 12px; }
-.hero-left p { color: var(--muted); margin-bottom: 20px; }
-.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.hero-left h2 { 
+  font-size: 28px;
+   color: var(--dark-blue);
+   margin-bottom: 12px;
+   }
+.hero-left p {
+   color: var(--muted);
+    margin-bottom: 20px; 
+  }
+.hero-actions { 
+  display: flex;
+   gap: 12px; 
+   flex-wrap: wrap; 
+  }
 .btn {
   padding: 10px 16px;
   border-radius: 10px;
@@ -87,8 +123,14 @@ nav ul li a.active::after { width: 100%; }
   border: none;
   transition: transform 0.3s, background 0.3s;
 }
-.btn-primary { background: var(--blue); color: var(--white); }
-.btn-primary:hover { background: var(--dark-blue); transform: scale(1.05); }
+.btn-primary {
+   background: var(--blue); 
+   color: var(--white);
+   }
+.btn-primary:hover {
+   background: var(--dark-blue);
+    transform: scale(1.05);
+   }
 .hero-image img {
   width: 100%;
   max-height: 350px;
@@ -129,8 +171,14 @@ nav ul li a.active::after { width: 100%; }
   border-radius: var(--radius);
   margin-bottom: 12px;
 }
-.card h3 { color: var(--dark-blue); margin-bottom: 8px; }
-.card p, .card ul { font-size: 14px; color: var(--muted); }
+.card h3 {
+   color: var(--dark-blue);
+    margin-bottom: 8px;
+   }
+.card p, .card ul {
+   font-size: 14px; 
+   color: var(--muted);
+   }
 
 ul{ margin-left: 2rem; }
 
@@ -145,7 +193,10 @@ footer {
 }
 
 /* ====== FORM INPUTS ====== */
-.form-group { position: relative; margin-bottom: 16px; }
+.form-group { 
+  position: relative;
+   margin-bottom: 16px;
+   }
 .form-group input,
 .form-group textarea,
 .styled-select {
@@ -222,7 +273,9 @@ footer {
   font-weight: bold;
   cursor: pointer;
 }
-.close:hover { color: var(--dark-blue); }
+.close:hover {
+   color: var(--dark-blue);
+   }
 
 /* ====== ANIMATIONS ====== */
 @keyframes fadeIn {
@@ -237,6 +290,7 @@ footer {
   from {transform: scale(0.9); opacity:0;}
   to {transform: scale(1); opacity:1;}
 }
+
   </style>
 </head>
 <body>

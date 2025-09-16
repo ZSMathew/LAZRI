@@ -201,6 +201,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->close();
     }
 
+
     // Order status update
     if (isset($_POST['update_status'])) {
         $oid = intval($_POST['update_status']);
@@ -637,10 +638,12 @@ input:hover {
 <button class="btn" onclick='populate(<?php echo json_encode($p); ?>)'>Edit</button>
 
 <!-- Futa project -->
-<form method="post" class="inline" onsubmit="return showDeleteModal(this)" data-type="Project">
-<input type="hidden" name="csrf" value="<?php echo e($csrf); ?>">
-<button class="btn danger" name="delete_project" value="<?php echo $p['id']; ?>">Delete</button>
+<form method="post" class="inline delete-form">
+  <input type="hidden" name="csrf" value="<?php echo e($csrf); ?>">
+  <input type="hidden" name="delete_project" value="<?php echo $p['id']; ?>">
+  <button type="button" class="btn danger delete-btn" data-type="Project">Delete</button>
 </form>
+
 </td>
 </tr>
 <?php } ?>
@@ -743,25 +746,31 @@ showTab('stats');
 
 let formToSubmit = null;
 
-function showDeleteModal(form) {
-  formToSubmit = form;
-  const type = form.getAttribute("data-type") || "item";
-  document.getElementById("deleteText").innerText = "Do you want to delete this " + type + "?";
-  document.getElementById("deleteModal").style.display = "flex";
-  return false; // zuia submit hadi user akubali
-}
+document.querySelectorAll(".delete-btn").forEach(btn => {
+  btn.addEventListener("click", function () {
+    const form = this.closest("form");
+    formToSubmit = form;
 
-function closeModal() {
-  document.getElementById("deleteModal").style.display = "none";
-  formToSubmit = null;
-}
+    // Weka message ya modal
+    document.getElementById("deleteMessage").textContent = 
+      "Are you sure you want to delete this " + this.dataset.type + "?";
 
-document.getElementById("confirmDeleteBtn").onclick = function() {
+    // Onyesha modal
+    document.getElementById("deleteModal").style.display = "block";
+  });
+});
+
+document.getElementById("confirmDeleteBtn").addEventListener("click", function () {
   if (formToSubmit) {
-    formToSubmit.submit();
+    formToSubmit.submit(); // sasa itatuma form kwa PHP
   }
   closeModal();
-};
+});
+
+document.getElementById("cancelDeleteBtn").addEventListener("click", function () {
+  closeModal();
+});
+
 
 </script>
 

@@ -501,6 +501,30 @@ input:hover {
 @media(max-width:768px){
     .container{margin-left:0; padding:10px;} .sidebar{position:relative;width:100%;}
     }
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+.modal {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  width: 320px;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  animation: fadeIn 0.3s ease;
+}
+@keyframes fadeIn {
+  from {opacity:0; transform:scale(0.9);}
+  to {opacity:1; transform:scale(1);}
+}
+
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
@@ -611,7 +635,9 @@ input:hover {
 <td><?php echo e($p['created_at']); ?></td>
 <td>
 <button class="btn" onclick='populate(<?php echo json_encode($p); ?>)'>Edit</button>
-<form method="post" class="inline" onsubmit="return confirm('Delete?')">
+
+<!-- Futa project -->
+<form method="post" class="inline" onsubmit="return showDeleteModal(this)" data-type="Project">
 <input type="hidden" name="csrf" value="<?php echo e($csrf); ?>">
 <button class="btn danger" name="delete_project" value="<?php echo $p['id']; ?>">Delete</button>
 </form>
@@ -648,7 +674,9 @@ input:hover {
 </select>
 <input type="hidden" name="update_status" value="<?php echo $o['id']; ?>">
 </form>
-<form method="post" class="inline" onsubmit="return confirm('Delete?')">
+
+<!-- Futa order -->
+<form method="post" class="inline" onsubmit="return showDeleteModal(this)" data-type="Order">
 <input type="hidden" name="csrf" value="<?php echo e($csrf); ?>">
 <button class="btn danger" name="delete_order" value="<?php echo $o['id']; ?>">Delete</button>
 </form>
@@ -658,6 +686,16 @@ input:hover {
 </tbody>
 </table>
 <?php } else echo '<p class="small">No orders yet.</p>'; ?>
+</div>
+<!-- Delete Confirmation Modal -->
+<div class="modal-overlay" id="deleteModal">
+  <div class="modal">
+    <h3 id="deleteText">Do you want to delete this item?</h3>
+    <div style="margin-top:15px;">
+      <button class="btn danger" id="confirmDeleteBtn">Yes</button>
+      <button class="btn" style="background:#ccc;color:#333" onclick="closeModal()">Cancel</button>
+    </div>
+  </div>
 </div>
 
 <!-- Settings -->
@@ -702,6 +740,29 @@ function clearForm(){
 
 // default show Quick Stats
 showTab('stats');
+
+let formToSubmit = null;
+
+function showDeleteModal(form) {
+  formToSubmit = form;
+  const type = form.getAttribute("data-type") || "item";
+  document.getElementById("deleteText").innerText = "Do you want to delete this " + type + "?";
+  document.getElementById("deleteModal").style.display = "flex";
+  return false; // zuia submit hadi user akubali
+}
+
+function closeModal() {
+  document.getElementById("deleteModal").style.display = "none";
+  formToSubmit = null;
+}
+
+document.getElementById("confirmDeleteBtn").onclick = function() {
+  if (formToSubmit) {
+    formToSubmit.submit();
+  }
+  closeModal();
+};
+
 </script>
 
 </body>

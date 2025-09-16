@@ -45,65 +45,97 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
 // protect pages
 if (!isset($_SESSION['admin']) || $_SESSION['admin'] !== true) {
     ?>
-    <!doctype html>
-    <html lang="en">
-    <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width,initial-scale=1">
-      <title>Admin Login - Lazri</title>
-      <style>
-        body{
-          font-family:Arial,Segoe UI;
-          background:#f4f7fb;
-          display:flex;
-          align-items:center;
-          justify-content:center;
-          height:100vh;
-        }
-        .card{
-          background:#fff;
-          padding:28px;
-          border-radius:12px;
-          box-shadow:0 6px 24px rgba(10,20,40,0.08);
-          width:360px
-        }
-        input{
-          width:100%;
-          padding:10px;
-          margin:8px 0;
-          border-radius:8px;
-          border:1px solid #ddd;
-        }
-        button{
-          background:#0b66ff;
-          color:#fff;
-          padding:10px;
-          border-radius:8px;
-          border:none;
-          width:100%;
-        }
-        .err{
-          color:#c53030;
-          margin-bottom:10px
-        }
-      </style>
-    </head>
-    <body>
-      <div class="card">
-        <h2>Lazri ompany Limited - Admin Login</h2>
-        <?php if(!empty($error)): ?><div class="err"><?php echo e($error); ?></div><?php endif; ?>
-        <form method="post">
-          <input type="hidden" name="action" value="login">
-          <label>Username</label>
-          <input type="text" name="username" required>
-          <label>Password</label>
-          <input type="password" name="password" required>
-          <button type="submit">Login</button>
-        </form>
-        <p style="font-size:12px;color:#666;margin-top:10px">Change admin credentials inside <code>admin_dashboard.php</code> before using production.</p>
-      </div>
-    </body>
-    </html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Admin Login - Lazri</title>
+  <style>
+    :root {
+      --shadow: 0 4px 10px rgba(0,0,0,0.1);  
+      --blue: #0b66ff;
+      --dark-blue: #053a9b;
+    }
+    body {
+      font-family: Arial, Segoe UI;
+      background: #f4f7fb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    img {
+      height: 50px;
+      display: block;
+      margin: 0 auto 10px;
+    }
+    h2 {
+      font-weight: 800;
+      text-align: center;
+    }
+    .card {
+      background: #fff;
+      padding: 28px;
+      border-radius: 12px;
+      width: 360px;
+      box-shadow: var(--shadow);
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      transition: 0.3s;
+    }
+    input:hover {
+      border-color: var(--blue);
+      background: #fff;
+      box-shadow: 0 0 6px var(--dark-blue);
+    }
+    button {
+      background: var(--blue);
+      color: #fff;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      width: 100%;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: var(--dark-blue);
+      transform: scale(1.05);
+    }
+    .err {
+      color: #c53030;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <img src="./images/Logo.png" alt="Lazri Logo">
+    <h2>Lazri - Admin Login</h2>
+    <?php if (!empty($error)): ?>
+      <div class="err"><?php echo htmlspecialchars($error); ?></div>
+    <?php endif; ?>
+    <form method="post">
+      <input type="hidden" name="action" value="login">
+      <label>Username</label>
+      <input type="text" name="username" required>
+      <label>Password</label>
+      <input type="password" name="password" required autocomplete="off">
+      <button type="submit">Login</button>
+    </form>
+    <p style="font-size:12px;color:#666;margin-top:10px">
+      Change admin credentials inside <code>admin_dashboard.php</code> before using production.
+    </p>
+  </div>
+</body>
+</html>
     <?php
     exit;
 }
@@ -204,9 +236,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // Fetch dashboard data
 $projects_res = $conn->query("SELECT * FROM projects ORDER BY created_at DESC");
-$orders_res = $conn->query("SELECT * FROM orders ORDER BY id DESC");
+$orders_res   = $conn->query("SELECT * FROM orders ORDER BY id DESC");
+//$comments_res = $conn->query("SELECT * FROM comments ORDER BY id DESC");
+
 $projects_count = $projects_res ? $projects_res->num_rows : 0;
-$orders_count = $orders_res ? $orders_res->num_rows : 0;
+$orders_count   = $orders_res ? $orders_res->num_rows : 0;
+$comments_count = 0; // kwa sasa hakuna comments table
+//$comments_count = $comments_res ? $comments_res->num_rows : 0; 
 
 ?>
 <!doctype html>
@@ -280,6 +316,7 @@ header {
 .sidebar nav a:hover,.sidebar nav a.active{
     background:var(--blue); 
     color: #ffd700;
+    font-weight: bold;
 }
 .sidebar hr{
     border-color:rgba(255,255,255,0.2);
@@ -296,6 +333,46 @@ header {
     margin-left:260px; 
     padding:20px;
 }
+
+.stats-grid {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+.stat-box {
+  flex: 1;
+  min-width: 200px;
+  padding: 25px;
+  border-radius: 16px;
+  text-align: center;
+  color: #fff;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.stat-box:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+}
+
+.stat-box h2 {
+  font-size: 48px;
+  margin-bottom: 6px;
+  font-weight: 800;
+}
+
+.stat-box p {
+  font-size: 18px;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* colors */
+.stat-projects { background: linear-gradient(135deg,#0b66ff,#053a9b); }
+.stat-orders   { background: linear-gradient(135deg,#16a34a,#065f46); }
+.stat-comments { background: linear-gradient(135deg,#facc15,#ca8a04); }
+
 
 .tab.card {
     background: linear-gradient(145deg,#ffffff,#f0f4ff);
@@ -360,6 +437,19 @@ button.danger:hover{
     margin-bottom:12px;
  }
 
+nav a {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* nafasi kati ya icon na text */
+  text-decoration: none;
+  padding: 10px;
+  color: #333;
+}
+
+nav a i {
+  min-width: 18px; /* ili icons zi-align vizuri */
+} 
+
 table{
     width:100%; 
     border-collapse:collapse;
@@ -412,31 +502,72 @@ input:hover {
     .container{margin-left:0; padding:10px;} .sidebar{position:relative;width:100%;}
     }
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 <div class="sidebar">
     <div class="head">Admin Dashboard</div>
   <div class="logo"><img src="./images/Logo2.png" alt="Lazri Logo"></div>
   <nav>
-    <a href="#stats" class="active" onclick="showTab('stats')">Quick Stats</a>
-    <a href="#projectForm" onclick="showTab('projectForm')">Add/Edit Project</a>
-    <a href="#projects" onclick="showTab('projects')">Projects</a>
-    <a href="#orders" onclick="showTab('orders')">Orders</a>
-    <a href="#settings" onclick="showTab('settings')">Settings</a>
-    <hr><br><br><br><br><br><br><br><br><br>
-    <a href="index.php" target="_blank">View Site</a>
-    <a href="?action=logout">Logout</a>
-  </nav>
+  <a href="#stats" class="active" onclick="showTab('stats')">
+    <i class="fa fa-chart-line"></i> Quick Stats
+  </a>
+  <a href="#projectForm" onclick="showTab('projectForm')">
+    <i class="fa fa-folder-plus"></i> Add/Edit Project
+  </a>
+  <a href="#projects" onclick="showTab('projects')">
+    <i class="fa fa-folder"></i> Projects
+  </a>
+  <a href="#orders" onclick="showTab('orders')">
+    <i class="fa fa-shopping-cart"></i> Orders
+  </a>
+  </a>
+  <a href="#comments" onclick="showTab('comments')">
+    <i class="fa fa-comments"></i> Comments
+  </a>
+  <a href="#settings" onclick="showTab('settings')">
+    <i class="fa fa-cog"></i> Settings
+  </a>
+  <hr>
+  <br><br><br><br><br><br><br>
+  <a href="index.php" target="_blank">
+    <i class="fa fa-globe"></i> View Site
+  </a>
+  <a href="?action=logout">
+    <i class="fa fa-sign-out-alt"></i> Logout
+  </a>
+</nav>
 </div>
 
 <div class="container">
 <?php if($msg): ?><div id="popup-msg" class="msg"><?php echo e($msg); ?></div><?php endif; ?>
 
 <div id="tab-stats" class="tab card">
-<h3>Quick Stats</h3>
-<p class="small">Projects: <strong><?php echo $projects_count; ?></strong></p>
-<p class="small">Orders: <strong><?php echo $orders_count; ?></strong></p>
+  <h3>Quick Stats</h3>
+
+  <div class="stats-grid">
+
+    <div class="stat-box stat-projects">
+      <i class="fa fa-folder fa-2x" style="margin-bottom:10px;"></i>
+      <h2><?php echo $projects_count; ?></h2>
+      <p>Projects</p>
+    </div>
+
+    <div class="stat-box stat-orders">
+      <i class="fa fa-shopping-cart fa-2x" style="margin-bottom:10px;"></i>
+      <h2><?php echo $orders_count; ?></h2>
+      <p>Orders</p>
+    </div>
+
+    <div class="stat-box stat-comments">
+      <i class="fa fa-comments fa-2x" style="margin-bottom:10px;"></i>
+      <h2><?php echo $comments_count; ?></h2>
+      <p>Comments</p>
+    </div>
+
+  </div>
 </div>
+
 
 <!-- Add/Edit Project -->
 <div id="tab-projectForm" class="tab card" style="display:none">
@@ -497,7 +628,7 @@ input:hover {
 <h3>Orders</h3>
 <?php if($orders_res && $orders_res->num_rows>0){ ?>
 <table>
-<thead><tr><th>#</th><th>Fullname</th><th>Email</th><th>Phone</th><th>Service</th><th>Status</th><th>Actions</th></tr></thead>
+<thead><tr><th>#</th><th>Full Name</th><th>Email</th><th>Phone</th><th>Service</th><th>Status</th><th>Actions</th></tr></thead>
 <tbody>
 <?php while($o=$orders_res->fetch_assoc()){ ?>
 <tr>

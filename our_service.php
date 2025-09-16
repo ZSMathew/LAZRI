@@ -10,13 +10,17 @@
   --blue: #0b66ff;
   --dark-blue: #053a9b;
   --gray: #f3f4f6;
-  --muted: #6b7280;
+  --muted: rgb(63, 63, 63);
   --white: #ffffff;
   --shadow: 0 4px 10px rgba(0,0,0,0.1);
   --radius: 12px;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* {
+   box-sizing: border-box;
+    margin: 0;
+     padding: 0; 
+    }
 body {
   font-family: "Segoe UI", Arial, sans-serif;
   background: #f8fbff;
@@ -24,12 +28,18 @@ body {
   line-height: 1.6;
 }
 
-.container { max-width: 99%; margin: auto; padding: 20px; }
-section { scroll-margin-top: 80px; }
+.container {
+   max-width: 99%;
+    margin: auto;
+     padding: 20px;
+     }
+section {
+   scroll-margin-top: 80px;
+   }
 
-/* Header */
+/* ====== HEADER ====== */
 header {
-  background: var(--white);
+  background: var(--dark-blue);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -39,48 +49,98 @@ header {
   top: 0;
   z-index: 1000;
 }
-header img { height: 50px; }
-nav ul { display: flex; gap: 20px; list-style: none; }
-nav ul li { position: relative; }
+header img {
+   height: 50px;
+   }
+nav ul { 
+  display: flex; 
+  gap: 20px;
+   list-style: none;
+   }
+nav ul li {
+   position: relative; 
+  }
 nav ul li a {
+  position: relative;
   text-decoration: none;
-  color: #333;
+  color: var(--white);
   font-weight: 500;
   padding: 8px 12px;
-  transition: 0.3s;
+  transition: color 0.3s;
 }
-nav ul li a:hover { color: var(--blue); }
+nav ul li a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 0%;
+  background: var(--white);
+  transition: width 0.3s ease;
+}
+nav ul li a:hover {
+   color: #ffd700; 
+  }
+nav ul li a:hover::after {
+   width: 100%; 
+  }
+nav ul li a.active {
+  color: #ffd700;
+  font-weight: bold;
+}
+nav ul li a.active::after { 
+  width: 100%;
+ }  
 
-/* Hero */
+/* ====== HERO ====== */
 .hero {
   display: grid;
   grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
   gap: 30px;
   align-items: center;
   padding: 40px 0;
+  animation: fadeIn 1.2s ease-in-out;
 }
-.hero-left h2 { font-size: 28px; color: var(--dark-blue); margin-bottom: 12px; }
-.hero-left p { color: var(--muted); margin-bottom: 20px; }
-.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.hero-left h2 {
+   font-size: 28px;
+    color: var(--dark-blue);
+     margin-bottom: 12px; 
+    }
+.hero-left p { 
+  color: var(--muted);
+   margin-bottom: 20px;
+   }
+.hero-actions { 
+  display: flex;
+   gap: 12px; 
+   flex-wrap: wrap;
+   }
 .btn {
   padding: 10px 16px;
   border-radius: 10px;
   cursor: pointer;
   font-weight: 600;
   border: none;
-  transition: 0.3s;
+  transition: transform 0.3s, background 0.3s;
 }
-.btn-primary { background: var(--blue); color: var(--white); }
-.btn-primary:hover { background: var(--dark-blue); }
+.btn-primary {
+   background: var(--blue);
+    color: var(--white);
+   }
+.btn-primary:hover {
+   background: var(--dark-blue);
+    transform: scale(1.05);
+   }
 .hero-image img {
   width: 100%;
   max-height: 350px;
   border-radius: var(--radius);
   object-fit: cover;
   box-shadow: var(--shadow);
+  animation: zoomIn 2s ease-in-out;
 }
 
-/* Services */
+/* ====== SERVICES ====== */
 .services {
   display: grid;
   grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
@@ -92,9 +152,18 @@ nav ul li a:hover { color: var(--blue); }
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   padding: 16px;
-  transition: transform 0.3s;
+  transition: transform 0.3s, box-shadow 0.3s;
+  opacity: 0;
+  animation: slideUp 1s ease forwards;
 }
-.card:hover { transform: translateY(-5px); }
+.card:nth-child(1){animation-delay:0.3s;}
+.card:nth-child(2){animation-delay:0.6s;}
+.card:nth-child(3){animation-delay:0.9s;}
+.card:nth-child(4){animation-delay:1.2s;}
+.card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
 .card img {
   width: 100%;
   height: 160px;
@@ -102,30 +171,33 @@ nav ul li a:hover { color: var(--blue); }
   border-radius: var(--radius);
   margin-bottom: 12px;
 }
-.card h3 { color: var(--dark-blue); margin-bottom: 8px; }
-.card p, .card ul { font-size: 14px; color: var(--muted); }
-
+.card h3 {
+   color: var(--dark-blue);
+    margin-bottom: 8px;
+   }
+.card p, .card ul {
+   font-size: 14px; 
+   color: var(--muted);
+   }
 ul{
-  margin-left: 2rem;
-}
+   margin-left: 2rem; 
+  }
 
-/* FAQ */
-.faq .card { margin-top: 30px; }
-summary { cursor: pointer; font-weight: bold; color: var(--dark-blue); }
-
-/* Contact */
-.contact {
-  margin-top: 40px;
-  background: #f9fafe;
+/* ====== FOOTER ====== */
+footer {
+  background: var(--muted);
+  color: var(--white);
+  text-align: center;
   padding: 20px;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  margin-top: 40px;
+  animation: fadeIn 1.5s ease-in;
 }
 
-/* Floating label wrapper */
-.form-group { position: relative; margin-bottom: 16px; }
-
-/* Inputs, textarea & select */
+/* ====== FORM INPUTS ====== */
+.form-group { 
+  position: relative;
+   margin-bottom: 16px; 
+  }
 .form-group input,
 .form-group textarea,
 .styled-select {
@@ -134,7 +206,7 @@ summary { cursor: pointer; font-weight: bold; color: var(--dark-blue); }
   border: 1px solid #ddd;
   border-radius: 10px;
   font-size: 15px;
-  background: transparent;
+  background: var(--white);
   transition: 0.3s;
 }
 .form-group input:hover,
@@ -142,17 +214,15 @@ summary { cursor: pointer; font-weight: bold; color: var(--dark-blue); }
 .styled-select:hover {
   border-color: var(--blue);
   background: #fff;
-  box-shadow: 0 0 6px rgba(0,123,255,0.3);
+  box-shadow: 0 0 6px var(--dark-blue);
 }
 .form-group input:focus,
 .form-group textarea:focus,
 .styled-select:focus {
   outline: none;
   border-color: var(--dark-blue);
-  box-shadow: 0 0 8px rgba(0,86,179,0.4);
+  box-shadow: 0 0 8px var(--dark-blue);
 }
-
-/* Floating label */
 .form-group label {
   position: absolute;
   top: 50%;
@@ -175,23 +245,79 @@ summary { cursor: pointer; font-weight: bold; color: var(--dark-blue); }
   color: var(--blue);
 }
 
-/* Footer */
-footer {
-  background: #111;
-  color: #ccc;
-  text-align: center;
-  padding: 20px;
-  margin-top: 40px;
+/* ====== MODAL ====== */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5);
 }
+.modal-content {
+  background: var(--gray);
+  margin: 5% auto;
+  padding: 20px;
+  border-radius: var(--radius);
+  width: 90%;
+  max-width: 500px;
+  box-shadow: var(--shadow);
+  animation: fadeIn 0.3s ease-in-out;
+}
+.close {
+  color: var(--muted);
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.close:hover {
+   color: var(--dark-blue);
+   }
+
+/* ====== POPUP MESSAGE ====== */
+#orderMsg {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #e6ffed;
+  border: 1px solid #b7f3c7;
+  padding: 16px 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  z-index: 9999;
+  font-size: 16px;
+  display: none;
+  opacity: 0;
+  animation: fadein 0.5s forwards, fadeout 0.5s 9.5s forwards;
+}
+@keyframes fadein {
+  from {opacity: 0; transform: translate(-50%, -60%);}
+  to {opacity: 1; transform: translate(-50%, -50%);}
+}
+@keyframes fadeout {
+  from {opacity: 1;}
+  to {opacity: 0;}
+}
+
+/* ====== ANIMATIONS ====== */
+@keyframes fadeIn { from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
+@keyframes slideUp { from {opacity:0; transform:translateY(40px);} to {opacity:1; transform:translateY(0);} }
+@keyframes zoomIn { from {transform: scale(0.9); opacity:0;} to {transform: scale(1); opacity:1;} }
   </style>
 </head>
 <body>
+
 <?php
 // ======= DB CONNECTION =======
 $host = "localhost"; 
-$user = "root";      // weka user wa db
-$pass = "";          // password ya db
-$db   = "LAZRI";  
+$user = "root";      
+$pass = "";          
+$db   = "lazri";  
 
 $conn = new mysqli($host, $user, $pass, $db);
 if ($conn->connect_error) {
@@ -209,8 +335,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $others   = $conn->real_escape_string($_POST['otherservice']);
   $details  = $conn->real_escape_string($_POST['details']);
 
-$sql = "INSERT INTO orders (fullname,email,phone,service,otherservice,details) 
-        VALUES ('$fullname','$email','$phone','$service','$others','$details')";
+  $sql = "INSERT INTO orders (fullname,email,phone,service,otherservice,details) 
+          VALUES ('$fullname','$email','$phone','$service','$others','$details')";
 
   if ($conn->query($sql) === TRUE) {
     $successMsg = "✅ Your request has been sent successfully!";
@@ -220,19 +346,19 @@ $sql = "INSERT INTO orders (fullname,email,phone,service,otherservice,details)
 }
 ?>
 
-  <!-- Header -->
-  <header>
-    <h1><img src="./images/Logo.png" alt="Lazri Logo"></h1>
-    <nav>
-      <ul>
-        <li><a href="index.html"><b>Home</b></a></li>
-        <li><a href="our service.html"><b>Our Services</b></a></li>
-        <li><a href="Project.html"><b>Our Projects</b></a></li>
-        <li><a href="About.html"><b>About Us</b></a></li>
-        <li><a href="contact.html"><b>Contact Us</b></a></li>
-      </ul>
-    </nav>
-  </header>
+<!-- Header -->
+<header>
+  <h1><img src="./images/Logo2.png" alt="Lazri Logo"></h1>
+  <nav>
+    <ul>
+      <li><a href="index.php"><b>Home</b></a></li>
+      <li><a href="our_service.php" class="active"><b>Our Services</b></a></li>
+      <li><a href="project.php"><b>Our Projects</b></a></li>
+      <li><a href="About.php"><b>About Us</b></a></li>
+      <li><a href="contact.php"><b>Contact Us</b></a></li>
+    </ul>
+  </nav>
+</header>
 
   <!-- Hero -->
   <main class="container">
@@ -242,8 +368,8 @@ $sql = "INSERT INTO orders (fullname,email,phone,service,otherservice,details)
         <p>LAZRI is a company established in 2025 by a team of professionals; we provide Website Development & Design, ICT consultancy & Maintenance, CCTV installation, and multimedia solutions to grow your business in a secure and modern way.</p>
         <div class="hero-actions">
           <button class="btn btn-primary" onclick="scrollToSection('huduma')">Check out Services</button>
-          <button class="btn btn-primary" onclick="scrollToSection('faq')">FAQ</button>
-          <button class="btn btn-primary" onclick="scrollToSection('contact')">Place order</button>
+          <a href="faq.html"><button class="btn btn-primary">Ask Any Question & FAQ</button></a>
+          <button class="btn btn-primary" onclick="openModal()">Place order</button>
         </div>
       </div>
       <div class="hero-image">
@@ -298,114 +424,128 @@ $sql = "INSERT INTO orders (fullname,email,phone,service,otherservice,details)
         </div>
       </div>
     </section>
-
-    <!-- FAQ -->
-    <section id="faq" class="faq">
-      <div class="card">
-        <h2>Frequently Asked Questions</h2>
-        <details><summary>In which district are you located?</summary><p>We provide services throughout Tanzania and also internationally.</p></details>
-        <details><summary>Do you sell CCTV equipment?</summary><p>Yes, we sell and install CCTV equipment.</p></details>
-        <details><summary>What is the project duration?</summary><p>Depending on the size of the project, we provide an estimate after a site survey.</p></details>
-      </div>
-    </section>
-
-<!-- Contact -->
-    <section id="contact" class="contact">
-      <h2>Place your order now</h2>
-      <p class="muted">Send us your project details, we will respond as soon as possible.</p><br>
-
-      <!-- Show Success Message -->
-      <?php if($successMsg != ""): ?>
-        <p style="color:green;font-weight:bold;"><?= $successMsg ?></p>
-      <?php endif; ?>
-
-      <form method="POST" action="">
-        <div class="form-group">
-          <input type="text" name="fullname" placeholder=" " required>
-          <label>Your Full Name</label>
-        </div>
-
-        <div class="form-group">
-          <input type="email" name="email" placeholder=" " required>
-          <label>Email</label>
-        </div>
-
-        <div class="form-group">
-          <input type="text" name="phone" placeholder=" " required>
-          <label>Phone Number</label>
-        </div>
-
-        <!-- Select -->
-        <select id="services" name="services" required class="styled-select">
-          <option value="" disabled selected>~ Select service ~</option>
-          <optgroup label="ICT Services & Consultancy">
-            <option value="consult">Consultancy</option>
-            <option value="network">Networking</option>
-            <option value="software">Software Solutions</option>
-          </optgroup>
-          <optgroup label="Web Design & Development">
-            <option value="webdev">Website Development</option>
-            <option value="hosting">Hosting</option>
-            <option value="seo">SEO Optimization</option>
-          </optgroup>
-          <optgroup label="CCTV & Security">
-            <option value="install">Installation</option>
-            <option value="maintain">Maintenance</option>
-            <option value="monitoring">24/7 Monitoring</option>
-          </optgroup>
-          <optgroup label="Multimedia Solutions">
-            <option value="design">Graphic Design</option>
-            <option value="video">Video Production</option>
-            <option value="stream">Live Streaming</option>
-          </optgroup>
-          <optgroup label="Other Services">
-            <option value="training">Training</option>
-            <option value="repair">Hardware Repair</option>
-            <option value="custom">Custom Project</option>
-          </optgroup>
-        </select>
-
-        <div class="form-group">
-          <input type="text" name="otherservice" placeholder=" (option)">
-          <label>Others Service You may need</label>
-        </div>
-
-        <div class="form-group">
-          <textarea rows="5" name="details" placeholder=" " required></textarea>
-          <label>Details of the services you need...</label>
-        </div>
-
-        <button class="btn btn-primary" type="submit">Send a Request</button>
-      </form>
-    </section>
   </main>
 
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 Lazri Company Limited. All rights reserved.</p>
-  </footer>
+<!-- Popup Modal -->
+<div id="orderModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h2>Place your order now</h2>
+    <p class="muted">Send us your project details, we will respond as soon as possible.</p><br>
+    <form method="post">
+      <div class="form-group">
+        <input type="text" name="fullname" placeholder=" " required>
+        <label>Your Full Name</label>
+      </div>
 
-  <script>
-    function scrollToSection(id){
-      document.getElementById(id).scrollIntoView({behavior:'smooth'});
-    }
+      <div class="form-group">
+        <input type="email" name="email" placeholder=" " required>
+        <label>Email</label>
+      </div>
 
-    // slide images
-    const images = [
-      "./images/serv.jpg",
-      "./images/ict.jpg",
-      "./images/cctv.jpg",
-      "./images/malt.jpg"
-    ];
+      <div class="form-group">
+        <input type="text" name="phone" placeholder=" " required>
+        <label>Phone Number</label>
+      </div>
 
-    let index = 0; 
-    const slide = document.getElementById("slideshow");
+      <select id="services" name="services" required class="styled-select">
+        <option value="" disabled selected>~ Select service ~</option>
+        <optgroup label="ICT Services & Consultancy">
+          <option value="consult">Consultancy</option>
+          <option value="network">Networking</option>
+          <option value="software">Software Solutions</option>
+        </optgroup>
+        <optgroup label="Web Design & Development">
+          <option value="webdev">Website Development</option>
+          <option value="hosting">Hosting</option>
+          <option value="seo">SEO Optimization</option>
+        </optgroup>
+        <optgroup label="CCTV & Security">
+          <option value="install">Installation</option>
+          <option value="maintain">Maintenance</option>
+          <option value="monitoring">24/7 Monitoring</option>
+        </optgroup>
+        <optgroup label="Multimedia Solutions">
+          <option value="design">Graphic Design</option>
+          <option value="video">Video Production</option>
+          <option value="stream">Live Streaming</option>
+        </optgroup>
+        <optgroup label="Other Services">
+          <option value="training">Training</option>
+          <option value="repair">Hardware Repair</option>
+          <option value="custom">Custom Project</option>
+        </optgroup>
+      </select><br><br>
 
-    function changeImage() {
-      index = (index + 1) % images.length;
-      slide.src = images[index];
-    }
-    setInterval(changeImage, 4000);
-  </script>
+      <div class="form-group">
+        <input type="text" name="otherservice" placeholder=" (option)">
+        <label>Others Service You may need</label>
+      </div>
+
+      <div class="form-group">
+        <textarea rows="5" name="details" placeholder=" " required></textarea>
+        <label>Details of the services you need...</label>
+      </div>
+
+      <button class="btn btn-primary" type="submit">Send a Request</button>
+    </form>
+  </div>
+</div>
+
+<!-- Success/Error Popup -->
+<div id="orderMsg"><?php echo htmlspecialchars($successMsg); ?></div>
+
+<!-- Footer -->
+<footer>
+  <p>&copy; 2025 Lazri Company Limited. All rights reserved.</p>
+</footer>
+
+<script>
+function scrollToSection(id){
+  document.getElementById(id).scrollIntoView({behavior:'smooth'});
+}
+
+// slide images
+const images = [
+  "./images/serv.jpg"
+  ,"./images/campany.jpg",
+  "./images/company5.jpg",
+  "./images/ict.jpg",
+  "./images/malt.jpg",
+  "./images/cctv.jpg"
+];
+let index = 0;
+setInterval(() => {
+  document.getElementById("slideshow").src = images[index];
+  index = (index+1)%images.length;
+}, 3000);
+
+// modal functions
+function openModal() {
+  document.getElementById("orderModal").style.display = "block";
+}
+function closeModal() {
+  document.getElementById("orderModal").style.display = "none";
+}
+
+// close modal when clicking outside content
+window.onclick = function(event) {
+  const modal = document.getElementById("orderModal");
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+// Popup message show/hide
+window.onload = function() {
+  var msg = document.getElementById('orderMsg');
+  if (msg.textContent.trim() !== "") {
+    msg.style.display = "block";
+    setTimeout(() => { 
+      msg.style.display = "none"; 
+    }, 10000); // disappear after 10 sec
+  }
+};
+</script>
 </body>
 </html>

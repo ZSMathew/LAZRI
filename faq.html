@@ -47,16 +47,43 @@ nav ul li {
   position: relative;
  }
 nav ul li a {
+  position: relative;
   text-decoration: none;
   color: var(--white);
   font-weight: 500;
   padding: 8px 12px;
-  transition: 0.3s;
+  transition: color 0.3s;
 }
-nav ul li a:hover { 
-  color: var(--blue);
- }
 
+/* Nav underline hover + active */
+nav ul li a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 0%;
+  background: var(--white);
+  transition: width 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: var#ffd700; /* rangi ibaki safi */
+}
+
+nav ul li a:hover::after {
+  width: 100%;
+}
+
+/* active link ina underline daima */
+nav ul li a.active {
+  color: #ffd700;
+  font-weight: bold;
+}
+
+nav ul li a.active::after {
+   width: 100%;
+   }
     .container{
       max-width:1100px;
       margin:0 auto;
@@ -207,6 +234,24 @@ nav ul li a:hover {
       background-color: var(--dark);
     }
 
+.back-home {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--blue);
+      color: var(--white);
+      padding: 10px 18px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .back-home:hover {
+      background: var(--dark-blue);
+    }
+
+
 /* Footer */
 footer {
   background: var(--muted);
@@ -215,6 +260,8 @@ footer {
   padding: 20px;
   margin-top: 40px;
 }
+
+
 
     /* Responsive */
     @media (max-width:980px){
@@ -301,6 +348,8 @@ footer {
   <footer>
     <p>&copy; 2025 Lazri Company Limited. All rights reserved.</p>
   </footer>
+<a href="index.html" class="back-home">⬅ Back to Home</a>
+
   <script>
     // --- FAQ content sourced from your specification ---
     const FAQS = [
@@ -423,5 +472,6 @@ footer {
     });
 
   </script>
+
 </body>
 </html>

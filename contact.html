@@ -30,6 +30,7 @@
             font-size: 25px;
             font-weight: bold;
         }
+        
 
         nav ul {
             list-style: none;
@@ -145,9 +146,82 @@
       text-decoration: none;
     }
 
-    .footer-links a:hover {
-      color:  #2563eb;
-    }
+        .footer-links a:hover {
+            color:  #2563eb;
+        }
+
+/* ====== FORM INPUTS ====== */
+.form-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.form-group {
+    position: relative;
+    margin-bottom: 16px;
+}
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 15px;
+    background: #fff;
+    transition: 0.3s;
+}
+.form-group input:hover,
+.form-group textarea:hover {
+    border-color: #2563eb;
+    background: #f9f9f9;
+    box-shadow: 0 0 6px rgba(37, 99, 235, 0.3);
+}
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 8px rgba(37, 99, 235, 0.5);
+}
+.form-group label {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    color: #666;
+    font-size: 15px;
+    pointer-events: none;
+    transition: 0.3s ease;
+    background: #fff;
+    padding: 0 6px;
+}
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label,
+.form-group textarea:focus + label,
+.form-group textarea:not(:placeholder-shown) + label {
+    top: -8px;
+    left: 10px;
+    font-size: 12px;
+    color: #2563eb;
+}
+.btn-submit {
+    width: 100%;
+    padding: 12px;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.btn-submit:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+}
 
     </style>
 </head>
@@ -165,7 +239,33 @@
             </ul>
         </nav>
     </header>
-      <h2 style="text-align:center;">My Location Map</h2>
+    <div class="lazri">
+      <img src="./lazri.jpg" alt="">
+    </div>
+    <div class="form-container">
+        <h2 style="text-align: center; color: #2563eb;">Contact Us</h2>
+        <p style="text-align: center; margin-bottom: 20px;">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+        <form action="#" method="post">
+            <div class="form-group">
+                <input type="text" id="name" name="name" placeholder=" " required>
+                <label for="name">Your Full Name</label>
+            </div>
+            <div class="form-group">
+                <input type="email" id="email" name="email" placeholder=" " required>
+                <label for="email">Email Address</label>
+            </div>
+            <div class="form-group">
+                <input type="text" id="subject" name="subject" placeholder=" " required>
+                <label for="subject">Subject</label>
+            </div>
+            <div class="form-group">
+                <textarea id="message" name="message" rows="5" placeholder=" " required></textarea>
+                <label for="message">Your Message</label>
+            </div>
+            <button type="submit" class="btn-submit">Send Message</button>
+        </form>
+    </div>
+      <h2 style="text-align:center;">Our Location </h2>
   <div id="map"></div>
 
   <script>
@@ -187,6 +287,9 @@
 
     window.onload = initMap;
   </script>
+
+
+  
   <footer>
     <div class="footer-container">
       <div class="footer-col">

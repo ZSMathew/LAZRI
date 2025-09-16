@@ -220,18 +220,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->close();
     }
 
-    // Change password
-    if (isset($_POST['change_password'])) {
-        $current = $_POST['current_pass'] ?? '';
-        $new = $_POST['new_pass'] ?? '';
-        $confirm = $_POST['confirm_pass'] ?? '';
-        if($current === $ADMIN_PASS){
+// CHANGE HERE: Use DB for password
+if (isset($_POST['change_password'])) {
+    $current = $_POST['current_pass'] ?? '';
+    $new = $_POST['new_pass'] ?? '';
+    $confirm = $_POST['confirm_pass'] ?? '';
+
+    $res = $conn->query("SELECT * FROM admin WHERE username='admin' LIMIT 1");
+    if($res && $admin = $res->fetch_assoc()){
+        if(password_verify($current, $admin['password'])){
             if($new === $confirm){
-                $ADMIN_PASS = $new;
-                $msg = 'Password changed successfully. Please refresh.';
+                $new_hash = password_hash($new, PASSWORD_DEFAULT);
+                $stmt = $conn->prepare("UPDATE admin SET password=? WHERE id=?");
+                $stmt->bind_param('si', $new_hash, $admin['id']);
+                if($stmt->execute()) $msg = 'Password changed successfully.';
+                else $msg = 'Error: '.$stmt->error;
+                $stmt->close();
             } else $msg='New passwords do not match.';
         } else $msg='Current password incorrect.';
-    }
+    } else $msg='Admin account not found.';
+}
 }
 
 // Fetch dashboard data
@@ -669,7 +677,6 @@ input:hover {
 </select>
 <input type="hidden" name="update_status" value="<?php echo $o['id']; ?>">
 </form>
-
 <!-- Futa order -->
 <form method="post" class="inline delete-form">
   <input type="hidden" name="csrf" value="<?php echo e($csrf); ?>">
@@ -681,6 +688,26 @@ input:hover {
 </tbody>
 </table>
 <?php } else echo '<p class="small">No orders yet.</p>'; ?>
+</div>
+<!-- Settings Tab -->
+<div id="tab-settings" class="tab card" style="display:none">
+  <h3>Settings</h3>
+  <p class="small">Change admin password below.</p>
+  <form method="post">
+    <input type="hidden" name="csrf" value="<?php echo e($csrf); ?>">
+    <input type="hidden" name="change_password" value="1">
+
+    <label>Current Password</label>
+    <input type="password" name="current_pass" required placeholder="Enter current password">
+
+    <label>New Password</label>
+    <input type="password" name="new_pass" required placeholder="Enter new password">
+
+    <label>Confirm New Password</label>
+    <input type="password" name="confirm_pass" required placeholder="Confirm new password">
+
+    <button class="btn" type="submit">Change Password</button>
+  </form>
 </div>
 <!-- Delete Confirmation Modal -->
 <div class="modal-overlay" id="deleteModal">

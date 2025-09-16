@@ -669,13 +669,12 @@ input:hover {
 <td><?php echo e($o['service']); ?><?php if(!empty($o['otherservice'])) echo ' / '.e($o['otherservice']); ?></td>
 <td><?php echo e($o['status']??'new'); ?></td>
 <td>
-<form method="post" class="inline">
-<select name="status" onchange="this.form.submit()">
-<option value="pending" <?php if(($o['status']??'')==='pending') echo 'selected'; ?>>Pending</option>
-<option value="active" <?php if(($o['status']??'')==='active') echo 'selected'; ?>>Active</option>
-<option value="complete" <?php if(($o['status']??'')==='complete') echo 'selected'; ?>>Complete</option>
-</select>
-<input type="hidden" name="update_status" value="<?php echo $o['id']; ?>">
+<form class="inline update-status-form" data-id="<?php echo $o['id']; ?>">
+  <select name="status">
+    <option value="pending" <?php if(($o['status']??'')==='pending') echo 'selected'; ?>>Pending</option>
+    <option value="active" <?php if(($o['status']??'')==='active') echo 'selected'; ?>>Active</option>
+    <option value="complete" <?php if(($o['status']??'')==='complete') echo 'selected'; ?>>Complete</option>
+  </select>
 </form>
 <!-- Futa order -->
 <form method="post" class="inline delete-form">
@@ -777,6 +776,39 @@ document.getElementById("cancelDeleteBtn").addEventListener("click", function ()
 function closeModal() {
   document.getElementById("deleteModal").style.display = "none";
 }
+// Inline AJAX status update
+document.querySelectorAll('.update-status-form select').forEach(select => {
+  select.addEventListener('change', function(){
+    const form = this.closest('.update-status-form');
+    const id = form.dataset.id;
+    const status = this.value;
+    const csrf = '<?php echo $csrf; ?>';
+
+    fetch('admin_dashboard.php', {
+      method: 'POST',
+      headers: {'Content-Type':'application/x-www-form-urlencoded'},
+      body: `update_status=${id}&status=${encodeURIComponent(status)}&csrf=${csrf}`
+    })
+    .then(res => res.text())
+    .then(data => {
+      showMessage('Order status updated.');
+    })
+    .catch(err => {
+      showMessage('Error updating status.');
+      console.error(err);
+    });
+  });
+});
+
+// function to show temporary message
+function showMessage(msg){
+  const popup = document.createElement('div');
+  popup.className = 'msg';
+  popup.textContent = msg;
+  document.body.appendChild(popup);
+  setTimeout(()=>popup.remove(), 3000);
+}
+
 </script>
 </body>
 </html>

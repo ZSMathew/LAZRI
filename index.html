@@ -244,114 +244,200 @@
       100% { transform: scale(1.08) translateY(-15px); }
     }
 
-    footer {
+      /* Footer */
+    .footer {
       background: rgb(63, 63, 63);
-      color: #ddd;
-      padding: 40px 80px 20px;
+      padding: 50px 20px 20px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      position: relative;
     }
 
-    .footer-container {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 40px;
+    .footer-column {
+      flex: 1;
+      padding: 20px;
+      min-width: 250px;
+      position: relative;
     }
 
-    .footer-col h3 {
-      color:  #2563eb;
-      margin-bottom: 15px;
-      font-size: 18px;
+    .footer h2 {
+      font-size: 24px;
       font-weight: bold;
-      border-bottom: 2px solid  #2563eb;
-      display: inline-block;
-      padding-bottom: 3px;
+      margin-bottom: 15px;
+      color: #fff;
     }
 
-    .footer-col p, 
-    .footer-col a {
-      font-size: 14px;
-      color: #ddd;
-      line-height: 1.8;
-      text-decoration: none;
-      display: block;
+    .footer p,
+    .footer a,
+    .footer span {
+      font-size: 18px;
     }
 
-    .footer-col a:hover {
-      color:  #2563eb;
-    }
-
-    .footer-col i {
-      margin-right: 8px;
-    }
-
+    /* Social Icons */
     .social-icons {
-      margin-top: 15px;
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
     }
 
     .social-icons a {
-      display: inline-block;
-      width: 35px;
-      height: 35px;
-      margin-right: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 50px;
+      height: 50px;
+      border: 2px solid blue;
       border-radius: 50%;
-      color: #fff;
-      text-align: center;
-      line-height: 35px;
-      font-size: 16px;
-      transition: 0.3s;
+      color: blue;
+      font-size: 22px;
+      text-decoration: none;
+      transition: all 0.3s ease;
     }
 
     .social-icons a:hover {
-      background:  #2563eb;
-      color: #111;
+      background: blue;
+      color: white;
+      transform: scale(1.1);
     }
 
-    .footer-bottom {
-      margin-top: 40px;
-      border-top: 1px solid #333;
-      text-align: center;
-      padding-top: 15px;
-      font-size: 13px;
-      color: #bbb;
+    /* Navigation under social */
+    .footer-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
-    .footer-links {
-      margin: 15px 0;
-    }
-
-    .footer-links a {
-      margin: 0 10px;
-      color: #ddd;
-      font-size: 14px;
+    .footer-nav a {
+      color: #fff;
       text-decoration: none;
+      transition: transform 0.3s ease;
     }
 
-    .footer-links a:hover {
-      color:  #2563eb;
+    .footer-nav a:hover {
+      transform: translateY(5px);
+      color: blue;
     }
 
-    /* Back to Top Button */
-    .back-to-top {
-      position: fixed;
+    /* Middle column services */
+    .footer-services {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-services a {
+      color: #fff;
+      text-decoration: none;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .footer-services a:hover {
+      transform: translateX(10px);
+      color: blue;
+    }
+
+    /* Right column contact */
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .contact-item i {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 45px;
+      height: 45px;
+      border: 2px solid blue;
+      border-radius: 50%;
+      color: blue;
+      font-size: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .contact-item i:hover {
+      background: blue;
+      color: white;
+    }
+
+    .contact-item a {
+      color: #fff;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .contact-item a:hover {
+      color: blue;
+    }
+
+    /* Footer Bottom */
+    .footer-bottom {
+      width: 100%;
+      border-top: 2px dashed blue;
+      margin-top: 20px;
+      padding-top: 15px;
+      text-align: center;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 20px;
+      padding-right: 20px;
+      display: flex;
+      
+    }
+
+    .footer-bottom p {
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    .footer-bottom a {
+      color: #fff;
+      margin: 0 10px;
+      text-decoration: none;
+      font-size: 16px;
+      transition: color 0.3s ease;
+    }
+
+    .footer-bottom a:hover {
+      color: blue;
+    }
+
+    /* Scroll to top button */
+    .scroll-top {
+      position: absolute;
       bottom: 20px;
       right: 20px;
-      background:  #fff;
-      color: #111;
-      width: 40px;
-      height: 40px;
-      text-align: center;
-      line-height: 40px;
-      border-radius: 5px;
-      font-size: 20px;
-      text-decoration: none;
-      font-weight: bold;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: blue;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: transform 0.3s ease;
     }
 
-    .back-to-top:hover {
-      background: #2563eb;
-      color: #111;
+    .scroll-top:hover {
+      transform: scale(1.1);
+    }
+
+    .scroll-top i {
+      color: white;
+      font-size: 22px;
     }
   </style>
   <script src="https://kit.fontawesome.com/yourkitid.js" crossorigin="anonymous"></script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
@@ -374,7 +460,7 @@
       <li><a href="#" id="navHome">Home</a></li>
       <li><a href="About.html" id="navAbout">About Us</a></li>
       <li><a href="our service.html" id="navServices">Our Services</a></li>
-      <li><a href="Project.php" id="navProjects">Our Projects</a></li>
+      <li><a href="Project.html" id="navProjects">Our Projects</a></li>
       <li><a href="contact.html" id="navContact">Contact Us</a></li>
     </ul>
     <div class="lang-switch">
@@ -407,30 +493,27 @@
     <div class="service-box">
       <img src="images/ict.jpg" alt="ICT Consultancy">
       <h3 id="s1Title">ICT Services & Consultancy</h3>
-      <p id="s1Desc">We provide IT consulting, systems development, network management, cloud solutions, and software & hardware maintenance.</p>
     </div>
 
     <div class="service-box">
       <img src="images/serv.jpg" alt="Web Design">
       <h3 id="s2Title">Web Design & Systems Development</h3>
-      <p id="s2Desc">We design and develop websites and systems that grow with your business.</p>
+
     </div>
 
     <div class="service-box">
       <img src="images/cctv.jpg" alt="CCTV">
       <h3 id="s3Title">CCTV Camera Installation</h3>
-      <p id="s3Desc">Installation of CCTV systems for homes and businesses for security and monitoring.</p>
     </div>
 
     <div class="service-box">
       <img src="images/malt.jpg" alt="Multimedia">
       <h3 id="s4Title">Multimedia & Media Solutions</h3>
-      <p id="s4Desc">We provide modern media services for posters, banners, video production, live streaming, and event AV setup.</p>
     </div>
   </div>
 
   <div class="more-btn">
-    <a href="our service.html" id="moreBtn">More Services</a>
+    <a href="our_service.html" id="moreBtn">More Services</a>
   </div>
   </section>
 
@@ -450,10 +533,10 @@
       </div>
       
       <div class="testimonial-card">
-        <img src="images/janet.jpg" alt="Janet">
-        <h3 style="color: #003080;">Janet Komba</h3>
+        <img src="images/lucy.jpg" alt="Janet">
+        <h3 style="color: #003080;">Lucy Nguzo</h3>
         <h4 id="t2Role">Manager</h4>
-        <p id="t2Text" style="text-align: start;">I was in contact with Komba from Lazri to order t-shirts he was a pleasure to work with. he was incredibly patient and attentive to every detail of the design.
+        <p id="t2Text" style="text-align: start;">I was in contact with LUCY from Lazri to order t-shirts he was a pleasure to work with. he was incredibly patient and attentive to every detail of the design.
            I would used Lazri again and again and highly recommend them to anyone looking to order shirts</p>
         <div class="stars">★★★★★</div>
       </div>
@@ -468,63 +551,83 @@
     </div>
   </section>
 
-  <footer>
-    <div class="footer-container">
-      <div class="footer-col">
-        <h3 id="footerContactTitle">Contact Us</h3>
-        <p><i class="fas fa-map-marker-alt"></i>
-        LAZRI, <br>
-        Samora Street, <br>
-        P.O. BOX 90, <br>Dar es Salaam, Tanzania</p>
-        <p><i class="fas fa-phone"></i> +255 756 457 678</p>
-        <p><i class="fas fa-envelope"></i> info@lazri.co.tz</p>
-        <div class="social-icons">
-          <a href="#"><i class="fab fa-facebook-f"></i></a>
-          <a href="#"><i class="fab fa-twitter"></i></a>
-          <a href="#"><i class="fab fa-instagram"></i></a>
-          <a href="#"><i class="fab fa-youtube"></i></a>
+   <footer class="footer">
+    <!-- Left Column -->
+    <div class="footer-column">
+      <h2>Let's Work Together</h2>
+      <p style="color: #fff;">
+        Welcome to our diverse and dynamic course catalog. At Lazri, we're dedicated 
+        to providing you with access to high-quality education that empowers your personal and professional growth.
+      </p>
+
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#"><i class="fab fa-tiktok"></i></a>
+        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+      </div>
+
+      <div class="footer-nav">
+        <a href="#">Home</a>
+        <a href="our_service.html">Services</a>
+        <a href="Project.html">Projects</a>
+        <a href="About.html">About Us</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+
+    <!-- Middle Column -->
+    <div class="footer-column">
+      <h2>Online Services</h2>
+      <div class="footer-services">
+        <a href="#">Web Hosting</a>
+        <a href="#">Domains</a>
+        <a href="#">Certification Portal</a>
+        <a href="#">Digital Makerting</a>
+        <a href="#">Emails</a>
+        <a href="#">Mantainance</a>
+      </div>
+    </div>
+
+    <!-- Right Column -->
+    <div class="footer-column">
+      <h2>Contact Us</h2>
+      <div class="contact-info">
+        <div class="contact-item">
+          <i class="fas fa-phone"></i>
+          <span style="color: #fff;">+255 713 569 816<br>+255 713 453 464</span>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-envelope"></i>
+          <span>
+            <a href="mailto:info@lazri.org">info@lazri.org</a><br>
+            <a href="mailto:lazriinfo@gmail.com">lazriinfo@gmail.com</a>
+          </span>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <span style="color: #fff;">Dar es Salaam, Tanzania</span>
         </div>
       </div>
+    </div>
 
-      <div class="footer-col">
-        <h3 id="footerQuickLinks">Quick Links</h3>
-        <a href="#" id="fHome">Home</a>
-        <a href="#" id="fAbout">About Us</a>
-        <a href="#" id="fServices">Our Services</a>
-        <a href="#" id="fTeam">Our Team</a>
-        <a href="#" id="fProjects">Projects</a>
-        <a href="#" id="fSettings">Settings</a>
-        <a href="#" id="fContacts">Contacts</a>
-      </div>
-
-      <div class="footer-col">
-        <h3 id="footerOnline">Online Services</h3>
-        <a href="#" id="fo1">Web hosting</a>
-        <a href="#" id="fo2">Domains</a>
-        <a href="#" id="fo3">Online Marketing</a>
-        <a href="#" id="fo4">Emails & Security</a>
-        <a href="#" id="fo5">Software & Apps</a>
-      </div>
-
-      <div class="footer-col">
-        <h3 id="footerHours">Business Hours</h3>
-        <p id="bh1">Monday - Friday<br>08:00 - 16:30</p>
-        <p id="bh2">Saturday<br>Closed</p>
-        <p id="bh3">Sunday<br>Closed</p>
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+      <p style="color: #fff;">Copyright © 2025 Lazri All Rights Reserved.</p>
+      <div  style="display:flex;justify-content:space-between;text-align:left;">
+        <a href="terms&condition.html">Terms & Conditions</a>
+        <a href="./privecy_policy.html">Privacy Policy</a>
+         <a href="./faq.html">FAQs</a>
       </div>
     </div>
 
-    <div class="footer-bottom">
-      <div class="footer-links">
-        <a href="#" id="pp">Privacy Policy</a> |
-        <a href="#" id="sm">Staff Mail</a> |
-        <a href="#" id="faq">FAQs</a> |
-        <a href="#" id="tc">Terms and Conditions</a>
-      </div>
-      <p id="copyright">Copyright © 2025 - Lazri | All rights reserved</p>
+    <!-- Scroll to Top -->
+    <div class="scroll-top" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+      <i class="fas fa-arrow-up"></i>
     </div>
   </footer>
-
   <a href="#" class="back-to-top">&#8679;</a>
 
   <!-- Language & Slider Script -->

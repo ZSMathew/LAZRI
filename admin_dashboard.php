@@ -220,31 +220,56 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->close();
     }
 
-    // Change password
-    if (isset($_POST['change_password'])) {
-        $current = $_POST['current_pass'] ?? '';
-        $new = $_POST['new_pass'] ?? '';
-        $confirm = $_POST['confirm_pass'] ?? '';
-        if($current === $ADMIN_PASS){
+// CHANGE HERE: Use DB for password
+if (isset($_POST['change_password'])) {
+    $current = $_POST['current_pass'] ?? '';
+    $new = $_POST['new_pass'] ?? '';
+    $confirm = $_POST['confirm_pass'] ?? '';
+
+    $res = $conn->query("SELECT * FROM admin WHERE username='admin' LIMIT 1");
+    if($res && $admin = $res->fetch_assoc()){
+        if(password_verify($current, $admin['password'])){
             if($new === $confirm){
-                $ADMIN_PASS = $new;
-                $msg = 'Password changed successfully. Please refresh.';
+                $new_hash = password_hash($new, PASSWORD_DEFAULT);
+                $stmt = $conn->prepare("UPDATE admin SET password=? WHERE id=?");
+                $stmt->bind_param('si', $new_hash, $admin['id']);
+                if($stmt->execute()) $msg = 'Password changed successfully.';
+                else $msg = 'Error: '.$stmt->error;
+                $stmt->close();
             } else $msg='New passwords do not match.';
         } else $msg='Current password incorrect.';
-    }
+    } else $msg='Admin account not found.';
+}
 }
 
 // Fetch dashboard data
 $projects_res = $conn->query("SELECT * FROM projects ORDER BY created_at DESC");
 $orders_res   = $conn->query("SELECT * FROM orders ORDER BY id DESC");
-//$comments_res = $conn->query("SELECT * FROM comments ORDER BY id DESC");
-
 $projects_count = $projects_res ? $projects_res->num_rows : 0;
 $orders_count   = $orders_res ? $orders_res->num_rows : 0;
-$comments_count = 0; // kwa sasa hakuna comments table
-//$comments_count = $comments_res ? $comments_res->num_rows : 0; 
+$comments_count = 0; 
 
+/* ====== Handle AJAX request to update status ====== */
+if (isset($_POST['action']) && $_POST['action'] === 'update_status') {
+    $id = intval($_POST['id']);
+    $status = $conn->real_escape_string($_POST['status']);
+    $type = $_POST['type']; // Project au Order
+
+    if ($type === 'project') {
+        $sql = "UPDATE projects SET status='$status' WHERE id=$id";
+    } else {
+        $sql = "UPDATE orders SET status='$status' WHERE id=$id";
+    }
+
+    if ($conn->query($sql)) {
+        echo json_encode(['success' => true, 'status' => $status]);
+    } else {
+        echo json_encode(['success' => false, 'error' => $conn->error]);
+    }
+    exit; // ⚠️ Hii ni muhimu kwa AJAX isirudishe HTML yote
+}
 ?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -261,7 +286,6 @@ $comments_count = 0; // kwa sasa hakuna comments table
   --shadow: 0 4px 10px rgba(0,0,0,0.1);
   --radius: 12px;
 }
-
 * { 
     box-sizing:border-box;
     margin:0;
@@ -501,6 +525,29 @@ input:hover {
 @media(max-width:768px){
     .container{margin-left:0; padding:10px;} .sidebar{position:relative;width:100%;}
     }
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+.modal {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  width: 320px;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  animation: fadeIn 0.3s ease;
+}
+@keyframes fadeIn {
+  from {opacity:0; transform:scale(0.9);}
+  to {opacity:1; transform:scale(1);}
+}
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
@@ -611,10 +658,16 @@ input:hover {
 <td><?php echo e($p['created_at']); ?></td>
 <td>
 <button class="btn" onclick='populate(<?php echo json_encode($p); ?>)'>Edit</button>
-<form method="post" class="inline" onsubmit="return confirm('Delete?')">
-<input type="hidden" name="csrf" value="<?php echo e($csrf); ?>">
-<button class="btn danger" name="delete_project" value="<?php echo $p['id']; ?>">Delete</button>
+
+<!-- Futa project -->
+<form method="post" class="inline delete-form">
+  <input type="hidden" name="csrf" value="<?php echo e($csrf); ?>">
+  <button type="button" 
+          class="btn danger delete-btn" 
+          data-type="Project" 
+          data-id="<?php echo $p['id']; ?>">Delete</button>
 </form>
+
 </td>
 </tr>
 <?php } ?>
@@ -639,18 +692,17 @@ input:hover {
 <td><?php echo e($o['service']); ?><?php if(!empty($o['otherservice'])) echo ' / '.e($o['otherservice']); ?></td>
 <td><?php echo e($o['status']??'new'); ?></td>
 <td>
-<form method="post" class="inline">
-<input type="hidden" name="csrf" value="<?php echo e($csrf); ?>">
-<select name="status" onchange="this.form.submit()">
-<option value="pending" <?php if(($o['status']??'')==='pending') echo 'selected'; ?>>Pending</option>
-<option value="active" <?php if(($o['status']??'')==='active') echo 'selected'; ?>>Active</option>
-<option value="complete" <?php if(($o['status']??'')==='complete') echo 'selected'; ?>>Complete</option>
-</select>
-<input type="hidden" name="update_status" value="<?php echo $o['id']; ?>">
+<form class="inline update-status-form" data-id="<?php echo $o['id']; ?>">
+  <select name="status" class="status-select" data-id="<?php echo $o['id']; ?>">
+    <option value="pending" <?php if(($o['status']??'')==='pending') echo 'selected'; ?>>Pending</option>
+    <option value="active" <?php if(($o['status']??'')==='active') echo 'selected'; ?>>Active</option>
+    <option value="complete" <?php if(($o['status']??'')==='complete') echo 'selected'; ?>>Complete</option>
+  </select>
 </form>
-<form method="post" class="inline" onsubmit="return confirm('Delete?')">
-<input type="hidden" name="csrf" value="<?php echo e($csrf); ?>">
-<button class="btn danger" name="delete_order" value="<?php echo $o['id']; ?>">Delete</button>
+<!-- Futa order -->
+<form method="post" class="inline delete-form">
+  <input type="hidden" name="csrf" value="<?php echo e($csrf); ?>">
+  <button type="button" class="btn danger delete-btn" data-type="Order" data-id="<?php echo $o['id']; ?>">Delete</button>
 </form>
 </td>
 </tr>
@@ -659,24 +711,35 @@ input:hover {
 </table>
 <?php } else echo '<p class="small">No orders yet.</p>'; ?>
 </div>
-
-<!-- Settings -->
+<!-- Settings Tab -->
 <div id="tab-settings" class="tab card" style="display:none">
-<h3>Settings</h3>
-<p class="small">Change admin password.</p>
-<form method="post">
-<input type="hidden" name="csrf" value="<?php echo e($csrf); ?>">
-<input type="hidden" name="change_password" value="1">
-<label>Current Password</label>
-<input type="password" name="current_pass" required>
-<label>New Password</label>
-<input type="password" name="new_pass" required>
-<label>Confirm New Password</label>
-<input type="password" name="confirm_pass" required>
-<button class="btn" type="submit">Change Password</button>
-</form>
-</div>
+  <h3>Settings</h3>
+  <p class="small">Change admin password below.</p>
+  <form method="post">
+    <input type="hidden" name="csrf" value="<?php echo e($csrf); ?>">
+    <input type="hidden" name="change_password" value="1">
 
+    <label>Current Password</label>
+    <input type="password" name="current_pass" required placeholder="Enter current password">
+
+    <label>New Password</label>
+    <input type="password" name="new_pass" required placeholder="Enter new password">
+
+    <label>Confirm New Password</label>
+    <input type="password" name="confirm_pass" required placeholder="Confirm new password">
+
+    <button class="btn" type="submit">Change Password</button>
+  </form>
+</div>
+<!-- Delete Confirmation Modal -->
+<div class="modal-overlay" id="deleteModal">
+  <div class="modal">
+    <h3 id="deleteText">Do you want to delete this item?</h3>
+    <div style="margin-top:15px;">
+      <button class="btn danger" id="confirmDeleteBtn">Yes</button>
+      <button class="btn" style="background:#ccc;color:#333" id="cancelDeleteBtn">Cancel</button>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -699,11 +762,77 @@ function clearForm(){
   document.getElementById('proj_desc').value='';
   document.getElementById('proj_cat').value='completed';
 }
-
-// default show Quick Stats
 showTab('stats');
-</script>
 
+let formToSubmit = null;
+
+document.querySelectorAll(".delete-btn").forEach(btn => {
+  btn.addEventListener("click", function () {
+    formToSubmit = this.closest("form");
+    document.getElementById("deleteText").textContent =
+      "Are you sure you want to delete this " + this.dataset.type + "?";
+    document.getElementById("deleteModal").style.display = "flex";
+  });
+});
+
+document.getElementById("confirmDeleteBtn").addEventListener("click", function () {
+  if (formToSubmit) {
+    // Kwa Orders, ubadilishe button kuwa input hidden
+    const btn = formToSubmit.querySelector(".delete-btn");
+    if (btn && btn.dataset.id) {
+      const hidden = document.createElement('input');
+      hidden.type = 'hidden';
+      hidden.name = btn.dataset.type === "Order" ? 'delete_order' : 'delete_project';
+      hidden.value = btn.dataset.id;
+      formToSubmit.appendChild(hidden);
+    }
+    formToSubmit.submit();
+  }
+  closeModal();
+});
+
+
+document.getElementById("cancelDeleteBtn").addEventListener("click", function () {
+  closeModal();
+});
+
+function closeModal() {
+  document.getElementById("deleteModal").style.display = "none";
+}
+document.querySelectorAll(".status-select").forEach(select => {
+  select.addEventListener("change", function() {
+    const id = this.dataset.id;
+    const type = this.dataset.type;
+    const newStatus = this.value;
+
+    fetch("admin_dashboard.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: `action=update_status&id=${id}&type=${type}&status=${encodeURIComponent(newStatus)}`
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        alert("Status updated to " + data.status);
+      } else {
+        alert("Error: " + data.error);
+      }
+    })
+    .catch(err => console.error(err));
+  });
+});
+
+
+// function to show temporary message
+function showMessage(msg){
+  const popup = document.createElement('div');
+  popup.className = 'msg';
+  popup.textContent = msg;
+  document.body.appendChild(popup);
+  setTimeout(()=>popup.remove(), 3000);
+}
+
+</script>
 </body>
 </html>
-<?php $conn->close(); ?>
+<?php $conn->close(); ?>        

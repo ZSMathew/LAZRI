@@ -248,7 +248,28 @@ $orders_res   = $conn->query("SELECT * FROM orders ORDER BY id DESC");
 $projects_count = $projects_res ? $projects_res->num_rows : 0;
 $orders_count   = $orders_res ? $orders_res->num_rows : 0;
 $comments_count = 0; 
+
+/* ====== Handle AJAX request to update status ====== */
+if (isset($_POST['action']) && $_POST['action'] === 'update_status') {
+    $id = intval($_POST['id']);
+    $status = $conn->real_escape_string($_POST['status']);
+    $type = $_POST['type']; // Project au Order
+
+    if ($type === 'project') {
+        $sql = "UPDATE projects SET status='$status' WHERE id=$id";
+    } else {
+        $sql = "UPDATE orders SET status='$status' WHERE id=$id";
+    }
+
+    if ($conn->query($sql)) {
+        echo json_encode(['success' => true, 'status' => $status]);
+    } else {
+        echo json_encode(['success' => false, 'error' => $conn->error]);
+    }
+    exit; // ⚠️ Hii ni muhimu kwa AJAX isirudishe HTML yote
+}
 ?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -641,8 +662,10 @@ input:hover {
 <!-- Futa project -->
 <form method="post" class="inline delete-form">
   <input type="hidden" name="csrf" value="<?php echo e($csrf); ?>">
-  <input type="hidden" name="delete_project" value="<?php echo $p['id']; ?>">
-  <button type="button" class="btn danger delete-btn" data-type="Project">Delete</button>
+  <button type="button" 
+          class="btn danger delete-btn" 
+          data-type="Project" 
+          data-id="<?php echo $p['id']; ?>">Delete</button>
 </form>
 
 </td>
@@ -670,7 +693,7 @@ input:hover {
 <td><?php echo e($o['status']??'new'); ?></td>
 <td>
 <form class="inline update-status-form" data-id="<?php echo $o['id']; ?>">
-  <select name="status">
+  <select name="status" class="status-select" data-id="<?php echo $o['id']; ?>">
     <option value="pending" <?php if(($o['status']??'')==='pending') echo 'selected'; ?>>Pending</option>
     <option value="active" <?php if(($o['status']??'')==='active') echo 'selected'; ?>>Active</option>
     <option value="complete" <?php if(($o['status']??'')==='complete') echo 'selected'; ?>>Complete</option>
@@ -776,29 +799,29 @@ document.getElementById("cancelDeleteBtn").addEventListener("click", function ()
 function closeModal() {
   document.getElementById("deleteModal").style.display = "none";
 }
-// Inline AJAX status update
-document.querySelectorAll('.update-status-form select').forEach(select => {
-  select.addEventListener('change', function(){
-    const form = this.closest('.update-status-form');
-    const id = form.dataset.id;
-    const status = this.value;
-    const csrf = '<?php echo $csrf; ?>';
+document.querySelectorAll(".status-select").forEach(select => {
+  select.addEventListener("change", function() {
+    const id = this.dataset.id;
+    const type = this.dataset.type;
+    const newStatus = this.value;
 
-    fetch('admin_dashboard.php', {
-      method: 'POST',
-      headers: {'Content-Type':'application/x-www-form-urlencoded'},
-      body: `update_status=${id}&status=${encodeURIComponent(status)}&csrf=${csrf}`
+    fetch("admin_dashboard.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: `action=update_status&id=${id}&type=${type}&status=${encodeURIComponent(newStatus)}`
     })
-    .then(res => res.text())
+    .then(res => res.json())
     .then(data => {
-      showMessage('Order status updated.');
+      if (data.success) {
+        alert("Status updated to " + data.status);
+      } else {
+        alert("Error: " + data.error);
+      }
     })
-    .catch(err => {
-      showMessage('Error updating status.');
-      console.error(err);
-    });
+    .catch(err => console.error(err));
   });
 });
+
 
 // function to show temporary message
 function showMessage(msg){

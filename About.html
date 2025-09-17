@@ -407,30 +407,38 @@
             max-width: 900px;
             text-transform: lowercase;
         }
+        /*
+           values-grid as a 3-columns grid on desktop so cards are 3-per-row (2 rows total).
+           Responsive fallbacks: 2 columns on medium, 1 on narrow screens.
+        */
         
         .values-grid {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            /* three cards per row */
             gap: 14px;
-            flex-wrap: wrap;
-            justify-content: flex-start;
             align-items: stretch;
+            justify-items: stretch;
         }
+        /* Make each value card fill its grid cell and keep original internal layout (icon + content) */
         
         .value-card {
             box-sizing: border-box;
-            flex: 0 0 calc((100% - 70px) / 6);
-            max-width: calc((100% - 70px) / 6);
             display: flex;
             gap: 12px;
             align-items: flex-start;
             background: #fff;
-            padding: 14px;
+            padding: 18px;
+            /* slightly increased for breathing room */
             border-radius: 10px;
             border: 1px solid rgba(0, 0, 0, 0.04);
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
             transition: transform .18s ease, box-shadow .18s ease;
+            width: 100%;
+            /* full width of grid cell */
             min-width: 0;
         }
+        /* hover */
         
         .value-card:hover {
             transform: translateY(-6px);
@@ -464,57 +472,70 @@
             flex: 1 1 auto;
             min-width: 0;
         }
+        /* Increased heading size for hierarchy */
         
         .value-content h3 {
-            margin: 0 0 6px 0;
+            margin: 0 0 8px 0;
             color: var(--accent);
-            font-size: 16px;
+            font-size: 18px;
+            /* increased from 16 to 18 */
         }
+        /* Increased paragraph size and line-height for readability */
         
         .value-content p {
             margin: 0;
             color: #555;
-            font-size: 14px;
-            line-height: 1.35;
+            font-size: 16px;
+            /* increased from 14 to 16 */
+            line-height: 1.6;
+            /* increased line-height for better readability */
             white-space: normal;
             overflow-wrap: anywhere;
             word-break: break-word;
             hyphens: auto;
         }
+        /* Responsive breakpoints for the grid */
+        
+        @media (max-width: 900px) {
+            .values-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                /* two cards per row on medium screens */
+            }
+        }
+        
+        @media (max-width: 520px) {
+            .values-grid {
+                grid-template-columns: 1fr;
+                /* single column on narrow screens */
+            }
+            /* slightly reduce font-size on very small screens to avoid overflow */
+            .value-content p {
+                font-size: 15px;
+                line-height: 1.5;
+            }
+            .value-content h3 {
+                font-size: 17px;
+            }
+        }
         
         @media (max-width:1200px) {
-            .value-card {
-                flex: 0 0 calc((100% - 56px)/5);
-                max-width: calc((100% - 56px)/5);
-            }
+            /* kept for alignment safety — no longer using flex-based calcs */
         }
         
         @media (max-width:1000px) {
-            .value-card {
-                flex: 0 0 calc((100% - 42px)/4);
-                max-width: calc((100% - 42px)/4);
-            }
+            /* kept for alignment safety */
         }
         
         @media (max-width:800px) {
-            .value-card {
-                flex: 0 0 calc((100% - 28px)/3);
-                max-width: calc((100% - 28px)/3);
-            }
+            /* kept for alignment safety */
         }
         
         @media (max-width:600px) {
-            .value-card {
-                flex: 0 0 calc((100% - 14px)/2);
-                max-width: calc((100% - 14px)/2);
-            }
+            /* kept for alignment safety */
         }
         
         @media (max-width:420px) {
-            .value-card {
-                flex: 0 0 100%;
-                max-width: 100%;
-            }
+            /* kept for alignment safety */
         }
         
         @media (max-width:520px) {

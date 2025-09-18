@@ -28,7 +28,8 @@ body {
   line-height: 1.6;
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* body lazima iwe angalau screen nzima */
+  min-height: 100vh; 
+  overflow-x: hidden; /* zuia horizontal scroll */
 }
 
 /* ====== HEADER ====== */
@@ -88,6 +89,20 @@ nav ul li a.active::after {
   width: 100%; 
 }
 
+/* Hamburger button */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+}
+.menu-toggle span {
+  width: 28px;
+  height: 3px;
+  background: white;
+  border-radius: 2px;
+}
+
 .h1{
   text-align: center;
   margin-top: 1rem;
@@ -103,12 +118,14 @@ nav ul li a.active::after {
   background: #fff;
   border: 2px solid var(--dark-blue);
   color: var(--dark-blue);
-  padding: 0.6rem 1.2rem;
+  padding: 0.5rem 1rem;
   margin: 0.3rem;
-  border-radius: 25px;
-  font-size: 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.3s ease;
+  display: inline-block;
+  min-width: 100px;
 }
 
 .filter-buttons button.active,
@@ -118,7 +135,7 @@ nav ul li a.active::after {
 }
 
 main {
-  flex: 1; /* Hii ndio inasukuma footer chini */
+  flex: 1; 
   display: flex;
   flex-direction: column;
 }
@@ -226,17 +243,31 @@ footer p {
   transform: scale(0.9);
   pointer-events: none;
   transition: all 0.4s ease;
-  display: none; /* fix layout */
+  display: none; 
 }
 
 /* Responsive */
-@media (max-width: 600px) {
-  .filter-buttons button {
-    width: 100%;
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: flex;
   }
-  header {
+  nav ul {
     flex-direction: column;
     gap: 10px;
+    background: var(--dark-blue);
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    width: 200px;
+    padding: 15px;
+    display: none;
+  }
+  nav ul.show {
+    display: flex;
+  }
+  .filter-buttons button {
+    width: auto; /* hazijazi screen */
+    min-width: 90px;
   }
 }
   </style>
@@ -249,6 +280,14 @@ footer p {
     <img src="./images/Logo2.png" alt="Lazri Company Logo">
   </a>
 </h1>
+
+    <!-- Hamburger -->
+    <div class="menu-toggle" onclick="document.querySelector('nav ul').classList.toggle('show')">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
     <nav>
       <ul>
         <li><a href="index.html"><b>Home</b></a></li>

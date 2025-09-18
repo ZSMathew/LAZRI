@@ -2,154 +2,316 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lazri Company - About Us</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Lazri Company - About</title>
+
+    <!-- AOS (Animate On Scroll) library CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
     <style>
          :root {
-            --blue: #0b66ff;
+            --page-bg: #f8fbff;
+            --nav-blue: #0b66ff;
             --dark-blue: #053a9b;
-            --gray: #f3f4f6;
-            --muted: rgb(63, 63, 63);
-            --white: #ffffff;
-            --shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            --radius: 12px;
+            --accent: #0047FF;
+            --white: #fff;
+            --yellow: #ffd700;
         }
         
         * {
             box-sizing: border-box;
             margin: 0;
-            padding: 0;
+            padding: 0
         }
         
         body {
-            font-family: "Segoe UI", Arial, sans-serif;
-            background: #f8fbff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--page-bg);
             color: #0f1724;
-            line-height: 1.6;
+            line-height: 1.5;
         }
-        
-        .container {
-            max-width: 99%;
-            margin: auto;
-            padding: 20px;
-        }
-        
-        section {
-            scroll-margin-top: 80px;
-        }
-        /* ====== HEADER ====== */
+        /* ---- Header / Nav ---- */
         
         header {
             background: var(--dark-blue);
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
             padding: 12px 24px;
-            box-shadow: var(--shadow);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
             position: sticky;
             top: 0;
             z-index: 1000;
         }
         
+        header h1 {
+            margin: 0
+        }
+        
         header img {
-            height: 50px;
+            height: 54px;
+            width: auto;
+            display: block
+        }
+        /* hamburger button (hidden on wide screens) */
+        
+        .nav-toggle {
+            display: none;
+            background: transparent;
+            border: 0;
+            cursor: pointer;
+            width: 44px;
+            height: 44px;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+        
+        .nav-toggle .bar {
+            display: block;
+            width: 20px;
+            height: 2px;
+            background: var(--white);
+            position: relative;
+            transition: transform .18s ease, opacity .18s ease;
+        }
+        
+        .nav-toggle .bar::before,
+        .nav-toggle .bar::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            width: 20px;
+            height: 2px;
+            background: var(--white);
+            transition: transform .18s ease, top .18s ease;
+        }
+        
+        .nav-toggle .bar::before {
+            top: -6px;
+        }
+        
+        .nav-toggle .bar::after {
+            top: 6px;
+        }
+        
+        nav {
+            flex: 1 1 auto;
+            margin-left: 12px;
+            min-width: 160px
         }
         
         nav ul {
             display: flex;
             gap: 20px;
             list-style: none;
+            align-items: center;
+            justify-content: flex-end;
+            flex-wrap: nowrap
         }
         
-        nav ul li {
-            position: relative;
+        nav li {
+            white-space: nowrap
         }
+        /* nav links with underline + yellow hover (restored) */
         
-        nav ul li a {
-            position: relative;
-            text-decoration: none;
-            color: var(--white);
-            font-weight: 500;
+        nav a {
+            display: inline-block;
             padding: 8px 12px;
-            transition: color 0.3s;
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+            transition: color .18s ease;
         }
+        /* underline pseudo element */
         
-        nav ul li a::after {
+        nav a::after {
             content: "";
             position: absolute;
             left: 0;
             bottom: 0;
             height: 2px;
             width: 0%;
-            background: var(--white);
-            transition: width 0.3s ease;
+            background: var(--yellow);
+            transition: width .22s ease;
         }
         
-        nav ul li a:hover {
-            color: #ffd700
+        nav a:hover {
+            color: var(--yellow);
         }
         
-        nav ul li a:hover::after {
+        nav a:hover::after {
             width: 100%;
         }
+        /* active link style */
         
-        nav ul li a.active {
-            color: #ffd700;
-            font-weight: bold;
+        nav a.active {
+            color: var(--yellow);
+            font-weight: 700;
         }
         
-        nav ul li a.active::after {
+        nav a.active::after {
             width: 100%;
         }
-        /* Section base */
+        /* responsive nav: center & wrap at medium widths */
+        
+        @media (max-width:900px) {
+            nav ul {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 16px;
+            }
+        }
+        /* small screens: hide links by default and show hamburger.
+     When the nav has .open, show the links as a stacked menu.
+  */
+        
+        @media (max-width:700px) {
+            header {
+                /* slightly reduced header height & padding for narrow screens */
+                flex-direction: row;
+                align-items: center;
+                padding: 10px 14px;
+            }
+            header img {
+                height: 44px
+            }
+            .nav-toggle {
+                display: flex;
+            }
+            /* hide nav links by default on narrow screens */
+            nav ul {
+                display: none;
+            }
+            /* when nav has "open" class, show the links as vertical stack */
+            nav.open ul {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                align-items: center;
+                width: 100%;
+                margin-top: 8px;
+            }
+            nav.open ul li {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+            nav.open ul li a {
+                display: block;
+                width: 100%;
+                padding: 10px 0;
+            }
+        }
+        /* ---- Sections / Containers ---- */
         
         section {
             padding: 60px 20px;
             max-width: 1200px;
-            margin: auto;
+            margin: 0 auto;
             text-align: center;
+            scroll-margin-top: 84px
         }
         
         section h2 {
             font-size: 32px;
             margin-bottom: 10px;
-            color: #111;
-        }
-        
-        h3 {
-            text-transform: uppercase;
+            color: #111
         }
         
         section p {
             color: #666;
             margin-bottom: 40px;
+            text-align: left
         }
-        /* Team / Cards */
+        
+        .section-card {
+            background: var(--white);
+            padding: 22px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            max-width: 1100px;
+            margin: 0 auto 30px;
+            text-align: left;
+        }
+        
+        .section-card h2 {
+            text-align: center
+        }
+        /* ---- Team / Member cards ---- */
         
         .team-container {
             display: flex;
             gap: 20px;
             flex-wrap: nowrap;
-            /* keep single line on large screens */
             justify-content: space-between;
             align-items: stretch;
             overflow-x: hidden;
-            /* prevent horizontal scroll on desktop */
-            padding-bottom: 0;
         }
-        /* keep cards fixed width inside the horizontal scroller */
         
         .team-container .card {
             flex: 0 0 calc((100% - 80px) / 5);
-            /* 5 cards on one row for desktop */
             max-width: calc((100% - 80px) / 5);
             width: 100%;
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            transition: transform .18s ease, box-shadow .18s ease;
         }
-        /* Responsive breakpoints: switch to wrapped grid on smaller screens */
         
-        @media (max-width: 1000px) {
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 18px 36px rgba(0, 0, 0, 0.18);
+        }
+        
+        .card-header {
+            background: var(--accent);
+            height: 80px;
+            position: relative;
+        }
+        
+        .card-header img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 4px solid #fff;
+            position: absolute;
+            left: 50%;
+            bottom: -50px;
+            transform: translateX(-50%);
+            object-fit: cover;
+            background: #fff;
+            transition: transform .22s ease;
+        }
+        
+        .card:hover .card-header img {
+            transform: translateX(-50%) scale(1.06);
+        }
+        
+        .card-body {
+            padding: 60px 20px 20px;
+            text-align: center;
+        }
+        
+        .card-body h3 {
+            margin: 10px 0 5px;
+            font-size: 20px;
+            color: #2c3e50;
+            text-align: center;
+        }
+        
+        .card-body p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #555;
+        }
+        
+        @media (max-width:1000px) {
             .team-container {
                 flex-wrap: wrap;
                 overflow-x: visible;
@@ -161,360 +323,312 @@
             }
         }
         
-        @media (max-width: 800px) {
+        @media (max-width:800px) {
             .team-container .card {
                 flex: 1 1 calc((100% - 40px) / 3);
                 max-width: calc((100% - 40px) / 3);
             }
         }
         
-        @media (max-width: 600px) {
+        @media (max-width:600px) {
             .team-container .card {
                 flex: 1 1 calc((100% - 20px) / 2);
                 max-width: calc((100% - 20px) / 2);
             }
         }
         
-        @media (max-width: 420px) {
-            .team-container {
-                flex-wrap: wrap;
-            }
+        @media (max-width:420px) {
             .team-container .card {
                 flex: 1 1 100%;
                 max-width: 420px;
             }
         }
         
-        .card {
-            width: 100%;
-            max-width: 280px;
-            background: #fff;
-            border-radius: 15px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-            text-align: center;
-            margin-bottom: 20px;
-            position: relative;
-            /* ADDED: smooth transition for hover effect */
-            transition: transform 180ms ease, box-shadow 180ms ease;
-            will-change: transform;
-        }
-        /* ADDED: hover/focus effect — lifts card and increases shadow */
-        
-        .card:hover,
-        .card:focus-within {
-            transform: translateY(-8px);
-            box-shadow: 0 18px 36px rgba(0, 0, 0, 0.18);
-        }
-        
-        .card-header {
-            background: #0047FF;
-            height: 80px;
-            position: relative;
-        }
-        
-        .card-header img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            border: 4px solid white;
-            position: absolute;
-            bottom: -50px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #fff;
-            object-fit: cover;
-            /* ADDED: avatar transition + slight scale on card hover */
-            transition: transform 220ms ease, box-shadow 220ms ease;
-        }
-        /* ADDED: scale avatar slightly when card is hovered */
-        
-        .card:hover .card-header img,
-        .card:focus-within .card-header img {
-            transform: translateX(-50%) scale(1.06);
-            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
-        }
-        
-        .card-body {
-            padding: 60px 20px 20px;
-        }
-        
-        .card-body h3 {
-            margin: 10px 0 5px;
-            font-size: 20px;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-        
-        .card-body p {
-            margin: 5px 0;
-            font-size: 14px;
-            color: #555;
-        }
-        
-        .card-body p strong {
-            color: #0047FF;
-        }
-        
         .btn {
             display: inline-block;
             padding: 10px 20px;
-            margin-top: 10px;
-            background: #0047FF;
-            color: white;
             border-radius: 25px;
+            background: var(--accent);
+            color: #fff;
             text-decoration: none;
-            font-weight: bold;
-            transition: background 0.3s;
+            font-weight: 700
         }
         
         .btn:hover {
-            background: #0033cc;
+            background: #0033cc
         }
-        /* ====== FOOTER ====== */
-        
-        footer {
-            background: var(--muted);
-            color: var(--white);
-            text-align: center;
-            padding: 20px;
-            margin-top: 40px;
-            animation: fadeIn 1.5s ease-in;
-        }
-        /* ===== Section card wrapper (white table/grid look) ===== */
-        
-        .section-card {
-            background: #fff;
-            padding: 22px;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(0, 0, 0, 0.04);
-            max-width: 1100px;
-            margin: 0 auto 30px auto;
-            text-align: left;
-        }
-        
-        .section-card h2 {
-            text-align: center;
-        }
-        
-        .section-card p {
-            text-align: left;
-            color: #555;
-        }
-        /* ===== Core Values styles (centered header, grey colors, grey icons) ===== */
+        /* ---- Core Values ---- */
         
         #core-values {
             margin-top: 30px;
             text-align: center;
-            /* center the heading + paragraph */
         }
         
         .cv-wrapper {
             background: rgba(255, 255, 255, 0.95);
             padding: 24px;
             border-radius: 12px;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
             max-width: 1100px;
             margin: 0 auto;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
         }
-        /* Replace the existing #core-values header rule with this */
         
         #core-values header {
             display: flex;
             flex-direction: column;
-            /* stack title + paragraph */
             align-items: center;
             text-align: center;
             gap: 8px;
             margin-bottom: 18px;
-            /* Make header white and visually separate it */
-            background: #ffffff;
+            background: #fff;
             padding: 16px 18px;
             border-radius: 8px;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
             width: calc(100% - 48px);
-            /* keep some breathing room inside cv-wrapper */
             max-width: 980px;
-            /* optional: prevents it stretching too wide on very large screens */
             margin-left: auto;
             margin-right: auto;
+            position: static;
         }
         
         #core-values h2 {
             margin: 0;
             color: #111;
-            /* grey header */
             font-size: 26px;
             text-transform: uppercase;
-            /* ensure uppercase VALUES */
-            letter-spacing: 0.6px;
+            letter-spacing: .6px;
         }
         
         #core-values p.lead {
             margin: 6px 0 18px 0;
             color: #6b7280;
-            /* grey paragraph */
-            font-size: 0.98rem;
+            font-size: .98rem;
             max-width: 900px;
             text-transform: lowercase;
-            /* ensure lowercase paragraph */
         }
+        /*
+           values-grid as a 3-columns grid on desktop so cards are 3-per-row (2 rows total).
+           Responsive fallbacks: 2 columns on medium, 1 on narrow screens.
+        */
         
         .values-grid {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            /* three cards per row */
             gap: 14px;
-            flex-wrap: wrap;
-            /* allow wrapping when viewport narrows */
-            justify-content: flex-start;
-            /* align horizontally on wide screens */
             align-items: stretch;
+            justify-items: stretch;
         }
-        /* Layout: 6 per row on very wide screens, then progressively fewer per row */
+        /* Make each value card fill its grid cell and keep original internal layout (icon + content) */
         
         .value-card {
             box-sizing: border-box;
-            /* ensure padding doesn't break widths */
-            flex: 0 0 calc((100% - 5 * 14px) / 6);
-            /* six cards in one row on wide screens */
-            max-width: calc((100% - 5 * 14px) / 6);
-        }
-        
-        @media (max-width:1200px) {
-            .value-card {
-                flex: 0 0 calc((100% - 4 * 14px) / 5);
-                max-width: calc((100% - 4 * 14px) / 5);
-            }
-        }
-        
-        @media (max-width:1000px) {
-            .value-card {
-                flex: 0 0 calc((100% - 3 * 14px) / 4);
-                max-width: calc((100% - 3 * 14px) / 4);
-            }
-        }
-        
-        @media (max-width:800px) {
-            .value-card {
-                flex: 0 0 calc((100% - 2 * 14px) / 3);
-                max-width: calc((100% - 2 * 14px) / 3);
-            }
-        }
-        
-        @media (max-width:600px) {
-            .value-card {
-                flex: 0 0 calc((100% - 1 * 14px) / 2);
-                max-width: calc((100% - 1 * 14px) / 2);
-            }
-        }
-        
-        @media (max-width:420px) {
-            .value-card {
-                flex: 0 0 100%;
-                max-width: 100%;
-            }
-        }
-        /* responsive: 3 per row desktop, 2 per row tablet, 1 per row mobile */
-        
-        @media (min-width: 901px) {
-            .value-card {
-                display: flex;
-                gap: 12px;
-                align-items: flex-start;
-                background: #fff;
-                padding: 14px;
-                border-radius: 10px;
-                border: 1px solid rgba(0, 0, 0, 0.04);
-                box-shadow: 0 6px 14px rgba(0, 0, 0, 0.04);
-                transition: transform .18s ease, box-shadow .18s ease;
-                box-sizing: border-box;
-            }
-            .value-card:hover {
-                transform: translateY(-6px);
-                box-shadow: 0 18px 36px rgba(0, 0, 0, 0.12);
-            }
-        }
-        
-        @media (max-width: 900px) and (min-width: 521px) {
-            .value-card {
-                flex: 0 0 calc((100% - 14px)/2);
-                max-width: calc((100% - 14px)/2);
-            }
-        }
-        
-        @media (max-width: 520px) {
-            .value-card {
-                flex: 0 0 100%;
-                max-width: 100%;
-            }
-        }
-        
-        .value-card {
             display: flex;
             gap: 12px;
             align-items: flex-start;
             background: #fff;
-            padding: 14px;
+            padding: 18px;
+            /* slightly increased for breathing room */
             border-radius: 10px;
             border: 1px solid rgba(0, 0, 0, 0.04);
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
             transition: transform .18s ease, box-shadow .18s ease;
+            width: 100%;
+            /* full width of grid cell */
+            min-width: 0;
         }
+        /* hover */
         
         .value-card:hover {
             transform: translateY(-6px);
             box-shadow: 0 18px 36px rgba(0, 0, 0, 0.12);
         }
+        /* default value-icon (will be overridden per-card for colored gradients) */
         
         .value-icon {
             width: 46px;
             height: 46px;
             flex: 0 0 46px;
             border-radius: 8px;
-            background: linear-gradient(135deg, rgba(107, 114, 128, 0.08), rgba(107, 114, 128, 0.02));
             display: grid;
             place-items: center;
+            transition: transform .18s ease;
+            /* icon's svg will use currentColor so we can set color per card */
+            color: #fff;
         }
         
         .value-icon svg {
             width: 22px;
             height: 22px;
         }
-        /* make icon paths grey */
+        /* svg paths use currentColor */
         
         .value-icon svg path {
-            fill: #6b7280;
+            fill: currentColor;
         }
         
-        .value-content h3 {
-            margin: 0 0 6px 0;
-            color: #0047FF;
-            /* keep titles in accent color for contrast */
-            font-size: 16px;
+        .value-content {
+            flex: 1 1 auto;
+            min-width: 0;
         }
+        /* Increased heading size for hierarchy */
+        
+        .value-content h3 {
+            margin: 0 0 8px 0;
+            color: var(--accent);
+            font-size: 18px;
+            /* increased from 16 to 18 */
+        }
+        /* Increased paragraph size and line-height for readability */
         
         .value-content p {
             margin: 0;
             color: #555;
-            font-size: 14px;
-            line-height: 1.35;
+            font-size: 16px;
+            /* increased from 14 to 16 */
+            line-height: 1.6;
+            /* increased line-height for better readability */
+            white-space: normal;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+            hyphens: auto;
         }
-        /* responsive small screens tweak */
+        /* Responsive breakpoints for the grid */
+        
+        @media (max-width: 900px) {
+            .values-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                /* two cards per row on medium screens */
+            }
+        }
+        
+        @media (max-width: 520px) {
+            .values-grid {
+                grid-template-columns: 1fr;
+                /* single column on narrow screens */
+            }
+            /* slightly reduce font-size on very small screens to avoid overflow */
+            .value-content p {
+                font-size: 15px;
+                line-height: 1.5;
+            }
+            .value-content h3 {
+                font-size: 17px;
+            }
+        }
+        
+        @media (max-width:1200px) {
+            /* kept for alignment safety — no longer using flex-based calcs */
+        }
+        
+        @media (max-width:1000px) {
+            /* kept for alignment safety */
+        }
+        
+        @media (max-width:800px) {
+            /* kept for alignment safety */
+        }
+        
+        @media (max-width:600px) {
+            /* kept for alignment safety */
+        }
+        
+        @media (max-width:420px) {
+            /* kept for alignment safety */
+        }
         
         @media (max-width:520px) {
             .card {
-                width: 100%;
-                max-width: 320px;
+                max-width: 320px
             }
             #core-values p.lead {
-                font-size: 0.95rem;
+                font-size: .95rem
             }
             .section-card {
-                padding: 18px;
+                padding: 18px
             }
             section {
-                padding: 40px 14px;
+                padding: 40px 14px
             }
+        }
+        /* === Colored gradient icons per value card ===
+           placed here so they override the default .value-icon background */
+        
+        .values-grid .value-card:nth-child(1) .value-icon {
+            background: linear-gradient(135deg, #7c3aed, #4f46e5);
+            color: #fff;
+        }
+        
+        .values-grid .value-card:nth-child(2) .value-icon {
+            background: linear-gradient(135deg, #06b6d4, #0891b2);
+            color: #fff;
+        }
+        
+        .values-grid .value-card:nth-child(3) .value-icon {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: #fff;
+        }
+        
+        .values-grid .value-card:nth-child(4) .value-icon {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #fff;
+        }
+        
+        .values-grid .value-card:nth-child(5) .value-icon {
+            background: linear-gradient(135deg, #fb7185, #f97316);
+            color: #fff;
+        }
+        
+        .values-grid .value-card:nth-child(6) .value-icon {
+            background: linear-gradient(135deg, #6366f1, #4338ca);
+            color: #fff;
+        }
+        /* slight pop on hover for icons */
+        
+        .value-card:hover .value-icon {
+            transform: translateY(-3px);
+        }
+        /* ====== Hover fixes (override AOS inline transforms) ======
+           These must come last in the stylesheet to be effective. */
+        
+        .team-container .card,
+        .value-card {
+            cursor: pointer;
+            /* indicate interactivity */
+        }
+        /* Force the original transition timings (override any inline AOS styles) */
+        
+        .team-container .card {
+            transition: transform .18s ease !important;
+            box-shadow: .18s ease !important;
+        }
+        
+        .team-container .card .card-header img {
+            transition: transform .22s ease !important;
+            box-shadow: .22s ease !important;
+        }
+        /* Value cards original transition */
+        
+        .value-card {
+            transition: transform .18s ease !important;
+            box-shadow: .18s ease !important;
+        }
+        /* Reapply exact hover transforms (same values you already used) */
+        
+        .team-container .card:hover {
+            transform: translateY(-8px) !important;
+            box-shadow: 0 18px 36px rgba(0, 0, 0, 0.18) !important;
+        }
+        
+        .team-container .card:hover .card-header img {
+            transform: translateX(-50%) scale(1.06) !important;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+        }
+        
+        .value-card:hover {
+            transform: translateY(-6px) !important;
+            box-shadow: 0 18px 36px rgba(0, 0, 0, 0.12) !important;
         }
     </style>
 </head>
@@ -523,156 +637,144 @@
 
     <!-- Header -->
     <header>
-        <h1><img src="./images/Logo2.png" alt="Lazri Logo"></h1>
-        <nav>
+        <h1>
+  <a href="index.html">
+    <img src="./images/Logo2.png" alt="Lazri Company Logo">
+  </a>
+</h1>
+
+        <!-- hamburger toggle visible on small screens -->
+        <button class="nav-toggle" aria-controls="main-nav" aria-expanded="false" title="Toggle navigation">
+      <span class="bar" aria-hidden="true"></span>
+    </button>
+
+        <nav id="main-nav">
             <ul>
-                <li><a href="index.html"><b>Home</b></a></li>
-                <li><a href="our service.html"><b>Our Services</b></a></li>
-                <li><a href="Project.html"><b>Our Projects</b></a></li>
-                <li><a href="About.html" class="active"><b>About Us</b></a></li>
-                <li><a href="contact.html"><b>Contact Us</b></a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="our_service.html">Our Services</a></li>
+                <li><a href="Project.html">Our Projects</a></li>
+                <li><a href="About.html" class="active">About Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
             </ul>
         </nav>
     </header>
-    <!-- Team Section (now wrapped in white card/grid) -->
-    <section>
+
+    <!-- Team Section -->
+    <section data-aos="fade-up">
         <div class="section-card">
             <h2>WHO ARE WE</h2>
             <p>Lazri Company is dedicated to delivering innovative IT solutions and services to help businesses thrive in a digital-first world. With a focus on customer satisfaction, integrity, and professionalism, we aim to set new standards in the industry.</p>
 
             <div class="team-container">
-                <!-- Member 1 -->
-                <div class="card" tabindex="0">
-                    <div class="card-header">
-                        <img src="./images/innocent.jpg" alt="Inocenti Gabriel">
-                    </div>
+                <div class="card" tabindex="0" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card-header"><img src="./images/innocent.jpg" alt="Inocenti Gabriel"></div>
                     <div class="card-body">
                         <h3>Inocenti Gabriel</h3>
-                        <p><strong>CEO & Founder</strong></p>
+                        <p><strong>CEO &amp; Founder</strong></p>
                         <p>Analyst and company development expert.</p>
                     </div>
                 </div>
 
-                <!-- Member 2 -->
-                <div class="card" tabindex="0">
+                <div class="card" tabindex="0" data-aos="fade-up" data-aos-delay="200">
                     <div class="card-header">
                         <img src="images/lucy.jpg" alt="Lucy Nguzo">
                     </div>
                     <div class="card-body">
                         <h3>Lucy Nguzo</h3>
-                        <p><strong>Chief Executive Secretary & Founder</strong></p>
+                        <p><strong>Chief Executive Secretary &amp; Founder</strong></p>
                         <p>Chief assistant to the CEO and company records keeper.</p>
                     </div>
                 </div>
 
-                <!-- Member 3 -->
-                <div class="card" tabindex="0">
-                    <div class="card-header">
-                        <img src="images/anthony.png" alt="Raynell Robert">
-                    </div>
+                <div class="card" tabindex="0" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card-header"><img src="images/anthony.png" alt="Raynell Robert"></div>
                     <div class="card-body">
                         <h3>Raynell Robert</h3>
-                        <p><strong>CFO & Founder</strong></p>
+                        <p><strong>CFO &amp; Founder</strong></p>
                         <p>Accountant and financial affairs manager.</p>
                     </div>
                 </div>
 
-                <!-- Member 4 -->
-                <div class="card" tabindex="0">
-                    <div class="card-header">
-                        <img src="images/innocent.jpg" alt="Zakaria Stephano">
-                    </div>
+                <div class="card" tabindex="0" data-aos="fade-up" data-aos-delay="400">
+                    <div class="card-header"><img src="images/ZAKARIA.jpg" alt="Zakaria Stephano"></div>
                     <div class="card-body">
                         <h3>Zakaria Stephano</h3>
-                        <p><strong>COO, CHRO & Founder</strong></p>
-                        <p>Manager of all company operations & Human Resources.</p>
+                        <p><strong>COO, CHRO &amp; Founder</strong></p>
+                        <p>Manager of all company operations &amp; Human Resources.</p>
                     </div>
                 </div>
 
-                <!-- Member 5 -->
-                <div class="card" tabindex="0">
-                    <div class="card-header">
-                        <img src="images/anthony.png" alt="Anthony Kapinga">
-                    </div>
+                <div class="card" tabindex="0" data-aos="fade-up" data-aos-delay="500">
+                    <div class="card-header"><img src="images/anthony.png" alt="Anthony Kapinga"></div>
                     <div class="card-body">
                         <h3>Anthony Kapinga</h3>
-                        <p><strong>CMO, CTO & Founder</strong></p>
-                        <p>Chief technology and innovation engineer & Head of marketing and public relations.</p>
+                        <p><strong>CMO, CTO &amp; Founder</strong></p>
+                        <p>Chief technology and innovation engineer &amp; Head of marketing and public relations.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Mission section (now white card with two-column feel) -->
-    <section>
+    <!-- Mission -->
+    <section data-aos="fade-up">
         <div class="section-card">
             <h2>WHY WE ARE HERE</h2>
-            <div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;">
-                <div style="flex:1;min-width:260px;">
+            <div style="display:flex; gap:20px; align-items:center; flex-wrap:wrap;">
+                <div style="flex:1; min-width:260px;">
                     <p>To offer high-quality, affordable and customer-centric solutions that empower businesses and individuals to thrive in the digital era.</p>
-                    <div style="margin-top:10px;">
-                        <a class="btn" href="contact.html">Get a Quote</a>
-                        <a style="margin-left:12px;border-radius:20px;padding:8px 14px;border:1px solid rgba(0,71,255,0.08);text-decoration:none;color:#0047FF;" href="our service.html">Explore Services</a>
-                    </div>
+                    <div style="margin-top:10px;"><a class="btn" href="contact.html">Get a Quote</a></div>
                 </div>
-                <div style="flex:1;min-width:220px;display:grid;place-items:center;">
-                    <!-- small illustrative SVG as a placeholder for an image -->
-                    <svg width="220" height="120" viewBox="0 0 220 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="mission illustration"><rect width="220" height="120" rx="10" fill="#f3f4f6"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#9ca3af" font-size="12">Illustration / Image</text></svg>
+                <div style="flex:1; min-width:220px; display:grid; place-items:center;">
+                    <svg width="220" height="120" viewBox="0 0 220 120" xmlns="http://www.w3.org/2000/svg" role="img"><rect width="220" height="120" rx="10" fill="#f3f4f6"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#9ca3af" font-size="12">Illustration / Image</text></svg>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Vision section (now white card with timeline-like bullets) -->
-    <section>
+    <!-- Vision -->
+    <section data-aos="fade-up">
         <div class="section-card">
             <h2>WHAT WE WANT TO BECOME</h2>
             <p>To be a globally recognized leader in innovative technology solutions, renowned for our commitment to excellence, customer satisfaction, and positive impact on society.</p>
-
             <div style="display:grid;gap:14px;margin-top:8px;">
-                <div style="display:flex;gap:12px;align-items:flex-start;">
-                    <div style="width:14px;height:14px;border-radius:50%;background:#0047FF;margin-top:6px;"></div>
-                    <div>
-                        <strong>2025 — Strengthen Local Impact</strong>
-                        <div style="color:#555;">Expand partnerships with SMEs across Tanzania and East Africa to deliver tailored digital solutions.</div>
+                <div style="display:flex;gap:12px;align-items:flex-start;" data-aos="fade-right" data-aos-delay="100">
+                    <div style="width:14px;height:14px;border-radius:50%;background:var(--accent);margin-top:6px;"></div>
+                    <div><strong>2025 — Strengthen Local Impact</strong>
+                        <div style="color:#555">Expand partnerships with SMEs across Tanzania and East Africa to deliver tailored digital solutions.</div>
                     </div>
                 </div>
-
-                <div style="display:flex;gap:12px;align-items:flex-start;">
-                    <div style="width:14px;height:14px;border-radius:50%;background:#0047FF;margin-top:6px;"></div>
-                    <div>
-                        <strong>2027 — Regional Recognition</strong>
-                        <div style="color:#555;">Grow product offerings and earn recognition through case studies that demonstrate measurable client success.</div>
+                <div style="display:flex;gap:12px;align-items:flex-start;" data-aos="fade-right" data-aos-delay="200">
+                    <div style="width:14px;height:14px;border-radius:50%;background:var(--accent);margin-top:6px;"></div>
+                    <div><strong>2027 — Regional Recognition</strong>
+                        <div style="color:#555">Grow product offerings and earn recognition through case studies that demonstrate measurable client success.</div>
                     </div>
                 </div>
-
-                <div style="display:flex;gap:12px;align-items:flex-start;">
-                    <div style="width:14px;height:14px;border-radius:50%;background:#0047FF;margin-top:6px;"></div>
-                    <div>
-                        <strong>2030 — Global Quality Standards</strong>
-                        <div style="color:#555;">Operate with internationally certified processes while staying true to local value and affordability.</div>
+                <div style="display:flex;gap:12px;align-items:flex-start;" data-aos="fade-right" data-aos-delay="300">
+                    <div style="width:14px;height:14px;border-radius:50%;background:var(--accent);margin-top:6px;"></div>
+                    <div><strong>2030 — Global Quality Standards</strong>
+                        <div style="color:#555">Operate with internationally certified processes while staying true to local value and affordability.</div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== Integrated Core Values (placed directly AFTER Vision section) ===== -->
-    <section id="core-values" aria-labelledby="core-values-heading">
+    <!-- Core Values -->
+    <section id="core-values" aria-labelledby="core-values-heading" data-aos="fade-up">
         <div class="cv-wrapper">
             <header>
                 <div>
-                    <h2 id="core-values-heading">VALUES</h2>
+                    <h2 id="core-values-heading"> CORE VALUES</h2>
                     <p class="lead">the guiding principles that drive company behaviour and decision-making.</p>
                 </div>
             </header>
 
             <div class="values-grid" role="list">
-                <article class="value-card" role="listitem" tabindex="0">
+                <article class="value-card" role="listitem" tabindex="0" data-aos="zoom-in" data-aos-delay="50">
                     <div class="value-icon" aria-hidden="true">
-                        <!-- innovation icon -->
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+                        <!-- lightning / idea -->
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>
                     </div>
                     <div class="value-content">
                         <h3>Innovation</h3>
@@ -680,10 +782,10 @@
                     </div>
                 </article>
 
-                <article class="value-card" role="listitem" tabindex="0">
+                <article class="value-card" role="listitem" tabindex="0" data-aos="zoom-in" data-aos-delay="100">
                     <div class="value-icon" aria-hidden="true">
-                        <!-- integrity icon -->
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 1l3 6 6 1-4.5 4 1 6L12 17l-5.5 3 1-6L3 8l6-1 3-6z"/></svg>
+                        <!-- shield -->
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 1l3 6 6 1-4.5 4 1 6L12 17l-5.5 3 1-6L3 8l6-1 3-6z"/></svg>
                     </div>
                     <div class="value-content">
                         <h3>Integrity</h3>
@@ -691,10 +793,10 @@
                     </div>
                 </article>
 
-                <article class="value-card" role="listitem" tabindex="0">
+                <article class="value-card" role="listitem" tabindex="0" data-aos="zoom-in" data-aos-delay="150">
                     <div class="value-icon" aria-hidden="true">
-                        <!-- customer focus icon -->
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 12a4 4 0 100-8 4 4 0 000 8zm0 2c-4.418 0-8 2.239-8 5v1h16v-1c0-2.761-3.582-5-8-5z"/></svg>
+                        <!-- user group -->
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 12a4 4 0 100-8 4 4 0 000 8zm0 2c-4.418 0-8 2.239-8 5v1h16v-1c0-2.761-3.582-5-8-5z"/></svg>
                     </div>
                     <div class="value-content">
                         <h3>Customer Focus</h3>
@@ -702,10 +804,10 @@
                     </div>
                 </article>
 
-                <article class="value-card" role="listitem" tabindex="0">
+                <article class="value-card" role="listitem" tabindex="0" data-aos="zoom-in" data-aos-delay="200">
                     <div class="value-icon" aria-hidden="true">
-                        <!-- quality icon -->
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3 6 6 1-4 3 1 7-6-4-6 4 1-7-4-3 6-1 3-6z"/></svg>
+                        <!-- star / quality -->
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2l3 6 6 1-4 3 1 7-6-4-6 4 1-7-4-3 6-1 3-6z"/></svg>
                     </div>
                     <div class="value-content">
                         <h3>Quality</h3>
@@ -713,10 +815,10 @@
                     </div>
                 </article>
 
-                <article class="value-card" role="listitem" tabindex="0">
+                <article class="value-card" role="listitem" tabindex="0" data-aos="zoom-in" data-aos-delay="250">
                     <div class="value-icon" aria-hidden="true">
-                        <!-- teamwork icon -->
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 12a3 3 0 100-6 3 3 0 000 6zm6 1c1.657 0 3 1.343 3 3v1H3v-1c0-1.657 1.343-3 3-3h12z"/></svg>
+                        <!-- teamwork -->
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 12a3 3 0 100-6 3 3 0 000 6zm6 1c1.657 0 3 1.343 3 3v1H3v-1c0-1.657 1.343-3 3-3h12z"/></svg>
                     </div>
                     <div class="value-content">
                         <h3>Teamwork</h3>
@@ -724,10 +826,10 @@
                     </div>
                 </article>
 
-                <article class="value-card" role="listitem" tabindex="0">
+                <article class="value-card" role="listitem" tabindex="0" data-aos="zoom-in" data-aos-delay="300">
                     <div class="value-icon" aria-hidden="true">
-                        <!-- security icon -->
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17 8V7a5 5 0 10-10 0v1H5v12h14V8h-2zM9 8V7a3 3 0 116 0v1H9z"/></svg>
+                        <!-- lock / security -->
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M17 8V7a5 5 0 10-10 0v1H5v12h14V8h-2zM9 8V7a3 3 0 116 0v1H9z"/></svg>
                     </div>
                     <div class="value-content">
                         <h3>Security &amp; Privacy</h3>
@@ -737,13 +839,79 @@
             </div>
         </div>
     </section>
-    <!-- ===== End Core Values ===== -->
 
     <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 Lazri Company Limited. All rights reserved.</p>
-    </footer>
+    <footer style="text-align:center; padding:20px; margin-top:40px; color:white; background-color: rgb(63, 63, 63)">&copy; 2025 Lazri Company Limited. All rights reserved.</footer>
 
+    <script>
+        // simple accessible toggle for hamburger menu
+        (function() {
+            const nav = document.getElementById('main-nav');
+            const toggle = document.querySelector('.nav-toggle');
+
+            if (!nav || !toggle) return;
+
+            toggle.addEventListener('click', () => {
+                const isOpen = nav.classList.toggle('open');
+                toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+
+                // animate hamburger into X when open
+                const bar = toggle.querySelector('.bar');
+                if (isOpen) {
+                    bar.style.transform = 'rotate(45deg)';
+                    bar.style.background = 'transparent';
+                    bar.style.boxShadow = 'none';
+                    // create visible X with pseudo lines via transforms
+                    bar.style.position = 'relative';
+                    bar.style.opacity = '0';
+                } else {
+                    bar.style.transform = '';
+                    bar.style.opacity = '';
+                    bar.style.background = '';
+                }
+            });
+
+            // close menu when clicking outside (small screens)
+            document.addEventListener('click', (e) => {
+                if (window.innerWidth > 700) return;
+                if (!nav.classList.contains('open')) return;
+                const inside = nav.contains(e.target) || toggle.contains(e.target);
+                if (!inside) {
+                    nav.classList.remove('open');
+                    toggle.setAttribute('aria-expanded', 'false');
+                    const bar = toggle.querySelector('.bar');
+                    bar.style.transform = '';
+                    bar.style.opacity = '';
+                }
+            });
+
+            // ensure nav state resets on resize
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 700) {
+                    nav.classList.remove('open');
+                    toggle.setAttribute('aria-expanded', 'false');
+                    const bar = toggle.querySelector('.bar');
+                    if (bar) {
+                        bar.style.transform = '';
+                        bar.style.opacity = '';
+                    }
+                }
+            });
+        })();
+    </script>
+
+    <!-- AOS library JS -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+    <!-- Initialize AOS (keeps animations once and configures timing) -->
+    <script>
+        AOS.init({
+            duration: 900,
+            once: true,
+            easing: 'ease-in-out',
+            offset: 80
+        });
+    </script>
 </body>
 
 </html>

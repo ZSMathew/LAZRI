@@ -8,26 +8,45 @@
     * {margin:0; padding:0; box-sizing:border-box;}
     body {font-family: Arial, sans-serif; line-height:1.6;}
 
-    /* Navbar */
-    .navbar {
-      background: darkblue;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 40px;
-    }
-    .navbar .logo img {
-      height: 60px;
-    }
-    .navbar ul {
-      list-style: none;
-      display: flex;
-      gap: 20px;
-    }
-    .navbar ul li a {
-      text-decoration: none;
-      color: white;
-      font-weight: bold;
+/* ====== HEADER ====== */
+header {
+  background: darkblue;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  /* box-shadow: var(--shadow); */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+header img { 
+  height: 50px; 
+}
+nav ul {
+   display: flex;
+    gap: 20px;
+     list-style: none;
+     }
+nav ul li {
+   position: relative; 
+  }
+nav ul li a {
+  position: relative;
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  padding: 8px 12px;
+  transition: color 0.3s;
+}
+nav ul li a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 0%;
+  background: #ffd700;
   transition: width 0.3s ease;
 }
 nav ul li a:hover {
@@ -405,7 +424,7 @@ nav ul li a.active::after {
 
 /* mshale */
 .links li a::before {
-  content: "➔";
+  content: "●";
   position: absolute;
   left: 0;
   color: white;
@@ -471,22 +490,26 @@ nav ul li a.active::after {
 <body>
 
   <!-- Navbar -->
-  <div class="navbar">
-    <div class="logo">
-      <a href="#"><img src="./images/Logo2.png" alt="Lazri Logo"></a>
-    </div>
+   <header>
+    <h1>
+  <a href="index.html">
+    <img src="./images/Logo2.png" alt="Lazri Company Logo">
+  </a>
+</h1>
+    <nav>
     <ul>
-      <li><a href="index.html" class="active" id="navHome">Home</a></li>
-      <li><a href="our_service.html" id="navServices">Our Services</a></li>
-      <li><a href="Project.html" id="navProjects">Our Projects</a></li>
-      <li><a href="About.html" id="navAbout">About Us</a></li>
-      <li><a href="contact.html" id="navContact">Contact Us</a></li>
+      <li><a href="index.html" class="active"><b>Home</b></a></li>
+      <li><a href="our_service.html"><b>Our Services</b></a></li>
+      <li><a href="Project.html"><b>Our Projects</b></a></li>
+      <li><a href="About.html"><b>About Us</b></a></li>
+      <li><a href="contact.html"><b>Contact Us</b></a></li>
     </ul>
+    </nav>
     <div class="lang-switch">
-      <button onclick="setLanguage('en')"><span class="fi fi-gb"></span>EN</button>
-      <button onclick="setLanguage('sw')"><span class="fi fi-tz"></span>SW</button>
+      <button onclick="setLanguage('en')"><span class="fi fi-gb"></span>ENG</button>
+      <button onclick="setLanguage('sw')"><span class="fi fi-tz"></span>SWA</button>
     </div>
-  </div>
+  </header>
 
   <!-- Hero Section -->
   <div class="hero">

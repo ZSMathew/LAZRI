@@ -299,7 +299,7 @@ footer {
   to {transform: scale(1); opacity:1;}
 }
 
-/* ====== MOBILE FIXES ====== */
+/* ====== MOBILE FIXES ======
 @media (max-width: 768px) {
   .menu-toggle { display: block; }
 
@@ -320,7 +320,7 @@ footer {
     display: block;
     width: 100%;
     padding: 10px;
-    text-align: left;
+    text-align: right;
   }
   nav.active { display: block; }
 
@@ -332,7 +332,42 @@ footer {
   .services { grid-template-columns: 1fr; }
   .card img { height: auto; }
   .container { max-width: 100%; padding: 12px; }
+} */
+ @media (max-width: 768px) {
+  .menu-toggle { display: block; }
+
+  nav {
+    display: none;
+    width: 100%;
+  }
+  nav ul {
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+    background: var(--dark-blue);
+    padding: 15px 0;
+  }
+  nav ul li a {
+    display: block;
+    width: 100%;
+    padding: 12px 20px;
+    color: #fff;
+    text-align: left;
+    transition: background 0.3s;
+  }
+  /* nav ul li a.active {
+    color: #ffd700;
+    font-weight: bold;
+    border-left: 4px solid #ffd700;
+    background: rgba(255, 255, 255, 0.05);
+  } */
+  nav ul li a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffd700;
+  }
+  nav.active { display: block; }
 }
+
   </style>
 </head>
 <body>

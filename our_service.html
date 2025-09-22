@@ -93,6 +93,14 @@ nav ul li a.active::after {
   width: 100%;
 }  
 
+/* Hamburger button */
+.menu-toggle {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: var(--#333);
+}
+
 /* ====== HERO ====== */
 .hero {
   display: grid;
@@ -293,47 +301,37 @@ footer {
 
 /* ====== MOBILE FIXES ====== */
 @media (max-width: 768px) {
-  header {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 12px;
-  }
+  .menu-toggle { display: block; }
 
+  nav {
+    display: none;
+    width: 100%;
+  }
   nav ul {
     flex-direction: column;
     width: 100%;
     gap: 10px;
     margin-top: 10px;
+    background: var(--dark-blue);
+    border-radius: 8px;
+    padding: 10px;
   }
-
   nav ul li a {
     display: block;
     width: 100%;
     padding: 10px;
     text-align: left;
   }
+  nav.active { display: block; }
 
   .hero {
-    grid-template-columns: 1fr; /* picha na maandishi juu chini */
+    grid-template-columns: 1fr;
     padding: 20px 0;
   }
-
-  .hero-left h2 {
-    font-size: 22px;
-  }
-
-  .services {
-    grid-template-columns: 1fr; /* kila card ishike mstari mzima */
-  }
-
-  .card img {
-    height: auto; /* epuka fixed height kwenye simu */
-  }
-
-  .container {
-    max-width: 100%;
-    padding: 12px;
-  }
+  .hero-left h2 { font-size: 22px; }
+  .services { grid-template-columns: 1fr; }
+  .card img { height: auto; }
+  .container { max-width: 100%; padding: 12px; }
 }
   </style>
 </head>
@@ -345,7 +343,12 @@ footer {
         <img src="./images/Logo2.png" alt="Lazri Company Logo">
       </a>
     </h1>
-    <nav>
+     <!-- Hamburger button -->
+    <div class="menu-toggle" id="menu-toggle">
+      ☰
+    </div>
+
+    <nav id="navbar">
       <ul>
         <li><a href="index.html"><b>Home</b></a></li>
         <li><a href="our service.html" class="active"><b>Our Services</b></a></li>
@@ -526,6 +529,16 @@ footer {
         modal.style.display = "none";
       }
     }
+
+    
+  // hamburger menu toggle
+  const menuToggle = document.getElementById("menu-toggle");
+  const navbar = document.getElementById("navbar");
+  menuToggle.addEventListener("click", () => {
+    navbar.classList.toggle("active");
+  });
   </script>
+
+  
 </body>
 </html>

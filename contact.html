@@ -269,6 +269,35 @@ nav ul li a.active::after {
     box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
 }
 
+/* Hamburger for mobile */
+.menu-toggle {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: var(--white);
+}
+
+@media (max-width: 768px) {
+  .menu-toggle { display: block; }
+  nav { display: none; width: 100%; }
+  nav ul {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+    margin-top: 10px;
+    background: var(--dark-blue);
+    border-radius: 8px;
+    padding: 10px;
+  }
+  nav ul li a {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    text-align: left;
+  }
+  nav.active { display: block; }
+}
+
     </style>
 </head>
 <body>
@@ -279,7 +308,11 @@ nav ul li a.active::after {
     <img src="./images/Logo2.png" alt="Lazri Company Logo">
   </a>
 </h1>
-    <nav>
+     <!-- Hamburger Button -->
+  <div class="menu-toggle" id="menu-toggle">
+    ☰
+  </div>
+    <nav id="navbar">
       <ul>
         <li><a href="index.html"><b>Home</b></a></li>
         <li><a href="our_service.html"><b>Our Services</b></a></li>
@@ -399,5 +432,27 @@ nav ul li a.active::after {
       <p id="copyright">Copyright © 2025 - Lazri Company Limited. | All rights reserved</p>
     </div>
   </footer>
+
+  <script>
+  // Hamburger menu toggle
+  const menuToggle = document.getElementById("menu-toggle");
+  const navbar = document.getElementById("navbar");
+  menuToggle.addEventListener("click", () => {
+    navbar.classList.toggle("active");
+  });
+
+  // Initialize map
+  function initMap() {
+    var location = [-6.827, 39.2675];
+    var map = L.map('map').setView(location, 12);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '© OpenStreetMap'
+    }).addTo(map);
+    L.marker(location).addTo(map).bindPopup('Dar es Salaam').openPopup();
+  }
+  window.onload = initMap;
+</script>
+
 </body>
 </html>

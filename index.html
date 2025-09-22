@@ -482,6 +482,134 @@ nav ul li a.active::after {
       color: white;
       font-size: 22px;
     }
+
+    /* =================== RESPONSIVE DESIGN =================== */
+
+/* Tablet (768px and below) */
+@media (max-width: 992px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  nav ul {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .hero {
+    flex-direction: column;
+    text-align: center;
+  }
+  .hero-text {
+    font-size: 22px;
+  }
+  .hero-img img {
+    width: 100%;
+    height: auto;
+  }
+  .footer-container {
+    flex-direction: column;
+    margin-left: 0;
+  }
+  .footer-column {
+    margin-bottom: 20px;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+  .footer-links {
+    margin-left: 0 !important;
+    margin-top: 10px;
+  }
+}
+
+/* Mobile (480px and below) */
+@media (max-width: 576px) {
+  header {
+    padding: 10px;
+    flex-direction: column;
+  }
+  nav ul {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  nav ul li a {
+    font-size: 14px;
+    padding: 6px 8px;
+  }
+  .hero {
+    padding: 20px;
+  }
+  .hero-text {
+    font-size: 18px;
+  }
+  .hero-box {
+    font-size: 14px;
+  }
+  .services-section h2 {
+    font-size: 1.8rem;
+  }
+  .testimonial-card {
+    width: 100%;
+  }
+  .footer h2 {
+    font-size: 20px;
+  }
+  .footer p,
+  .footer a,
+  .footer span {
+    font-size: 16px;
+  }
+  .social-icons a {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+  .scroll-top {
+    width: 40px;
+    height: 40px;
+  }
+  .scroll-top i {
+    font-size: 18px;
+  }
+}
+
+/* Hamburger button (hidden by default) */
+.menu-toggle {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #333;
+}
+
+/* For smaller screens */
+@media (max-width: 768px) {
+  nav {
+    display: none;
+    width: 100%;
+  }
+
+  nav ul {
+    flex-direction: column;
+    /* background:  #004aad; */
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  nav ul li {
+    margin: 8px 0;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  nav.active {
+    display: block;
+  }
+}
+
   </style>
   <script src="https://kit.fontawesome.com/yourkitid.js" crossorigin="anonymous"></script>
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -496,7 +624,11 @@ nav ul li a.active::after {
     <img src="./images/Logo2.png" alt="Lazri Company Logo">
   </a>
 </h1>
-    <nav>
+  <!-- Hamburger Button -->
+  <div class="menu-toggle" id="menu-toggle">
+    ☰
+  </div>
+    <nav id="navbar">
     <ul>
       <li><a href="index.html" class="active"><b>Home</b></a></li>
       <li><a href="our_service.html"><b>Our Services</b></a></li>
@@ -849,5 +981,15 @@ nav ul li a.active::after {
       }
     });
   </script>
+
+  <script>
+  const menuToggle = document.getElementById("menu-toggle");
+  const navbar = document.getElementById("navbar");
+
+  menuToggle.addEventListener("click", () => {
+    navbar.classList.toggle("active");
+  });
+</script>
+
 </body>
 </html>

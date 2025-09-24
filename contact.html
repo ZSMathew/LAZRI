@@ -270,14 +270,19 @@ nav ul li a.active::after {
 }
 
 /* Hamburger for mobile */
-.menu-toggle {
+/* .menu-toggle {
   display: none;
   font-size: 28px;
   cursor: pointer;
   color: var(--white);
+} */
+.menu-toggle {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #333;
 }
-
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .menu-toggle { display: block; }
   nav { display: none; width: 100%; }
   nav ul {
@@ -296,6 +301,43 @@ nav ul li a.active::after {
     text-align: left;
   }
   nav.active { display: block; }
+} */
+ /* For smaller screens */
+@media (max-width: 768px) {
+  nav {
+    display: none;
+    width: 100%;
+  }
+
+  nav ul {
+    flex-direction: column;
+    /* background:  #004aad; */
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  nav ul li {
+    margin: 8px 0;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  nav.active {
+    display: block;
+  }
+}
+/* Tablet (768px and below) */
+@media (max-width: 992px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  nav ul {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
 }
 
     </style>

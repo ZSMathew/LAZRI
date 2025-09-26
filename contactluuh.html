@@ -3,9 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+      <title>Lazri Company - Contact</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        :root {
+            --blue: #0b66ff;
+            --dark-blue: #053a9b;
+            --gray: #f3f4f6;
+            --muted: rgb(63, 63, 63);
+            --white: #ffffff;
+            --shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            --radius: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f8fbff;
+            color: #0f1724;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 99%;
+            margin: auto;
+            padding: 20px;
+        }
+
+        section {
+            scroll-margin-top: 80px;
+        }
+
+        /* ====== HEADER ====== */
+        header {
+            background: #053a9b;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 24px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header img {
+            height: 50px;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+
+        nav ul li {
+            position: relative;
+        }
+
+        nav ul li a {
+            position: relative;
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: 500;
+            padding: 8px 12px;
+            transition: color 0.3s;
+        }
+
+        nav ul li a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 2px;
+            width: 0%;
+            background: #ffffff;
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #ffd700;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        nav ul li a.active {
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        nav ul li a.active::after {
+            width: 100%;
+        }
 </head>
 <body>
-    
+    <header>
+    <h1>
+      <a href="index.html">
+        <img src="./images/Logo2.png" alt="Lazri Company Logo">
+      </a>
+    </h1>
+     <!-- Hamburger button -->
+    <div class="menu-toggle" id="menu-toggle">
+      ☰
+    </div>
+
+    <nav id="navbar">
+      <ul>
+        <li><a href="index.html"><b>Home</b></a></li>
+        <li><a href="our service.html" class="active"><b>Our Services</b></a></li>
+        <li><a href="Project.html"><b>Our Projects</b></a></li>
+        <li><a href="About.html"><b>About Us</b></a></li>
+        <li><a href="contact.html"><b>Contact Us</b></a></li>
+      </ul>
+    </nav>
+  </header>
 </body>
 </html>

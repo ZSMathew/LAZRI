@@ -140,6 +140,83 @@ footer {
   margin-top: 40px;
 }
 
+
+/* Tablet (768px and below) */
+/* @media (max-width: 992px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  nav ul {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+} */
+
+/* Mobile (480px and below) */
+/* @media (max-width: 576px) {
+  header {
+    padding: 10px;
+    flex-direction: column;
+  }
+  nav ul {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  nav ul li a {
+    font-size: 14px;
+    padding: 6px 8px;
+  }
+} */
+
+/* Hamburger button (hidden by default) */
+.menu-toggle {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #333;
+}
+/* For smaller screens */
+@media (max-width: 768px) {
+  nav {
+    display: none;
+    width: 100%;
+  }
+
+  nav ul {
+    flex-direction: column;
+    /* background:  #004aad; */
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  nav ul li {
+    margin: 8px 0;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  nav.active {
+    display: block;
+  }
+}
+
+/* Tablet (768px and below) */
+@media (max-width: 992px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  nav ul {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+}
+
+
   </style>
 </head>
 <body>
@@ -151,6 +228,9 @@ footer {
     <img src="./images/Logo2.png" alt="Lazri Company Logo">
   </a>
 </h1>
+<div class="menu-toggle" id="menu-toggle">
+    ☰
+  </div>
     <nav>
       <ul>
         <li><a href="index.html"><b>Home</b></a></li>
@@ -235,5 +315,14 @@ footer {
     <p>&copy; 2025 Lazri Company Limited. All rights reserved.</p>
   </footer>
 <a href="index.html" class="back-home">⬅ Back to Home</a>
+
+  <script>
+  // Hamburger menu toggle
+  const menuToggle = document.getElementById("menu-toggle");
+  const navbar = document.getElementById("navbar");
+  menuToggle.addEventListener("click", () => {
+    navbar.classList.toggle("active");
+  });
+</script>
 </body>
 </html>

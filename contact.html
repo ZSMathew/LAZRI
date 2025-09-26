@@ -1,116 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lazri Company - Contact</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <style>
-        :root {
-  --blue: #0b66ff;
-  --dark-blue: #053a9b;
-  --gray: #f3f4f6;
-  --muted: rgb(63, 63, 63);
-  --white: #ffffff;
-  --shadow: 0 4px 10px rgba(0,0,0,0.1);
-  --radius: 12px;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lazri Company - Contact</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>
+    :root {
+      --blue: #0b66ff;
+      --dark-blue: #053a9b;
+      --gray: #f3f4f6;
+      --muted: rgb(63, 63, 63);
+      --white: #ffffff;
+      --shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      --radius: 12px;
+    }
 
-* { 
-  box-sizing: border-box;
-   margin: 0; 
-   padding: 0;
-   }
-body {
-  font-family: "Segoe UI", Arial, sans-serif;
-  background: #f8fbff;
-  color: #0f1724;
-  line-height: 1.6;
-}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-.container {
-   max-width: 99%;
-    margin: auto;
-     padding: 20px;
-     }
-section { 
-  scroll-margin-top: 80px; 
-}
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #f8fbff;
+      color: #0f1724;
+      line-height: 1.6;
+    }
 
-/* ====== HEADER ====== */
-header {
-  background: var(--dark-blue);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 24px;
-  box-shadow: var(--shadow);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-header img { 
-  height: 50px; 
-}
-nav ul {
-   display: flex;
-    gap: 20px;
-     list-style: none;
-     }
-nav ul li {
-   position: relative; 
-  }
-nav ul li a {
-  position: relative;
-  text-decoration: none;
-  color: var(--white);
-  font-weight: 500;
-  padding: 8px 12px;
-  transition: color 0.3s;
-}
-nav ul li a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 2px;
-  width: 0%;
-  background: var(--white);
-  transition: width 0.3s ease;
-}
-nav ul li a:hover {
-   color: #ffd700;
-   }
-nav ul li a:hover::after {
-   width: 100%; 
-  }
-nav ul li a.active {
-  color: #ffd700;
-  font-weight: bold;
-}
+    .container {
+      max-width: 99%;
+      margin: auto;
+      padding: 20px;
+    }
 
-nav ul li a.active::after { 
-  width: 100%;
- } 
-        /* Team Section */
-         /* Make map full screen */
-         .work{
-          display: flex;
-         }
-         
-         .lazri{
-          width: 100%;
-          height:50%;
-          padding-top: 5px;
-        }
-        .form-container{
-          padding-top: 5px;
-        }
+    section {
+      scroll-margin-top: 80px;
+    }
+
+    /* ====== HEADER ====== */
+    header {
+      background: var(--dark-blue);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 24px;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    header img {
+      height: 50px;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+
+    nav ul li {
+      position: relative;
+    }
+
+    nav ul li a {
+      position: relative;
+      text-decoration: none;
+      color: var(--white);
+      font-weight: 500;
+      padding: 8px 12px;
+      transition: color 0.3s;
+    }
+
+    nav ul li a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 2px;
+      width: 0%;
+      background: var(--white);
+      transition: width 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      color: #ffd700;
+    }
+
+    nav ul li a:hover::after {
+      width: 100%;
+    }
+
+    nav ul li a.active {
+      color: #ffd700;
+      font-weight: bold;
+    }
+
+    nav ul li a.active::after {
+      width: 100%;
+    }
+
+    /* Team Section */
+    /* Make map full screen */
+    .work {
+      display: flex;
+    }
+
+    .lazri {
+      width: 100%;
+      height: 50%;
+      padding-top: 5px;
+    }
+
+    .form-container {
+      padding-top: 5px;
+    }
+
     #map {
       height: 50vh;
       width: 100%;
     }
+
     footer {
       background: #111;
       color: #ddd;
@@ -124,16 +139,16 @@ nav ul li a.active::after {
     }
 
     .footer-col h3 {
-      color:  #2563eb;
+      color: #2563eb;
       margin-bottom: 15px;
       font-size: 18px;
       font-weight: bold;
-      border-bottom: 2px solid  #2563eb;
+      border-bottom: 2px solid #2563eb;
       display: inline-block;
       padding-bottom: 3px;
     }
 
-    .footer-col p, 
+    .footer-col p,
     .footer-col a {
       font-size: 14px;
       color: #ddd;
@@ -143,7 +158,7 @@ nav ul li a.active::after {
     }
 
     .footer-col a:hover {
-      color:  #2563eb;
+      color: #2563eb;
     }
 
     .footer-col i {
@@ -168,7 +183,7 @@ nav ul li a.active::after {
     }
 
     .social-icons a:hover {
-      background:  #2563eb;
+      background: #2563eb;
       color: #111;
     }
 
@@ -192,126 +207,152 @@ nav ul li a.active::after {
       text-decoration: none;
     }
 
-        .footer-links a:hover {
-            color:  #2563eb;
-        }
+    .footer-links a:hover {
+      color: #2563eb;
+    }
 
-/* ====== FORM INPUTS ====== */
-.form-container {
-    max-width: 600px;
-    margin-top: 40px;
-    padding: 5px;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-.form-group {
-    position: relative;
-    margin-bottom: 16px;
-}
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    font-size: 15px;
-    background: #fff;
-    transition: 0.3s;
-}
-.form-group input:hover,
-.form-group textarea:hover {
-    border-color: #2563eb;
-    background: #f9f9f9;
-    box-shadow: 0 0 6px rgba(37, 99, 235, 0.3);
-}
-.form-group input:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: #2563eb;
-    box-shadow: 0 0 8px rgba(37, 99, 235, 0.5);
-}
-.form-group label {
-    position: absolute;
-    top: 50%;
-    left: 12px;
-    transform: translateY(-50%);
-    color: #666;
-    font-size: 15px;
-    pointer-events: none;
-    transition: 0.3s ease;
-    background: #fff;
-    padding: 0 6px;
-}
-.form-group input:focus + label,
-.form-group input:not(:placeholder-shown) + label,
-.form-group textarea:focus + label,
-.form-group textarea:not(:placeholder-shown) + label {
-    top: -8px;
-    left: 10px;
-    font-size: 12px;
-    color: #2563eb;
-}
-.btn-submit {
-    width: 100%;
-    padding: 12px;
-    background: #2563eb;
-    color: #fff;
-    border: none;
-    border-radius: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-.btn-submit:hover {
-    background: #1d4ed8;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
-}
+    /* ====== FORM INPUTS ====== */
+    .form-container {
+      max-width: 600px;
+      margin-top: 40px;
+      padding: 5px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
 
-/* Hamburger for mobile */
-.menu-toggle {
-  display: none;
-  font-size: 28px;
-  cursor: pointer;
-  color: var(--white);
-}
+    .form-group {
+      position: relative;
+      margin-bottom: 16px;
+    }
 
-@media (max-width: 768px) {
-  .menu-toggle { display: block; }
-  nav { display: none; width: 100%; }
-  nav ul {
-    flex-direction: column;
-    width: 100%;
-    gap: 10px;
-    margin-top: 10px;
-    background: var(--dark-blue);
-    border-radius: 8px;
-    padding: 10px;
-  }
-  nav ul li a {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    text-align: left;
-  }
-  nav.active { display: block; }
-}
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 15px;
+      background: #fff;
+      transition: 0.3s;
+    }
 
-    </style>
+    .form-group input:hover,
+    .form-group textarea:hover {
+      border-color: #2563eb;
+      background: #f9f9f9;
+      box-shadow: 0 0 6px rgba(37, 99, 235, 0.3);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #2563eb;
+      box-shadow: 0 0 8px rgba(37, 99, 235, 0.5);
+    }
+
+    .form-group label {
+      position: absolute;
+      top: 50%;
+      left: 12px;
+      transform: translateY(-50%);
+      color: #666;
+      font-size: 15px;
+      pointer-events: none;
+      transition: 0.3s ease;
+      background: #fff;
+      padding: 0 6px;
+    }
+
+    .form-group input:focus+label,
+    .form-group input:not(:placeholder-shown)+label,
+    .form-group textarea:focus+label,
+    .form-group textarea:not(:placeholder-shown)+label {
+      top: -8px;
+      left: 10px;
+      font-size: 12px;
+      color: #2563eb;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 12px;
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn-submit:hover {
+      background: #1d4ed8;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+    }
+
+    /* Hamburger for mobile */
+    .menu-toggle {
+      display: none;
+      font-size: 28px;
+      cursor: pointer;
+      color: #333;
+    }
+
+    /* For smaller screens */
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+        width: 100%;
+      }
+
+      nav ul {
+        flex-direction: column;
+        padding: 10px;
+        border-radius: 8px;
+      }
+
+      nav ul li {
+        margin: 8px 0;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      nav.active {
+        display: block;
+      }
+    }
+
+    /* Tablet (768px and below) */
+    @media (max-width: 992px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      nav ul {
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+    }
+  </style>
 </head>
+
 <body>
-     <!-- Header -->
-    <header>
-     <h1>
-  <a href="index.html">
-    <img src="./images/Logo2.png" alt="Lazri Company Logo">
-  </a>
-</h1>
-     <!-- Hamburger Button -->
-  <div class="menu-toggle" id="menu-toggle">
-    ☰
-  </div>
+  <!-- Header -->
+  <header>
+    <h1>
+      <a href="index.html">
+        <img src="./images/Logo2.png" alt="Lazri Company Logo">
+      </a>
+    </h1>
+    <!-- Hamburger Button -->
+    <div class="menu-toggle" id="menu-toggle">
+      ☰
+    </div>
     <nav id="navbar">
       <ul>
         <li><a href="index.html"><b>Home</b></a></li>
@@ -320,36 +361,37 @@ nav ul li a.active::after {
         <li><a href="About.html"><b>About Us</b></a></li>
         <li><a href="contact.html" class="active"><b>Contact Us</b></a></li>
       </ul>
-    </header>
-    <div class="work">
-          <div class="lazri">
-          <img src="./images/lazri.jpg" alt="">
-          </div>
-      <div class="form-container">
-        <h2 style="text-align: center; color: #2563eb;">Contact Us</h2>
-        <p style="text-align: center; margin-bottom: 20px;">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
-        <form action="#" method="post">
-            <div class="form-group">
-                <input type="text" id="name" name="name" placeholder=" " required>
-                <label for="name">Your Full Name</label>
-            </div>
-            <div class="form-group">
-                <input type="email" id="email" name="email" placeholder=" " required>
-                <label for="email">Email Address</label>
-            </div>
-            <div class="form-group">
-                <input type="text" id="subject" name="subject" placeholder=" " required>
-                <label for="subject">Subject</label>
-            </div>
-            <div class="form-group">
-                <textarea id="message" name="message" rows="5" placeholder=" " required></textarea>
-                <label for="message">Your Message</label>
-            </div>
-            <button type="submit" class="btn-submit">Send Message</button>
-        </form>
-      </div>
+  </header>
+  <div class="work">
+    <div class="lazri">
+      <img src="./images/lazri.jpg" alt="">
     </div>
-      <h1 style="text-align:center;"> <b>OUR LOCATION</b></h1>
+    <div class="form-container">
+      <h2 style="text-align: center; color: #2563eb;">Contact Us</h2>
+      <p style="text-align: center; margin-bottom: 20px;">We'd love to hear from you. Send us a message and we'll
+        respond as soon as possible.</p>
+      <form action="#" method="post">
+        <div class="form-group">
+          <input type="text" id="name" name="name" placeholder=" " required>
+          <label for="name">Your Full Name</label>
+        </div>
+        <div class="form-group">
+          <input type="email" id="email" name="email" placeholder=" " required>
+          <label for="email">Email Address</label>
+        </div>
+        <div class="form-group">
+          <input type="text" id="subject" name="subject" placeholder=" " required>
+          <label for="subject">Subject</label>
+        </div>
+        <div class="form-group">
+          <textarea id="message" name="message" rows="5" placeholder=" " required></textarea>
+          <label for="message">Your Message</label>
+        </div>
+        <button type="submit" class="btn-submit">Send Message</button>
+      </form>
+    </div>
+  </div>
+  <h1 style="text-align:center;"> <b>OUR LOCATION</b></h1>
   <div id="map"></div>
 
   <script>
@@ -371,19 +413,19 @@ nav ul li a.active::after {
 
     window.onload = initMap;
   </script>
-<div>
-  
-</div>
+  <div>
 
-  
+  </div>
+
+
   <footer>
     <div class="footer-container">
       <div class="footer-col">
         <h3 id="footerContactTitle">Contact Us</h3>
         <p><i class="fas fa-map-marker-alt"></i>
-        LAZRI, <br>
-        Samora Street, <br>
-        P.O. BOX 90, <br>Dar es Salaam, Tanzania</p>
+          LAZRI, <br>
+          Samora Street, <br>
+          P.O. BOX 90, <br>Dar es Salaam, Tanzania</p>
         <p><i class="fas fa-phone"></i> +255 756 457 678</p>
         <p><i class="fas fa-envelope"></i> info@lazri.co.tz</p>
         <div class="social-icons">
@@ -434,25 +476,26 @@ nav ul li a.active::after {
   </footer>
 
   <script>
-  // Hamburger menu toggle
-  const menuToggle = document.getElementById("menu-toggle");
-  const navbar = document.getElementById("navbar");
-  menuToggle.addEventListener("click", () => {
-    navbar.classList.toggle("active");
-  });
+    // Hamburger menu toggle
+    const menuToggle = document.getElementById("menu-toggle");
+    const navbar = document.getElementById("navbar");
+    menuToggle.addEventListener("click", () => {
+      navbar.classList.toggle("active");
+    });
 
-  // Initialize map
-  function initMap() {
-    var location = [-6.827, 39.2675];
-    var map = L.map('map').setView(location, 12);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution: '© OpenStreetMap'
-    }).addTo(map);
-    L.marker(location).addTo(map).bindPopup('Dar es Salaam').openPopup();
-  }
-  window.onload = initMap;
-</script>
+    // Initialize map
+    function initMap() {
+      var location = [-6.827, 39.2675];
+      var map = L.map('map').setView(location, 12);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap'
+      }).addTo(map);
+      L.marker(location).addTo(map).bindPopup('Dar es Salaam').openPopup();
+    }
+    window.onload = initMap;
+  </script>
 
 </body>
+
 </html>

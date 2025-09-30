@@ -18,21 +18,22 @@
 
 * { 
   box-sizing: border-box;
-   margin: 0; 
-   padding: 0;
-   }
+  margin: 0; 
+  padding: 0;
+}
 body {
   font-family: "Segoe UI", Arial, sans-serif;
   background: #f8fbff;
   color: #0f1724;
   line-height: 1.6;
+  overflow-x: hidden; /* zuia horizontal scroll */
 }
 
 .container {
-   max-width: 99%;
-    margin: auto;
-     padding: 20px;
-     }
+  max-width: 99%;
+  margin: auto;
+  padding: 20px;
+}
 section { 
   scroll-margin-top: 80px; 
 }
@@ -53,13 +54,13 @@ header img {
   height: 50px; 
 }
 nav ul {
-   display: flex;
-    gap: 20px;
-     list-style: none;
-     }
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
 nav ul li {
-   position: relative; 
-  }
+  position: relative; 
+}
 nav ul li a {
   position: relative;
   text-decoration: none;
@@ -79,19 +80,27 @@ nav ul li a::after {
   transition: width 0.3s ease;
 }
 nav ul li a:hover {
-   color: #ffd700;
-   }
+  color: #ffd700;
+}
 nav ul li a:hover::after {
-   width: 100%; 
-  }
+  width: 100%; 
+}
 nav ul li a.active {
   color: #ffd700;
   font-weight: bold;
 }
-
 nav ul li a.active::after { 
   width: 100%;
- }  
+}  
+
+/* Hamburger button */
+.menu-toggle {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: var(--#333);
+}
+
 /* ====== HERO ====== */
 .hero {
   display: grid;
@@ -103,18 +112,18 @@ nav ul li a.active::after {
 }
 .hero-left h2 { 
   font-size: 28px;
-   color: var(--dark-blue);
-   margin-bottom: 12px;
-   }
+  color: var(--dark-blue);
+  margin-bottom: 12px;
+}
 .hero-left p {
-   color: var(--muted);
-    margin-bottom: 20px; 
-  }
+  color: var(--muted);
+  margin-bottom: 20px; 
+}
 .hero-actions { 
   display: flex;
-   gap: 12px; 
-   flex-wrap: wrap; 
-  }
+  gap: 12px; 
+  flex-wrap: wrap; 
+}
 .btn {
   padding: 10px 16px;
   border-radius: 10px;
@@ -124,13 +133,13 @@ nav ul li a.active::after {
   transition: transform 0.3s, background 0.3s;
 }
 .btn-primary {
-   background: var(--blue); 
-   color: var(--white);
-   }
+  background: var(--blue); 
+  color: var(--white);
+}
 .btn-primary:hover {
-   background: var(--dark-blue);
-    transform: scale(1.05);
-   }
+  background: var(--dark-blue);
+  transform: scale(1.05);
+}
 .hero-image img {
   width: 100%;
   max-height: 350px;
@@ -172,14 +181,13 @@ nav ul li a.active::after {
   margin-bottom: 12px;
 }
 .card h3 {
-   color: var(--dark-blue);
-    margin-bottom: 8px;
-   }
+  color: var(--dark-blue);
+  margin-bottom: 8px;
+}
 .card p, .card ul {
-   font-size: 14px; 
-   color: var(--muted);
-   }
-
+  font-size: 14px; 
+  color: var(--muted);
+}
 ul{ margin-left: 2rem; }
 
 /* ====== FOOTER ====== */
@@ -195,8 +203,8 @@ footer {
 /* ====== FORM INPUTS ====== */
 .form-group { 
   position: relative;
-   margin-bottom: 16px;
-   }
+  margin-bottom: 16px;
+}
 .form-group input,
 .form-group textarea,
 .styled-select {
@@ -274,8 +282,8 @@ footer {
   cursor: pointer;
 }
 .close:hover {
-   color: var(--dark-blue);
-   }
+  color: var(--dark-blue);
+}
 
 /* ====== ANIMATIONS ====== */
 @keyframes fadeIn {
@@ -291,17 +299,91 @@ footer {
   to {transform: scale(1); opacity:1;}
 }
 
+/* ====== MOBILE FIXES ======
+@media (max-width: 768px) {
+  .menu-toggle { display: block; }
+
+  nav {
+    display: none;
+    width: 100%;
+  }
+  nav ul {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+    margin-top: 10px;
+    background: var(--dark-blue);
+    border-radius: 8px;
+    padding: 10px;
+  }
+  nav ul li a {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    text-align: right;
+  }
+  nav.active { display: block; }
+
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 20px 0;
+  }
+  .hero-left h2 { font-size: 22px; }
+  .services { grid-template-columns: 1fr; }
+  .card img { height: auto; }
+  .container { max-width: 100%; padding: 12px; }
+} */
+ @media (max-width: 768px) {
+  .menu-toggle { display: block; }
+
+  nav {
+    display: none;
+    width: 100%;
+  }
+  nav ul {
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+    background: var(--dark-blue);
+    padding: 15px 0;
+  }
+  nav ul li a {
+    display: block;
+    width: 100%;
+    padding: 12px 20px;
+    color: #fff;
+    text-align: left;
+    transition: background 0.3s;
+  }
+  /* nav ul li a.active {
+    color: #ffd700;
+    font-weight: bold;
+    border-left: 4px solid #ffd700;
+    background: rgba(255, 255, 255, 0.05);
+  } */
+  nav ul li a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffd700;
+  }
+  nav.active { display: block; }
+}
+
   </style>
 </head>
 <body>
   <!-- Header -->
   <header>
     <h1>
-  <a href="index.html">
-    <img src="./images/Logo2.png" alt="Lazri Company Logo">
-  </a>
-</h1>
-    <nav>
+      <a href="index.html">
+        <img src="./images/Logo2.png" alt="Lazri Company Logo">
+      </a>
+    </h1>
+     <!-- Hamburger button -->
+    <div class="menu-toggle" id="menu-toggle">
+      ☰
+    </div>
+
+    <nav id="navbar">
       <ul>
         <li><a href="index.html"><b>Home</b></a></li>
         <li><a href="our service.html" class="active"><b>Our Services</b></a></li>
@@ -482,6 +564,16 @@ footer {
         modal.style.display = "none";
       }
     }
+
+    
+  // hamburger menu toggle
+  const menuToggle = document.getElementById("menu-toggle");
+  const navbar = document.getElementById("navbar");
+  menuToggle.addEventListener("click", () => {
+    navbar.classList.toggle("active");
+  });
   </script>
+
+  
 </body>
 </html>

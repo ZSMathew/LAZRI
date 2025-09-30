@@ -8,26 +8,45 @@
     * {margin:0; padding:0; box-sizing:border-box;}
     body {font-family: Arial, sans-serif; line-height:1.6;}
 
-    /* Navbar */
-    .navbar {
-      background: darkblue;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 40px;
-    }
-    .navbar .logo img {
-      height: 60px;
-    }
-    .navbar ul {
-      list-style: none;
-      display: flex;
-      gap: 20px;
-    }
-    .navbar ul li a {
-      text-decoration: none;
-      color: white;
-      font-weight: bold;
+/* ====== HEADER ====== */
+header {
+  background: darkblue;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  /* box-shadow: var(--shadow); */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+header img { 
+  height: 50px; 
+}
+nav ul {
+   display: flex;
+    gap: 20px;
+     list-style: none;
+     }
+nav ul li {
+   position: relative; 
+  }
+nav ul li a {
+  position: relative;
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  padding: 8px 12px;
+  transition: color 0.3s;
+}
+nav ul li a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 0%;
+  background: #ffd700;
   transition: width 0.3s ease;
 }
 nav ul li a:hover {
@@ -403,7 +422,6 @@ nav ul li a.active::after {
   transition: color 0.3s ease;
 }
 
-
 /* hover:  links */
 .links li a:hover {
   color: darkblue;
@@ -454,6 +472,134 @@ nav ul li a.active::after {
       color: white;
       font-size: 22px;
     }
+
+    /* =================== RESPONSIVE DESIGN =================== */
+
+/* Tablet (768px and below) */
+@media (max-width: 992px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  nav ul {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .hero {
+    flex-direction: column;
+    text-align: center;
+  }
+  .hero-text {
+    font-size: 22px;
+  }
+  .hero-img img {
+    width: 100%;
+    height: auto;
+  }
+  .footer-container {
+    flex-direction: column;
+    margin-left: 0;
+  }
+  .footer-column {
+    margin-bottom: 20px;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+  .footer-links {
+    margin-left: 0 !important;
+    margin-top: 10px;
+  }
+}
+
+/* Mobile (480px and below) */
+@media (max-width: 576px) {
+  header {
+    padding: 10px;
+    flex-direction: column;
+  }
+  nav ul {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  nav ul li a {
+    font-size: 14px;
+    padding: 6px 8px;
+  }
+  .hero {
+    padding: 20px;
+  }
+  .hero-text {
+    font-size: 18px;
+  }
+  .hero-box {
+    font-size: 14px;
+  }
+  .services-section h2 {
+    font-size: 1.8rem;
+  }
+  .testimonial-card {
+    width: 100%;
+  }
+  .footer h2 {
+    font-size: 20px;
+  }
+  .footer p,
+  .footer a,
+  .footer span {
+    font-size: 16px;
+  }
+  .social-icons a {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+  .scroll-top {
+    width: 40px;
+    height: 40px;
+  }
+  .scroll-top i {
+    font-size: 18px;
+  }
+}
+
+/* Hamburger button (hidden by default) */
+.menu-toggle {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #333;
+}
+
+/* For smaller screens */
+@media (max-width: 768px) {
+  nav {
+    display: none;
+    width: 100%;
+  }
+
+  nav ul {
+    flex-direction: column;
+    /* background:  #004aad; */
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  nav ul li {
+    margin: 8px 0;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  nav.active {
+    display: block;
+  }
+}
+
   </style>
   <script src="https://kit.fontawesome.com/yourkitid.js" crossorigin="anonymous"></script>
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -462,22 +608,30 @@ nav ul li a.active::after {
 <body>
 
   <!-- Navbar -->
-  <div class="navbar">
-    <div class="logo">
-      <a href="#"><img src="./images/Logo2.png" alt="Lazri Logo"></a>
-    </div>
-    <ul>
-      <li><a href="index.html" class="active" id="navHome">Home</a></li>
-      <li><a href="our_service.html" id="navServices">Our Services</a></li>
-      <li><a href="Project.html" id="navProjects">Our Projects</a></li>
-      <li><a href="About.html" id="navAbout">About Us</a></li>
-      <li><a href="contact.html" id="navContact">Contact Us</a></li>
-    </ul>
-    <div class="lang-switch">
-      <button onclick="setLanguage('en')"><span class="fi fi-gb"></span>EN</button>
-      <button onclick="setLanguage('sw')"><span class="fi fi-tz"></span>SW</button>
-    </div>
+   <header>
+    <h1>
+  <a href="index.html">
+    <img src="./images/Logo2.png" alt="Lazri Company Logo">
+  </a>
+</h1>
+  <!-- Hamburger Button -->
+  <div class="menu-toggle" id="menu-toggle">
+    ☰
   </div>
+    <nav id="navbar">
+    <ul>
+      <li><a href="index.html" class="active"><b>Home</b></a></li>
+      <li><a href="our_service.html"><b>Our Services</b></a></li>
+      <li><a href="Project.html"><b>Our Projects</b></a></li>
+      <li><a href="About.html"><b>About Us</b></a></li>
+      <li><a href="contact.html"><b>Contact Us</b></a></li>
+    </ul>
+    </nav>
+    <div class="lang-switch">
+      <button onclick="setLanguage('en')"><span class="fi fi-gb"></span>ENG</button>
+      <button onclick="setLanguage('sw')"><span class="fi fi-tz"></span>SWA</button>
+    </div>
+  </header>
 
   <!-- Hero Section -->
   <div class="hero">
@@ -817,5 +971,15 @@ nav ul li a.active::after {
       }
     });
   </script>
+
+  <script>
+  const menuToggle = document.getElementById("menu-toggle");
+  const navbar = document.getElementById("navbar");
+
+  menuToggle.addEventListener("click", () => {
+    navbar.classList.toggle("active");
+  });
+</script>
+
 </body>
 </html>

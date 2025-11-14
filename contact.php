@@ -1,3 +1,16 @@
+<?php
+// ====== DB Connection ======
+$host = "localhost";
+$user = "root";
+$pass = "";
+$db   = "lazri"; 
+
+$conn = new mysqli($host, $user, $pass, $db);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,6 +30,7 @@
       --white: #ffffff;
       --yellow: #ffd700;
       --page-bg: #f8fbff;
+      --sidebar-width: 220px;
     }
 
     * {
@@ -26,72 +40,190 @@
     }
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+     font-family: "Segoe UI", Arial, sans-serif;
       background: var(--page-bg);
       color: #0f1724;
       line-height: 1.6;
     }
 
-    /* Header */
-    header {
-      background: var(--dark-blue);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 24px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
+/* ====== HEADER ====== */
+header {
+  background: var(--dark-blue);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+header img { 
+  height: 50px; 
+}
 
-    header img {
-      height: 54px;
-      width: auto;
-    }
+nav ul {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
+nav ul li {
+  position: relative; 
+}
+nav ul li a {
+  position: relative;
+  text-decoration: none;
+  color: var(--white);
+  font-weight: 500;
+  padding: 8px 12px;
+  transition: color 0.3s;
+}
+nav ul li a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 0%;
+  background: var(--white);
+  transition: width 0.3s ease;
+}
+nav ul li a:hover {
+  color: #ffd700;
+}
+nav ul li a:hover::after {
+  width: 100%; 
+}
+nav ul li a.active {
+  color: #ffd700;
+  font-weight: bold;
+}
+nav ul li a.active::after { 
+  width: 100%;
+}  
 
-    nav ul {
-      display: flex;
-      gap: 20px;
-      list-style: none;
-    }
+/* Hamburger button */
+.menu-toggle {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #fff;
+}
 
-    nav a {
-      color: var(--white);
-      text-decoration: none;
-      font-weight: 600;
-      position: relative;
-      padding: 8px 12px;
-    }
+/* Logo + company name */
+.logo-center {
+  display: flex;
+  align-items: center;
+}
+.logo-center img {
+  height: 45px;
+  margin-right: 10px;
+}
+.company-name {
+  font-weight: bold;
+  font-size: 16px;
+  color: #fff;
+}
 
-    nav a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 0;
-      height: 2px;
-      background: var(--yellow);
-      transition: width 0.25s ease;
-    }
+/* ===== MOBILE SIDEBAR ===== */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    padding: 0;
+  }
 
-    nav a:hover {
-      color: var(--yellow);
-    }
+  .mobile-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    padding: 10px;
+    width: 100%;
+    background: var(--dark-blue);
+    color: #fff;
+    position: relative;
+    transition: transform 0.35s cubic-bezier(.2,.9,.3,1);
+  }
 
-    nav a:hover::after,
-    nav a.active::after {
-      width: 100%;
-    }
+  .menu-toggle {
+    display: block;
+    font-size: 28px;
+    cursor: pointer;
+    color: #fff;
+  }
 
-    nav a.active {
-      color: var(--yellow);
-      font-weight: 700;
-    }
+  .logo-center img {
+    height: 42px;
+    margin-left: 45px;
+  }
+  .company-name {
+    font-size: 15px;
+    white-space: nowrap;
+    margin-left: 10px;
+  }
 
+  .sidebar {
+    position: fixed;
+    left: -70%;
+    top: 0;
+    height: auto;
+    width: 60%;
+    max-width: 300px;
+    background: var(--dark-blue);
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.3);
+    transition: left 0.32s cubic-bezier(.25,.8,.25,1);
+    padding: 70px 0 20px 0;
+    border-bottom-right-radius: 12px;
+    z-index: 2000;
+    overflow-y: auto;
+  }
+
+  .sidebar.active {
+    left: 0;
+  }
+
+  .sidebar ul {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 0 20px;
+  }
+
+  .sidebar ul li a {
+    color: #fff;
+    display: block;
+    padding: 12px;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  .sidebar ul li a:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffd700;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #fff;
+  }
+
+  header.sidebar-open .mobile-header {
+    transform: translateX(var(--sidebar-width));
+  }
+  
+}
     /* Hero */
     .hero {
       background-image: url(./images/developer.jpg);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
       color: var(--white);
       text-align: center;
       padding: 90px 20px 70px;
@@ -419,8 +551,30 @@
 .footer-links a:hover {
   color: darkblue; /* consistent na links zingine */
 }
+/* ===== MOBILE FIXES ===== */
+@media (max-width: 768px) {
+  .footer {
+    padding: 40px 15px;
+  }
 
+  .footer-container {
+    gap: 20px;
+  }
 
+  .social-icons {
+    justify-content: center;
+  }
+
+  .footer-bottom {
+    text-align: center;
+  }
+
+  .footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+}
     /* Responsive */
     @media (max-width: 992px) {
       .split-container {
@@ -442,18 +596,26 @@
 
 <body>
   <!-- Header -->
-  <header>
-    <a href="index.html"><img src="./images/Logo2.png" alt="Lazri Logo"></a>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="our_service.html">Our Services</a></li>
-        <li><a href="Project.html">Our Projects</a></li>
-        <li><a href="About.html">About Us</a></li>
-        <li><a href="contact.html" class="active">Contact Us</a></li>
-      </ul>
-    </nav>
-  </header>
+<header>
+  <div class="mobile-header">
+    <div class="menu-toggle" id="menu-toggle">☰</div>
+    <a href="index.html" class="logo-center">
+      <img src="./images/Logo2.png" alt="Lazri Company Logo">
+    </a>
+    <span class="company-name">LAZRI Company</span>
+  </div>
+
+  <nav id="navbar" class="sidebar">
+    <span class="close-btn" id="close-btn">&times;</span>
+    <ul>
+      <li><a href="index.php"><b>Home</b></a></li>
+      <li><a href="our service.php"><b>Our Services</b></a></li>
+      <li><a href="Project.php"><b>Our Projects</b></a></li>
+      <li><a href="about.php"><b>About Us</b></a></li>
+      <li><a href="contact.php" class="active"><b>Contact Us</b></a></li>
+    </ul>
+  </nav>
+</header>
 
   <!-- Hero -->
   <section class="hero">
@@ -533,11 +695,11 @@
 
       <div class="footer-nav">
         <ul class="links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="our_service.html">Services</a></li>
-        <li><a href="Project.html">Projects</a></li>
-        <li><a href="About.html">About Us</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="index.php">Home</a></li>
+        <li><a href="our_service.php">Services</a></li>
+        <li><a href="Project.php">Projects</a></li>
+        <li><a href="About.php">About Us</a></li>
+        <li><a href="contact.php">Contact</a></li>
         </ul>
       </div>
     </div>
@@ -568,8 +730,8 @@
         <div class="contact-item">
           <i class="fas fa-envelope"></i>
           <span>
-            <a href="mailto:info@lazri.org">info@lazri.org</a><br>
-            <a href="mailto:lazriinfo@gmail.com">lazriinfo@gmail.com</a>
+            <a href="mailto:info@lazri.co.tz">info@lazri.co.tz</a><br>
+            <a href="mailto:lazricompany@gmail.com">lazricompany@gmail.com</a>
           </span>
         </div>
         <div class="contact-item">
@@ -583,16 +745,31 @@
     <div class="footer-bottom">
       <p id="copyright" style="margin: 1.5rem 0rem 0rem 2rem;">Copyright © 2025 - Lazri Company Limited. | All rights reserved</p>
             <div class="footer-links" style="margin-left: 23rem;">
-        <a href="privecy_policy.html" id="pp">Privacy Policy</a> |
-        <a href="#" id="sm">Staff Mail</a> |
-        <a href="faq.html" id="faq">FAQs</a> |
-        <a href="terms_&_conditions.html" id="tc">Terms and Conditions</a>
+        <a href="privecy_policy.php" id="pp">Privacy Policy</a> |
+        <a href="mailto:info@lazri.co.tz" id="sm">Staff Mail</a> |
+        <a href="faq.php" id="faq">FAQs</a> |
+        <a href="terms_&_conditions.php" id="tc">Terms and Conditions</a>
       </div>
     </div>
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
   <script>
     AOS.init();
+
+const menuToggle = document.getElementById('menu-toggle');
+const sidebar = document.getElementById('navbar');
+const closeBtn = document.getElementById('close-btn');
+const header = document.querySelector('header');
+
+menuToggle.addEventListener('click', () => {
+  sidebar.classList.add('active');
+  header.classList.add('sidebar-open');
+});
+
+closeBtn.addEventListener('click', () => {
+  sidebar.classList.remove('active');
+  header.classList.remove('sidebar-open');
+});
   </script>
 </body>
 

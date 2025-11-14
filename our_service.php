@@ -467,11 +467,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <nav id="navbar" class="sidebar">
       <span class="close-btn" id="close-btn">&times;</span>
       <ul>
-        <li><a href="index.html"><b>Home</b></a></li>
-        <li><a href="our service.html" class="active"><b>Our Services</b></a></li>
-        <li><a href="Project.html"><b>Our Projects</b></a></li>
-        <li><a href="About.html"><b>About Us</b></a></li>
-        <li><a href="contact.html"><b>Contact Us</b></a></li>
+        <li><a href="index.php"><b>Home</b></a></li>
+        <li><a href="our_service.php" class="active"><b>Our Services</b></a></li>
+        <li><a href="Project.php"><b>Our Projects</b></a></li>
+        <li><a href="about.php"><b>About Us</b></a></li>
+        <li><a href="contact.php"><b>Contact Us</b></a></li>
       </ul>
     </nav>
   </header>

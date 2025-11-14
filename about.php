@@ -1,3 +1,16 @@
+<?php
+// ====== DB Connection ======
+$host = "localhost";
+$user = "root";
+$pass = "";
+$db   = "lazri"; 
+
+$conn = new mysqli($host, $user, $pass, $db);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -474,11 +487,11 @@ nav ul li a.active::after {
   <nav id="navbar" class="sidebar">
     <span class="close-btn" id="close-btn">&times;</span>
     <ul>
-      <li><a href="index.html"><b>Home</b></a></li>
-      <li><a href="our service.html"><b>Our Services</b></a></li>
-      <li><a href="Project.html"><b>Our Projects</b></a></li>
-      <li><a href="about.html" class="active"><b>About Us</b></a></li>
-      <li><a href="contact.html"><b>Contact Us</b></a></li>
+      <li><a href="index.php"><b>Home</b></a></li>
+      <li><a href="our service.php"><b>Our Services</b></a></li>
+      <li><a href="Project.php"><b>Our Projects</b></a></li>
+      <li><a href="about.php" class="active"><b>About Us</b></a></li>
+      <li><a href="contact.php"><b>Contact Us</b></a></li>
     </ul>
   </nav>
 </header>
@@ -540,7 +553,7 @@ nav ul li a.active::after {
             <div style="display:flex; gap:20px; align-items:center; flex-wrap:wrap;">
                 <div style="flex:1; min-width:260px;">
                     <p>To offer high-quality, affordable and customer-centric solutions that empower businesses and individuals to thrive in the digital era.</p>
-                    <div style="margin-top:10px;"><a class="btn" href="our_service.html">Get our services</a></div>
+                    <div style="margin-top:10px;"><a class="btn" href="our_service.php">Get our services</a></div>
                 </div>
                 <div style="flex:1; min-width:220px; display:grid; place-items:center;">
                     <svg width="220" height="120" viewBox="0 0 220 120" xmlns="http://www.w3.org/2000/svg"><rect width="220" height="120" rx="10" fill="#f3f4f6"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#9ca3af" font-size="12">Illustration / Image</text></svg>

@@ -362,7 +362,7 @@ header.sidebar-open .mobile-header {
         <li><a href="index.php"><b>Home</b></a></li>
         <li><a href="our_service.php"><b>Our Services</b></a></li>
         <li><a href="Project.php" class="active"><b>Our Projects</b></a></li>
-        <li><a href="About.php"><b>About Us</b></a></li>
+        <li><a href="about.php"><b>About Us</b></a></li>
         <li><a href="contact.php"><b>Contact Us</b></a></li>
       </ul>
     </nav>

@@ -1,8 +1,8 @@
 <?php
-$servername = "localhost";   // server
-$username   = "root";        // default MySQL user
-$password   = "";            // weka password yako ya MySQL kama ipo
-$dbname     = "LAZRI";       // jina la database
+$servername = "localhost";
+$username   = "root";
+$password   = "";
+$dbname     = "LAZRI";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);

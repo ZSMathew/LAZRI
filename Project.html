@@ -10,10 +10,11 @@
   --blue: #0b66ff;
   --dark-blue: #053a9b;
   --gray: #f3f4f6;
-  --muted: rgb(63, 63, 63);
+  --muted: black;
   --white: #ffffff;
   --shadow: 0 4px 10px rgba(0,0,0,0.1);
   --radius: 12px;
+  --sidebar-width: 40%;
 }
 
 * {
@@ -29,7 +30,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh; 
-  overflow-x: hidden; /* zuia horizontal scroll */
+  overflow-x: hidden;
 }
 
 /* ====== HEADER ====== */
@@ -89,19 +90,29 @@ nav ul li a.active::after {
   width: 100%; 
 }
 
-/* Hamburger button */
+/* Hamburger button (hidden on desktop) */
 .menu-toggle {
   display: none;
-  flex-direction: column;
-  gap: 5px;
+  font-size: 28px;
   cursor: pointer;
+  color: #fff;
 }
-.menu-toggle span {
-  width: 28px;
-  height: 3px;
-  background: white;
-  border-radius: 2px;
+
+/* Logo + company name grouping */
+.logo-center {
+  display: flex;
+  align-items: center;
 }
+.logo-center img {
+  height: 45px;
+  margin-right: 10px;
+}
+.company-name {
+  font-weight: bold;
+  font-size: 16px;
+  color: #fff;
+}
+
 
 .h1{
   text-align: center;
@@ -145,32 +156,6 @@ section {
   max-width: 1200px;
   margin: auto;
   width: 100%;
-}
-
-section h2 {
-  text-align: center;
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
-  color: var(--dark-blue);
-  position: relative;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s ease;
-}
-
-section h2.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-section h2::after {
-  content: '';
-  width: 60px;
-  height: 3px;
-  background: var(--dark-blue);
-  display: block;
-  margin: 0.5rem auto 0;
-  border-radius: 2px;
 }
 
 .projects-grid {
@@ -246,52 +231,128 @@ footer p {
   display: none; 
 }
 
-/* Responsive */
+
+/* ===== MOBILE / SIDEBAR STYLES ===== */
 @media (max-width: 768px) {
-  .menu-toggle {
-    display: flex;
-  }
-  nav ul {
+  header {
     flex-direction: column;
-    gap: 10px;
-    background: var(--dark-blue);
-    position: absolute;
-    top: 60px;
-    right: 20px;
-    width: 200px;
-    padding: 15px;
-    display: none;
+    padding: 0;
   }
-  nav ul.show {
+
+  /* mobile header: everything starts from the far left */
+  .mobile-header {
     display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    padding: 10px;
+    width: 100%;
+    background: var(--dark-blue);
+    color: #fff;
+    position: relative;
+    transition: transform 0.35s cubic-bezier(.2,.9,.3,1);
   }
-  .filter-buttons button {
-    width: auto; /* hazijazi screen */
-    min-width: 90px;
+
+  .menu-toggle {
+    display: block;
+    font-size: 28px;
+    cursor: pointer;
+    color: #fff;
   }
+
+  .logo-center img {
+    height: 42px;
+    margin-left: 45px;
+  }
+  .company-name {
+    font-size: 15px;
+    white-space: nowrap;
+    margin-left: 10px;
+  }
+
+  /* Sidebar (off-canvas) */
+  .sidebar {
+    position: fixed;
+    left: -70%;
+    top: 0;
+    height: auto;
+    width: 60%;
+    max-width: 300px;
+    background: var(--dark-blue);
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.3);
+    transition: left 0.32s cubic-bezier(.25,.8,.25,1);
+    padding: 70px 0 20px 0;
+    border-bottom-right-radius: 12px;
+    z-index: 2000;
+    overflow-y: auto;
+  }
+
+  /* when sidebar is active, slide it in */
+  .sidebar.active {
+    left: 0;
+  }
+
+  /* Ensure the UL inside sidebar is visible when sidebar exists */
+  .sidebar ul {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 0 20px;
+  }
+
+  .sidebar ul li a {
+    color: #fff;
+    display: block;
+    padding: 12px;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  .sidebar ul li a:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffd700;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #fff;
+  }
+
+  /* Hili limebadilika: desktop nav remains hidden visually in mobile flow only if present;
+     since your nav is used as the sidebar, we don't force-hide nav ul globally here. */
+  /* Slide header to the right when sidebar is open using variable width */
+.mobile-header {
+    transition: transform 0.35s cubic-bezier(.25,.8,.25,1);
 }
-  </style>
+header.sidebar-open .mobile-header {
+    transform: translateX(var(--sidebar-width));
+}
+}
+</style>
+
 </head>
 <body>
   <!-- Header -->
   <header>
-    <h1>
-  <a href="index.html">
-    <img src="./images/Logo2.png" alt="Lazri Company Logo">
-  </a>
-</h1>
-
-    <!-- Hamburger -->
-    <div class="menu-toggle" onclick="document.querySelector('nav ul').classList.toggle('show')">
-      <span></span>
-      <span></span>
-      <span></span>
+    <div class="mobile-header">
+      <div class="menu-toggle" id="menu-toggle">☰</div>
+      <a href="index.html" class="logo-center">
+        <img src="./images/Logo2.png" alt="Lazri Company Logo">
+      </a>
+      <span class="company-name">LAZRI Company</span>
     </div>
 
-    <nav>
+    <nav id="navbar" class="sidebar">
+      <span class="close-btn" id="close-btn">&times;</span>
       <ul>
         <li><a href="index.html"><b>Home</b></a></li>
-        <li><a href="our_service.html"><b>Our Services</b></a></li>
+        <li><a href="our service.html"><b>Our Services</b></a></li>
         <li><a href="Project.html" class="active"><b>Our Projects</b></a></li>
         <li><a href="About.html"><b>About Us</b></a></li>
         <li><a href="contact.html"><b>Contact Us</b></a></li>
@@ -439,6 +500,20 @@ footer p {
         });
       });
     });
+const menuToggle = document.getElementById('menu-toggle');
+const sidebar = document.getElementById('navbar');
+const closeBtn = document.getElementById('close-btn');
+const header = document.querySelector('header');
+
+menuToggle.addEventListener('click', () => {
+  sidebar.classList.add('active');
+  header.classList.add('sidebar-open');
+});
+
+closeBtn.addEventListener('click', () => {
+  sidebar.classList.remove('active');
+  header.classList.remove('sidebar-open');
+});
   </script>
 </body>
 </html>

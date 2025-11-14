@@ -5,37 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lazri Company - Our Services</title>
 
-  <style>
+<style>
 :root {
   --blue: #0b66ff;
   --dark-blue: #053a9b;
   --gray: #f3f4f6;
-  --muted: rgb(63, 63, 63);
+  --muted: black;
   --white: #ffffff;
   --shadow: 0 4px 10px rgba(0,0,0,0.1);
   --radius: 12px;
+  --sidebar-width: 220px;
 }
 
-* {
-   box-sizing: border-box;
-    margin: 0;
-     padding: 0; 
-    }
+* { 
+  box-sizing: border-box;
+  margin: 0; 
+  padding: 0;
+}
 body {
   font-family: "Segoe UI", Arial, sans-serif;
   background: #f8fbff;
   color: #0f1724;
   line-height: 1.6;
+  overflow-x: hidden;
 }
 
 .container {
-   max-width: 99%;
-    margin: auto;
-     padding: 20px;
-     }
-section {
-   scroll-margin-top: 80px;
-   }
+  max-width: 99%;
+  margin: auto;
+  padding: 20px;
+}
+section { 
+  scroll-margin-top: 80px; 
+}
 
 /* ====== HEADER ====== */
 header {
@@ -49,17 +51,19 @@ header {
   top: 0;
   z-index: 1000;
 }
-header img {
-   height: 50px;
-   }
-nav ul { 
-  display: flex; 
+header img { 
+  height: 50px; 
+}
+
+/* Desktop nav styling (kept visible on larger screens) */
+nav ul {
+  display: flex;
   gap: 20px;
-   list-style: none;
-   }
+  list-style: none;
+}
 nav ul li {
-   position: relative; 
-  }
+  position: relative; 
+}
 nav ul li a {
   position: relative;
   text-decoration: none;
@@ -79,18 +83,41 @@ nav ul li a::after {
   transition: width 0.3s ease;
 }
 nav ul li a:hover {
-   color: #ffd700; 
-  }
+  color: #ffd700;
+}
 nav ul li a:hover::after {
-   width: 100%; 
-  }
+  width: 100%; 
+}
 nav ul li a.active {
   color: #ffd700;
   font-weight: bold;
 }
 nav ul li a.active::after { 
   width: 100%;
- }  
+}  
+
+/* Hamburger button (hidden on desktop) */
+.menu-toggle {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #fff;
+}
+
+/* Logo + company name grouping */
+.logo-center {
+  display: flex;
+  align-items: center;
+}
+.logo-center img {
+  height: 45px;
+  margin-right: 10px;
+}
+.company-name {
+  font-weight: bold;
+  font-size: 16px;
+  color: #fff;
+}
 
 /* ====== HERO ====== */
 .hero {
@@ -101,20 +128,20 @@ nav ul li a.active::after {
   padding: 40px 0;
   animation: fadeIn 1.2s ease-in-out;
 }
-.hero-left h2 {
-   font-size: 28px;
-    color: var(--dark-blue);
-     margin-bottom: 12px; 
-    }
-.hero-left p { 
+.hero-left h2 { 
+  font-size: 28px;
+  color: var(--dark-blue);
+  margin-bottom: 12px;
+}
+.hero-left p {
   color: var(--muted);
-   margin-bottom: 20px;
-   }
+  margin-bottom: 20px; 
+}
 .hero-actions { 
   display: flex;
-   gap: 12px; 
-   flex-wrap: wrap;
-   }
+  gap: 12px; 
+  flex-wrap: wrap; 
+}
 .btn {
   padding: 10px 16px;
   border-radius: 10px;
@@ -124,13 +151,13 @@ nav ul li a.active::after {
   transition: transform 0.3s, background 0.3s;
 }
 .btn-primary {
-   background: var(--blue);
-    color: var(--white);
-   }
+  background: var(--blue); 
+  color: var(--white);
+}
 .btn-primary:hover {
-   background: var(--dark-blue);
-    transform: scale(1.05);
-   }
+  background: var(--dark-blue);
+  transform: scale(1.05);
+}
 .hero-image img {
   width: 100%;
   max-height: 350px;
@@ -172,16 +199,14 @@ nav ul li a.active::after {
   margin-bottom: 12px;
 }
 .card h3 {
-   color: var(--dark-blue);
-    margin-bottom: 8px;
-   }
+  color: var(--dark-blue);
+  margin-bottom: 8px;
+}
 .card p, .card ul {
-   font-size: 14px; 
-   color: var(--muted);
-   }
-ul{
-   margin-left: 2rem; 
-  }
+  font-size: 14px; 
+  color: var(--muted);
+}
+ul{ margin-left: 2rem; }
 
 /* ====== FOOTER ====== */
 footer {
@@ -196,8 +221,8 @@ footer {
 /* ====== FORM INPUTS ====== */
 .form-group { 
   position: relative;
-   margin-bottom: 16px; 
-  }
+  margin-bottom: 16px;
+}
 .form-group input,
 .form-group textarea,
 .styled-select {
@@ -245,7 +270,7 @@ footer {
   color: var(--blue);
 }
 
-/* ====== MODAL ====== */
+/* ====== POPUP MODAL ====== */
 .modal {
   display: none;
   position: fixed;
@@ -275,40 +300,124 @@ footer {
   cursor: pointer;
 }
 .close:hover {
-   color: var(--dark-blue);
-   }
-
-/* ====== POPUP MESSAGE ====== */
-#orderMsg {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #e6ffed;
-  border: 1px solid #b7f3c7;
-  padding: 16px 24px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  z-index: 9999;
-  font-size: 16px;
-  display: none;
-  opacity: 0;
-  animation: fadein 0.5s forwards, fadeout 0.5s 9.5s forwards;
-}
-@keyframes fadein {
-  from {opacity: 0; transform: translate(-50%, -60%);}
-  to {opacity: 1; transform: translate(-50%, -50%);}
-}
-@keyframes fadeout {
-  from {opacity: 1;}
-  to {opacity: 0;}
+  color: var(--dark-blue);
 }
 
 /* ====== ANIMATIONS ====== */
-@keyframes fadeIn { from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
-@keyframes slideUp { from {opacity:0; transform:translateY(40px);} to {opacity:1; transform:translateY(0);} }
-@keyframes zoomIn { from {transform: scale(0.9); opacity:0;} to {transform: scale(1); opacity:1;} }
-  </style>
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(20px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+@keyframes slideUp {
+  from {opacity:0; transform: translateY(40px);}
+  to {opacity:1; transform: translateY(0);}
+}
+@keyframes zoomIn {
+  from {transform: scale(0.9); opacity:0;}
+  to {transform: scale(1); opacity:1;}
+}
+
+/* ===== MOBILE / SIDEBAR STYLES ===== */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    padding: 0;
+  }
+
+  /* mobile header: everything starts from the far left */
+  .mobile-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    padding: 10px;
+    width: 100%;
+    background: var(--dark-blue);
+    color: #fff;
+    position: relative;
+    transition: transform 0.35s cubic-bezier(.2,.9,.3,1);
+  }
+
+  .menu-toggle {
+    display: block;
+    font-size: 28px;
+    cursor: pointer;
+    color: #fff;
+  }
+
+  .logo-center img {
+    height: 42px;
+    margin-left: 45px;
+  }
+  .company-name {
+    font-size: 15px;
+    white-space: nowrap;
+    margin-left: 10px;
+  }
+
+  /* Sidebar (off-canvas) */
+  .sidebar {
+    position: fixed;
+    left: -70%;
+    top: 0;
+    height: auto;
+    width: 60%;
+    max-width: 300px;
+    background: var(--dark-blue);
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.3);
+    transition: left 0.32s cubic-bezier(.25,.8,.25,1);
+    padding: 70px 0 20px 0;
+    border-bottom-right-radius: 12px;
+    z-index: 2000;
+    overflow-y: auto;
+  }
+
+  /* when sidebar is active, slide it in */
+  .sidebar.active {
+    left: 0;
+  }
+
+  /* Ensure the UL inside sidebar is visible when sidebar exists */
+  .sidebar ul {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 0 20px;
+  }
+
+
+  .sidebar ul li a {
+    color: #fff;
+    display: block;
+    padding: 12px;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  .sidebar ul li a:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffd700;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #fff;
+  }
+
+  /* Hili limebadilika: desktop nav remains hidden visually in mobile flow only if present;
+     since your nav is used as the sidebar, we don't force-hide nav ul globally here. */
+  /* Slide header to the right when sidebar is open using variable width */
+  header.sidebar-open .mobile-header {
+    transform: translateX(var(--sidebar-width));
+  }
+}
+</style>
 </head>
 <body>
 
@@ -345,27 +454,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 }
 ?>
+  <!-- Header -->
+  <header>
+    <div class="mobile-header">
+      <div class="menu-toggle" id="menu-toggle">☰</div>
+      <a href="index.html" class="logo-center">
+        <img src="./images/Logo2.png" alt="Lazri Company Logo">
+      </a>
+      <span class="company-name">LAZRI Company</span>
+    </div>
 
-<!-- Header -->
-<header>
-  <h1><img src="./images/Logo2.png" alt="Lazri Logo"></h1>
-  <nav>
-    <ul>
-      <li><a href="index.php"><b>Home</b></a></li>
-      <li><a href="our_service.php" class="active"><b>Our Services</b></a></li>
-      <li><a href="project.php"><b>Our Projects</b></a></li>
-      <li><a href="About.php"><b>About Us</b></a></li>
-      <li><a href="contact.php"><b>Contact Us</b></a></li>
-    </ul>
-  </nav>
-</header>
+    <nav id="navbar" class="sidebar">
+      <span class="close-btn" id="close-btn">&times;</span>
+      <ul>
+        <li><a href="index.html"><b>Home</b></a></li>
+        <li><a href="our service.html" class="active"><b>Our Services</b></a></li>
+        <li><a href="Project.html"><b>Our Projects</b></a></li>
+        <li><a href="About.html"><b>About Us</b></a></li>
+        <li><a href="contact.html"><b>Contact Us</b></a></li>
+      </ul>
+    </nav>
+  </header>
 
   <!-- Hero -->
   <main class="container">
     <section class="hero">
       <div class="hero-left">
         <h2>We serve you digitally — Security, Quality, Innovation, & Implementation.</h2>
-        <p>LAZRI is a company established in 2025 by a team of professionals; we provide Website Development & Design, ICT consultancy & Maintenance, CCTV installation, and multimedia solutions to grow your business in a secure and modern way.</p>
+        <p>LAZRI is a company established in 2025 by a team of professionals; we provide Website Development & Design, 
+          ICT consultancy & Maintenance, Digital Security System installation, and Digital Creative Designes to grow your business in a secure and modern way.</p>
         <div class="hero-actions">
           <button class="btn btn-primary" onclick="scrollToSection('huduma')">Check out Services</button>
           <a href="faq.html"><button class="btn btn-primary">Ask Any Question & FAQ</button></a>
@@ -380,172 +497,157 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- Services -->
     <section id="huduma">
       <h2>Services We Provide</h2>
-      <p class="muted">Our services are focused on the market and the needs of modern customers.</p>
+      <p>Our services are focused on the market and the needs of modern customers.</p>
       <div class="services">
         <div class="card">
           <img src="./images/ict.jpg" alt="ICT">
-          <h3>ICT Services & Consultancy</h3>
-          <p>We provide IT consulting, systems development, network management, cloud solutions, and Software & Hardware Maintenance and repair.</p>
+          <h3>Computer maintenance and repair.</h3>
+          <p>Expart computer maintenance and repair we keep your technology runing smoothly. Our service include;</p>
           <ul>
-            <li>Development & Integration</li>
-            <li>Network Design & Maintenance</li>
-            <li>Software & Hardware Maintenance</li>
+            <li>Software & Hardware Maintenance.</li>
+            <li>Virus removal & Protection.</li>
+            <li>Data recovery & Backup</li>
+            <li>System upgrades & Optimization.</li>
           </ul>
         </div>
         <div class="card">
           <img src="./images/serv.jpg" alt="Web Design">
-          <h3>Web Design & Systems Development</h3>
+          <h3>Web design & Development.</h3>
           <p>We provide modern services for designing and developing websites and systems that grow with your business.</p>
           <ul>
-            <li>Systems Development</li>
-            <li>Website Design & Maintenance</li>
-            <li>System Rebuilding</li>
+            <li>Website design and development.t</li>
+            <li>Website updates & maintenance.</li>
+            <li>Mobile app design.</li>
+            <li>SEO Optimization.</li>
           </ul>
         </div>
         <div class="card">
           <img src="./images/cctv.jpg" alt="CCTV">
-          <h3>CCTV Camera Installation</h3>
-          <p>Installation of CCTV systems for your homes and businesses for security and other security systems.</p>
+          <h3>Digital Security Systems Installation</h3>
+          <p>We install state-of-the art digital security solutions to protect your home, business, and other. Our service include;</p>
           <ul>
-            <li>Design & Site Survey</li>
-            <li>24/7 Monitoring Options</li>
-            <li>Integration with Alarm Systems</li>
+            <li>CCTV Camera installation & maintenance.</li>
+            <li>Access control.</li>
+            <li>Gate motor.</li>
+            <li>Electric fence Integration with Alarm Systems.</li>
           </ul>
         </div>
         <div class="card">
           <img src="./images/malt.jpg" alt="Multimedia">
-          <h3>Multimedia & Media Solutions</h3>
-          <p>We provide modern services for posters, banners, video production, live streaming, and event AV setup services for better communication.</p>
+          <h3>Creative Digital Design.</h3>
+          <p>We provide modern and high quality creative graphics and designing services include.</p>
           <ul>
-            <li>Video Production</li>
-            <li>Live Streaming</li>
-            <li>Event AV Setup</li>
+            <li>Poster and banners design.</li>
+            <li>Flyers and card flyers design.</li>
+            <li> Business card and events card design</li>
+            <li>Printing services (T-shirts, caps, and other materials).</li>
           </ul>
         </div>
       </div>
     </section>
   </main>
 
-<!-- Popup Modal -->
-<div id="orderModal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <h2>Place your order now</h2>
-    <p class="muted">Send us your project details, we will respond as soon as possible.</p><br>
-    <form method="post">
-      <div class="form-group">
-        <input type="text" name="fullname" placeholder=" " required>
-        <label>Your Full Name</label>
-      </div>
+  <!-- Popup Modal -->
+  <div id="orderModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2>Place your order now</h2>
+      <p class="muted">Send us your project details, we will respond as soon as possible.</p><br>
+      <form>
+        <div class="form-group">
+          <input type="text" placeholder=" " required>
+          <label>Your Full Name</label>
+        </div>
 
-      <div class="form-group">
-        <input type="email" name="email" placeholder=" " required>
-        <label>Email</label>
-      </div>
+        <div class="form-group">
+          <input type="email" placeholder=" " required>
+          <label>Email</label>
+        </div>
 
-      <div class="form-group">
-        <input type="text" name="phone" placeholder=" " required>
-        <label>Phone Number</label>
-      </div>
+        <div class="form-group">
+          <input type="text" placeholder=" " required>
+          <label>Phone Number</label>
+        </div>
 
-      <select id="services" name="services" required class="styled-select">
-        <option value="" disabled selected>~ Select service ~</option>
-        <optgroup label="ICT Services & Consultancy">
-          <option value="consult">Consultancy</option>
-          <option value="network">Networking</option>
-          <option value="software">Software Solutions</option>
-        </optgroup>
-        <optgroup label="Web Design & Development">
-          <option value="webdev">Website Development</option>
-          <option value="hosting">Hosting</option>
-          <option value="seo">SEO Optimization</option>
-        </optgroup>
-        <optgroup label="CCTV & Security">
-          <option value="install">Installation</option>
-          <option value="maintain">Maintenance</option>
-          <option value="monitoring">24/7 Monitoring</option>
-        </optgroup>
-        <optgroup label="Multimedia Solutions">
-          <option value="design">Graphic Design</option>
-          <option value="video">Video Production</option>
-          <option value="stream">Live Streaming</option>
-        </optgroup>
-        <optgroup label="Other Services">
-          <option value="training">Training</option>
-          <option value="repair">Hardware Repair</option>
-          <option value="custom">Custom Project</option>
-        </optgroup>
-      </select><br><br>
+        <select id="services" name="services" required class="styled-select">
+          <option value="" disabled selected>~ Select service ~</option>
+          <optgroup label="Web Design & Development.">
+            <option value="#">Website design and development.</option>
+            <option value="#">Mobile app design</option>
+            <option value="#">Website hosting</option>
+          </optgroup>
+          <optgroup label="Digital Security Systems.">
+            <option value="#">CCTV Camera installation & maintenance.</option>
+            <option value="#"> Access control.</option>
+            <option value="#">Doorbell.</option>
+            <option value="#">Electric fence.</option>
+            <option value="#">Gate motor.</option>
+          </optgroup>
+          <optgroup label="Digital Creative Design">
+            <option value="#">Poster and banners design</option>
+            <option value="#">Flyers and card flyers design</option>
+            <option value="#">Business card and events card design.</option>
+            <option value="#">Printing services (T-shirts, caps, and other materials).</option>
+            <option value="#">Logo design.</option>
+          </optgroup>
+          <optgroup label="Computer maintenance and repair">
+            <option value="#">Software maintenance & installation.</option>
+            <option value="#">Hardware maintenance and repair</option>
+            <option value="#"> System improvements.</option>
+          </optgroup>
+        </select>
 
-      <div class="form-group">
-        <input type="text" name="otherservice" placeholder=" (option)">
-        <label>Others Service You may need</label>
-      </div>
+        <div class="form-group">
+          <textarea placeholder=" " rows="3" required></textarea>
+          <label>Describe your project</label>
+        </div>
 
-      <div class="form-group">
-        <textarea rows="5" name="details" placeholder=" " required></textarea>
-        <label>Details of the services you need...</label>
-      </div>
-
-      <button class="btn btn-primary" type="submit">Send a Request</button>
-    </form>
+        <button type="submit" class="btn btn-primary">Send Order</button>
+      </form>
+    </div>
   </div>
-</div>
 
-<!-- Success/Error Popup -->
-<div id="orderMsg"><?php echo htmlspecialchars($successMsg); ?></div>
+  <footer>
+    <p>© 2025 Lazri Company. All rights reserved.</p>
+  </footer>
 
-<!-- Footer -->
-<footer>
-  <p>&copy; 2025 Lazri Company Limited. All rights reserved.</p>
-</footer>
+  <script>
+const menuToggle = document.getElementById('menu-toggle');
+const sidebar = document.getElementById('navbar');
+const closeBtn = document.getElementById('close-btn');
+const header = document.querySelector('header');
 
-<script>
-function scrollToSection(id){
-  document.getElementById(id).scrollIntoView({behavior:'smooth'});
-}
+menuToggle.addEventListener('click', () => {
+  sidebar.classList.add('active');
+  header.classList.add('sidebar-open');
+});
 
-// slide images
-const images = [
-  "./images/serv.jpg"
-  ,"./images/campany.jpg",
-  "./images/company5.jpg",
-  "./images/ict.jpg",
-  "./images/malt.jpg",
-  "./images/cctv.jpg"
-];
-let index = 0;
-setInterval(() => {
-  document.getElementById("slideshow").src = images[index];
-  index = (index+1)%images.length;
-}, 3000);
+closeBtn.addEventListener('click', () => {
+  sidebar.classList.remove('active');
+  header.classList.remove('sidebar-open');
+});
 
-// modal functions
+/* Modal Handling */
 function openModal() {
-  document.getElementById("orderModal").style.display = "block";
+  document.getElementById('orderModal').style.display = 'block';
 }
 function closeModal() {
-  document.getElementById("orderModal").style.display = "none";
+  document.getElementById('orderModal').style.display = 'none';
 }
 
-// close modal when clicking outside content
-window.onclick = function(event) {
-  const modal = document.getElementById("orderModal");
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
+/* Scroll to section */
+function scrollToSection(id) {
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
 }
 
-// Popup message show/hide
-window.onload = function() {
-  var msg = document.getElementById('orderMsg');
-  if (msg.textContent.trim() !== "") {
-    msg.style.display = "block";
-    setTimeout(() => { 
-      msg.style.display = "none"; 
-    }, 10000); // disappear after 10 sec
-  }
-};
-</script>
+/* Slideshow Animation */
+const images = ["./images/serv.jpg", "./images/ict.jpg", "./images/cctv.jpg", "./images/malt.jpg"];
+let currentIndex = 0;
+setInterval(() => {
+  const slideshow = document.getElementById('slideshow');
+  currentIndex = (currentIndex + 1) % images.length;
+  slideshow.src = images[currentIndex];
+}, 3500);
+  </script>
 </body>
 </html>

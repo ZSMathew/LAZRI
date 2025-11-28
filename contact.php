@@ -85,7 +85,7 @@ nav ul li a::after {
   bottom: 0;
   height: 2px;
   width: 0%;
-  background: var(--white);
+  background: #ffd700;
   transition: width 0.3s ease;
 }
 nav ul li a:hover {
@@ -232,7 +232,7 @@ nav ul li a.active::after {
     .hero h1 {
       font-size: 3rem;
       margin-bottom: 10px;
-      color: var(--yellow);
+      color: var(--white);
     }
 
     .hero p {
@@ -270,7 +270,7 @@ nav ul li a.active::after {
 
     .left-side h2 {
       font-size: 1.8rem;
-      color: var(--yellow);
+      color: var(--white);
     }
 
     .left-side p {
@@ -287,7 +287,7 @@ nav ul li a.active::after {
     }
 
     .info-item i {
-      color: var(--yellow);
+      color: var(--white);
       font-size: 18px;
     }
 
@@ -553,26 +553,25 @@ nav ul li a.active::after {
 }
 /* ===== MOBILE FIXES ===== */
 @media (max-width: 768px) {
-  .footer {
-    padding: 40px 15px;
+  .footer h2 {
+    font-size: 20px;
   }
-
-  .footer-container {
-    gap: 20px;
+  .footer p,
+  .footer a,
+  .footer span {
+    font-size: 16px;
   }
-
-  .social-icons {
-    justify-content: center;
+  .social-icons a {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
   }
-
-  .footer-bottom {
-    text-align: center;
+  .scroll-top {
+    width: 40px;
+    height: 40px;
   }
-
-  .footer-links {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+  .scroll-top i {
+    font-size: 18px;
   }
 }
     /* Responsive */
@@ -591,6 +590,97 @@ nav ul li a.active::after {
         padding: 40px 30px;
       }
     }
+        /* =================== RESPONSIVE DESIGN =================== */
+
+/* Tablet (768px and below) */
+@media (max-width: 992px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  nav ul {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .hero {
+    flex-direction: column;
+    text-align: center;
+  }
+  .hero-text {
+    font-size: 22px;
+  }
+  .hero-img img {
+    width: 100%;
+    height: auto;
+  }
+  .footer-container {
+    flex-direction: column;
+    margin-left: 0;
+  }
+  .footer-column {
+    margin-bottom: 20px;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+  .footer-links {
+    margin-left: 0 !important;
+    margin-top: 10px;
+  }
+}
+
+/* Mobile (480px and below) */
+@media (max-width: 576px) {
+  header {
+    padding: 10px;
+    flex-direction: column;
+  }
+  nav ul {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  nav ul li a {
+    font-size: 14px;
+    padding: 6px 8px;
+  }
+  .hero {
+    padding: 20px;
+  }
+  .hero-text {
+    font-size: 18px;
+  }
+  .hero-box {
+    font-size: 14px;
+  }
+  .services-section h2 {
+    font-size: 1.8rem;
+  }
+  .testimonial-card {
+    width: 100%;
+  }
+  .footer h2 {
+    font-size: 20px;
+  }
+  .footer p,
+  .footer a,
+  .footer span {
+    font-size: 16px;
+  }
+  .social-icons a {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+  .scroll-top {
+    width: 40px;
+    height: 40px;
+  }
+  .scroll-top i {
+    font-size: 18px;
+  }
+}
   </style>
 </head>
 
@@ -609,7 +699,7 @@ nav ul li a.active::after {
     <span class="close-btn" id="close-btn">&times;</span>
     <ul>
       <li><a href="index.php"><b>Home</b></a></li>
-      <li><a href="our service.php"><b>Our Services</b></a></li>
+      <li><a href="our_service.php"><b>Our Services</b></a></li>
       <li><a href="Project.php"><b>Our Projects</b></a></li>
       <li><a href="about.php"><b>About Us</b></a></li>
       <li><a href="contact.php" class="active"><b>Contact Us</b></a></li>
@@ -674,7 +764,6 @@ nav ul li a.active::after {
      width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
   </div>
 
-  <!-- Footer -->
    <footer class="footer">
     <!-- Left Column -->
      <div class="footer-container">
@@ -685,21 +774,20 @@ nav ul li a.active::after {
       </p>
 
       <div class="social-icons">
-        <a href="#"><i class="fab fa-facebook-f"></i></a>
-        <a href="#"><i class="fab fa-twitter"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-        <a href="#"><i class="fab fa-tiktok"></i></a>
-        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+        <a href="https://www.facebook.com/lazricompany/?__pwa=1#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#INPUT X LINK "><i class="fab fa-twitter"></i></a>
+        <a href="https://www.instagram.com/lazricompany/?__pwa=1#"><i class="fab fa-instagram"></i></a>
+        <a href="#INPUT LINKEDIN LINK"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://www.tiktok.com/@lazri.company"><i class="fab fa-tiktok"></i></a>
       </div>
 
       <div class="footer-nav">
         <ul class="links">
-        <li><a href="index.php">Home</a></li>
-        <li><a href="our_service.php">Services</a></li>
-        <li><a href="Project.php">Projects</a></li>
-        <li><a href="About.php">About Us</a></li>
-        <li><a href="contact.php">Contact</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="our_service.html">Services</a></li>
+        <li><a href="Project.html">Projects</a></li>
+        <li><a href="About.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
         </ul>
       </div>
     </div>
@@ -725,13 +813,13 @@ nav ul li a.active::after {
       <div class="contact-info">
         <div class="contact-item">
           <i class="fas fa-phone"></i>
-          <span style="color: #fff;">+255 713 569 816<br>+255 713 453 464</span>
+          <span style="color: #fff;">+255 682 346 103<br>+255 756 959 848</span>
         </div>
         <div class="contact-item">
           <i class="fas fa-envelope"></i>
           <span>
-            <a href="mailto:info@lazri.co.tz">info@lazri.co.tz</a><br>
-            <a href="mailto:lazricompany@gmail.com">lazricompany@gmail.com</a>
+            <a href="mailto:info@lazri.org">info@lazri.co.tz</a><br>
+            <a href="mailto:lazriinfo@gmail.com">lazricompany@gmail.com</a>
           </span>
         </div>
         <div class="contact-item">
@@ -745,13 +833,20 @@ nav ul li a.active::after {
     <div class="footer-bottom">
       <p id="copyright" style="margin: 1.5rem 0rem 0rem 2rem;">Copyright © 2025 - Lazri Company Limited. | All rights reserved</p>
             <div class="footer-links" style="margin-left: 23rem;">
-        <a href="privecy_policy.php" id="pp">Privacy Policy</a> |
-        <a href="mailto:info@lazri.co.tz" id="sm">Staff Mail</a> |
-        <a href="faq.php" id="faq">FAQs</a> |
-        <a href="terms_&_conditions.php" id="tc">Terms and Conditions</a>
+        <a href="privecy_policy.html" id="pp">Privacy Policy</a> |
+        <a href="#" id="sm">Staff Mail</a> |
+        <a href="faq.html" id="faq">FAQs</a> |
+        <a href="terms_&_conditions.html" id="tc">Terms and Conditions</a>
       </div>
     </div>
+
+    <!-- Scroll to Top -->
+    <div class="scroll-top" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+      <i class="fas fa-arrow-up"></i>
+    </div>
   </footer>
+
+
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
   <script>
     AOS.init();

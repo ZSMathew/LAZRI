@@ -74,6 +74,42 @@
       background: #2563eb;
       color: #fff;
     }
+       /* Hero Section */
+    .hero {
+      display: flex;
+      align-items: center;
+      background: linear-gradient(to right, #00bfff, rgba(128, 128, 128, 0.692));
+      padding: 40px;
+    }
+    .hero-text {
+      flex: 1;
+      color: white;
+      font-size: 26px;
+      font-weight: bold;
+    }
+    .hero-box {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 20px;
+      color: black;
+      font-weight: bold;
+    }
+    .hero-box a, a:link, a:visited, a:hover, a:active {
+     text-decoration: none;color: black;
+    }
+
+    .hero-img {
+      flex: 1;
+      text-align: center;
+    }
+    .hero-img img {
+      border-radius: 10px;
+      width: 30rem;
+      height: 19rem;
+      object-fit: cover;
+    }
+
      /* Footer */
     .footer {
       background: black;
@@ -439,12 +475,28 @@
         <li><a id="navContact" href="contact.html"><b>Contact Us</b></a></li>
       </ul>
     </nav>
-    <div class="lang-switch">
-      <button onclick="setLanguage('en')"><span class="fi fi-gb"></span>ENG</button>
-      <button onclick="setLanguage('sw')"><span class="fi fi-tz"></span>SWA</button>
-    </div>
+   
   </header>
+      
+    <!-- Hero Section -->
+  <div class="hero">
+    <div class="hero-text" id="heroTitle">
+      GET INTOUCHED WITH ONLINE SERVICES 
+      <div class="hero-box" id="heroBox">
+        <a href="#"><p>1. Web Hosting</p></a>
+        <a href="#"><p>2. Domains</p></a>
+        <a href="#"><p>3. Certificate Portal </p></a>
+        <a href="#"><p>4. Digital Marketing</p></a>
+        <a href="#"><p>5. Emails</p></a>
+        <a href="#"><p>6. Maintainance</p></a>
+      </div>
+    </div>
+    <div class="hero-img">
+      <img id="heroImage" src="./images/company2.jpg" alt="company">
+    </div>
+  </div>
 
+  <!--footer-->
   <footer class="footer">
     
     <!-- Left Column -->
@@ -480,24 +532,32 @@
         <h2>Online Services</h2>
         <div class="footer-services">
           <ul class="links">
-            <li><a href="#">Web Hosting</a></li>
-            <li><a href="#">Domains</a></li>
-            <li><a href="#">Certification Portal</a></li>
-            <li><a href="#">Digital Makerting</a></li>
-            <li><a href="#">Emails</a></li>
-            <li><a href="#">Mantainance</a></li>
+            <li><a href="Online services.html">Web Hosting</a></li>
+            <li><a href="Online services.html">Domains</a></li>
+            <li><a href="Online services.html">Certification Portal</a></li>
+            <li><a href="Online services.html">Digital Makerting</a></li>
+            <li><a href="Online services.html">Emails</a></li>
+            <li><a href="Online services.html">Mantainance</a></li>
           </ul>
         </div>
       </div>
 
       <!-- Right Column -->
       <div class="footer-column">
-        <h2>Contact Us</h2>
-        <div class="contact-info">
-          <div class="contact-item">
-           <a href="https://whatsapp.com/channel/0029VbBVGNg0rGiKKpfRg23W"><i class="fas fa-phone"></i></a> 
-            <span style="color: #fff;">+255 713 569 816<br>+255 713 453 464</span>
-          </div>
+      <h2>Contact Us</h2>
+  <div class="contact-info">
+    <div class="contact-item">
+      <!-- clickable call link with phone icon -->
+      <a href="tel:+255713569816">
+        <i class="fas fa-phone phone-icon"></i> 
+      </a>
+      <span>
+        <br>
+        <a href="tel:+255713569816" style="color: #fff; text-decoration: none;">+255 713 569 816</a><br>
+        <a href="tel:+255713453464" style="color: #fff; text-decoration: none;">+255 713 453 464</a>
+      </span>
+    </div>
+  </div>
           <div class="contact-item">
           <a href="https://mail.google.com/mail/?view=cm&fs=1&to=lazricompany@gmail.com" target="_blank"><i class="fas fa-envelope"></i></a> 
             <span>
@@ -505,6 +565,14 @@
               <a href="mailto:lazriinfo@gmail.com">lazriinfo@gmail.com</a>
             </span>
           </div>
+
+          <div class="contact-item">
+          <a href="https://whatsapp.com/channel/0029VbBVGNg0rGiKKpfRg23W" target="_blank"><i class="fas fa-whatsapp"></i></a> 
+            <span>
+              <a href="https://whatsapp.com/channel/0029VbBVGNg0rGiKKpfRg23W">WhatsApp Channel</a><br>
+
+          </div>
+
           <div class="contact-item">
 <a href="https://www.google.com/maps/place/POSTA,+DAR+ES+SALAAM/@-6.8131835,39.2883643,17z" target="_blank">
     <i class="fas fa-map-marker-alt"></i>

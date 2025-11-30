@@ -90,7 +90,7 @@ nav ul li a::after {
   bottom: 0;
   height: 2px;
   width: 0%;
-  background: var(--white);
+  background: #ffd700;
   transition: width 0.3s ease;
 }
 nav ul li a:hover {
@@ -352,12 +352,21 @@ header.sidebar-open .mobile-header {
 }
 }
 </style>
+
 </head>
 <body>
   <!-- Header -->
   <header>
-    <h1><img src="./images/Logo2.png" alt="Lazri Company Logo"></h1>
-    <nav>
+    <div class="mobile-header">
+      <div class="menu-toggle" id="menu-toggle">☰</div>
+      <a href="index.html" class="logo-center">
+        <img src="./images/Logo2.png" alt="Lazri Company Logo">
+      </a>
+      <span class="company-name">LAZRI Company</span>
+    </div>
+
+    <nav id="navbar" class="sidebar">
+      <span class="close-btn" id="close-btn">&times;</span>
       <ul>
         <li><a href="index.php"><b>Home</b></a></li>
         <li><a href="our_service.php"><b>Our Services</b></a></li>
@@ -370,9 +379,8 @@ header.sidebar-open .mobile-header {
 
   <!-- Main content -->
   <main>
-    <div class="h1">
-      <h1>Our Projects</h1>
-      <p>The Work We Have Done, We Are Doing and We Plan to Do</p>
+    <div class="h1"><h1>Our Projects</h1>
+    <p>The Work We Have Done, We Are Doing and We Plan to Do</p>
     </div>
 
     <!-- Filter Buttons -->

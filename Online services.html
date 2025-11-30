@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lazri.co.tz</title>
+    <style>
+    * {margin:0; padding:0; box-sizing:border-box;}
+    body {font-family: Arial, sans-serif; line-height:1.6;}
+
+    /* ====== HEADER ====== */
+    header {
+      background: darkblue;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 24px;
+      /* box-shadow: var(--shadow); */
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    header img {
+      height: 50px;
+    }
+    nav ul {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+    nav ul li {
+      position: relative;
+    }
+    nav ul li a {
+      position: relative;
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+      padding: 8px 12px;
+      transition: color 0.3s;
+    }
+    nav ul li a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 2px;
+      width: 0%;
+      background: #ffd700;
+      transition: width 0.3s ease;
+    }
+    nav ul li a:hover {
+      color: #ffd700;
+    }
+    nav ul li a:hover::after {
+      width: 100%;
+    }
+    nav ul li a.active {
+      color: #ffd700;
+      font-weight: bold;
+    }
+
+    nav ul li a.active::after {
+      width: 100%;
+    }
+    .lang-switch button {
+      border: 1px solid #000;
+      padding: 4px 10px;
+      cursor: pointer;
+      background: #fff;
+      font-weight: bold;
+    }
+    .lang-switch button:hover{
+      background: #2563eb;
+      color: #fff;
+    }
+       /* Hero Section */
+    .hero {
+      display: flex;
+      align-items: center;
+      background: linear-gradient(to right, #00bfff, rgba(128, 128, 128, 0.692));
+      padding: 40px;
+    }
+    .hero-text {
+      flex: 1;
+      color: white;
+      font-size: 26px;
+      font-weight: bold;
+    }
+    .hero-box {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 20px;
+      color: black;
+      font-weight: bold;
+    }
+    .hero-box a, a:link, a:visited, a:hover, a:active {
+     text-decoration: none;color: black;
+    }
+
+    .hero-img {
+      flex: 1;
+      text-align: center;
+    }
+    .hero-img img {
+      border-radius: 10px;
+      width: 30rem;
+      height: 19rem;
+      object-fit: cover;
+    }
+
+     /* Footer */
+    .footer {
+      background: black;
+      padding: 50px 20px 30px;
+      position: relative;
+    }
+    .footer-container {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-left: 4rem;
+    }
+
+    .footer-column {
+      flex: 1;
+      padding: 20px;
+      min-width: 250px;
+      position: relative;
+      align-content: center;
+    }
+
+    .footer h2 {
+      font-size: 24px;
+      font-weight: 50px;
+      margin-bottom: 15px;
+      color: white;
+    }
+
+    .footer p,
+    .footer a,
+    .footer span {
+      font-size: 15px;
+    }
+
+    /* Social Icons */
+    .social-icons {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+      margin-top: 20px;
+    }
+
+    .social-icons a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 50px;
+      height: 50px;
+      border: 2px solid blue;
+      border-radius: 50%;
+      color: blue;
+      font-size: 22px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .social-icons a:hover {
+      background: blue;
+      color: white;
+      transform: scale(1.1);
+    }
+
+    /* Navigation under social */
+    .footer-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-nav a {
+      color: #fff;
+      text-decoration: none;
+      transition: transform 0.3s ease;
+    }
+
+    .footer-nav a:hover {
+      transform: translateY(5px);
+      color: blue;
+    }
+
+    /* Middle column services */
+    .footer-services {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-services a {
+      color: #fff;
+      text-decoration: none;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .footer-services a:hover {
+      transform: translateX(10px);
+      color: blue;
+    }
+
+    /* Right column contact */
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .contact-item i {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 45px;
+      height: 45px;
+      border: 2px solid blue;
+      border-radius: 50%;
+      color: blue;
+      font-size: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .contact-item i:hover {
+      background: blue;
+      color: white;
+    }
+    .contact-item a {
+      color: #fff;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid black;
+      font-size: 13px;
+      color: white;
+      display: flex;
+    }
+
+    .links {
+      list-style: none;
+      padding: 0;
+    }
+
+    .links li {
+      margin: 8px 0;
+      font-size: 15px;
+      position: relative;
+    }
+
+    .links li a {
+      color: #fff;
+      text-decoration: none;
+      padding-left: 25px;
+      display: inline-block;
+      transition: color 0.3s ease;
+    }
+
+    /* hover:  links */
+    .links li a:hover {
+      color: darkblue;
+    }
+
+    .links li a:hover::before {
+      color: darkblue;
+    }
+
+    .footer-links {
+      margin: 15px 0 90;
+    }
+
+    .footer-links a {
+      margin: 0 10px;
+      color: white;
+      font-size: 14px;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: darkblue; /* consistent na links zingine */
+    }
+
+    /* Scroll to top button */
+    .scroll-top {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: blue;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .scroll-top:hover {
+      transform: scale(1.1);
+      color: white;
+    }
+
+    .scroll-top i {
+      color: white;
+      font-size: 22px;
+    }
+
+    /* =================== RESPONSIVE DESIGN =================== */
+
+    /* Tablet (768px and below) */
+    @media (max-width: 992px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav ul {
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .hero {
+        flex-direction: column;
+        text-align: center;
+      }
+      .hero-text {
+        font-size: 22px;
+      }
+      .hero-img img {
+        width: 100%;
+        height: auto;
+      }
+      .footer-container {
+        flex-direction: column;
+        margin-left: 0;
+      }
+      .footer-column {
+        margin-bottom: 20px;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+      .footer-links {
+        margin-left: 0 !important;
+        margin-top: 10px;
+      }
+    }
+
+    /* Mobile (480px and below) */
+    @media (max-width: 576px) {
+      header {
+        padding: 10px;
+        flex-direction: column;
+      }
+      nav ul {
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+      }
+      nav ul li a {
+        font-size: 14px;
+        padding: 6px 8px;
+      }
+      .hero {
+        padding: 20px;
+      }
+      .hero-text {
+        font-size: 18px;
+      }
+      .hero-box {
+        font-size: 14px;
+      }
+      .services-section h2 {
+        font-size: 1.8rem;
+      }
+      .testimonial-card {
+        width: 100%;
+      }
+      .footer h2 {
+        font-size: 20px;
+      }
+      .footer p,
+      .footer a,
+      .footer span {
+        font-size: 16px;
+      }
+      .social-icons a {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+      }
+      .scroll-top {
+        width: 40px;
+        height: 40px;
+      }
+      .scroll-top i {
+        font-size: 18px;
+      }
+    }
+
+    /* Hamburger button (hidden by default) */
+    .menu-toggle {
+      display: none;
+      font-size: 28px;
+      cursor: pointer;
+      color: #333;
+    }
+
+    /* For smaller screens */
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+        width: 100%;
+      }
+
+      nav ul {
+        flex-direction: column;
+        /* background:  #004aad; */
+        padding: 10px;
+        border-radius: 8px;
+      }
+
+      nav ul li {
+        margin: 8px 0;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      nav.active {
+        display: block;
+      }
+    }
+    </style>
+     <script src="https://kit.fontawesome.com/yourkitid.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons/css/flag-icons.min.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header>
+    <h1>
+      <a href="index.html">
+        <img src="./images/Logo2.png" alt="Lazri Company Logo">
+      </a>
+    </h1>
+    <!-- Hamburger Button -->
+    <div class="menu-toggle" id="menu-toggle">
+      ☰
+    </div>
+    <nav id="navbar">
+      <ul>
+        <!-- Added IDs for translation -->
+        <li><a id="navHome" href="index.html" class="active"><b>Home</b></a></li>
+        <li><a id="navServices" href="our_service.html"><b>Our Services</b></a></li>
+        <li><a id="navProjects" href="Project.html"><b>Our Projects</b></a></li>
+        <li><a id="navAbout" href="About.html"><b>About Us</b></a></li>
+        <li><a id="navContact" href="contact.html"><b>Contact Us</b></a></li>
+      </ul>
+    </nav>
+   
+  </header>
+      
+    <!-- Hero Section -->
+  <div class="hero">
+    <div class="hero-text" id="heroTitle">
+      GET INTOUCHED WITH ONLINE SERVICES 
+      <div class="hero-box" id="heroBox">
+        <a href="#"><p>1. Web Hosting</p></a>
+        <a href="#"><p>2. Domains</p></a>
+        <a href="#"><p>3. Certificate Portal </p></a>
+        <a href="#"><p>4. Digital Marketing</p></a>
+        <a href="#"><p>5. Emails</p></a>
+        <a href="#"><p>6. Maintainance</p></a>
+      </div>
+    </div>
+    <div class="hero-img">
+      <img id="heroImage" src="./images/company2.jpg" alt="company">
+    </div>
+  </div>
+
+  <!--footer-->
+  <footer class="footer">
+    
+    <!-- Left Column -->
+    <div class="footer-container">
+      <div class="footer-column">
+        <h2 style="font-size: 45px;">Let's Work Together</h2>
+        <p style="color: #fff;">
+          Welcome to Lazri’s course catalog — your gateway to quality education for personal and professional growth.
+        </p>
+
+        <div class="social-icons">
+          <a href="https://www.facebook.com/lazricompany/?__pwa=1#"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/lazricompany/?__pwa=1#"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.linkedin.com/in/lazri-company-763565389"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://www.tiktok.com/@lazri.company"><i class="fab fa-tiktok"></i></a>
+          <a href="#INPUT Youtube LINK "><i class="fab fa-youtube"></i></a>
+          <a href="#INPUT X LINK "><i class="fab fa-x-twitter"></i></a>
+        </div>
+
+        <div class="footer-nav">
+          <ul class="links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="our_service.html">Services</a></li>
+            <li><a href="Project.html">Projects</a></li>
+            <li><a href="About.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Middle Column -->
+      <div class="footer-column" style="margin-left: 4rem;">
+        <h2>Online Services</h2>
+        <div class="footer-services">
+          <ul class="links">
+            <li><a href="Online services.html">Web Hosting</a></li>
+            <li><a href="Online services.html">Domains</a></li>
+            <li><a href="Online services.html">Certification Portal</a></li>
+            <li><a href="Online services.html">Digital Makerting</a></li>
+            <li><a href="Online services.html">Emails</a></li>
+            <li><a href="Online services.html">Mantainance</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Right Column -->
+      <div class="footer-column">
+      <h2>Contact Us</h2>
+  <div class="contact-info">
+    <div class="contact-item">
+      <!-- clickable call link with phone icon -->
+      <a href="tel:+255713569816">
+        <i class="fas fa-phone phone-icon"></i> 
+      </a>
+      <span>
+        <br>
+        <a href="tel:+255713569816" style="color: #fff; text-decoration: none;">+255 713 569 816</a><br>
+        <a href="tel:+255713453464" style="color: #fff; text-decoration: none;">+255 713 453 464</a>
+      </span>
+    </div>
+  </div>
+          <div class="contact-item">
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=lazricompany@gmail.com" target="_blank"><i class="fas fa-envelope"></i></a> 
+            <span>
+              <a href="mailto:info@lazri.org">info@lazri.org</a><br>
+              <a href="mailto:lazriinfo@gmail.com">lazriinfo@gmail.com</a>
+            </span>
+          </div>
+
+          <div class="contact-item">
+          <a href="https://whatsapp.com/channel/0029VbBVGNg0rGiKKpfRg23W" target="_blank"><i class="fas fa-whatsapp"></i></a> 
+            <span>
+              <a href="https://whatsapp.com/channel/0029VbBVGNg0rGiKKpfRg23W">WhatsApp Channel</a><br>
+
+          </div>
+
+          <div class="contact-item">
+<a href="https://www.google.com/maps/place/POSTA,+DAR+ES+SALAAM/@-6.8131835,39.2883643,17z" target="_blank">
+    <i class="fas fa-map-marker-alt"></i>
+</a>
+            <span style="color: #fff;">Dar es Salaam, Tanzania</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+      <p id="copyright" style="margin: 1.5rem 0rem 0rem 2rem;">Copyright © 2025 - Lazri Company Limited. | All rights reserved</p>
+      <div class="footer-links" style="margin-left: 23rem;">
+        <a href="privecy_policy.html" id="pp">Privacy Policy</a> |
+        <a href="#" id="sm">Staff Mail</a> |
+        <a href="faq.html" id="faq">FAQs</a> |
+        <a href="terms_&_conditions.html" id="tc">Terms and Conditions</a>
+      </div>
+    </div>
+
+    <!-- Scroll to Top -->
+    <div class="scroll-top" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+      <i class="fas fa-arrow-up"></i>
+    </div>
+  </footer>
+
+  <a href="#" class="back-to-top">&#8679;</a>
+    
+</body>
+</html>

@@ -1,16 +1,41 @@
 <?php
-// ====== DB Connection ======
-$host = "localhost";
-$user = "root";
-$pass = "";
-$db   = "lazri"; 
+// DATABASE CONNECTION
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "lazri";
 
-$conn = new mysqli($host, $user, $pass, $db);
+$conn = new mysqli($servername, $username, $password, $dbname);
 
+// CHECK CONNECTION
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+
+// HANDLE FORM SUBMISSION
+$success = false;
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $name = trim($_POST["name"]);
+    $email = trim($_POST["email"]);
+    $subject = trim($_POST["subject"]);
+    $message = trim($_POST["message"]);
+
+    // PREPARED STATEMENT (secure)
+    $stmt = $conn->prepare("INSERT INTO comments (name, email, subject, message) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("ssss", $name, $email, $subject, $message);
+
+    if ($stmt->execute()) {
+        $success = true; // trigger popup
+    }
+
+    $stmt->close();
+}
+
+$conn->close();
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,8 +45,7 @@ if ($conn->connect_error) {
   <title>Lazri Company - Contact Us</title>
 
   <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     :root {
       --nav-blue: #0b66ff;
@@ -53,13 +77,9 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 12px 24px;
-  box-shadow: var(--shadow);
   position: sticky;
   top: 0;
   z-index: 1000;
-}
-header img { 
-  height: 50px; 
 }
 
 nav ul {
@@ -67,40 +87,36 @@ nav ul {
   gap: 20px;
   list-style: none;
 }
-nav ul li {
-  position: relative; 
-}
+
 nav ul li a {
-  position: relative;
   text-decoration: none;
   color: var(--white);
   font-weight: 500;
   padding: 8px 12px;
-  transition: color 0.3s;
+  position: relative;
 }
+
 nav ul li a::after {
   content: "";
   position: absolute;
   left: 0;
   bottom: 0;
-  height: 2px;
   width: 0%;
-  background: #ffd700;
-  transition: width 0.3s ease;
+  height: 2px;
+  background: var(--yellow);
+  transition: 0.3s;
 }
-nav ul li a:hover {
-  color: #ffd700;
-}
-nav ul li a:hover::after {
-  width: 100%; 
-}
+
+nav ul li a:hover,
 nav ul li a.active {
-  color: #ffd700;
-  font-weight: bold;
+  color: var(--yellow);
 }
-nav ul li a.active::after { 
+
+nav ul li a:hover::after,
+nav ul li a.active::after {
   width: 100%;
-}  
+}
+
 
 /* Hamburger button */
 .menu-toggle {
@@ -681,31 +697,76 @@ nav ul li a.active::after {
     font-size: 18px;
   }
 }
+        /* POPUP SUCCESS MESSAGE */
+        .popup-success {
+            position: fixed;
+            left: 50%;
+            bottom: -100px; /* hidden initially */
+            transform: translateX(-50%);
+            background: #93e8b2ff;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: all 0.6s ease;
+            z-index: 9999;
+        }
+
+        .popup-show {
+            bottom: 40px;
+            opacity: 1;
+        }
+
+        .popup-hide {
+            bottom: -100px;
+            opacity: 0;
+        }
   </style>
 </head>
 
+    <!-- SUCCESS POPUP -->
+    <?php if ($success): ?>
+        <div id="successPopup" class="popup-success">Message sent successfully!</div>
+
+        <script>
+            const popup = document.getElementById("successPopup");
+            popup.classList.add("popup-show");
+
+            // Hide after 5 seconds
+            setTimeout(() => {
+                popup.classList.remove("popup-show");
+                popup.classList.add("popup-hide");
+            }, 5000);
+        </script>
+    <?php endif; ?>
 <body>
   <!-- Header -->
 <header>
   <div class="mobile-header">
     <div class="menu-toggle" id="menu-toggle">☰</div>
-    <a href="index.html" class="logo-center">
+
+    <a href="index.php" class="logo-center">
       <img src="./images/Logo2.png" alt="Lazri Company Logo">
     </a>
+
     <span class="company-name">LAZRI Company</span>
   </div>
 
   <nav id="navbar" class="sidebar">
     <span class="close-btn" id="close-btn">&times;</span>
     <ul>
-      <li><a href="index.php"><b>Home</b></a></li>
-      <li><a href="our_service.php"><b>Our Services</b></a></li>
-      <li><a href="Project.php"><b>Our Projects</b></a></li>
-      <li><a href="about.php"><b>About Us</b></a></li>
-      <li><a href="contact.php" class="active"><b>Contact Us</b></a></li>
+      <li><a href="index.php">Home</a></li>
+      <li><a href="our_service.php">Our Services</a></li>
+      <li><a href="project.php">Our Projects</a></li>
+      <li><a href="about.php">About Us</a></li>
+      <li><a class="active" href="contact.php">Contact Us</a></li>
     </ul>
   </nav>
 </header>
+
 
   <!-- Hero -->
   <section class="hero">
@@ -731,8 +792,7 @@ nav ul li a.active::after {
     <div class="right-side" data-aos="fade-left">
       <h2>Get In Touch</h2>
       <p>We would like to here your comment about our service and othes fill the form below and we’ll get back to you shortly.</p>
-
-      <form action="#" method="post">
+ <form action="" method="POST" class="php-email-form">
         <div class="form-group">
           <label for="name">Your Full Name</label>
           <input type="text" name="name" placeholder="Your Full Name" required>

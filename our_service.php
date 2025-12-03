@@ -417,9 +417,33 @@ footer {
     transform: translateX(var(--sidebar-width));
   }
 }
+/* ===== SUCCESS POPUP ===== */
+.popup-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #72ca7eff;
+  padding: 18px 26px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  font-size: 16px;
+  color: black;
+  text-align: center;
+  z-index: 3000;
+  display: none;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeOut {
+  from {opacity: 1;}
+  to {opacity: 0;}
+}
+
 </style>
 </head>
 <body>
+<div id="popup" class="popup-message"></div>
 
 <?php
 // ======= DB CONNECTION =======
@@ -453,6 +477,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $successMsg = "❌ Error: " . $conn->error;
   }
 }
+if (!empty($successMsg)) {
+    echo "
+    <script>
+        let popup = document.getElementById('popup');
+        popup.innerText = '$successMsg';
+        popup.style.display = 'block';
+
+        // Popup idumu sekunde 5
+        setTimeout(() => {
+            popup.style.animation = 'fadeOut 1s forwards';
+            setTimeout(() => { popup.style.display = 'none'; }, 1000);
+        }, 5000);
+    </script>";
+}
+
+$conn->close();
 ?>
   <!-- Header -->
   <header>
@@ -553,57 +593,62 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <span class="close" onclick="closeModal()">&times;</span>
       <h2>Place your order now</h2>
       <p class="muted">Send us your project details, we will respond as soon as possible.</p><br>
-      <form>
-        <div class="form-group">
-          <input type="text" placeholder=" " required>
-          <label>Your Full Name</label>
-        </div>
+<form method="POST" action="">
+    <div class="form-group">
+      <input type="text" name="fullname" placeholder=" " required>
+      <label>Your Full Name</label>
+    </div>
 
-        <div class="form-group">
-          <input type="email" placeholder=" " required>
-          <label>Email</label>
-        </div>
+    <div class="form-group">
+      <input type="email" name="email" placeholder=" " required>
+      <label>Email</label>
+    </div>
 
-        <div class="form-group">
-          <input type="text" placeholder=" " required>
-          <label>Phone Number</label>
-        </div>
+    <div class="form-group">
+      <input type="text" name="phone" placeholder=" " required>
+      <label>Phone Number</label>
+    </div>
 
-        <select id="services" name="services" required class="styled-select">
-          <option value="" disabled selected>~ Select service ~</option>
-          <optgroup label="Web Design & Development.">
-            <option value="#">Website design and development.</option>
-            <option value="#">Mobile app design</option>
-            <option value="#">Website hosting</option>
-          </optgroup>
-          <optgroup label="Digital Security Systems.">
-            <option value="#">CCTV Camera installation & maintenance.</option>
-            <option value="#"> Access control.</option>
-            <option value="#">Doorbell.</option>
-            <option value="#">Electric fence.</option>
-            <option value="#">Gate motor.</option>
-          </optgroup>
-          <optgroup label="Digital Creative Design">
-            <option value="#">Poster and banners design</option>
-            <option value="#">Flyers and card flyers design</option>
-            <option value="#">Business card and events card design.</option>
-            <option value="#">Printing services (T-shirts, caps, and other materials).</option>
-            <option value="#">Logo design.</option>
-          </optgroup>
-          <optgroup label="Computer maintenance and repair">
-            <option value="#">Software maintenance & installation.</option>
-            <option value="#">Hardware maintenance and repair</option>
-            <option value="#"> System improvements.</option>
-          </optgroup>
-        </select>
+    <select id="services" name="services" required class="styled-select">
+      <option value="" disabled selected>~ Select service ~</option>
 
-        <div class="form-group">
-          <textarea placeholder=" " rows="3" required></textarea>
-          <label>Describe your project</label>
-        </div>
+      <optgroup label="Web Design & Development.">
+        <option value="Website design and development">Website design and development.</option>
+        <option value="Mobile app design">Mobile app design</option>
+        <option value="Website hosting">Website hosting</option>
+      </optgroup>
 
-        <button type="submit" class="btn btn-primary">Send Order</button>
-      </form>
+      <optgroup label="Digital Security Systems.">
+        <option value="CCTV Camera installation & maintenance">CCTV Camera installation & maintenance</option>
+        <option value="Access control">Access control</option>
+        <option value="Doorbell">Doorbell</option>
+        <option value="Electric fence">Electric fence</option>
+        <option value="Gate motor">Gate motor</option>
+      </optgroup>
+
+      <optgroup label="Digital Creative Design">
+        <option value="Poster and banners design">Poster and banners design</option>
+        <option value="Flyers and card flyers design">Flyers and card flyers design</option>
+        <option value="Business card and events card design">Business card and events card design</option>
+        <option value="Printing services">Printing services</option>
+        <option value="Logo design">Logo design</option>
+      </optgroup>
+
+      <optgroup label="Computer maintenance and repair">
+        <option value="Software maintenance & installation">Software maintenance & installation</option>
+        <option value="Hardware maintenance and repair">Hardware maintenance and repair</option>
+        <option value="System improvements">System improvements</option>
+      </optgroup>
+
+    </select>
+
+    <div class="form-group">
+      <textarea name="details" placeholder=" " rows="3" required></textarea>
+      <label>Describe your project</label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Send Order</button>
+</form>
     </div>
   </div>
 

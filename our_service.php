@@ -1,5 +1,39 @@
+<?php
+$host = "localhost"; 
+$user = "root";
+$pass = "";
+$db   = "lazri";
+
+$conn = new mysqli($host, $user, $pass, $db);
+if ($conn->connect_error) {
+    die("DB connection failed: " . $conn->connect_error);
+}
+
+// Handle form submit
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $fullname = $conn->real_escape_string($_POST['fullname']);
+    $email    = $conn->real_escape_string($_POST['email']);
+    $phone    = $conn->real_escape_string($_POST['phone']);
+    $service  = $conn->real_escape_string($_POST['services']);
+    $others   = isset($_POST['otherservice']) ? $conn->real_escape_string($_POST['otherservice']) : "";
+    $details  = $conn->real_escape_string($_POST['details']);
+
+    $sql = "INSERT INTO orders (fullname,email,phone,service,otherservice,details) 
+            VALUES ('$fullname','$email','$phone','$service','$others','$details')";
+
+    if ($conn->query($sql) === TRUE) {
+        header("Location: our_service.php?success=1");
+        exit();
+    } else {
+        header("Location: our_service.php?success=0");
+        exit();
+    }
+}
+?>
+
 <!DOCTYPE html>
-<html lang="sw">
+<html lang="English">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -423,7 +457,7 @@ footer {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: #72ca7eff;
+  background: #b7f3c7;
   padding: 18px 26px;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.25);
@@ -445,55 +479,6 @@ footer {
 <body>
 <div id="popup" class="popup-message"></div>
 
-<?php
-// ======= DB CONNECTION =======
-$host = "localhost"; 
-$user = "root";      
-$pass = "";          
-$db   = "lazri";  
-
-$conn = new mysqli($host, $user, $pass, $db);
-if ($conn->connect_error) {
-  die("DB connection failed: " . $conn->connect_error);
-}
-
-$successMsg = "";
-
-// ======= HANDLE FORM SUBMIT =======
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $fullname = $conn->real_escape_string($_POST['fullname']);
-  $email    = $conn->real_escape_string($_POST['email']);
-  $phone    = $conn->real_escape_string($_POST['phone']);
-  $service  = $conn->real_escape_string($_POST['services']);
-  $others   = $conn->real_escape_string($_POST['otherservice']);
-  $details  = $conn->real_escape_string($_POST['details']);
-
-  $sql = "INSERT INTO orders (fullname,email,phone,service,otherservice,details) 
-          VALUES ('$fullname','$email','$phone','$service','$others','$details')";
-
-  if ($conn->query($sql) === TRUE) {
-    $successMsg = "✅ Your request has been sent successfully!";
-  } else {
-    $successMsg = "❌ Error: " . $conn->error;
-  }
-}
-if (!empty($successMsg)) {
-    echo "
-    <script>
-        let popup = document.getElementById('popup');
-        popup.innerText = '$successMsg';
-        popup.style.display = 'block';
-
-        // Popup idumu sekunde 5
-        setTimeout(() => {
-            popup.style.animation = 'fadeOut 1s forwards';
-            setTimeout(() => { popup.style.display = 'none'; }, 1000);
-        }, 5000);
-    </script>";
-}
-
-$conn->close();
-?>
   <!-- Header -->
   <header>
     <div class="mobile-header">
@@ -651,7 +636,20 @@ $conn->close();
 </form>
     </div>
   </div>
+<?php if (isset($_GET['success'])) : ?>
+<script>
+    let popup = document.getElementById('popup');
+    popup.innerText = "Your request has been sent successfully!";
+    popup.style.display = 'block';
 
+    setTimeout(() => {
+        popup.style.animation = 'fadeOut 1s forwards';
+        setTimeout(() => { popup.style.display = 'none'; }, 1000);
+    }, 5000);
+</script>
+<?php endif; ?>
+  <!-- Footer -->
+  <div class="container">
   <footer>
     <p>© 2025 Lazri Company. All rights reserved.</p>
   </footer>

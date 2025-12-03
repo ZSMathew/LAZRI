@@ -1,0 +1,751 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Lazri Company - FAQ & AI Assistant</title>
+    <meta name="description" content="FAQs for Lazri Companies Limited + AI Assistant for common questions" />
+    <style>
+         :root {
+            --blue: #0b66ff;
+            --dark: darkblue;
+            --gray: #e6e9ee;
+            --muted: black;
+            --white: #ffffff;
+            --card-radius: 14px;
+            --sidebar-width: 220px;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            margin: 0;
+            background: linear-gradient(180deg, var(--gray), #f8fbff);
+            color: #0f1724;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+        /* Header */
+        
+        header {
+            background: var(--dark);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 24px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        header img {
+            height: 50px;
+        }
+        
+        nav ul {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+        
+        nav ul li {
+            position: relative;
+        }
+        
+        nav ul li a {
+            position: relative;
+            text-decoration: none;
+            color: var(--white);
+            font-weight: 500;
+            padding: 8px 12px;
+            transition: color 0.3s;
+        }
+        /* Nav underline hover + active */
+        
+        nav ul li a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 2px;
+            width: 0%;
+            background: var(--white);
+            transition: width 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: var#ffd700;
+            /* rangi ibaki safi */
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        /* active link ina underline daima */
+        
+        nav ul li a.active {
+            color: #ffd700;
+            font-weight: bold;
+        }
+        
+        nav ul li a.active::after {
+            width: 100%;
+        }
+        /* Hamburger button */
+        
+        .menu-toggle {
+            display: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #fff;
+        }
+        /* Logo + company name */
+        
+        .logo-center {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-center img {
+            height: 45px;
+            margin-right: 10px;
+        }
+        
+        .company-name {
+            font-weight: bold;
+            font-size: 16px;
+            color: #fff;
+        }
+        /* ===== MOBILE SIDEBAR ===== */
+        
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 0;
+            }
+            .mobile-header {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 12px;
+                padding: 10px;
+                width: 100%;
+                background: var(--dark-blue);
+                color: #fff;
+                position: relative;
+                transition: transform 0.35s cubic-bezier(.2, .9, .3, 1);
+            }
+            .menu-toggle {
+                display: block;
+                font-size: 28px;
+                cursor: pointer;
+                color: #fff;
+            }
+            .logo-center img {
+                height: 42px;
+                margin-left: 45px;
+            }
+            .company-name {
+                font-size: 15px;
+                white-space: nowrap;
+                margin-left: 10px;
+            }
+            .sidebar {
+                position: fixed;
+                left: -70%;
+                top: 0;
+                height: auto;
+                width: 60%;
+                max-width: 300px;
+                background: var(--dark);
+                box-shadow: 4px 0 12px rgba(0, 0, 0, 0.3);
+                transition: left 0.32s cubic-bezier(.25, .8, .25, 1);
+                padding: 70px 0 20px 0;
+                border-bottom-right-radius: 12px;
+                z-index: 2000;
+                overflow-y: auto;
+            }
+            .sidebar.active {
+                left: 0;
+            }
+            .sidebar ul {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+                padding: 0 20px;
+            }
+            .sidebar ul li a {
+                color: #fff;
+                display: block;
+                padding: 12px;
+                text-decoration: none;
+                border-radius: 6px;
+                transition: background 0.3s, color 0.3s;
+            }
+            .sidebar ul li a:hover {
+                background: rgba(255, 255, 255, 0.12);
+                color: #ffd700;
+            }
+            .close-btn {
+                position: absolute;
+                top: 12px;
+                right: 15px;
+                font-size: 28px;
+                cursor: pointer;
+                color: #fff;
+            }
+            header.sidebar-open .mobile-header {
+                transform: translateX(var(--sidebar-width));
+            }
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 28px
+        }
+        
+        .brand {
+            display: flex;
+            gap: 16px;
+            text-align: center;
+        }
+        
+        .logo {
+            width: 64px;
+            height: 64px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #ffffff22, #ffffff11);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 20px;
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        
+        p.lead {
+            margin: 6px 0 0;
+            color: rgba(255, 255, 255, 0.95);
+        }
+        
+        main {
+            margin-top: 18px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 22px;
+        }
+        /* Left column (FAQ) */
+        
+        .card {
+            background: var(--white);
+            border-radius: var(--card-radius);
+            padding: 18px;
+            box-shadow: 0 8px 30px rgba(13, 38, 76, 0.08);
+        }
+        
+        .search {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+        
+        .search input {
+            flex: 1;
+            padding: 12px 14px;
+            border-radius: 10px;
+            border: 1px solid #e6e9ee;
+            font-size: 14px;
+        }
+        
+        .search button {
+            background: var(--blue);
+            color: var(--white);
+            border: none;
+            padding: 12px 14px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        
+        .search button:hover {
+            background-color: var(--dark);
+        }
+        
+        .faq-item {
+            border-top: 1px solid #f1f5f9;
+            padding: 14px 0;
+        }
+        
+        .faq-item:first-of-type {
+            border-top: 0;
+        }
+        
+        .question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .question h3 {
+            margin: 0;
+            font-size: 15px;
+        }
+        
+        .answer {
+            margin-top: 10px;
+            color: var(--muted);
+            display: none;
+        }
+        /* Right column (AI + contact) */
+        
+        .assistant {
+            position: sticky;
+            top: 28px;
+        }
+        
+        .chat-window {
+            height: 420px;
+            overflow: auto;
+            border-radius: 12px;
+            padding: 12px;
+            border: 1px solid #f1f5f9;
+            background: linear-gradient(180deg, #fff, #fbfcff);
+        }
+        
+        .message {
+            margin: 10px 0;
+            display: flex;
+        }
+        
+        .message.user {
+            justify-content: flex-end;
+        }
+        
+        .bubble {
+            max-width: 78%;
+            padding: 10px 12px;
+            border-radius: 12px;
+            background: #f1f5f9;
+            color: #0f1724;
+        }
+        
+        .message.user .bubble {
+            background: var(--blue);
+            color: var(--white);
+        }
+        
+        .controls {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .controls textarea {
+            flex: 1;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #e6e9ee;
+            resize: vertical;
+            min-height: 56px;
+        }
+        
+        .controls button {
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: none;
+            background: var(--blue);
+            color: var(--white);
+            cursor: pointer;
+        }
+        
+        .controls button:hover {
+            background-color: var(--dark);
+        }
+        
+        .back-home {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--blue);
+            color: var(--white);
+            padding: 10px 18px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        
+        .back-home:hover {
+            background: var(--dark);
+        }
+        /* Footer */
+        
+        footer {
+            background: var(--muted);
+            color: var(--white);
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+        /* Responsive */
+        
+        @media (max-width:980px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            .assistant {
+                position: relative;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="mobile-header">
+            <div class="menu-toggle" id="menu-toggle">☰</div>
+            <a href="index.html" class="logo-center">
+                <img src="./images/Logo2.png" alt="Lazri Company Logo">
+            </a>
+            <span class="company-name">LAZRI Company</span>
+        </div>
+
+        <nav id="navbar" class="sidebar">
+            <span class="close-btn" id="close-btn">&times;</span>
+            <ul>
+                <li><a href="index.php"><b>Home</b></a></li>
+                <li><a href="our_service.php"><b>Our Services</b></a></li>
+                <li><a href="Project.php"><b>Our Projects</b></a></li>
+                <li><a href="about.php"><b>About Us</b></a></li>
+                <li><a href="contact.php"><b>Contact Us</b></a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+        <div class="brand">
+            <div>
+                <h1>LAZRI COMPANIES LIMITED - FAQ</h1>
+                <p class="lead" style="color: black;"><b>"Innovate · Connect · Evolve"</b> — Frequently Asked Questions and AI Assistant</p>
+            </div>
+        </div>
+    </div>
+
+    <main class="container">
+        <div class="grid">
+            <!-- LEFT: FAQ -->
+            <section class="card" aria-labelledby="faq-title">
+                <h2 id="faq-title">Frequently Asked Questions (FAQ)</h2>
+
+                <div class="search" style="margin-top:12px;">
+                    <input id="faqSearch" placeholder="Search question (e.g., service, license, address)" />
+                    <button id="btnSearch">Search</button>
+                </div>
+
+                <div id="faqList">
+                    <!-- FAQ items inserted by JS -->
+                </div>
+
+            </section>
+
+            <!-- RIGHT: AI Assistant + Contact -->
+            <aside class="assistant">
+                <div class="card">
+                    <h3>AI Assistant (FAQ Bot)</h3>
+                    <p style="margin-top:6px;color:var(--muted);font-size:13px">Ask questions about LAZRI — AI will try to answer using the FAQ content here.</p>
+
+                    <div class="chat-window" id="chatWindow" role="log" aria-live="polite">
+                        <div class="message">
+                            <div class="bubble">Hello! How can I assist you today? Ask a question or search by keyword.</div>
+                        </div>
+                    </div>
+
+                    <div class="controls">
+                        <textarea id="userInput" placeholder="Type your question here..." aria-label="Question"></textarea>
+                        <div style="display:flex;flex-direction:column;gap:8px;">
+                            <button id="askBtn">Ask</button>
+                            <button id="clearBtn" style="background:#f3f4f6;color:#0f1724;">Clear</button>
+                        </div>
+                    </div>
+
+                    <small style="display:block;margin-top:10px;color:var(--muted)">Examples: "Do you provide CCTV services?" | "HQ address?" | "How can I contact you?"</small>
+                </div>
+
+                <div class="card" style="margin-top:14px;">
+                    <h3>Company Information</h3>
+                    <p style="margin:6px 0;color:var(--muted)"><strong>Website:</strong> www.lazri.co.tz<br><strong>Email:</strong> info@lazri.co.tz<br><strong>Motto:</strong> Innovate, Connect, Evolve</p>
+                    <a href="mailto:info@lazri.co.tz" style="display:inline-block;margin-top:8px;padding:8px 12px;border-radius:8px;background:var(--blue);color:var(--white);text-decoration:none">Send Email</a>
+                </div>
+
+            </aside>
+
+        </div>
+    </main>
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Lazri Company Limited. All rights reserved.</p>
+    </footer>
+    <a href="index.html" class="back-home">⬅ Back to Home</a>
+
+    <script>
+        // --- FAQ content sourced from your specification ---
+        const FAQS = [{
+            q: 'What is Lazri Companies Limited?',
+            a: 'Lazri Companies Limited is a private company in Tanzania providing ICT services, consulting, CCTV installation, and multimedia services. Motto: "Innovate, Connect, Evolve."'
+        }, {
+            q: 'What is the official name of the company?',
+            a: 'The official name of the company is LAZRI.'
+        }, {
+            q: 'Does Lazri have a logo?',
+            a: 'Yes. Lazri has an official logo representing the company with graphics, emblem, and motto.'
+        }, {
+            q: 'What is the company motto?',
+            a: 'The motto is "Innovate, Connect, Evolve."'
+        }, {
+            q: 'What are the official colors of the company?',
+            a: 'The official colors are Blue, Gray, and White (💙 Blue, 🩶 Gray, 🤍 White).'
+        }, {
+            q: 'What is Lazri\'s vision?',
+            a: 'The vision is to be a trusted service provider and a leader in innovation, security, and digital excellence.'
+        }, {
+            q: 'What is Lazri\'s mission?',
+            a: 'The mission is to provide quality, affordable, and innovative solutions that enable individuals and businesses to thrive in the digital era.'
+        }, {
+            q: 'What are the core values?',
+            a: 'Innovation, Integrity, Customer Focus, Quality, Teamwork, Security & Privacy.'
+        }, {
+            q: 'Where is Lazri available online?',
+            a: 'Website: www.lazri.co.tz; Email: info@lazri.co.tz; Social media: Facebook, Instagram, LinkedIn.'
+        }, {
+            q: 'What is the company history?',
+            a: 'Lazri was founded on 17/05/2025 in Dar es Salaam by university friends. On 16/06/2025 a female member joined. Services include ICT, consulting, CCTV, and multimedia.'
+        }, {
+            q: 'Who are the founders of Lazri?',
+            a: 'Founders are Zakaria Stephano, Anthony Kapinga, Raynell William, Inocenti Gabriel, and Lucy Nguzo. Leadership is governed by the Board of Directors.'
+        }, {
+            q: 'Is Lazri legally registered?',
+            a: 'Yes. Lazri is legally registered in Tanzania. BRELA No, TIN No, and business licenses are available in company records.'
+        }, {
+            q: 'Where is Lazri HQ located?',
+            a: 'Headquarters are in Dar es Salaam, Tanzania. Full address will be added when officially finalized.'
+        }, {
+            q: 'What services does Lazri provide?',
+            a: 'Lazri provides ICT services, consulting, CCTV installation, multimedia services, and more.'
+        }, {
+            q: 'How can I contact Lazri?',
+            a: 'You can contact Lazri via email at info@lazri.co.tz.'
+        }, {
+            q: 'Does Lazri offer customer support?',
+            a: 'Yes. Lazri offers customer support through email and social media channels.'
+        }, {
+            q: 'Where can I find more information about Lazri?',
+            a: 'More information is available on the official website www.lazri.co.tz and social media pages.'
+        }, {
+            q: 'Does Lazri provide CCTV installation services?',
+            a: 'Yes, Lazri provides professional CCTV installation services for homes and businesses.'
+        }, {
+            q: 'What types of multimedia services does Lazri offer?',
+            a: 'Lazri offers a range of multimedia services including video production, graphic design, and digital marketing.'
+        }, {
+            q: 'How does Lazri ensure the quality of its services?',
+            a: 'Lazri is committed to delivering high-quality services by adhering to industry standards and continuously improving its processes.'
+        }, {
+            q: 'What industries does Lazri serve?',
+            a: 'Lazri serves various industries including corporate, retail, hospitality, and residential sectors.'
+        }, {
+            q: 'Does Lazri offer customized solutions?',
+            a: 'Yes, Lazri works closely with clients to provide tailored solutions that meet their specific needs and requirements.'
+        }, {
+            q: 'How can I request a quote for Lazri\'s services?',
+            a: 'You can request a quote by contacting Lazri via email at info@lazri.co.tz.'
+        }, {
+            q: 'What are the business hours of Lazri?',
+            a: 'Business hours will be updated once officially finalized. Please contact via email for inquiries.'
+        }, {
+            q: 'Does Lazri have any partnerships?',
+            a: 'Partnership information will be shared on the official website and social media channels as they are established.'
+        }, {
+            q: 'How does Lazri handle data security and privacy?',
+            a: 'Lazri is committed to protecting client data by implementing robust security measures and adhering to privacy regulations.'
+        }, {
+            q: 'Where can I follow Lazri on social media?',
+            a: 'Lazri can be followed on Facebook, Instagram, and LinkedIn for updates and news.'
+        }, {
+            q: 'Are there any career opportunities at Lazri?',
+            a: 'Career opportunities will be posted on the official website and social media channels as they become available.'
+        }, {
+            q: 'How can I stay updated with Lazri\'s latest news and offerings?',
+            a: 'Stay updated by following Lazri on social media and subscribing to newsletters on the official website.'
+        }, {
+            q: 'What makes Lazri different from other companies?',
+            a: 'Lazri stands out due to its commitment to innovation, customer focus, and delivering high-quality, affordable solutions.'
+        }, {
+            q: 'Does Lazri provide training or workshops?',
+            a: 'Training and workshop offerings will be announced on the official website and social media channels.'
+        }, {
+            q: 'How can I provide feedback about Lazri\'s services?',
+            a: 'Feedback can be sent via email to info@lazri.co.tz.'
+        }, {
+            q: 'What is the process for engaging Lazri\'s services?',
+            a: 'The engagement process involves an initial consultation, needs assessment, proposal, and service delivery. Contact via email for details.'
+        }, {
+            q: 'Does Lazri offer any guarantees on its services?',
+            a: 'Service guarantees will be outlined in service agreements. Contact Lazri via email for specific information.'
+        }, {
+            q: 'How does Lazri stay current with industry trends?',
+            a: 'Lazri stays current by investing in continuous learning, attending industry events, and fostering a culture of innovation.'
+        }, {
+            q: 'Can Lazri assist with large-scale projects?',
+            a: 'Yes, Lazri has the expertise and resources to manage and execute large-scale projects effectively.'
+        }, {
+            q: 'What is the best way to reach Lazri for urgent inquiries?',
+            a: 'For urgent inquiries, please contact Lazri via email at info@lazri.co.tz.'
+        }, {
+            q: 'Does Lazri have any certifications or awards?',
+            a: 'Certification and award information will be shared on the official website and social media channels as they are received.'
+        }, {
+            q: 'How can I schedule a consultation with Lazri?',
+            a: 'Consultations can be scheduled by contacting Lazri via email at info@lazri.co.tz.'
+        }];
+
+        // Render FAQ list as accordion
+        const faqList = document.getElementById('faqList');
+        FAQS.forEach((item, idx) => {
+            const div = document.createElement('div');
+            div.className = 'faq-item';
+            div.innerHTML = `
+        <div class="question" data-idx="${idx}">
+          <h3>${item.q}</h3>
+          <div style="font-size:13px;color:var(--muted)">+</div>
+        </div>
+        <div class="answer">${item.a}</div>
+      `;
+            faqList.appendChild(div);
+        });
+
+        // Accordion toggle
+        faqList.addEventListener('click', (e) => {
+            const q = e.target.closest('.question');
+            if (!q) return;
+            const idx = q.dataset.idx;
+            const item = q.nextElementSibling;
+            const toggle = q.querySelector('div');
+            const open = item.style.display === 'block';
+            item.style.display = open ? 'none' : 'block';
+            toggle.textContent = open ? '+' : '−';
+        });
+
+        // Simple keyword search for FAQ items
+        function searchFaqs(text) {
+            const t = text.trim().toLowerCase();
+            if (!t) return FAQS.map((f, i) => ({
+                score: 0,
+                i
+            }));
+            const tokens = t.split(/\W+/).filter(Boolean);
+            return FAQS.map((f, i) => {
+                const hay = (f.q + ' ' + f.a).toLowerCase();
+                let score = tokens.reduce((s, tk) => s + (hay.includes(tk) ? 1 : 0), 0);
+                if (hay.includes(t)) score += 1;
+                return {
+                    score,
+                    i
+                };
+            }).sort((a, b) => b.score - a.score);
+        }
+
+        document.getElementById('btnSearch').addEventListener('click', () => {
+            const q = document.getElementById('faqSearch').value;
+            const results = searchFaqs(q).filter(r => r.score > 0);
+            if (results.length === 0) {
+                faqList.innerHTML = `<p style="color:var(--muted);padding:12px 0">No results. Try words like "CCTV", "address" or "license".</p>`;
+                return;
+            }
+            faqList.innerHTML = '';
+            results.forEach(r => {
+                const item = FAQS[r.i];
+                const div = document.createElement('div');
+                div.className = 'faq-item';
+                div.innerHTML = `<div class="question" data-idx="${r.i}"><h3>${item.q}</h3><div style="font-size:13px;color:var(--muted)">+</div></div><div class="answer" style="display:block">${item.a}</div>`;
+                faqList.appendChild(div);
+            });
+        });
+
+        // AI Assistant: uses simple semantic match over FAQS
+        const chatWindow = document.getElementById('chatWindow');
+
+        function appendMessage(text, from = 'bot') {
+            const div = document.createElement('div');
+            div.className = 'message ' + (from === 'user' ? 'user' : 'bot');
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble';
+            bubble.innerHTML = text.replace(/\n/g, '<br>');
+            div.appendChild(bubble);
+            chatWindow.appendChild(div);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+
+        document.getElementById('askBtn').addEventListener('click', () => {
+            const text = document.getElementById('userInput').value.trim();
+            if (!text) return;
+            appendMessage(text, 'user');
+            document.getElementById('userInput').value = '';
+
+            const ranked = searchFaqs(text);
+            const best = ranked[0];
+            if (!best || best.score === 0) {
+                const reply = `Sorry, I couldn't find a complete answer in the FAQ. Here is some helpful info:\n- Website: www.lazri.co.tz\n- Email: info@lazri.co.tz\nYou can ask another question or click "Search" in the FAQ.`;
+                appendMessage(reply, 'bot');
+                return;
+            }
+
+            const top = ranked.filter(r => r.score > 0).slice(0, 2).map(r => FAQS[r.i]);
+            let reply = '';
+            if (top.length === 1) reply = `<strong>${top[0].q}</strong>\n${top[0].a}`;
+            else reply = top.map(t => `<strong>${t.q}</strong><br>${t.a}`).join('<hr>');
+            appendMessage(reply, 'bot');
+        });
+
+        document.getElementById('clearBtn').addEventListener('click', () => {
+            document.getElementById('userInput').value = '';
+            chatWindow.innerHTML = '<div class="message"><div class="bubble">Hello! How can I assist you today? Ask a question or search by keyword.</div></div>';
+        });
+
+        document.getElementById('userInput').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                document.getElementById('askBtn').click();
+            }
+        });
+        const menuToggle = document.getElementById('menu-toggle');
+        const sidebar = document.getElementById('navbar');
+        const closeBtn = document.getElementById('close-btn');
+        const header = document.querySelector('header');
+
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.add('active');
+            header.classList.add('sidebar-open');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            header.classList.remove('sidebar-open');
+        });
+    </script>
+
+</body>
+
+</html>

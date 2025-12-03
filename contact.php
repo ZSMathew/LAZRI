@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 // DATABASE CONNECTION
 $servername = "localhost";
 $username = "root";
@@ -13,26 +15,30 @@ if ($conn->connect_error) {
 }
 
 // HANDLE FORM SUBMISSION
-$success = false;
-
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $name = trim($_POST["name"]);
     $email = trim($_POST["email"]);
+    $phone = trim($_POST["phone"]);
     $subject = trim($_POST["subject"]);
     $message = trim($_POST["message"]);
 
     // PREPARED STATEMENT (secure)
-    $stmt = $conn->prepare("INSERT INTO comments (name, email, subject, message) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("ssss", $name, $email, $subject, $message);
+    $stmt = $conn->prepare("INSERT INTO comments (name, email, phone, subject, message) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssss", $name, $email, $phone, $subject, $message);
 
     if ($stmt->execute()) {
-        $success = true; // trigger popup
+        $_SESSION['success'] = "Message sent successfully!"; // <-- store in session
+    } else {
+        $_SESSION['error'] = "Failed to send message. Try again!";
     }
 
     $stmt->close();
-}
+    $conn->close();
 
-$conn->close();
+    // Redirect page ili kuzuia duplicate form submission na popup kuonekana tena
+    header("Location: contact.php"); 
+    exit();
+}
 ?>
 
 
@@ -253,7 +259,8 @@ nav ul li a.active::after {
 
     .hero p {
       font-size: 1.1rem;
-      opacity: 0.9;
+      margin-bottom: 3rem;
+      color: var(--white);
     }
 
     /* Split Section */
@@ -409,11 +416,10 @@ nav ul li a.active::after {
       margin-bottom: 15px;
       color: white;
     }
-
-    .footer p,
-    .footer a,
-    .footer span {
+    .footer p {
       font-size: 15px;
+      line-height: 1.6;
+      color: #fff;
     }
 
     /* Social Icons */
@@ -607,45 +613,6 @@ nav ul li a.active::after {
       }
     }
         /* =================== RESPONSIVE DESIGN =================== */
-
-/* Tablet (768px and below) */
-@media (max-width: 992px) {
-  header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  nav ul {
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-  .hero {
-    flex-direction: column;
-    text-align: center;
-  }
-  .hero-text {
-    font-size: 22px;
-  }
-  .hero-img img {
-    width: 100%;
-    height: auto;
-  }
-  .footer-container {
-    flex-direction: column;
-    margin-left: 0;
-  }
-  .footer-column {
-    margin-bottom: 20px;
-  }
-  .footer-bottom {
-    flex-direction: column;
-    text-align: center;
-  }
-  .footer-links {
-    margin-left: 0 !important;
-    margin-top: 10px;
-  }
-}
-
 /* Mobile (480px and below) */
 @media (max-width: 576px) {
   header {
@@ -703,12 +670,11 @@ nav ul li a.active::after {
             left: 50%;
             bottom: -100px; /* hidden initially */
             transform: translateX(-50%);
-            background: #93e8b2ff;
-            color: white;
+            background: #b7f3c7;
+            color: black;
             padding: 15px 25px;
             border-radius: 10px;
             font-size: 18px;
-            font-weight: bold;
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
             opacity: 0;
             transition: all 0.6s ease;
@@ -726,22 +692,38 @@ nav ul li a.active::after {
         }
   </style>
 </head>
+<?php if (isset($_SESSION['success'])): ?>
+    <div id="successPopup" class="popup-success"><?php echo $_SESSION['success']; ?></div>
 
-    <!-- SUCCESS POPUP -->
-    <?php if ($success): ?>
-        <div id="successPopup" class="popup-success">Message sent successfully!</div>
+    <script>
+        const popup = document.getElementById("successPopup");
+        popup.classList.add("popup-show");
 
-        <script>
-            const popup = document.getElementById("successPopup");
-            popup.classList.add("popup-show");
+        setTimeout(() => {
+            popup.classList.remove("popup-show");
+            popup.classList.add("popup-hide");
+        }, 5000);
+    </script>
 
-            // Hide after 5 seconds
-            setTimeout(() => {
-                popup.classList.remove("popup-show");
-                popup.classList.add("popup-hide");
-            }, 5000);
-        </script>
-    <?php endif; ?>
+    <?php unset($_SESSION['success']); // remove after showing once ?>
+<?php endif; ?>
+
+<?php if (isset($_SESSION['error'])): ?>
+    <div id="errorPopup" class="popup-success" style="background:#ff6b6b;"><?php echo $_SESSION['error']; ?></div>
+
+    <script>
+        const popup = document.getElementById("errorPopup");
+        popup.classList.add("popup-show");
+
+        setTimeout(() => {
+            popup.classList.remove("popup-show");
+            popup.classList.add("popup-hide");
+        }, 5000);
+    </script>
+
+    <?php unset($_SESSION['error']); ?>
+<?php endif; ?>
+
 <body>
   <!-- Header -->
 <header>
@@ -758,11 +740,11 @@ nav ul li a.active::after {
   <nav id="navbar" class="sidebar">
     <span class="close-btn" id="close-btn">&times;</span>
     <ul>
-      <li><a href="index.php">Home</a></li>
-      <li><a href="our_service.php">Our Services</a></li>
-      <li><a href="project.php">Our Projects</a></li>
-      <li><a href="about.php">About Us</a></li>
-      <li><a class="active" href="contact.php">Contact Us</a></li>
+      <li><a href="index.php"><b>Home</b></a></li>
+      <li><a href="our_service.php"><b>Our Services</b></a></li>
+      <li><a href="Project.php"><b>Our Projects</b></a></li>
+      <li><a href="about.php"><b>About Us</b></a></li>
+      <li><a href="contact.php" class="active"><b>Contact Us</b></a></li>
     </ul>
   </nav>
 </header>
@@ -791,7 +773,7 @@ nav ul li a.active::after {
     <!-- Right -->
     <div class="right-side" data-aos="fade-left">
       <h2>Get In Touch</h2>
-      <p>We would like to here your comment about our service and othes fill the form below and we’ll get back to you shortly.</p>
+      <p>We would like to hear your comment about our service and othes fill the form below and we’ll get back to you shortly.</p>
  <form action="" method="POST" class="php-email-form">
         <div class="form-group">
           <label for="name">Your Full Name</label>
@@ -839,15 +821,16 @@ nav ul li a.active::after {
         <a href="https://www.instagram.com/lazricompany/?__pwa=1#"><i class="fab fa-instagram"></i></a>
         <a href="#INPUT LINKEDIN LINK"><i class="fab fa-linkedin-in"></i></a>
         <a href="https://www.tiktok.com/@lazri.company"><i class="fab fa-tiktok"></i></a>
+        <a href="#INPUT Youtube LINK "><i class="fab fa-youtube"></i></a>
       </div>
 
       <div class="footer-nav">
         <ul class="links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="our_service.html">Services</a></li>
-        <li><a href="Project.html">Projects</a></li>
-        <li><a href="About.html">About Us</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="index.php">Home</a></li>
+        <li><a href="our_service.php">Our Services</a></li>
+        <li><a href="Project.php">Our Projects</a></li>
+        <li><a href="about.php">About Us</a></li>
+        <li><a href="contact.php">Contact Us</a></li>
         </ul>
       </div>
     </div>
@@ -857,12 +840,12 @@ nav ul li a.active::after {
       <h2>Online Services</h2>
       <div class="footer-services">
         <ul class="links">
-        <li><a href="#">Web Hosting</a></li>
-        <li><a href="#">Domains</a></li>
-        <li><a href="#">Certification Portal</a></li>
-        <li><a href="#">Digital Makerting</a></li>
-        <li><a href="#">Emails</a></li>
-        <li><a href="#">Mantainance</a></li>
+        <li><a href="online.php">Web Hosting</a></li>
+        <li><a href="online.php">Domains</a></li>
+        <li><a href="online.php">Certification Portal</a></li>
+        <li><a href="online.php">Digital Makerting</a></li>
+        <li><a href="online.php">Emails</a></li>
+        <li><a href="online.php">Mantainance</a></li>
         </ul>
       </div>
     </div>
@@ -893,10 +876,10 @@ nav ul li a.active::after {
     <div class="footer-bottom">
       <p id="copyright" style="margin: 1.5rem 0rem 0rem 2rem;">Copyright © 2025 - Lazri Company Limited. | All rights reserved</p>
             <div class="footer-links" style="margin-left: 23rem;">
-        <a href="privecy_policy.html" id="pp">Privacy Policy</a> |
-        <a href="#" id="sm">Staff Mail</a> |
-        <a href="faq.html" id="faq">FAQs</a> |
-        <a href="terms_&_conditions.html" id="tc">Terms and Conditions</a>
+        <a href="privecy_policy.php" id="pp">Privacy Policy</a> |
+        <a href="mailto:info@lazri.co.tz" id="sm">Staff Mail</a> |
+        <a href="faq.php" id="faq">FAQs</a> |
+        <a href="terms_&_conditions.php" id="tc">Terms and Conditions</a>
       </div>
     </div>
 

@@ -642,12 +642,18 @@ footer {
     popup.innerText = "Your request has been sent successfully!";
     popup.style.display = 'block';
 
+    // Remove ?success=1 from URL after showing popup
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.pathname);
+    }
+
     setTimeout(() => {
         popup.style.animation = 'fadeOut 1s forwards';
         setTimeout(() => { popup.style.display = 'none'; }, 1000);
     }, 5000);
 </script>
 <?php endif; ?>
+
   <!-- Footer -->
   <div class="container">
   <footer>

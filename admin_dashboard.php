@@ -240,8 +240,25 @@ if (isset($_POST['change_password'])) {
         } else $msg='Current password incorrect.';
     } else $msg='Admin account not found.';
 }
+// Handle comment replies
+if(isset($_POST['send_reply'])){
+    $id = intval($_POST['comment_id']);
+    $reply = $conn->real_escape_string($_POST['reply']);
+    $email = $_POST['email'];
+
+    // Save reply in DB
+    $conn->query("UPDATE comments SET reply='$reply' WHERE id=$id");
+
+    // Send email
+    $subject = "Reply from Lazri Company";
+    $headers = "From: noreply@lazri.com\r\n";
+
+    mail($email, $subject, $reply, $headers);
+
+    $msg = "Reply sent successfully!";
 }
 
+}
 // Fetch dashboard data
 $projects_res = $conn->query("SELECT * FROM projects ORDER BY created_at DESC");
 $orders_res   = $conn->query("SELECT * FROM orders ORDER BY id DESC");
@@ -249,7 +266,11 @@ $projects_count = $projects_res ? $projects_res->num_rows : 0;
 $orders_count   = $orders_res ? $orders_res->num_rows : 0;
 $comments_count = 0; 
 
-/* ====== Handle AJAX request to update status ====== */
+// Fetch comments
+$comments_res = $conn->query("SELECT * FROM comments ORDER BY id DESC");
+$comments_count = $comments_res->num_rows;
+?>
+<?php
 if (isset($_POST['action']) && $_POST['action'] === 'update_status') {
     $id = intval($_POST['id']);
     $status = $conn->real_escape_string($_POST['status']);
@@ -711,6 +732,58 @@ input:hover {
 </table>
 <?php } else echo '<p class="small">No orders yet.</p>'; ?>
 </div>
+
+<!-- Comments -->
+<div id="tab-comments" class="tab card" style="display:none">
+<h3>Comments</h3>
+
+<?php if($comments_count > 0): ?>
+    
+    <?php while($c = $comments_res->fetch_assoc()): ?>
+    
+    <div style="
+        background:#fff;
+        padding:15px;
+        border-radius:12px;
+        margin-bottom:15px;
+        box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    ">
+
+        <p><strong>Name:</strong> <?php echo e($c['name']); ?></p>
+        <p><strong>Email:</strong> <?php echo e($c['email']); ?></p>
+        <p><strong>Phone:</strong> <?php echo e($c['phone']); ?></p>
+        <p><strong>Subject:</strong> <?php echo e($c['subject']); ?></p>
+        <p><strong>Message:</strong><br> <?php echo nl2br(e($c['message'])); ?></p>
+
+        <?php if(!empty($c['reply'])): ?>
+            <div style="
+                margin-top:10px;
+                padding:12px;
+                background:#e6f7ff;
+                border-left:4px solid #0b66ff;
+                border-radius:8px;
+            ">
+                <strong>Admin Reply:</strong><br>
+                <?php echo nl2br(e($c['reply'])); ?>
+            </div>
+        <?php endif; ?>
+
+        <br>
+        <button class="btn" onclick="openReplyModal(
+            <?php echo $c['id']; ?>,
+            '<?php echo e($c['email']); ?>'
+        )">Reply</button>
+
+    </div>
+
+    <?php endwhile; ?>
+
+<?php else: ?>
+    <p class="small">No comments yet.</p>
+<?php endif; ?>
+
+</div>
+
 <!-- Settings Tab -->
 <div id="tab-settings" class="tab card" style="display:none">
   <h3>Settings</h3>
@@ -741,6 +814,36 @@ input:hover {
     </div>
   </div>
 </div>
+<!-- reply comment -->
+<div id="replyModal" class="modal-overlay">
+  <div class="modal">
+    <h3>Reply to Comment</h3>
+
+    <form method="post">
+      <input type="hidden" id="reply_comment_id" name="comment_id">
+      <input type="hidden" id="reply_email" name="email">
+
+      <textarea name="reply" placeholder="Type your reply..." required></textarea>
+      <br>
+      <button class="btn" type="submit" name="send_reply">Send Reply</button>
+    </form>
+
+    <button class="btn danger" onclick="closeReplyModal()">Close</button>
+  </div>
+</div>
+<?php echo $csrf; ?>
+    
+<script>
+function openReplyModal(id, email){
+    document.getElementById("reply_comment_id").value = id;
+    document.getElementById("reply_email").value = email;
+    document.getElementById("replyModal").style.display = "flex";
+}
+
+function closeReplyModal(){
+    document.getElementById("replyModal").style.display = "none";
+}
+</script>
 
 <script>
 function showTab(id){
@@ -830,6 +933,16 @@ function showMessage(msg){
   popup.textContent = msg;
   document.body.appendChild(popup);
   setTimeout(()=>popup.remove(), 3000);
+}
+// Reply Modal Functions
+function openReplyModal(id, email){
+    document.getElementById('reply_comment_id').value = id;
+    document.getElementById('reply_email').value = email;
+    document.getElementById('replyModal').style.display = 'flex';
+}
+
+function closeReplyModal(){
+    document.getElementById('replyModal').style.display = 'none';
 }
 
 </script>

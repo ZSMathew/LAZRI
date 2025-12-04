@@ -22,6 +22,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $subject = trim($_POST["subject"]);
     $message = trim($_POST["message"]);
 
+    if (empty($name) || empty($email) || empty($phone) || empty($subject) || empty($message)) {
+    $_SESSION['error'] = "All fields are required!";
+    header("Location: contact.php");
+    exit();
+}
+
     // PREPARED STATEMENT (secure)
     $stmt = $conn->prepare("INSERT INTO comments (name, email, phone, subject, message) VALUES (?, ?, ?, ?, ?)");
     $stmt->bind_param("sssss", $name, $email, $phone, $subject, $message);
@@ -613,7 +619,45 @@ nav ul li a.active::after {
       }
     }
         /* =================== RESPONSIVE DESIGN =================== */
-/* Mobile (480px and below) */
+
+/* Tablet (768px and below) */
+@media (max-width: 992px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  nav ul {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .hero {
+    flex-direction: column;
+    text-align: center;
+  }
+  .hero-text {
+    font-size: 22px;
+  }
+  .hero-img img {
+    width: 100%;
+    height: auto;
+  }
+  .footer-container {
+    flex-direction: column;
+    margin-left: 0;
+  }
+  .footer-column {
+    margin-bottom: 20px;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+  .footer-links {
+    margin-left: 0 !important;
+    margin-top: 10px;
+  }
+}
+        /* Mobile (480px and below) */
 @media (max-width: 576px) {
   header {
     padding: 10px;

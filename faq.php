@@ -498,7 +498,7 @@
     <footer>
         <p>&copy; 2025 Lazri Company Limited. All rights reserved.</p>
     </footer>
-    <a href="index.html" class="back-home">⬅ Back to Home</a>
+    <button class="back-home" onclick="history.back()">⬅ Back</button>
 
     <script>
         // --- FAQ content sourced from your specification ---

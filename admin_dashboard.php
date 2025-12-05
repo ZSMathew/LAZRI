@@ -1,6 +1,12 @@
 <?php
 // admin_dashboard.php
 session_start();
+if (isset($_SESSION['flash'])) {
+    $msg = $_SESSION['flash'];
+    unset($_SESSION['flash']);
+} else {
+    $msg = '';
+}
 
 /* ====== DB CONFIG ====== */
 $DB_HOST = 'localhost';
@@ -17,11 +23,6 @@ if ($conn->connect_error) {
 $ADMIN_USER = 'admin';
 $ADMIN_PASS = '123';
 
-// CSRF token
-if (!isset($_SESSION['csrf'])) {
-    $_SESSION['csrf'] = bin2hex(random_bytes(16));
-}
-$csrf = $_SESSION['csrf'];
 
 // Helper
 function e($s){ return htmlspecialchars($s, ENT_QUOTES); }
@@ -141,7 +142,6 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] !== true) {
 }
 
 // ====== ACTION HANDLERS ======
-$msg = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!isset($_POST['csrf']) || $_POST['csrf'] !== $_SESSION['csrf']) {
         die('CSRF token invalid');
@@ -177,13 +177,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt = $conn->prepare($sql);
                 $stmt->bind_param('sssi', $title, $desc, $category, $id);
             }
-            if ($stmt->execute()) $msg = 'Project updated successfully.'; else $msg = 'Error: '.$stmt->error;
+          if ($stmt->execute()) {
+    $_SESSION['flash'] = "Project updated successfully.";
+    header("Location: admin_dashboard.php#projects");
+    exit;
+}
+ else $msg = 'Error: '.$stmt->error;
             $stmt->close();
         } else {
             $sql = "INSERT INTO projects (title, description, category, image, created_at) VALUES (?, ?, ?, ?, NOW())";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param('ssss', $title, $desc, $category, $imageName);
-            if ($stmt->execute()) $msg = 'Project added successfully.'; else $msg = 'Error: '.$stmt->error;
+            if ($stmt->execute()) {
+    $_SESSION['flash'] = "Project added successfully.";
+    header("Location: admin_dashboard.php#projects");
+    exit;
+}
+ else $msg = 'Error: '.$stmt->error;
             $stmt->close();
         }
     }
@@ -197,17 +207,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         $stmt = $conn->prepare("DELETE FROM projects WHERE id=?");
         $stmt->bind_param('i',$pid);
-        if ($stmt->execute()) $msg = 'Project deleted successfully.'; else $msg = 'Error: '.$stmt->error;
-        $stmt->close();
-    }
-
-    // Order status update
-    if (isset($_POST['update_status'])) {
-        $oid = intval($_POST['update_status']);
-        $status = $conn->real_escape_string($_POST['status']);
-        $stmt = $conn->prepare("UPDATE orders SET status=? WHERE id=?");
-        $stmt->bind_param('si',$status,$oid);
-        if ($stmt->execute()) $msg = 'Order status updated.'; else $msg = 'Error: '.$stmt->error;
+        if ($stmt->execute()) {
+    $_SESSION['flash'] = "Project deleted successfully.";
+    header("Location: admin_dashboard.php#projects");
+    exit;
+}
+ else $msg = 'Error: '.$stmt->error;
         $stmt->close();
     }
 
@@ -216,7 +221,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $oid = intval($_POST['delete_order']);
         $stmt = $conn->prepare("DELETE FROM orders WHERE id=?");
         $stmt->bind_param('i',$oid);
-        if ($stmt->execute()) $msg = 'Order deleted successfully.'; else $msg = 'Error: '.$stmt->error;
+        if ($stmt->execute()) {
+    $_SESSION['flash'] = "Order deleted successfully.";
+    header("Location: admin_dashboard.php#orders");
+    exit;
+}
+ else $msg = 'Error: '.$stmt->error;
         $stmt->close();
     }
 
@@ -573,6 +583,20 @@ input:hover {
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
+  <?php if (!empty($msg)): ?>
+    <div id="popup-msg" class="msg">
+        <?php echo htmlspecialchars($msg); ?>
+    </div>
+
+    <script>
+        // Hii inaficha message baada ya sekunde 3
+        setTimeout(() => {
+            const popup = document.getElementById('popup-msg');
+            if (popup) popup.style.display = 'none';
+        }, 3000);
+    </script>
+<?php endif; ?>
+
 <div class="sidebar">
     <div class="head">Admin Dashboard</div>
   <div class="logo"><img src="./images/Logo2.png" alt="Lazri Logo"></div>
@@ -608,7 +632,6 @@ input:hover {
 </div>
 
 <div class="container">
-<?php if($msg): ?><div id="popup-msg" class="msg"><?php echo e($msg); ?></div><?php endif; ?>
 
 <div id="tab-stats" class="tab card">
   <h3>Quick Stats</h3>
@@ -714,11 +737,12 @@ input:hover {
 <td><?php echo e($o['status']??'new'); ?></td>
 <td>
 <form class="inline update-status-form" data-id="<?php echo $o['id']; ?>">
-  <select name="status" class="status-select" data-id="<?php echo $o['id']; ?>">
-    <option value="pending" <?php if(($o['status']??'')==='pending') echo 'selected'; ?>>Pending</option>
-    <option value="active" <?php if(($o['status']??'')==='active') echo 'selected'; ?>>Active</option>
-    <option value="complete" <?php if(($o['status']??'')==='complete') echo 'selected'; ?>>Complete</option>
-  </select>
+<select onchange="syncStatus(<?php echo $o['id']; ?>, this.value)">
+    <option value="pending" <?php if($o['status']=='pending') echo 'selected'; ?>>Pending</option>
+    <option value="processing" <?php if($o['status']=='processing') echo 'selected'; ?>>Processing</option>
+    <option value="completed" <?php if($o['status']=='completed') echo 'selected'; ?>>Completed</option>
+</select>
+
 </form>
 <!-- Futa order -->
 <form method="post" class="inline delete-form">
@@ -831,7 +855,6 @@ input:hover {
     <button class="btn danger" onclick="closeReplyModal()">Close</button>
   </div>
 </div>
-<?php echo $csrf; ?>
     
 <script>
 function openReplyModal(id, email){
@@ -945,7 +968,30 @@ function closeReplyModal(){
     document.getElementById('replyModal').style.display = 'none';
 }
 
+
+
+function syncStatus(orderId, newStatus) {
+    let form = new FormData();
+    form.append("action", "update_status");
+    form.append("id", orderId);
+    form.append("status", newStatus);
+    form.append("type", "order");
+
+    fetch("admin_dashboard.php", {
+        method: "POST",
+        body: form
+    }).then(r => r.json()).then(data => {
+        if (data.success) {
+            alert("Status updated to " + newStatus);
+            location.reload();
+        } else {
+            alert("Error: " + data.error);
+        }
+    });
+}
 </script>
+
 </body>
 </html>
-<?php $conn->close(); ?>        
+<?php $conn->close(); ?>
+        

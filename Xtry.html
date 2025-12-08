@@ -1,795 +1,740 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lazri.co.tz</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lazri.co.tz - Home</title>
   <style>
-    * {margin:0; padding:0; box-sizing:border-box;}
-    body {font-family: Arial, sans-serif; line-height:1.6;}
+:root {
+  --blue: #0b66ff;
+  --dark-blue: #053a9b;
+  --gray: #f3f4f6;
+  --muted: black;
+  --white: #ffffff;
+  --shadow: 0 4px 10px rgba(0,0,0,0.1);
+  --radius: 12px;
+  --sidebar-width: 220px;
+}
 
-    /* Navbar */
-    .navbar {
-      background: darkblue;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 40px;
-    }
-    .navbar .logo img {
-      height: 60px;
-    }
-    .navbar ul {
-      list-style: none;
-      display: flex;
-      gap: 20px;
-    }
-    .navbar ul li a {
-      text-decoration: none;
-      color: white;
-      font-weight: bold;
+* { 
+  box-sizing: border-box;
+  margin: 0; 
+  padding: 0;
+}
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+    margin:0; 
+    padding:0;
+   }
+
+/* ====== HEADER ====== */
+header {
+  background: var(--dark-blue);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+header img { 
+  height: 50px; 
+}
+
+nav ul {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
+nav ul li {
+  position: relative; 
+}
+nav ul li a {
+  position: relative;
+  text-decoration: none;
+  color: var(--white);
+  font-weight: 500;
+  padding: 8px 12px;
+  transition: color 0.3s;
+}
+nav ul li a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 0%;
+  background: var(--white);
   transition: width 0.3s ease;
 }
 nav ul li a:hover {
-   color: #ffd700;
-   }
+  color: #ffd700;
+}
 nav ul li a:hover::after {
-   width: 100%; 
-  }
+  width: 100%; 
+}
 nav ul li a.active {
   color: #ffd700;
   font-weight: bold;
 }
-
 nav ul li a.active::after { 
   width: 100%;
- } 
-    .lang-switch button {
-      border: 1px solid #000;
-      padding: 4px 10px;
-      cursor: pointer;
-      background: #fff;
-      font-weight: bold;
-    }
-    .lang-switch button:hover{
-      background: #2563eb;
-      color: #fff;
-    }
+}  
 
-    /* Hero Section */
-    .hero {
+/* Hamburger button */
+.menu-toggle {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #fff;
+}
+
+/* Logo + company name */
+.logo-center {
+  display: flex;
+  align-items: center;
+}
+.logo-center img {
+  height: 45px;
+  margin-right: 10px;
+}
+.company-name {
+  font-weight: bold;
+  font-size: 16px;
+  color: #fff;
+}
+
+/* ===== MOBILE SIDEBAR ===== */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .mobile-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    padding: 10px;
+    width: 100%;
+    background: var(--dark-blue);
+    color: #fff;
+    position: relative;
+    transition: transform 0.35s cubic-bezier(.2,.9,.3,1);
+  }
+
+  .menu-toggle {
+    display: block;
+    font-size: 28px;
+    cursor: pointer;
+    color: #fff;
+  }
+
+  .logo-center img {
+    height: 42px;
+    margin-left: 45px;
+  }
+  .company-name {
+    font-size: 15px;
+    white-space: nowrap;
+    margin-left: 10px;
+  }
+
+  .sidebar {
+    position: fixed;
+    left: -70%;
+    top: 0;
+    height: auto;
+    width: 60%;
+    max-width: 300px;
+    background: var(--dark-blue);
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.3);
+    transition: left 0.32s cubic-bezier(.25,.8,.25,1);
+    padding: 70px 0 20px 0;
+    border-bottom-right-radius: 12px;
+    z-index: 2000;
+    overflow-y: auto;
+  }
+
+  .sidebar.active {
+    left: 0;
+  }
+
+  .sidebar ul {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 0 20px;
+  }
+
+  .sidebar ul li a {
+    color: #fff;
+    display: block;
+    padding: 12px;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  .sidebar ul li a:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffd700;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #fff;
+  }
+
+  header.sidebar-open .mobile-header {
+    transform: translateX(var(--sidebar-width));
+  }
+}
+    /* ===== HERO SECTION ===== */
+    .hero-container {
+      width: 100%;
+      height: 85vh;
       display: flex;
       align-items: center;
-      background: linear-gradient(to right, #00bfff, rgba(128, 128, 128, 0.692));
-      padding: 40px;
-    }
-    .hero-text {
-      flex: 1;
-      color: white;
-      font-size: 26px;
-      font-weight: bold;
-    }
-    .hero-box {
-      background: white;
+      justify-content: center;
+      text-align: center;
       padding: 20px;
-      border-radius: 10px;
-      margin-top: 20px;
-      color: black;
+      color: #f5f7fa;
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)), url('images/campany.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .hero-content { max-width: 850px; }
+
+    .hero-title {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .hero-subtitle {
+      font-size: 1.2rem;
+      margin-bottom: 25px;
+    }
+
+    .hero-btn {
+      background: #0b66ff;
+      color: white;
+      padding: 14px 28px;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
       font-weight: bold;
+      transition: 0.3s;
     }
-    .hero-img {
-      flex: 1;
+    .hero-btn:hover { background: #053a9b; }
+
+
+    /* ===== ICON FEATURES SECTION ===== */
+    .features-section {
+      padding: 60px 20px;
       text-align: center;
-    }
-    .hero-img img {
-      border-radius: 10px;
-      width: 30rem;
-      height: 19rem;
-      object-fit: cover;
-    } 
-
-     /* our services */
-    .services-section {
-      text-align: center;
-      padding: 50px 20px;
+      background: white;
     }
 
-    .services-section h2 {
-      font-size: 2.5rem;
-      margin-bottom: 30px;
-      color: #2c3e50;
-    }
+    .features-title { font-size: 2.3rem; margin-bottom: 40px; color:#053a9b; }
 
-    .services-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
+    .features-container {
       max-width: 1200px;
       margin: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
     }
 
-    .service-box {
-      background: #fff;
+    .feature-box {
+      background: #f5f7fa;
+      padding: 25px;
       border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      text-align: center;
-      transition: all 0.3s ease;
-      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: 0.3s;
     }
 
-    .service-box:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    .feature-box:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.15);
     }
 
-    .service-box img {
-      /* width: 80px; */
+    .feature-box i {
+      font-size: 40px;
+      color: #0b66ff;
       margin-bottom: 15px;
-      width: 10rem;
-      height: 10rem;
     }
 
-    .service-box h3 {
+    .feature-box h3 {
       font-size: 1.3rem;
       margin-bottom: 10px;
-      color: #004aad;
     }
 
-    .service-box p {
-      font-size: 0.95rem;
-      margin-bottom: 10px;
-      line-height: 1.5;
+    .feature-box p { font-size: 0.95rem; color:#444; }
+
+
+    /* ===== SERVICES PREVIEW ===== */
+    .services-preview {
+        background: #f5f7fa;
+      padding: 70px 20px;
+      text-align: center;
     }
 
-    .more-btn {
-      margin-top: 40px;
+    .services-preview h2 { font-size: 2.4rem; margin-bottom: 35px; color:#053a9b; }
+
+    .service-grid {
+      max-width: 1200px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 25px;
     }
 
-    .more-btn a {
+    .service-card {
+      background: white;
+      border-radius: 12px;
+      padding: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: 0.3s;
+      text-align: center;
+    }
+
+    .service-card:hover { transform: translateY(-10px); }
+
+    .service-card img {
+      width: 100%; height: 180px; object-fit: cover; border-radius: 10px;
+    }
+
+    .service-card h3 { margin: 12px 0; color:#004aad; }
+
+    .service-link {
+      margin-top: 30px;
       display: inline-block;
       padding: 12px 25px;
       background: #004aad;
-      color: #fff;
-      text-decoration: none;
+      color:white;
+      text-decoration:none;
       border-radius: 8px;
-      font-size: 1rem;
-      transition: background 0.3s ease;
+      transition:0.3s;
+      font-weight:bold;
     }
 
-    .more-btn a:hover {
-      background: #003080;
+    .service-link:hover { background: #003080; }
+
+
+    /* ===== TESTIMONIAL Section Short Version ===== */
+    .short-testimonials {
+      background: #f3f4f6;
+      padding: 70px 20px;
+      text-align:center;
     }
 
-    /* testmony */
-    .testimonials {
-      padding: 60px 20px;
-    }
+    .short-testimonials h2 { font-size:2.2rem; margin-bottom:40px; color:#053a9b; }
 
-    .testimonials h2 {
-      font-size: 28px;
-      font-weight: bold;
-      color: #0a1a3a;
-      margin-bottom: 40px;
-    }
-
-    .testimonial-container {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .testimonial-card {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      width: 300px;
-      padding: 20px;
-      text-align: center;
-      transition: transform 0.35s ease, box-shadow 0.35s ease;
-      cursor: pointer;
-    }
-
-    .testimonial-card img {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 15px;
-    }
-
-    .testimonial-card h3 {
-      margin: 10px 0 5px;
-      color: #0a1a3a;
-    }
-
-    .testimonial-card h4 {
-      font-size: 14px;
-      color: #666;
-      margin-bottom: 15px;
-    }
-
-    .testimonial-card p {
-      font-size: 14px;
-      color: #444;
-      margin-bottom: 15px;
-    }
-
-    .stars {
-      color: #003080;
-      font-size: 16px;
-    }
-
-    .testimonial-card:hover {
-      transform: translateY(-10px) scale(1.03);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-    }
-
-    .testimonial-card.active {
-      transform: translateY(-15px) scale(1.08);
-      box-shadow: 0 12px 28px rgba(0,0,0,0.25);
-      animation: bounceIn 0.4s ease;
-    }
-
-    @keyframes bounceIn {
-      0% { transform: scale(1) translateY(0); }
-      50% { transform: scale(1.1) translateY(-18px); }
-      70% { transform: scale(0.98) translateY(-13px); }
-      100% { transform: scale(1.08) translateY(-15px); }
+    .testi-grid {
+      max-width:1000px;
+      margin:auto;
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(300px,1fr));
+      gap:25px;
     }
 
 
+            /* Stats section */
+        
+        .stats-section {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding: 40px 20px 80px;
+            flex-wrap: wrap;
+            max-width: 1100px;
+            margin: 0 auto 60px;
+            background-color: white;
+        }
+        
+        .stat-box {
+            text-align: center;
+            max-width: 280px
+        }
+        
+        .circle-wrapper {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            margin: 0 auto 20px
+        }
+        
+        .circle-outer {
+            width: 100%;
+            height: 100%;
+            border: 12px solid rgba(0, 150, 255, 0.25);
+            border-top-color: var(--dark-blue);
+            border-radius: 50%;
+            animation: spin 6s linear infinite
+        }
+        
+        .circle-inner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 40px;
+            font-weight: 700;
+            color: var(--dark-blue)
+        }
+        
+        .stat-title {
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            color: var(--blue);
+            letter-spacing: 0.6px
+        }
+        
+        .stat-desc {
+            font-size: 15px;
+            line-height: 1.6;
+            text-align: left;
+            color: var(--muted)
+        }
+        
+        @keyframes spin {
+            from {
+                transform: rotate(0)
+            }
+            to {
+                transform: rotate(360deg)
+            }
+        }
+        
+        @media (max-width:768px) {
+            .team-container {
+                padding: 28px 12px
+            }
+            .stats-section {
+                padding: 28px 12px
+            }
+            .circle-inner {
+                font-size: 34px
+            }
+        }
+        
+        @media (prefers-reduced-motion:reduce) {
+            .circle-outer {
+                animation: none
+            }
+            .card {
+                transition: none
+            }
+        }
+        /* Modal styles */
+        
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(6, 8, 15, 0.45);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 1200
+        }
+        
+        .modal-overlay[aria-hidden="false"] {
+            display: flex
+        }
+        
+        .modal {
+            background: var(--glass);
+            backdrop-filter: blur(6px);
+            border-radius: 12px;
+            max-width: 720px;
+            width: 100%;
+            box-shadow: 0 18px 50px rgba(6, 8, 15, 0.4);
+            overflow: hidden
+        }
+        
+        .modal-content {
+            display: flex;
+            gap: 20px;
+            padding: 20px
+        }
+        
+        .modal-left {
+            min-width: 160px;
+            display: flex;
+            flex-direction: column;
+            align-items: center
+        }
+        
+        .modal-left img {
+            width: 120px;
+            height: 120px;
+            border-radius: 12px;
+            object-fit: cover
+        }
+        
+        .modal-right {
+            flex: 1
+        }
+        
+        .modal-right h2 {
+            margin: 0 0 6px
+        }
+        
+        .modal-right p {
+            margin: 4px 0;
+            color: var(--muted)
+        }
+        
+        .modal-highlights {
+            margin-top: 8px;
+            padding-left: 18px;
+            color: var(--muted)
+        }
+        
+        .modal-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+            padding: 12px 20px;
+            border-top: 1px solid rgba(15, 23, 36, 0.05);
+            background: transparent
+        }
+        
+        .modal-close {
+            background: transparent;
+            border: 0;
+            color: var(--muted);
+            font-size: 16px;
+            padding: 8px;
+            cursor: pointer
+        }
+        
+        .primary-action {
+            background: var(--blue);
+            color: #fff;
+            border-radius: 8px;
+            padding: 8px 14px;
+            border: 0;
+            cursor: pointer
+        }
+        /* Make modal focusable outline visible */
+        
+        .primary-action:focus,
+        .modal-close:focus {
+            outline: 3px solid rgba(0, 150, 255, 0.18);
+            outline-offset: 2px
+        }
 
-
-
-
-      /* Footer */
-    .footer {
-      background: rgb(63, 63, 63);
-      padding: 50px 20px 30px;
-      position: relative;
+    .testi-card {
+      background:white;
+      padding:20px;
+      border-radius:12px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.1);
+      transition:0.3s;
     }
-    .footer-container {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      margin-left: 4rem;
+    .testi-card:hover { transform:translateY(-10px); }
+
+    .testi-card img {
+      width:80px; height:80px; border-radius:50%; object-fit:cover; margin-bottom:12px;
     }
+    .testi-stars { color:#004aad; margin-top:10px; }
 
-    .footer-column {
-      flex: 1;
-      padding: 20px;
-      min-width: 250px;
-      position: relative;
-      align-content: center;
-    }
-
-    .footer h2 {
-      font-size: 24px;
-      font-weight: 50px;
-      margin-bottom: 15px;
-      color: white;
-    }
-
-    .footer p,
-    .footer a,
-    .footer span {
-      font-size: 15px;
-    }
-
-    /* Social Icons */
-    .social-icons {
-      display: flex;
-      gap: 15px;
-      margin-bottom: 20px;
-      margin-top: 20px;
-    }
-
-    .social-icons a {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 50px;
-      height: 50px;
-      border: 2px solid blue;
-      border-radius: 50%;
-      color: blue;
-      font-size: 22px;
-      text-decoration: none;
-      transition: all 0.3s ease;
-    }
-
-    .social-icons a:hover {
-      background: blue;
-      color: white;
-      transform: scale(1.1);
-    }
-
-    /* Navigation under social */
-    .footer-nav {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .footer-nav a {
-      color: #fff;
-      text-decoration: none;
-      transition: transform 0.3s ease;
-    }
-
-    .footer-nav a:hover {
-      transform: translateY(5px);
-      color: blue;
-    }
-
-    /* Middle column services */
-    .footer-services {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .footer-services a {
-      color: #fff;
-      text-decoration: none;
-      transition: transform 0.3s ease, color 0.3s ease;
-    }
-
-    .footer-services a:hover {
-      transform: translateX(10px);
-      color: blue;
-    }
-
-    /* Right column contact */
-    .contact-info {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-
-    .contact-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .contact-item i {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 45px;
-      height: 45px;
-      border: 2px solid blue;
-      border-radius: 50%;
-      color: blue;
-      font-size: 20px;
-      transition: all 0.3s ease;
-    }
-
-    .contact-item i:hover {
-      background: blue;
-      color: white;
-    }.contact-item a {
-  color: #fff;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.footer-bottom {
-  border-top: 1px solid black;
-  font-size: 13px;
-  color: white;
-  display: flex;
-}
-
-.links {
-  list-style: none;
-  padding: 0;
-}
-
-.links li {
-  margin: 8px 0;
-  font-size: 15px;
-  position: relative;
-}
-
-.links li a {
-  color: #fff;
-  text-decoration: none;
-  padding-left: 25px;
-  display: inline-block;
-  transition: color 0.3s ease;
-}
-
-/* mshale */
-.links li a::before {
-  content: "➔";
-  position: absolute;
-  left: 0;
-  color: white;
-  font-weight: bold;
-  transition: color 0.3s ease;
-}
-
-/* hover: mshale na link vyote vyabadilishe rangi */
-.links li a:hover {
-  color: darkblue;
-}
-
-.links li a:hover::before {
-  color: darkblue;
-}
-
-.footer-links {
-  margin: 15px 0;
-}
-
-.footer-links a {
-  margin: 0 10px;
-  color: white;
-  font-size: 14px;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.footer-links a:hover {
-  color: darkblue; /* consistent na links zingine */
-}
-
-    /* Scroll to top button */
-    .scroll-top {
-      position: absolute;
-      bottom: 20px;
-      right: 20px;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background: blue;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
-
-    .scroll-top:hover {
-    transform: scale(1.1);
-    color: white;
-    }
-
-    .scroll-top i {
-      color: white;
-      font-size: 22px;
+    @media(max-width:768px) {
+      .hero-title { font-size: 2.1rem; }
+      .hero-container { height: 70vh; }
     }
   </style>
-  <script src="https://kit.fontawesome.com/yourkitid.js" crossorigin="anonymous"></script>
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons/css/flag-icons.min.css">
 </head>
 <body>
+  <!-- header -->
+<header>
+  <div class="mobile-header">
+    <div class="menu-toggle" id="menu-toggle">☰</div>
+    <a href="index.html" class="logo-center">
+      <img src="./images/Logo2.png" alt="Lazri Company Logo">
+    </a>
+    <span class="company-name">LAZRI Company</span>
+  </div>
 
-  <!-- Navbar -->
-  <div class="navbar">
-    <div class="logo">
-      <a href="#"><img src="./images/Logo2.png" alt="Lazri Logo"></a>
-    </div>
+  <nav id="navbar" class="sidebar">
+    <span class="close-btn" id="close-btn">&times;</span>
     <ul>
-      <li><a href="index.html" class="active" id="navHome">Home</a></li>
-      <li><a href="our_service.html" id="navServices">Our Services</a></li>
-      <li><a href="Project.html" id="navProjects">Our Projects</a></li>
-      <li><a href="About.html" id="navAbout">About Us</a></li>
-      <li><a href="contact.html" id="navContact">Contact Us</a></li>
+      <li><a href="index.html" class="active"><b>Home</b></a></li>
+      <li><a href="our_service.html"><b>Our Services</b></a></li>
+      <li><a href="Project.html"><b>Our Projects</b></a></li>
+      <li><a href="about.html"><b>About Us</b></a></li>
+      <li><a href="contact.html"><b>Contact Us</b></a></li>
     </ul>
-    <div class="lang-switch">
-      <button onclick="setLanguage('en')"><span class="fi fi-gb"></span>EN</button>
-      <button onclick="setLanguage('sw')"><span class="fi fi-tz"></span>SW</button>
+  </nav>
+</header>
+  <!-- ===== HERO SECTION ===== -->
+  <div class="hero-container">
+    <div class="hero-content">
+      <h1 class="hero-title">Empowering Your Business With Smart ICT Solutions</h1>
+      <p class="hero-subtitle">We deliver fast, reliable and modern ICT services to helping businesses innovate, automate, and succeed with modern digital tools.</p>
+      <a href="our service.html" class="hero-btn">Explore Our Services</a>
     </div>
   </div>
 
-  <!-- Hero Section -->
-  <div class="hero">
-    <div class="hero-text" id="heroTitle">
-      FURAHIA HUDUMA ZETU ZENYE LENGO LA KUBORESHA MASLAI YA KAMPUNI YAKO
-      <!-- <div class="hero-box" id="heroBox">
-        <p>1. Huduma za uharaka zaidi</p>
-        <p>2. Huduma za uhakika masaa 24</p>
-        <p>3. Kufikia malengo ya kibiashara yako</p>
-        <p>4. Malengo ya kibiashara ya hali ya juu</p>
-      </div> -->
-    </div>
-    <div class="hero-img">
-      <img id="heroImage" src="./images/campany.jpg" alt="company">
-    </div>
-  </div>
 
-  <!-- our services -->
-  <section class="services-section">
-   <h2 style="color: #2563eb;" id="servicesTitle">Our Services</h2>
+  <!-- ===== FEATURES ===== -->
+  <section class="features-section">
+    <h2 class="features-title">Why Choose Lazri Company?</h2>
 
-   <div class="services-container">
-    <div class="service-box">
-      <img src="images/ict.jpg" alt="ICT Consultancy">
-      <h3 id="s1Title">ICT Services & Consultancy</h3>
-    </div>
-
-    <div class="service-box">
-      <img src="images/serv.jpg" alt="Web Design">
-      <h3 id="s2Title">Web Design & Systems Development</h3>
-
-    </div>
-
-    <div class="service-box">
-      <img src="images/cctv.jpg" alt="CCTV">
-      <h3 id="s3Title">CCTV Camera Installation</h3>
-    </div>
-
-    <div class="service-box">
-      <img src="images/malt.jpg" alt="Multimedia">
-      <h3 id="s4Title">Multimedia & Media Solutions</h3>
-    </div>
-  </div>
-
-  <div class="more-btn">
-    <a href="our_service.html" id="moreBtn">More Services</a>
-  </div>
-  </section>
-
-  <!-- testmony -->
-  <section class="testimonials">
-    <h2 style="text-align: center; color: #2563eb;" id="testimonialsTitle">Our Customer Say</h2>
-    <div class="testimonial-container">
-      <div class="testimonial-card">
-        <img src="images/anthony.png" alt="Anthony">
-        <h3 style="color: #003080;">Anthony Kapinga</h3>
-        <h4 id="t1Role">Founder & CEO</h4>
-        <p id="t1Text" style="text-align: start;">Lazri is nothing short of amazing.They have been with me every step of the way as I created my first print product.
-           They helped to ensure I had exactly what I needed (correct paper, perfect sizing, and very quick shipping). 
-           They are also so quick to respond to all of my questions!The cherry on top was the paper sample they sent so I could really feel exactly what I was getting before I ordered.
-           I won’t trust anyone else with my journals!</p>
-        <div class="stars">★★★★★</div>
+    <div class="features-container">
+      <div class="feature-box">
+        <i class="fas fa-bolt"></i>
+        <h3>Fast & Reliable</h3>
+        <p>Our team works around the clock to deliver services on time without compromising quality.</p>
       </div>
-      
-      <div class="testimonial-card">
-        <img src="images/lucy.jpg" alt="Janet">
-        <h3 style="color: #003080;">Lucy Nguzo</h3>
-        <h4 id="t2Role">Manager</h4>
-        <p id="t2Text" style="text-align: start;">I was in contact with LUCY from Lazri to order t-shirts he was a pleasure to work with. he was incredibly patient and attentive to every detail of the design.
-           I would used Lazri again and again and highly recommend them to anyone looking to order shirts</p>
-        <div class="stars">★★★★★</div>
+
+      <div class="feature-box">
+        <i class="fas fa-user-shield"></i>
+        <h3>Trusted Experts</h3>
+        <p>We provide professional ICT consultancy and technical support tailored to your needs.</p>
       </div>
-      
-      <div class="testimonial-card">
-        <img src="images/innocent.jpg" alt="Innocent">
-        <h3 style="color: #003080;">Innocent Gabriel</h3>
-        <h4 id="t3Role">Managing Director</h4>
-        <p id="t3Text" style="text-align: start;">Great experience and impressive product.It was a very professional and technically competent job from the whole team.</p>
-        <div class="stars">★★★★☆</div>
+
+      <div class="feature-box">
+        <i class="fas fa-lightbulb"></i>
+        <h3>Innovative Solutions</h3>
+        <p>Modern, scalable and high‑performance systems designed for business growth.</p>
+      </div>
+
+      <div class="feature-box">
+        <i class="fas fa-headset"></i>
+        <h3>24/7 Support</h3>
+        <p>Our support team is always available to assist you anytime.</p>
       </div>
     </div>
   </section>
 
 
+  <!-- ===== SERVICES PREVIEW ===== -->
+  <section class="services-preview">
+    <h2>Our Top Services</h2>
 
-
-
-
-
-
-   <footer class="footer">
-    <!-- Left Column -->
-     <div class="footer-container">
-    <div class="footer-column">
-      <h2 style="font-size: 45px;">Let's Work Together</h2>
-      <p style="color: #fff;">
-        Welcome to Lazri’s course catalog — your gateway to quality education for personal and professional growth.
-      </p>
-
-      <div class="social-icons">
-        <a href="#"><i class="fab fa-facebook-f"></i></a>
-        <a href="#"><i class="fab fa-twitter"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-        <a href="#"><i class="fab fa-tiktok"></i></a>
-        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+    <div class="service-grid">
+      <div class="service-card">
+        <img src="images/ict.jpg" />
+        <h3>ICT Consultancy</h3>
       </div>
 
-      <div class="footer-nav">
-        <ul class="links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="our_service.html">Services</a></li>
-        <li><a href="Project.html">Projects</a></li>
-        <li><a href="About.html">About Us</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        </ul>
+      <div class="service-card">
+        <img src="images/serv.jpg" />
+        <h3>Web Design & Systems</h3>
+      </div>
+
+      <div class="service-card">
+        <img src="images/cctv.jpg" />
+        <h3>CCTV Installation</h3>
+      </div>
+
+      <div class="service-card">
+        <img src="images/malt.jpg" />
+        <h3>Media & Multimedia Solutions</h3>
       </div>
     </div>
 
-    <!-- Middle Column -->
-    <div class="footer-column" style="margin-left: 4rem;">
-      <h2>Online Services</h2>
-      <div class="footer-services">
-        <ul class="links">
-        <li><a href="#">Web Hosting</a></li>
-        <li><a href="#">Domains</a></li>
-        <li><a href="#">Certification Portal</a></li>
-        <li><a href="#">Digital Makerting</a></li>
-        <li><a href="#">Emails</a></li>
-        <li><a href="#">Mantainance</a></li>
-        </ul>
-      </div>
-    </div>
+    <a href="our service.html" class="service-link">View All Services</a>
+  </section>
 
-    <!-- Right Column -->
-    <div class="footer-column">
-      <h2>Contact Us</h2>
-      <div class="contact-info">
-        <div class="contact-item">
-          <i class="fas fa-phone"></i>
-          <span style="color: #fff;">+255 713 569 816<br>+255 713 453 464</span>
+<!-- projects -->
+    <status class="stats-section" aria-label="Statistics and skills">
+
+        <div class="stat-box" role="group" aria-labelledby="stat-years">
+            <div class="circle-wrapper" aria-hidden="true">
+                <div class="circle-outer"></div>
+                <div class="circle-inner" id="stat-years">07</div>
+            </div>
+            <div class="stat-title">Years In</div>
+            <div class="stat-desc">
+                ▪ Design Thinking<br> ▪ Wireframing<br> ▪ Coding<br> ▪ Debugging
+            </div>
         </div>
-        <div class="contact-item">
-          <i class="fas fa-envelope"></i>
-          <span>
-            <a href="mailto:info@lazri.org">info@lazri.org</a><br>
-            <a href="mailto:lazriinfo@gmail.com">lazriinfo@gmail.com</a>
-          </span>
+
+        <div class="stat-box" role="group" aria-labelledby="stat-people">
+            <div class="circle-wrapper" aria-hidden="true">
+                <div class="circle-outer"></div>
+                <div class="circle-inner" id="stat-people">15</div>
+            </div>
+            <div class="stat-title">People As</div>
+            <div class="stat-desc">
+                ▪ UI Designers<br> ▪ UX Experts<br> ▪ Developers<br> ▪ Project Managers
+            </div>
         </div>
-        <div class="contact-item">
-          <i class="fas fa-map-marker-alt"></i>
-          <span style="color: #fff;">Dar es Salaam, Tanzania</span>
+
+        <div class="stat-box" role="group" aria-labelledby="stat-projects">
+            <div class="circle-wrapper" aria-hidden="true">
+                <div class="circle-outer"></div>
+                <div class="circle-inner" id="stat-projects">50</div>
+            </div>
+            <div class="stat-title">Projects In</div>
+            <div class="stat-desc">
+                ▪ E‑Commerce<br> ▪ Promo sites (Landing pages)<br> ▪ Corporate Sites<br> ▪ Mobile Applications
+            </div>
         </div>
+
+    </status>
+  <!-- ===== TESTIMONIALS SHORT ===== -->
+  <section class="short-testimonials">
+    <h2>What Our Clients Say</h2>
+
+    <div class="testi-grid">
+      <div class="testi-card">
+        <img src="images/ino.jpg" />
+        <h3>Innocent Gabriel</h3>
+        <p>“Very professional team. Delivered exactly what I needed.”</p>
+        <div class="testi-stars">★★★★★</div>
+      </div>
+
+      <div class="testi-card">
+        <img src="images/lucy.jpg" />
+        <h3>Lucy Nguzo</h3>
+        <p>“Amazing experience. Highly recommended for business branding!”</p>
+        <div class="testi-stars">★★★★★</div>
+      </div>
+
+      <div class="testi-card">
+        <img src="images/anthony.png" />
+        <h3>Anthony Kapinga</h3>
+        <p>“Great technical expertise and fast delivery.”</p>
+        <div class="testi-stars">★★★★☆</div>
       </div>
     </div>
-</div>
-    <!-- Footer Bottom -->
-    <div class="footer-bottom">
-      <p id="copyright" style="margin: 1.5rem 0rem 0rem 2rem;">Copyright © 2025 - Lazri Company Limited. | All rights reserved</p>
-            <div class="footer-links" style="margin-left: 23rem;">
-        <a href="privecy_policy.html" id="pp">Privacy Policy</a> |
-        <a href="#" id="sm">Staff Mail</a> |
-        <a href="faq.html" id="faq">FAQs</a> |
-        <a href="terms_&_conditions.html" id="tc">Terms and Conditions</a>
-      </div>
-    </div>
+  </section>
+<script>
 
-    <!-- Scroll to Top -->
-    <div class="scroll-top" onclick="window.scrollTo({top:0, behavior:'smooth'})">
-      <i class="fas fa-arrow-up"></i>
-    </div>
-  </footer>
+  // header
+const menuToggle = document.getElementById('menu-toggle');
+const sidebar = document.getElementById('navbar');
+const closeBtn = document.getElementById('close-btn');
+const header = document.querySelector('header');
 
+menuToggle.addEventListener('click', () => {
+  sidebar.classList.add('active');
+  header.classList.add('sidebar-open');
+});
 
-
-
-
-
-
-  <a href="#" class="back-to-top">&#8679;</a>
-  <!-- Language & Slider Script -->
-  <script>
-    const translations = {
-      en: {
-        navHome: "Home",
-        navAbout: "About Us",
-        navServices: "Our Services",
-        navProjects: "Our Projects",
-        navContact: "Contact Us",
-        heroTitle: "ENJOY OUR SERVICES AIMED AT IMPROVING YOUR COMPANY'S BENEFITS",
-        heroBox: `
-          <p>1. Faster services</p>
-          <p>2. Reliable 24/7 services</p>
-          <p>3. Achieve your business goals</p>
-          <p>4. Higher business standards</p>
-        `,
-        servicesTitle: "Our Services",
-        moreBtn: "More Services",
-        testimonialsTitle: "Our Customers Say",
-        footerContactTitle: "Contact Us",
-        footerQuickLinks: "Quick Links",
-        footerOnline: "Online Services",
-        footerHours: "Business Hours",
-        fHome: "Home",
-        fAbout: "About Us",
-        fServices: "Our Services",
-        fTeam: "Our Team",
-        fProjects: "Projects",
-        fSettings: "Settings",
-        fContacts: "Contacts",
-        fo1: "Web hosting",
-        fo2: "Domains",
-        fo3: "Online Marketing",
-        fo4: "Emails & Security",
-        fo5: "Software & Apps",
-        bh1: "Monday - Friday<br>08:00 - 16:30",
-        bh2: "Saturday<br>Closed",
-        bh3: "Sunday<br>Closed",
-        pp: "Privacy Policy",
-        sm: "Staff Mail",
-        faq: "FAQs",
-        tc: "Terms and Conditions"
-      },
-      sw: {
-        navHome: "Mwanzo",
-        navAbout: "Kuhusu Sisi",
-        navServices: "Huduma Zetu",
-        navProjects: "Miradi Yetu",
-        navContact: "Wasiliana Nasi",
-        heroTitle: "FURAHIA HUDUMA ZETU ZENYE LENGO LA KUBORESHA MASLAI YA KAMPUNI YAKO",
-        heroBox: `
-          <p>1. Huduma za uharaka zaidi</p>
-          <p>2. Huduma za uhakika masaa 24</p>
-          <p>3. Kufikia malengo ya kibiashara yako</p>
-          <p>4. Malengo ya kibiashara ya hali ya juu</p>
-        `,
-        servicesTitle: "Huduma Zetu",
-        moreBtn: "Huduma Zingine",
-        testimonialsTitle: "Wateja Wetu Wanasema",
-        footerContactTitle: "Wasiliana Nasi",
-        footerQuickLinks: "Viungo vya Haraka",
-        footerOnline: "Huduma Mtandaoni",
-        footerHours: "Saa za Biashara",
-        fHome: "Mwanzo",
-        fAbout: "Kuhusu Sisi",
-        fServices: "Huduma Zetu",
-        fTeam: "Timu Yetu",
-        fProjects: "Miradi",
-        fSettings: "Mipangilio",
-        fContacts: "Mawasiliano",
-        fo1: "Huduma za Mtandao",
-        fo2: "Majina ya Wavuti",
-        fo3: "Masoko Mtandaoni",
-        fo4: "Barua Pepe & Usalama",
-        fo5: "Programu & App",
-        bh1: "Jumatatu - Ijumaa<br>08:00 - 16:30",
-        bh2: "Jumamosi<br>Imefungwa",
-        bh3: "Jumapili<br>Imefungwa",
-        pp: "Sera ya Faragha",
-        sm: "Barua ya Wafanyakazi",
-        faq: "Maswali ya Mara kwa Mara",
-        tc: "Sheria na Masharti"
-      }
-    };
-
-    function setLanguage(lang) {
-      const t = translations[lang];
-      document.getElementById("navHome").textContent = t.navHome;
-      document.getElementById("navAbout").textContent = t.navAbout;
-      document.getElementById("navServices").textContent = t.navServices;
-      document.getElementById("navProjects").textContent = t.navProjects;
-      document.getElementById("navContact").textContent = t.navContact;
-      document.getElementById("heroTitle").childNodes[0].textContent = t.heroTitle;
-      document.getElementById("heroBox").innerHTML = t.heroBox;
-      document.getElementById("servicesTitle").textContent = t.servicesTitle;
-      document.getElementById("moreBtn").textContent = t.moreBtn;
-      document.getElementById("testimonialsTitle").textContent = t.testimonialsTitle;
-      document.getElementById("footerContactTitle").textContent = t.footerContactTitle;
-      document.getElementById("footerQuickLinks").textContent = t.footerQuickLinks;
-      document.getElementById("footerOnline").textContent = t.footerOnline;
-      document.getElementById("footerHours").textContent = t.footerHours;
-      document.getElementById("fHome").textContent = t.fHome;
-      document.getElementById("fAbout").textContent = t.fAbout;
-      document.getElementById("fServices").textContent = t.fServices;
-      document.getElementById("fTeam").textContent = t.fTeam;
-      document.getElementById("fProjects").textContent = t.fProjects;
-      document.getElementById("fSettings").textContent = t.fSettings;
-      document.getElementById("fContacts").textContent = t.fContacts;
-      document.getElementById("fo1").textContent = t.fo1;
-      document.getElementById("fo2").textContent = t.fo2;
-      document.getElementById("fo3").textContent = t.fo3;
-      document.getElementById("fo4").textContent = t.fo4;
-      document.getElementById("fo5").textContent = t.fo5;
-      document.getElementById("bh1").innerHTML = t.bh1;
-      document.getElementById("bh2").innerHTML = t.bh2;
-      document.getElementById("bh3").innerHTML = t.bh3;
-      document.getElementById("pp").textContent = t.pp;
-      document.getElementById("sm").textContent = t.sm;
-      document.getElementById("faq").textContent = t.faq;
-      document.getElementById("tc").textContent = t.tc;
-    }
-
-    // Hero Image Auto Change
+closeBtn.addEventListener('click', () => {
+  sidebar.classList.remove('active');
+  header.classList.remove('sidebar-open');
+});
+     // Hero Image Auto Change
     const heroImages = [
       "./images/campany.jpg",
       "./images/company2.jpg",
@@ -800,31 +745,10 @@ nav ul li a.active::after {
     let currentIndex = 0;
     const heroImageEl = document.getElementById("heroImage");
     setInterval(() => {
+      if (!heroImageEl) return;
       currentIndex = (currentIndex + 1) % heroImages.length;
       heroImageEl.src = heroImages[currentIndex];
     }, 2500);
-
-    // testimony active toggle
-    const cards = document.querySelectorAll(".testimonial-card");
-    cards.forEach(card => {
-      card.addEventListener("click", () => {
-        if (card.classList.contains("active")) {
-          card.classList.remove("active");
-        } else {
-          cards.forEach(c => c.classList.remove("active"));
-          card.classList.add("active");
-        }
-      });
-      card.addEventListener("touchstart", () => {
-        cards.forEach(c => c.classList.remove("active"));
-        card.classList.add("active");
-      });
-    });
-    document.addEventListener("click", (e) => {
-      if (!e.target.closest(".testimonial-card")) {
-        cards.forEach(c => c.classList.remove("active"));
-      }
-    });
-  </script>
+</script>
 </body>
 </html>

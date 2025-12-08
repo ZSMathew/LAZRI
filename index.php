@@ -23,9 +23,10 @@
     body {
       font-family: "Segoe UI", Arial, sans-serif; 
       line-height:1.6;
-        max-width: 100%;
+              max-width: 100%;
   overflow-x: hidden;
     }
+  
 
     /* ====== HEADER ====== */
 header {
@@ -750,11 +751,11 @@ nav ul li a.active::after {
   <nav id="navbar" class="sidebar">
     <span class="close-btn" id="close-btn">&times;</span>
     <ul>
-      <li><a href="index.html" class="active"><b>Home</b></a></li>
-      <li><a href="our service.html"><b>Our Services</b></a></li>
-      <li><a href="Project.html"><b>Our Projects</b></a></li>
-      <li><a href="about.html"><b>About Us</b></a></li>
-      <li><a href="contact.html"><b>Contact Us</b></a></li>
+      <li><a href="index.php" class="active"><b>Home</b></a></li>
+      <li><a href="our_service.php"><b>Our Services</b></a></li>
+      <li><a href="Project.php"><b>Our Projects</b></a></li>
+      <li><a href="about.php"><b>About Us</b></a></li>
+      <li><a href="contact.php"><b>Contact Us</b></a></li>
     </ul>
   </nav>
     <div class="lang-switch">
@@ -867,11 +868,11 @@ nav ul li a.active::after {
 
         <div class="footer-nav">
           <ul class="links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="our_service.html">Services</a></li>
-            <li><a href="Project.html">Projects</a></li>
-            <li><a href="About.html">About Us</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="index.php">Home</a></li>
+            <li><a href="our_service.php">Services</a></li>
+            <li><a href="Project.php">Projects</a></li>
+            <li><a href="About.php">About Us</a></li>
+            <li><a href="contact.php">Contact</a></li>
           </ul>
         </div>
       </div>
@@ -881,12 +882,12 @@ nav ul li a.active::after {
         <h2>Online Services</h2>
         <div class="footer-services">
           <ul class="links">
-            <li><a href="online.html">Web Hosting</a></li>
-            <li><a href="online.htmll">Domains</a></li>
-            <li><a href="online.html">Certification Portal</a></li>
-            <li><a href="online.html">Digital Makerting</a></li>
-            <li><a href="online.html">Emails</a></li>
-            <li><a href="online.html">Mantainance</a></li>
+            <li><a href="online.php">Web Hosting</a></li>
+            <li><a href="online.php">Domains</a></li>
+            <li><a href="online.php">Certification Portal</a></li>
+            <li><a href="online.php">Digital Makerting</a></li>
+            <li><a href="online.php">Emails</a></li>
+            <li><a href="online.php">Mantainance</a></li>
           </ul>
         </div>
       </div>
@@ -935,10 +936,10 @@ nav ul li a.active::after {
     <div class="footer-bottom">
       <p id="copyright" style="margin: 1.5rem 0rem 0rem 2rem;">Copyright © 2025 - Lazri Company Limited. | All rights reserved</p>
       <div class="footer-links" style="margin-left: 23rem;">
-        <a href="privecy_policy.html" id="pp">Privacy Policy</a> |
-        <a href="#" id="sm">Staff Mail</a> |
-        <a href="faq.html" id="faq">FAQs</a> |
-        <a href="terms_&_conditions.html" id="tc">Terms and Conditions</a>
+        <a href="privecy_policy.php" id="pp">Privacy Policy</a> |
+        <a href="mailto:info@lazri.co.tz" id="sm">Staff Mail</a> |
+        <a href="faq.php" id="faq">FAQs</a> |
+        <a href="terms_&_conditions.php" id="tc">Terms and Conditions</a>
       </div>
     </div>
 

@@ -99,7 +99,7 @@
             display: none;
             font-size: 28px;
             cursor: pointer;
-            color: #fff;
+            color: #fff !important;
         }
         /* Logo + company name */
         

@@ -7,6 +7,10 @@ if (isset($_SESSION['flash'])) {
 } else {
     $msg = '';
 }
+if (!isset($_SESSION['csrf'])) {
+    $_SESSION['csrf'] = bin2hex(random_bytes(32));
+}
+$csrf = $_SESSION['csrf'];
 
 /* ====== DB CONFIG ====== */
 $DB_HOST = 'localhost';

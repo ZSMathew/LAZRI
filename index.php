@@ -1,1163 +1,1304 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Lazri.co.tz</title>
-  <style>
-    :root {
-  --blue: #0b66ff;
-  --dark-blue: #053a9b;
-  --gray: #f3f4f6;
-  --muted: black;
-  --white: #ffffff;
-  --shadow: 0 4px 10px rgba(0,0,0,0.1);
-  --radius: 12px;
-  --sidebar-width: 220px;
-}
-    * {
-      margin:0; 
-      padding:0; 
-      box-sizing:border-box;
-    }
-    body {
-      font-family: "Segoe UI", Arial, sans-serif; 
-      line-height:1.6;
-              max-width: 100%;
-  overflow-x: hidden;
-    }
-  
-
-    /* ====== HEADER ====== */
-header {
-  background: var(--dark-blue);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 24px;
-  box-shadow: var(--shadow);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-header img { 
-  height: 50px; 
-}
-
-nav ul {
-  display: flex;
-  gap: 20px;
-  list-style: none;
-}
-nav ul li {
-  position: relative; 
-}
-nav ul li a {
-  position: relative;
-  text-decoration: none;
-  color: var(--white);
-  font-weight: 500;
-  padding: 8px 12px;
-  transition: color 0.3s;
-}
-nav ul li a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 2px;
-  width: 0%;
-  background: var(--white);
-  transition: width 0.3s ease;
-}
-nav ul li a:hover {
-  color: #ffd700;
-}
-nav ul li a:hover::after {
-  width: 100%; 
-}
-nav ul li a.active {
-  color: #ffd700;
-  font-weight: bold;
-}
-nav ul li a.active::after { 
-  width: 100%;
-}  
-
-/* Hamburger button */
-.menu-toggle {
-  display: none;
-  font-size: 28px;
-  cursor: pointer;
-  color: #fff!important;
-}
-
-/* Logo + company name */
-.logo-center {
-  display: flex;
-  align-items: center;
-}
-.logo-center img {
-  height: 45px;
-  margin-right: 10px;
-}
-.company-name {
-  font-weight: bold;
-  font-size: 16px;
-  color: #fff;
-}
-
-/* ===== MOBILE SIDEBAR ===== */
-@media (max-width: 768px) {
-  header {
-    flex-direction: column;
-    padding: 0;
-  }
-
-  .mobile-header {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 12px;
-    padding: 10px;
-    width: 100%;
-    background: var(--dark-blue);
-    color: #fff;
-    position: relative;
-    transition: transform 0.35s cubic-bezier(.2,.9,.3,1);
-  }
-
-  .menu-toggle {
-    display: block;
-    font-size: 28px;
-    cursor: pointer;
-    color: #fff;
-  }
-
-  .logo-center img {
-    height: 42px;
-    margin-left: 45px;
-  }
-  .company-name {
-    font-size: 15px;
-    white-space: nowrap;
-    margin-left: 10px;
-  }
-
-  .sidebar {
-    position: fixed;
-    left: -70%;
-    top: 0;
-    height: auto;
-    width: 60%;
-    max-width: 300px;
-    background: var(--dark-blue);
-    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.3);
-    transition: left 0.32s cubic-bezier(.25,.8,.25,1);
-    padding: 70px 0 20px 0;
-    border-bottom-right-radius: 12px;
-    z-index: 2000;
-    overflow-y: auto;
-  }
-
-  .sidebar.active {
-    left: 0;
-  }
-
-  .sidebar ul {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 0 20px;
-  }
-
-  .sidebar ul li a {
-    color: #fff;
-    display: block;
-    padding: 12px;
-    text-decoration: none;
-    border-radius: 6px;
-    transition: background 0.3s, color 0.3s;
-  }
-
-  .sidebar ul li a:hover {
-    background: rgba(255, 255, 255, 0.12);
-    color: #ffd700;
-  }
-
-  .close-btn {
-    position: absolute;
-    top: 12px;
-    right: 15px;
-    font-size: 28px;
-    cursor: pointer;
-    color: #fff;
-  }
-
-  header.sidebar-open .mobile-header {
-    transform: translateX(var(--sidebar-width));
-  }
-}
-    .lang-switch button {
-      border: 1px solid #000;
-      padding: 4px 10px;
-      cursor: pointer;
-      background: #fff;
-      font-weight: bold;
-    }
-    .lang-switch button:hover{
-      background: #2563eb;
-      color: #fff;
-    }
-
-    /* Hero Section */
-    .hero {
-      display: flex;
-      align-items: center;
-      background: linear-gradient(to right, #00bfff, rgba(128, 128, 128, 0.692));
-      padding: 40px;
-    }
-    .hero-text {
-      flex: 1;
-      color: white;
-      font-size: 26px;
-      font-weight: bold;
-    }
-    .hero-box {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      margin-top: 20px;
-      color: black;
-      font-weight: bold;
-    }
-    .hero-img {
-      flex: 1;
-      text-align: center;
-    }
-    .hero-img img {
-      border-radius: 10px;
-      width: 30rem;
-      height: 19rem;
-      object-fit: cover;
-    }
-
-    /* our services */
-    .services-section {
-      text-align: center;
-      padding: 50px 20px;
-    }
-
-    .services-section h2 {
-      font-size: 2.5rem;
-      margin-bottom: 30px;
-      color: #2c3e50;
-    }
-
-    .services-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      max-width: 1200px;
-      margin: auto;
-    }
-
-    .service-box {
-      background: #fff;
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      text-align: center;
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-
-    .service-box:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-    }
-
-    .service-box img {
-      /* width: 80px; */
-      margin-bottom: 15px;
-      width: 10rem;
-      height: 10rem;
-    }
-
-    .service-box h3 {
-      font-size: 1.3rem;
-      margin-bottom: 10px;
-      color: #004aad;
-    }
-
-    .service-box p {
-      font-size: 0.95rem;
-      margin-bottom: 10px;
-      line-height: 1.5;
-    }
-
-    .more-btn {
-      margin-top: 40px;
-    }
-
-    .more-btn a {
-      display: inline-block;
-      padding: 12px 25px;
-      background: #004aad;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      transition: background 0.3s ease;
-    }
-
-    .more-btn a:hover {
-      background: #003080;
-    }
-
-    /* testmony */
-    .testimonials {
-      padding: 60px 20px;
-    }
-
-    .testimonials h2 {
-      font-size: 28px;
-      font-weight: bold;
-      color: #0a1a3a;
-      margin-bottom: 40px;
-    }
-
-    .testimonial-container {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .testimonial-card {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      width: 300px;
-      padding: 20px;
-      text-align: center;
-      transition: transform 0.35s ease, box-shadow 0.35s ease;
-      cursor: pointer;
-    }
-
-    .testimonial-card img {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 15px;
-    }
-
-    .testimonial-card h3 {
-      margin: 10px 0 5px;
-      color: #0a1a3a;
-    }
-
-    .testimonial-card h4 {
-      font-size: 14px;
-      color: #666;
-      margin-bottom: 15px;
-    }
-
-    .testimonial-card p {
-      font-size: 14px;
-      color: #444;
-      margin-bottom: 15px;
-    }
-
-    .stars {
-      color: #003080;
-      font-size: 16px;
-    }
-
-    .testimonial-card:hover {
-      transform: translateY(-10px) scale(1.03);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-    }
-
-    .testimonial-card.active {
-      transform: translateY(-15px) scale(1.08);
-      box-shadow: 0 12px 28px rgba(0,0,0,0.25);
-      animation: bounceIn 0.4s ease;
-    }
-
-    @keyframes bounceIn {
-      0% { transform: scale(1) translateY(0); }
-      50% { transform: scale(1.1) translateY(-18px); }
-      70% { transform: scale(0.98) translateY(-13px); }
-      100% { transform: scale(1.08) translateY(-15px); }
-    }
-
-    /* Footer */
-    .footer {
-      background: black;
-      padding: 50px 20px 30px;
-      position: relative;
-    }
-    .footer-container {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      margin-left: 4rem;
-    }
-
-    .footer-column {
-      flex: 1;
-      padding: 20px;
-      min-width: 250px;
-      position: relative;
-      align-content: center;
-    }
-
-    .footer h2 {
-      font-size: 24px;
-      font-weight: 50px;
-      margin-bottom: 15px;
-      color: white;
-    }
-
-    .footer p,
-    .footer a,
-    .footer span {
-      font-size: 15px;
-    }
-
-    /* Social Icons */
-    .social-icons {
-      display: flex;
-      gap: 15px;
-      margin-bottom: 20px;
-      margin-top: 20px;
-    }
-
-    .social-icons a {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 50px;
-      height: 50px;
-      border: 2px solid blue;
-      border-radius: 50%;
-      color: blue;
-      font-size: 22px;
-      text-decoration: none;
-      transition: all 0.3s ease;
-    }
-
-    .social-icons a:hover {
-      background: blue;
-      color: white;
-      transform: scale(1.1);
-    }
-
-    /* Navigation under social */
-    .footer-nav {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .footer-nav a {
-      color: #fff;
-      text-decoration: none;
-      transition: transform 0.3s ease;
-    }
-
-    .footer-nav a:hover {
-      transform: translateY(5px);
-      color: blue;
-    }
-
-    /* Middle column services */
-    .footer-services {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .footer-services a {
-      color: #fff;
-      text-decoration: none;
-      transition: transform 0.3s ease, color 0.3s ease;
-    }
-
-    .footer-services a:hover {
-      transform: translateX(10px);
-      color: blue;
-    }
-
-    /* Right column contact */
-    .contact-info {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-
-    .contact-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .contact-item i {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 45px;
-      height: 45px;
-      border: 2px solid blue;
-      border-radius: 50%;
-      color: blue;
-      font-size: 20px;
-      transition: all 0.3s ease;
-    }
-
-    .contact-item i:hover {
-      background: blue;
-      color: white;
-    }
-    .contact-item a {
-      color: #fff;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
-    .footer-bottom {
-      border-top: 1px solid black;
-      font-size: 13px;
-      color: white;
-      display: flex;
-    }
-
-    .links {
-      list-style: none;
-      padding: 0;
-    }
-
-    .links li {
-      margin: 8px 0;
-      font-size: 15px;
-      position: relative;
-    }
-
-    .links li a {
-      color: #fff;
-      text-decoration: none;
-      padding-left: 25px;
-      display: inline-block;
-      transition: color 0.3s ease;
-    }
-
-    /* hover:  links */
-    .links li a:hover {
-      color: darkblue;
-    }
-
-    .links li a:hover::before {
-      color: darkblue;
-    }
-
-    .footer-links {
-      margin: 15px 0 90;
-    }
-
-    .footer-links a {
-      margin: 0 10px;
-      color: white;
-      font-size: 14px;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
-    .footer-links a:hover {
-      color: darkblue; /* consistent na links zingine */
-    }
-
-    /* Scroll to top button */
-    .scroll-top {
-      position: absolute;
-      bottom: 20px;
-      right: 20px;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background: blue;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
-
-    .scroll-top:hover {
-      transform: scale(1.1);
-      color: white;
-    }
-
-    .scroll-top i {
-      color: white;
-      font-size: 22px;
-    }
-
-    /* =================== RESPONSIVE DESIGN =================== */
-
-    /* Tablet (768px and below) */
-    @media (max-width: 992px) {
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      nav ul {
-        flex-wrap: wrap;
-        gap: 12px;
-      }
-      .hero {
-        flex-direction: column;
-        text-align: center;
-      }
-      .hero-text {
-        font-size: 22px;
-      }
-      .hero-img img {
-        width: 100%;
-        height: auto;
-      }
-      .footer-container {
-        flex-direction: column;
-        margin-left: 0;
-      }
-      .footer-column {
-        margin-bottom: 20px;
-      }
-      .footer-bottom {
-        flex-direction: column;
-        text-align: center;
-      }
-      .footer-links {
-        margin-left: 0 !important;
-        margin-top: 10px;
-      }
-    }
-
-    /* Mobile (480px and below) */
-    @media (max-width: 576px) {
-      header {
-        padding: 10px;
-        flex-direction: column;
-      }
-      nav ul {
-        flex-direction: column;
-        gap: 8px;
-        align-items: flex-start;
-      }
-      nav ul li a {
-        font-size: 14px;
-        padding: 6px 8px;
-      }
-      .hero {
-        padding: 20px;
-      }
-      .hero-text {
-        font-size: 18px;
-      }
-      .hero-box {
-        font-size: 14px;
-      }
-      .services-section h2 {
-        font-size: 1.8rem;
-      }
-      .testimonial-card {
-        width: 100%;
-      }
-      .footer h2 {
-        font-size: 20px;
-      }
-      .footer p,
-      .footer a,
-      .footer span {
-        font-size: 16px;
-      }
-      .social-icons a {
-        width: 40px;
-        height: 40px;
-        font-size: 18px;
-      }
-      .scroll-top {
-        width: 40px;
-        height: 40px;
-      }
-      .scroll-top i {
-        font-size: 18px;
-      }
-    }
-
-    /* Hamburger button (hidden by default) */
-    .menu-toggle {
-      display: none;
-      font-size: 28px;
-      cursor: pointer;
-      color: #333;
-    }
-
-    /* For smaller screens */
-    @media (max-width: 768px) {
-      nav {
-        display: none;
-        width: 100%;
-      }
-
-      nav ul {
-        flex-direction: column;
-        /* background:  #004aad; */
-        padding: 10px;
-        border-radius: 8px;
-      }
-
-      nav ul li {
-        margin: 8px 0;
-      }
-
-      .menu-toggle {
-        display: block;
-      }
-
-      nav.active {
-        display: block;
-      }
-    }
-  </style>
-  <script src="https://kit.fontawesome.com/yourkitid.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons/css/flag-icons.min.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lazri.co.tz - Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --blue: #0b66ff;
+            --dark-blue: #053a9b;
+            --gray: #f3f4f6;
+            --muted: black;
+            --white: #ffffff;
+            --shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            --radius: 12px;
+            --sidebar-width: 220px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ====== HEADER ====== */
+        header {
+            background: var(--dark-blue);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 24px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header img {
+            height: 50px;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+
+        nav ul li {
+            position: relative;
+        }
+
+        nav ul li a {
+            position: relative;
+            text-decoration: none;
+            color: var(--white);
+            font-weight: 500;
+            padding: 8px 12px;
+            transition: color 0.3s;
+        }
+
+        nav ul li a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 2px;
+            width: 0%;
+            background: var(--white);
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #ffd700;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        nav ul li a.active {
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        nav ul li a.active::after {
+            width: 100%;
+        }
+
+        /* Hamburger button */
+        .menu-toggle {
+            display: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #fff;
+        }
+
+        /* Logo + company name */
+        .logo-center {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-center img {
+            height: 45px;
+            margin-right: 10px;
+        }
+
+        .company-name {
+            font-weight: bold;
+            font-size: 16px;
+            color: #fff;
+        }
+
+        /* ===== MOBILE SIDEBAR ===== */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 0;
+            }
+
+            .mobile-header {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 12px;
+                padding: 10px;
+                width: 100%;
+                background: var(--dark-blue);
+                color: #fff;
+                position: relative;
+                transition: transform 0.35s cubic-bezier(.2, .9, .3, 1);
+            }
+
+            .menu-toggle {
+                display: block;
+                font-size: 28px;
+                cursor: pointer;
+                color: #fff;
+            }
+
+            .logo-center img {
+                height: 42px;
+                margin-left: 45px;
+            }
+
+            .company-name {
+                font-size: 15px;
+                white-space: nowrap;
+                margin-left: 10px;
+            }
+
+            .sidebar {
+                position: fixed;
+                left: -70%;
+                top: 0;
+                height: auto;
+                width: 60%;
+                max-width: 300px;
+                background: var(--dark-blue);
+                box-shadow: 4px 0 12px rgba(0, 0, 0, 0.3);
+                transition: left 0.32s cubic-bezier(.25, .8, .25, 1);
+                padding: 70px 0 20px 0;
+                border-bottom-right-radius: 12px;
+                z-index: 2000;
+                overflow-y: auto;
+            }
+
+            .sidebar.active {
+                left: 0;
+            }
+
+            .sidebar ul {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+                padding: 0 20px;
+            }
+
+            .sidebar ul li a {
+                color: #fff;
+                display: block;
+                padding: 12px;
+                text-decoration: none;
+                border-radius: 6px;
+                transition: background 0.3s, color 0.3s;
+            }
+
+            .sidebar ul li a:hover {
+                background: rgba(255, 255, 255, 0.12);
+                color: #ffd700;
+            }
+
+            .close-btn {
+                position: absolute;
+                top: 12px;
+                right: 15px;
+                font-size: 28px;
+                cursor: pointer;
+                color: #fff;
+            }
+
+            header.sidebar-open .mobile-header {
+                transform: translateX(var(--sidebar-width));
+            }
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero-container {
+            width: 100%;
+            height: 86vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            color: #f5f7fa;
+            background-size: cover;
+            background-position: center;
+            transition: background-image 1s ease-in-out;
+        }
+
+        .hero-content {
+            max-width: 850px;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+        }
+
+        .hero-btn {
+            background: #0b66ff;
+            color: white;
+            padding: 14px 28px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .hero-btn:hover {
+            background: #053a9b;
+        }
+
+
+        /* ===== ICON FEATURES SECTION ===== */
+        .features-section {
+            padding: 60px 20px;
+            text-align: center;
+            background: white;
+        }
+
+        .features-title {
+            font-size: 2.3rem;
+            margin-bottom: 40px;
+            color: #053a9b;
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .feature-box {
+            background: #f5f7fa;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: 0.3s;
+        }
+
+        .feature-box:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-box i {
+            font-size: 40px;
+            color: #0b66ff;
+            margin-bottom: 15px;
+        }
+
+        .feature-box h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .feature-box p {
+            font-size: 0.95rem;
+            color: #444;
+        }
+
+
+        /* ===== SERVICES PREVIEW ===== */
+        .services-preview {
+            background: #f5f7fa;
+            padding: 70px 20px;
+            text-align: center;
+        }
+
+        .services-preview h2 {
+            font-size: 2.4rem;
+            margin-bottom: 35px;
+            color: #053a9b;
+        }
+
+        .service-grid {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 25px;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .service-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .service-card h3 {
+            margin: 12px 0;
+            color: #004aad;
+        }
+
+        .service-link {
+            margin-top: 30px;
+            display: inline-block;
+            padding: 12px 25px;
+            background: #004aad;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+
+        .service-link:hover {
+            background: #003080;
+        }
+
+
+        /* ===== TESTIMONIAL Section Short Version ===== */
+        .short-testimonials {
+            background: #f3f4f6;
+            padding: 70px 20px;
+            text-align: center;
+        }
+
+        .short-testimonials h2 {
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            color: #053a9b;
+        }
+
+        .testi-grid {
+            max-width: 1000px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+
+        /* Stats section */
+
+        .stats-section {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 40px 20px 80px;
+            flex-wrap: wrap;
+            max-width: 1100px;
+            margin: 0 auto 60px;
+            background-color: white;
+            align-items: flex-start;
+        }
+
+        .stat-box {
+            text-align: center;
+            max-width: 280px;
+            width: 250px;
+        }
+
+        .circle-wrapper {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            margin: 0 auto 20px
+        }
+
+        .circle-outer {
+            width: 100%;
+            height: 100%;
+            border: 12px solid rgba(0, 150, 255, 0.25);
+            border-top-color: var(--dark-blue);
+            border-radius: 50%;
+            animation: spin 6s linear infinite
+        }
+
+        .circle-inner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 40px;
+            font-weight: 700;
+            color: var(--dark-blue)
+        }
+
+        .stat-title {
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            color: var(--dark-blue);
+            letter-spacing: 0.6px
+        }
+
+        .stat-desc {
+            font-size: 15px;
+            line-height: 1.6;
+            text-align: left;
+            color: var(--muted)
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0)
+            }
+
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        @media (max-width:768px) {
+            .team-container {
+                padding: 28px 12px
+            }
+
+            .stats-section {
+                padding: 28px 12px
+            }
+
+            .circle-inner {
+                font-size: 34px
+            }
+        }
+
+        @media (prefers-reduced-motion:reduce) {
+            .circle-outer {
+                animation: none
+            }
+
+            .card {
+                transition: none
+            }
+        }
+
+        /* Modal styles */
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(6, 8, 15, 0.45);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 1200
+        }
+
+        .modal-overlay[aria-hidden="false"] {
+            display: flex
+        }
+
+        .modal {
+            background: var(--glass);
+            backdrop-filter: blur(6px);
+            border-radius: 12px;
+            max-width: 720px;
+            width: 100%;
+            box-shadow: 0 18px 50px rgba(6, 8, 15, 0.4);
+            overflow: hidden
+        }
+
+        .modal-content {
+            display: flex;
+            gap: 20px;
+            padding: 20px
+        }
+
+        .modal-left {
+            min-width: 160px;
+            display: flex;
+            flex-direction: column;
+            align-items: center
+        }
+
+        .modal-left img {
+            width: 120px;
+            height: 120px;
+            border-radius: 12px;
+            object-fit: cover
+        }
+
+        .modal-right {
+            flex: 1
+        }
+
+        .modal-right h2 {
+            margin: 0 0 6px
+        }
+
+        .modal-right p {
+            margin: 4px 0;
+            color: var(--muted)
+        }
+
+        .modal-highlights {
+            margin-top: 8px;
+            padding-left: 18px;
+            color: var(--muted)
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+            padding: 12px 20px;
+            border-top: 1px solid rgba(15, 23, 36, 0.05);
+            background: transparent
+        }
+
+        .modal-close {
+            background: transparent;
+            border: 0;
+            color: var(--muted);
+            font-size: 16px;
+            padding: 8px;
+            cursor: pointer
+        }
+
+        .primary-action {
+            background: var(--blue);
+            color: #fff;
+            border-radius: 8px;
+            padding: 8px 14px;
+            border: 0;
+            cursor: pointer
+        }
+
+        /* Make modal focusable outline visible */
+
+        .primary-action:focus,
+        .modal-close:focus {
+            outline: 3px solid rgba(0, 150, 255, 0.18);
+            outline-offset: 2px
+        }
+
+        .testi-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: 0.3s;
+        }
+
+        .testi-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .testi-card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 12px;
+        }
+
+        .testi-stars {
+            color: #ffd700;
+            margin-top: 10px;
+        }
+
+        @media(max-width:768px) {
+            .hero-title {
+                font-size: 2.1rem;
+            }
+
+            .hero-container {
+                height: 70vh;
+            }
+        }
+
+        /* Footer */
+        .footer {
+            background: black;
+            padding: 50px 20px 30px;
+            position: relative;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-left: 4rem;
+        }
+
+        .footer-column {
+            flex: 1;
+            padding: 20px;
+            min-width: 250px;
+            position: relative;
+            align-content: center;
+        }
+
+        .footer h2 {
+            font-size: 24px;
+            font-weight: 50px;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .footer p,
+        .footer a,
+        .footer span {
+            font-size: 15px;
+        }
+
+        /* Social Icons */
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            border: 2px solid blue;
+            border-radius: 50%;
+            color: blue;
+            font-size: 22px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background: blue;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        /* Navigation under social */
+        .footer-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-nav a {
+            color: #fff;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .footer-nav a:hover {
+            transform: translateY(5px);
+            color: blue;
+        }
+
+        /* Middle column services */
+        .footer-services {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-services a {
+            color: #fff;
+            text-decoration: none;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .footer-services a:hover {
+            transform: translateX(10px);
+            color: blue;
+        }
+
+        /* Right column contact */
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-item i {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 45px;
+            height: 45px;
+            border: 2px solid blue;
+            border-radius: 50%;
+            color: blue;
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item i:hover {
+            background: blue;
+            color: white;
+        }
+
+        .contact-item a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid black;
+            font-size: 13px;
+            color: white;
+            display: flex;
+        }
+
+        .links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .links li {
+            margin: 8px 0;
+            font-size: 15px;
+            position: relative;
+        }
+
+        .links li a {
+            color: #fff;
+            text-decoration: none;
+            padding-left: 25px;
+            display: inline-block;
+            transition: color 0.3s ease;
+        }
+
+
+
+        /* hover:  links */
+        .links li a:hover {
+            color: darkblue;
+        }
+
+        .links li a:hover::before {
+            color: darkblue;
+        }
+
+        .footer-links {
+            margin: 15px 0 90;
+        }
+
+        .footer-links a {
+            margin: 0 10px;
+            color: white;
+            font-size: 14px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: darkblue;
+            /* consistent na links zingine */
+        }
+
+        /* ===== MOBILE FIXES ===== */
+        @media (max-width: 768px) {
+            .footer h2 {
+                font-size: 20px;
+            }
+
+            .footer p,
+            .footer a,
+            .footer span {
+                font-size: 16px;
+            }
+
+            .social-icons a {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+
+            .scroll-top {
+                width: 40px;
+                height: 40px;
+            }
+
+            .scroll-top i {
+                font-size: 18px;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .split-container {
+                grid-template-columns: 1fr;
+            }
+
+            .left-side {
+                padding: 40px 30px;
+                text-align: center;
+                align-items: center;
+            }
+
+            .right-side {
+                padding: 40px 30px;
+            }
+        }
+
+        /* =================== RESPONSIVE DESIGN =================== */
+
+        /* Tablet (768px and below) */
+        @media (max-width: 992px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-text {
+                font-size: 22px;
+            }
+
+            .hero-img img {
+                width: 100%;
+                height: auto;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                margin-left: 0;
+            }
+
+            .footer-column {
+                margin-bottom: 20px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-links {
+                margin-left: 0 !important;
+                margin-top: 10px;
+            }
+        }
+
+        /* Mobile (480px and below) */
+        @media (max-width: 576px) {
+            header {
+                padding: 10px;
+                flex-direction: column;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 8px;
+                align-items: flex-start;
+            }
+
+            nav ul li a {
+                font-size: 14px;
+                padding: 6px 8px;
+            }
+
+            .hero {
+                padding: 20px;
+            }
+
+            .hero-text {
+                font-size: 18px;
+            }
+
+            .hero-box {
+                font-size: 14px;
+            }
+
+            .services-section h2 {
+                font-size: 1.8rem;
+            }
+
+            .testimonial-card {
+                width: 100%;
+            }
+
+            .footer h2 {
+                font-size: 20px;
+            }
+
+            .footer p,
+            .footer a,
+            .footer span {
+                font-size: 16px;
+            }
+
+            .social-icons a {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+
+            .scroll-top {
+                width: 40px;
+                height: 40px;
+            }
+
+            .scroll-top i {
+                font-size: 18px;
+            }
+        }
+    </style>
 </head>
+
 <body>
-
-  <!-- Navbar -->
-<header>
-  <div class="mobile-header">
-    <div class="menu-toggle" id="menu-toggle">☰</div>
-    <a href="index.html" class="logo-center">
-      <img src="./images/Logo2.png" alt="Lazri Company Logo">
-    </a>
-    <span class="company-name">LAZRI Company</span>
-  </div>
-
-  <nav id="navbar" class="sidebar">
-    <span class="close-btn" id="close-btn">&times;</span>
-    <ul>
-      <li><a href="index.php" class="active"><b>Home</b></a></li>
-      <li><a href="our_service.php"><b>Our Services</b></a></li>
-      <li><a href="Project.php"><b>Our Projects</b></a></li>
-      <li><a href="about.php"><b>About Us</b></a></li>
-      <li><a href="contact.php"><b>Contact Us</b></a></li>
-    </ul>
-  </nav>
-    <div class="lang-switch">
-      <button onclick="setLanguage('en')"><span class="fi fi-gb"></span>ENG</button>
-      <button onclick="setLanguage('sw')"><span class="fi fi-tz"></span>SWA</button>
-    </div>
-  </header>
-
-  <!-- Hero Section -->
-  <div class="hero">
-    <div class="hero-text" id="heroTitle">
-      FURAHIA HUDUMA ZETU ZENYE LENGO LA KUBORESHA MASLAI YA KAMPUNI YAKO
-      <div class="hero-box" id="heroBox">
-        <p>1. Huduma za uharaka zaidi</p>
-        <p>2. Huduma za uhakika masaa 24</p>
-        <p>3. Kufikia malengo ya kibiashara yako</p>
-        <p>4. Malengo ya kibiashara ya hali ya juu</p>
-      </div>
-    </div>
-    <div class="hero-img">
-      <img id="heroImage" src="./images/campany.jpg" alt="company">
-    </div>
-  </div>
-
-  <!-- our services -->
-  <section class="services-section">
-    <h2 style="color: #2563eb;" id="servicesTitle">Our Services</h2>
-
-    <div class="services-container">
-      <div class="service-box">
-        <img src="images/ict.jpg" alt="ICT Consultancy">
-        <h3 id="s1Title">ICT Services & Consultancy</h3>
-      </div>
-
-      <div class="service-box">
-        <img src="images/serv.jpg" alt="Web Design">
-        <h3 id="s2Title">Web Design & Systems Development</h3>
-
-      </div>
-
-      <div class="service-box">
-        <img src="images/cctv.jpg" alt="CCTV">
-        <h3 id="s3Title">CCTV Camera Installation</h3>
-      </div>
-
-      <div class="service-box">
-        <img src="images/malt.jpg" alt="Multimedia">
-        <h3 id="s4Title">Multimedia & Media Solutions</h3>
-      </div>
-    </div>
-
-    <div class="more-btn">
-      <a href="our_service.html" id="moreBtn">More Services</a>
-    </div>
-  </section>
-
-  <!-- testmony -->
-  <section class="testimonials">
-    <h2 style="text-align: center; color: #2563eb;" id="testimonialsTitle">Our Customer Say</h2>
-    <div class="testimonial-container">
-      <div class="testimonial-card">
-        <img src="images/ino.jpg" alt="Anthony">
-        <h3 style="color: #003080;">Innocent Gabriel</h3>
-        <h4 id="t1Role">Founder & CEO</h4>
-        <p id="t1Text" style="text-align: start;">Lazri is nothing short of amazing.They have been with me every step of the way as I created my first print product.
-           They helped to ensure I had exactly what I needed (correct paper, perfect sizing, and very quick shipping).
-           They are also so quick to respond to all of my questions!The cherry on top was the paper sample they sent so I could really feel exactly what I was getting before I ordered.
-           I won’t trust anyone else with my journals!</p>
-        <div class="stars">★★★★★</div>
-      </div>
-
-      <div class="testimonial-card">
-        <img src="images/lucy.jpg" alt="Janet">
-        <h3 style="color: #003080;">Lucy Nguzo</h3>
-        <h4 id="t2Role">Chief Executive Secretary</h4>
-        <p id="t2Text" style="text-align: start;">I was in contact with LUCY from Lazri to order t-shirts he was a pleasure to work with. he was incredibly patient and attentive to every detail of the design.
-           I would used Lazri again and again and highly recommend them to anyone looking to order shirts</p>
-        <div class="stars">★★★★★</div>
-      </div>
-
-      <div class="testimonial-card">
-        <img src="images/anthony.png" alt="Anthony">
-        <h3 style="color: #003080;">Anthony Kapinga</h3>
-        <h4 id="t3Role">Chief Technology Engineer</h4>
-        <p id="t3Text" style="text-align: start;">Great experience and impressive product.It was a very professional and technically competent job from the whole team.</p>
-        <div class="stars">★★★★☆</div>
-      </div>
-    </div>
-  </section>
-
-  <!--footer-->
-  <footer class="footer">
-    
-    <!-- Left Column -->
-    <div class="footer-container">
-      <div class="footer-column">
-        <h2 style="font-size: 45px;">Let's Work Together</h2>
-        <p style="color: #fff;">
-          Welcome to Lazri’s course catalog — your gateway to quality education for personal and professional growth.
-        </p>
-
-        <div class="social-icons">
-          <a href="https://www.facebook.com/lazricompany/?__pwa=1#"><i class="fab fa-facebook-f"></i></a>
-          <a href="https://www.instagram.com/lazricompany/?__pwa=1#"><i class="fab fa-instagram"></i></a>
-          <a href="https://www.linkedin.com/in/lazri-company-763565389"><i class="fab fa-linkedin-in"></i></a>
-          <a href="https://www.tiktok.com/@lazri.company"><i class="fab fa-tiktok"></i></a>
-          <a href="#INPUT Youtube LINK "><i class="fab fa-youtube"></i></a>
-          <a href="#INPUT X LINK "><i class="fab fa-x-twitter"></i></a>
+    <!-- header -->
+    <header>
+        <div class="mobile-header">
+            <div class="menu-toggle" id="menu-toggle">☰</div>
+            <a href="index.html" class="logo-center">
+                <img src="./images/Logo2.png" alt="Lazri Company Logo">
+            </a>
+            <span class="company-name">LAZRI Company</span>
         </div>
 
-        <div class="footer-nav">
-          <ul class="links">
-            <li><a href="index.php">Home</a></li>
-            <li><a href="our_service.php">Services</a></li>
-            <li><a href="Project.php">Projects</a></li>
-            <li><a href="About.php">About Us</a></li>
-            <li><a href="contact.php">Contact</a></li>
-          </ul>
+        <nav id="navbar" class="sidebar">
+            <span class="close-btn" id="close-btn">&times;</span>
+            <ul>
+                <li><a href="index.php" class="active"><b>Home</b></a></li>
+                <li><a href="our_service.php"><b>Our Services</b></a></li>
+                <li><a href="Project.php"><b>Our Projects</b></a></li>
+                <li><a href="about.php"><b>About Us</b></a></li>
+                <li><a href="contact.php"><b>Contact Us</b></a></li>
+            </ul>
+        </nav>
+    </header>
+    <!-- ===== HERO SECTION ===== -->
+    <div class="hero-container" id="heroSection">
+        <div class="hero-content">
+            <h1 class="hero-title">Empowering Your Business With Smart ICT Solutions</h1>
+            <p class="hero-subtitle">We deliver fast, reliable and modern ICT services to helping businesses innovate,
+                automate, and succeed with modern digital tools.</p>
+            <a href="our_service.php" class="hero-btn">Explore Our Services</a>
         </div>
-      </div>
+    </div>
 
-      <!-- Middle Column -->
-      <div class="footer-column" style="margin-left: 4rem;">
-        <h2>Online Services</h2>
-        <div class="footer-services">
-          <ul class="links">
-            <li><a href="online.php">Web Hosting</a></li>
-            <li><a href="online.php">Domains</a></li>
-            <li><a href="online.php">Certification Portal</a></li>
-            <li><a href="online.php">Digital Makerting</a></li>
-            <li><a href="online.php">Emails</a></li>
-            <li><a href="online.php">Mantainance</a></li>
-          </ul>
+
+    <!-- ===== FEATURES ===== -->
+    <section class="features-section">
+        <h2 class="features-title">Why Choose Lazri Company?</h2>
+
+        <div class="features-container">
+            <div class="feature-box">
+                <i class="fas fa-bolt"></i>
+                <h3>Fast & Reliable</h3>
+                <p>Our team works around the clock to deliver services on time without compromising quality.</p>
+            </div>
+
+            <div class="feature-box">
+                <i class="fas fa-user-shield"></i>
+                <h3>Trusted Experts</h3>
+                <p>We provide professional ICT consultancy and technical support tailored to your needs.</p>
+            </div>
+
+            <div class="feature-box">
+                <i class="fas fa-lightbulb"></i>
+                <h3>Innovative Solutions</h3>
+                <p>Modern, scalable and high‑performance systems designed for business growth.</p>
+            </div>
+
+            <div class="feature-box">
+                <i class="fas fa-headset"></i>
+                <h3>24/7 Support</h3>
+                <p>Our support team is always available to assist you anytime.</p>
+            </div>
         </div>
-      </div>
+    </section>
 
-      <!-- Right Column -->
-      <div class="footer-column">
-      <h2>Contact Us</h2>
-  <div class="contact-info">
-    <div class="contact-item">
-      <!-- clickable call link with phone icon -->
-      <a href="tel:+255713569816">
-        <i class="fas fa-phone phone-icon"></i> 
-      </a>
-      <span>
-        <br>
-        <a href="tel:+255713569816" style="color: #fff; text-decoration: none;">+255 713 569 816</a><br>
-        <a href="tel:+255713453464" style="color: #fff; text-decoration: none;">+255 713 453 464</a>
-      </span>
-    </div>
-  </div>
-          <div class="contact-item">
-          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=lazricompany@gmail.com" target="_blank"><i class="fas fa-envelope"></i></a> 
-            <span>
-              <a href="mailto:info@lazri.org">info@lazri.org</a><br>
-              <a href="mailto:lazriinfo@gmail.com">lazriinfo@gmail.com</a>
-            </span>
-          </div>
 
-          <div class="contact-item">
-          <a href="https://whatsapp.com/channel/0029VbBVGNg0rGiKKpfRg23W" target="_blank"><i class="fas fa-whatsapp"></i></a> 
-            <span>
-              <a href="https://whatsapp.com/channel/0029VbBVGNg0rGiKKpfRg23W">WhatsApp Channel</a><br>
+    <!-- ===== SERVICES PREVIEW ===== -->
+    <section class="services-preview">
+        <h2>Our Top Services</h2>
 
-          </div>
+        <div class="service-grid">
+            <div class="service-card">
+                <img src="images/ict.jpg" />
+                <h3>Computer Consultancy & Maintenance</h3>
+            </div>
 
-          <div class="contact-item">
-<a href="https://www.google.com/maps/place/POSTA,+DAR+ES+SALAAM/@-6.8131835,39.2883643,17z" target="_blank">
-    <i class="fas fa-map-marker-alt"></i>
-</a>
-            <span style="color: #fff;">Dar es Salaam, Tanzania</span>
-          </div>
+            <div class="service-card">
+                <img src="images/serv.jpg" />
+                <h3>Web Design & System Development.</h3>
+            </div>
+
+            <div class="service-card">
+                <img src="images/cctv.jpg" />
+                <h3>Digital Inteligent Security Systems.</h3>
+            </div>
+
+            <div class="service-card">
+                <img src="images/malt.jpg" />
+                <h3>Digital Creative & Multimedia Design.</h3>
+            </div>
         </div>
-      </div>
-    </div>
-    <!-- Footer Bottom -->
-    <div class="footer-bottom">
-      <p id="copyright" style="margin: 1.5rem 0rem 0rem 2rem;">Copyright © 2025 - Lazri Company Limited. | All rights reserved</p>
-      <div class="footer-links" style="margin-left: 23rem;">
-        <a href="privecy_policy.php" id="pp">Privacy Policy</a> |
-        <a href="mailto:info@lazri.co.tz" id="sm">Staff Mail</a> |
-        <a href="faq.php" id="faq">FAQs</a> |
-        <a href="terms_&_conditions.php" id="tc">Terms and Conditions</a>
-      </div>
-    </div>
 
-    <!-- Scroll to Top -->
-    <div class="scroll-top" onclick="window.scrollTo({top:0, behavior:'smooth'})">
-      <i class="fas fa-arrow-up"></i>
-    </div>
-  </footer>
+        <a href="our_service.php" class="service-link">View All Services</a>
+    </section>
 
-  <a href="#" class="back-to-top">&#8679;</a>
+    <!-- projects -->
+    <status class="stats-section" aria-label="Statistics and skills">
 
-  <!-- Language & Slider Script -->
+        <div class="stat-box" role="group" aria-labelledby="stat-years">
+            <div class="circle-wrapper" aria-hidden="true">
+                <div class="circle-outer"></div>
+                <div class="circle-inner" id="stat-years">10+</div>
+            </div>
+            <div class="stat-title">Projects In</div>
+            <div class="stat-desc">
+                ▪ Website Design and Development.<br> ▪ Mobile App Design.<br> ▪ Website Hosting.<br> ▪ Debugging.
+            </div>
+        </div>
 
-<script>
-const menuToggle = document.getElementById('menu-toggle');
-const sidebar = document.getElementById('navbar');
-const closeBtn = document.getElementById('close-btn');
-const header = document.querySelector('header');
+        <div class="stat-box" role="group" aria-labelledby="stat-projects">
+            <div class="circle-wrapper" aria-hidden="true">
+                <div class="circle-outer"></div>
+                <div class="circle-inner" id="stat-projects">20+</div>
+            </div>
+            <div class="stat-title">Projects In</div>
+            <div class="stat-desc">
+                ▪ CCTV Installation & Maintenance.<br> ▪ Access Contal.<br> ▪ Electric Fence.<br> ▪ Gate Motor.
+            </div>
+        </div>
 
-menuToggle.addEventListener('click', () => {
-  sidebar.classList.add('active');
-  header.classList.add('sidebar-open');
-});
+        <div class="stat-box" role="group" aria-labelledby="stat-people">
+            <div class="circle-wrapper" aria-hidden="true">
+                <div class="circle-outer"></div>
+                <div class="circle-inner" id="stat-people">100+</div>
+            </div>
+            <div class="stat-title">Projects In</div>
+            <div class="stat-desc">
+                ▪ Poster and Banners Design.<br> ▪ Flyers and Card flyers Design.<br> ▪ Business card and Events card
+                Design.<br> ▪ Printing Services (T-shirts, Caps, and other Materials).<br> ▪ Logo Design.
+            </div>
+        </div>
 
-closeBtn.addEventListener('click', () => {
-  sidebar.classList.remove('active');
-  header.classList.remove('sidebar-open');
-});
-</script>
+        <div class="stat-box" role="group" aria-labelledby="stat-years">
+            <div class="circle-wrapper" aria-hidden="true">
+                <div class="circle-outer"></div>
+                <div class="circle-inner" id="stat-years">50+</div>
+            </div>
+            <div class="stat-title">Projects In</div>
+            <div class="stat-desc">
+                ▪ Software Maintenance & Installation.<br> ▪ Hardware Maintenance and Repair.<br> ▪ Componats
+                Replacement.
+            </div>
+        </div>
 
-  <script>
-    /* Translations for groups you confirmed: 1(nav),2(hero),3(services),5(testimonials),6(hero box text) */
-    const translations = {
-      en: {
-        navHome: "Home",
-        navServices: "Our Services",
-        navProjects: "Our Projects",
-        navAbout: "About Us",
-        navContact: "Contact Us",
+    </status>
+    <!-- ===== TESTIMONIALS SHORT ===== -->
+    <section class="short-testimonials">
+        <h2>What Our Clients Say</h2>
 
-        heroTitle: "ENJOY OUR SERVICES AIMED AT IMPROVING YOUR COMPANY'S BENEFITS",
-        heroBox: `
-          <p>1. Faster services</p>
-          <p>2. Reliable 24/7 services</p>
-          <p>3. Achieve your business goals</p>
-          <p>4. Higher business standards</p>
-        `,
+        <div class="testi-grid">
+            <div class="testi-card">
+                <img src="images/ino.jpg" />
+                <h3>Innocent Gabriel</h3>
+                <p>“Very professional team. Delivered exactly what I needed.”</p>
+                <div class="testi-stars">★★★★★</div>
+            </div>
 
-        servicesTitle: "Our Services",
-        moreBtn: "More Services",
-        s1Title: "ICT Services & Consultancy",
-        s2Title: "Web Design & Systems Development",
-        s3Title: "CCTV Camera Installation",
-        s4Title: "Multimedia & Media Solutions",
+            <div class="testi-card">
+                <img src="images/lucy.jpg" />
+                <h3>Lucy Nguzo</h3>
+                <p>“Amazing experience. Highly recommended for business branding!”</p>
+                <div class="testi-stars">★★★★★</div>
+            </div>
 
-        testimonialsTitle: "Our Customers Say",
-        t1Role: "Founder & CEO",
-        t1Text: "Lazri is nothing short of amazing. They have been with me every step of the way as I created my first print product. They helped to ensure I had exactly what I needed (correct paper, perfect sizing, and very quick shipping). They are also so quick to respond to all of my questions! The cherry on top was the paper sample they sent so I could really feel exactly what I was getting before I ordered. I won’t trust anyone else with my journals!",
-        t2Role: "Chief Executive Secretary",
-        t2Text: "I was in contact with Lucy from Lazri to order t-shirts. He was a pleasure to work with. He was incredibly patient and attentive to every detail of the design. I would use Lazri again and again and highly recommend them to anyone looking to order shirts.",
-        t3Role: "Chief Technology Engineer",
-        t3Text: "Great experience and impressive product. It was a very professional and technically competent job from the whole team."
-      },
-      sw: {
-        navHome: "Mwanzo",
-        navServices: "Huduma Zetu",
-        navProjects: "Miradi Yetu",
-        navAbout: "Kuhusu Sisi",
-        navContact: "Wasiliana Nasi",
+            <div class="testi-card">
+                <img src="images/anthony.png" />
+                <h3>Anthony Kapinga</h3>
+                <p>“Great technical expertise and fast delivery.”</p>
+                <div class="testi-stars">★★★★☆</div>
+            </div>
+        </div>
+    </section>
 
-        heroTitle: "FURAHIA HUDUMA ZETU ZENYE LENGO LA KUBORESHA MASLAI YA KAMPUNI YAKO",
-        heroBox: `
-          <p>1. Huduma za uharaka zaidi</p>
-          <p>2. Huduma za uhakika masaa 24</p>
-          <p>3. Kufikia malengo ya kibiashara yako</p>
-          <p>4. Malengo ya kibiashara ya hali ya juu</p>
-        `,
 
-        servicesTitle: "Huduma Zetu",
-        moreBtn: "Huduma Zingine",
-        s1Title: "Huduma za ICT & Ushauri",
-        s2Title: "Ubunifu wa Tovuti & Uundaji wa Mfumo",
-        s3Title: "Ufungaji wa Kamera za CCTV",
-        s4Title: "Suluhisho za Multimedia na Media",
+    <!--footer-->
+    <footer class="footer">
 
-        testimonialsTitle: "Wateja Wetu Wanasema",
-        t1Role: "Mwanzilishi & Mkurugenzi Mkuu",
-        t1Text: "Lazri ni ya kushangaza sana. Walikuwa pamoja nami kila hatua nilipopanga bidhaa yangu ya kwanza ya uchapishaji. Walihakikisha nilikuwa na kila nilihitaji (karatasi sahihi, ukubwa kamili, na utoaji wa haraka). Pia walikuwa wahakikisha kujibu maswali yangu kwa haraka! Mfano wa karatasi waliotuma ulikuwa kile kile nilikuwa nikitarajia kabla ya kufanya oda. Sitamwamini mtu mwingine kwa daftari zangu!",
-        t2Role: "Katibu Mkuu",
-        t2Text: "Nilikuwa na mawasiliano na Lucy kutoka Lazri ili kuagiza T-shirti. Alikuwa mrafiki wa kufanya kazi naye. Alikuwa mvumilivu sana na makini kwa kila undani wa muundo. Ningenunua Lazri tena na tena na kuwashauri wengine wanaotaka kuagiza fulana.",
-        t3Role: "Mhandisi Mkuu wa Teknolojia",
-        t3Text: "Uzoefu mzuri na bidhaa iliyovutia. Ilikuwa kazi ya kitaalamu na yenye ufanisi wa kiufundi kutoka kwa timu nzima."
-      }
-    };
+        <!-- Left Column -->
+        <div class="footer-container">
+            <div class="footer-column">
+                <h2 style="font-size: 45px;">Let's Work Together</h2>
+                <p style="color: #fff;">
+                    Welcome to Lazri’s course catalog — your gateway to quality education for personal and professional
+                    growth.
+                </p>
 
-    function setLanguage(lang) {
-      const t = translations[lang] || translations.en;
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/lazricompany/?__pwa=1#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/lazricompany/?__pwa=1#"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/in/lazri-company-763565389"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.tiktok.com/@lazri.company"><i class="fab fa-tiktok"></i></a>
+                    <a href="#INPUT Youtube LINK "><i class="fab fa-youtube"></i></a>
+                    <a href="#INPUT X LINK "><i class="fab fa-x-twitter"></i></a>
+                </div>
 
-      // NAV
-      const navHomeEl = document.getElementById("navHome");
-      const navServicesEl = document.getElementById("navServices");
-      const navProjectsEl = document.getElementById("navProjects");
-      const navAboutEl = document.getElementById("navAbout");
-      const navContactEl = document.getElementById("navContact");
+                <div class="footer-nav">
+                    <ul class="links">
+                        <li><a href="index.php">Home</a></li>
+                        <li><a href="our_service.php">Services</a></li>
+                        <li><a href="Project.php">Projects</a></li>
+                        <li><a href="about.php">About Us</a></li>
+                        <li><a href="contact.php">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
 
-      if (navHomeEl) navHomeEl.textContent = t.navHome;
-      if (navServicesEl) navServicesEl.textContent = t.navServices;
-      if (navProjectsEl) navProjectsEl.textContent = t.navProjects;
-      if (navAboutEl) navAboutEl.textContent = t.navAbout;
-      if (navContactEl) navContactEl.textContent = t.navContact;
+            <!-- Middle Column -->
+            <div class="footer-column" style="margin-left: 4rem;">
+                <h2>Online Services</h2>
+                <div class="footer-services">
+                    <ul class="links">
+                        <li><a href="online.php">Web Hosting</a></li>
+                        <li><a href="online.php">Domains</a></li>
+                        <li><a href="online.php">Certification Portal</a></li>
+                        <li><a href="online.php">Digital Makerting</a></li>
+                        <li><a href="online.php">Emails</a></li>
+                        <li><a href="online.php">Mantainance</a></li>
+                    </ul>
+                </div>
+            </div>
 
-      // HERO - replace the text node but keep heroBox innerHTML
-      const heroTitleEl = document.getElementById("heroTitle");
-      if (heroTitleEl) {
-        // Keep the heroBox element intact, update only leading text node
-        // If a plain text node exists as firstChild, update it; otherwise set textContent then reattach heroBox's innerHTML
-        const boxEl = document.getElementById("heroBox");
-        if (boxEl) {
-          // Ensure heroBox HTML is from translation
-          boxEl.innerHTML = t.heroBox;
-          // Update only the text node before heroBox
-          // Remove any existing leading text nodes, then insert new text node before heroBox
-          for (let i = 0; i < heroTitleEl.childNodes.length; i++) {
-            const node = heroTitleEl.childNodes[i];
-            if (node === boxEl) break;
-            heroTitleEl.removeChild(node);
-            i = -1; // restart loop after mutation
-          }
-          // Insert new text node at start (before heroBox)
-          heroTitleEl.insertBefore(document.createTextNode(t.heroTitle + " "), boxEl);
-        } else {
-          heroTitleEl.textContent = t.heroTitle;
-        }
-      }
+            <!-- Right Column -->
+            <div class="footer-column">
+                <h2>Contact Us</h2>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <!-- clickable call link with phone icon -->
+                        <a href="tel:+255713569816">
+                            <i class="fas fa-phone phone-icon"></i>
+                        </a>
+                        <span>
+                            <br>
+                            <a href="tel:+255713569816" style="color: #fff; text-decoration: none;">+255 713 569
+                                816</a><br>
+                            <a href="tel:+255713453464" style="color: #fff; text-decoration: none;">+255 713 453 464</a>
+                        </span>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=lazricompany@gmail.com" target="_blank"><i
+                            class="fas fa-envelope"></i></a>
+                    <span>
+                        <a href="mailto:info@lazri.org">info@lazri.org</a><br>
+                        <a href="mailto:lazriinfo@gmail.com">lazriinfo@gmail.com</a>
+                    </span>
+                </div>
 
-      // SERVICES
-      const servicesTitleEl = document.getElementById("servicesTitle");
-      if (servicesTitleEl) servicesTitleEl.textContent = t.servicesTitle;
-      const moreBtnEl = document.getElementById("moreBtn");
-      if (moreBtnEl) moreBtnEl.textContent = t.moreBtn;
+                <div class="contact-item">
+                    <a href="https://whatsapp.com/channel/0029VbBVGNg0rGiKKpfRg23W" target="_blank"><i
+                            class="fas fa-whatsapp"></i></a>
+                    <span>
+                        <a href="https://whatsapp.com/channel/0029VbBVGNg0rGiKKpfRg23W">WhatsApp Channel</a><br>
 
-      const s1 = document.getElementById("s1Title");
-      const s2 = document.getElementById("s2Title");
-      const s3 = document.getElementById("s3Title");
-      const s4 = document.getElementById("s4Title");
-      if (s1) s1.textContent = t.s1Title;
-      if (s2) s2.textContent = t.s2Title;
-      if (s3) s3.textContent = t.s3Title;
-      if (s4) s4.textContent = t.s4Title;
+                </div>
 
-      // TESTIMONIALS
-      const testimonialsTitleEl = document.getElementById("testimonialsTitle");
-      if (testimonialsTitleEl) testimonialsTitleEl.textContent = t.testimonialsTitle;
+                <div class="contact-item">
+                    <a href="https://www.google.com/maps/place/POSTA,+DAR+ES+SALAAM/@-6.8131835,39.2883643,17z"
+                        target="_blank">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </a>
+                    <span style="color: #fff;">Dar es Salaam, Tanzania</span>
+                </div>
+            </div>
+        </div>
+        </div>
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <p id="copyright" style="margin: 1.5rem 0rem 0rem 2rem;">Copyright © 2025 - Lazri Company Limited. | All
+                rights
+                reserved</p>
+            <div class="footer-links" style="margin-left: 23rem;">
+                <a href="privecy_policy.php" id="pp">Privacy Policy</a> |
+                <a href="mailto:info@lazri.co.tz" id="sm">Staff Mail</a> |
+                <a href="faq.php" id="faq">FAQs</a> |
+                <a href="terms_&_conditions.php" id="tc">Terms and Conditions</a>
+            </div>
+        </div>
 
-      const t1RoleEl = document.getElementById("t1Role");
-      const t2RoleEl = document.getElementById("t2Role");
-      const t3RoleEl = document.getElementById("t3Role");
-      const t1TextEl = document.getElementById("t1Text");
-      const t2TextEl = document.getElementById("t2Text");
-      const t3TextEl = document.getElementById("t3Text");
+        <!-- Scroll to Top -->
+        <div class="scroll-top" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+            <i class="fas fa-arrow-up"></i>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init();
 
-      if (t1RoleEl) t1RoleEl.textContent = t.t1Role;
-      if (t2RoleEl) t2RoleEl.textContent = t.t2Role;
-      if (t3RoleEl) t3RoleEl.textContent = t.t3Role;
+        // header
+        const menuToggle = document.getElementById('menu-toggle');
+        const sidebar = document.getElementById('navbar');
+        const closeBtn = document.getElementById('close-btn');
+        const header = document.querySelector('header');
 
-      if (t1TextEl) t1TextEl.textContent = t.t1Text;
-      if (t2TextEl) t2TextEl.textContent = t.t2Text;
-      if (t3TextEl) t3TextEl.textContent = t.t3Text;
-    }
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.add('active');
+            header.classList.add('sidebar-open');
+        });
 
-    // Hero Image Auto Change
-    const heroImages = [
-      "./images/campany.jpg",
-      "./images/company2.jpg",
-      "./images/company3.jpg",
-      "./images/company4.jpg",
-      "./images/company5.jpg"
-    ];
-    let currentIndex = 0;
-    const heroImageEl = document.getElementById("heroImage");
-    setInterval(() => {
-      if (!heroImageEl) return;
-      currentIndex = (currentIndex + 1) % heroImages.length;
-      heroImageEl.src = heroImages[currentIndex];
-    }, 2500);
+        closeBtn.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            header.classList.remove('sidebar-open');
+        });
 
-    // testimony active toggle
-    const cards = document.querySelectorAll(".testimonial-card");
-    cards.forEach(card => {
-      card.addEventListener("click", () => {
-        if (card.classList.contains("active")) {
-          card.classList.remove("active");
-        } else {
-          cards.forEach(c => c.classList.remove("active"));
-          card.classList.add("active");
-        }
-      });
-      card.addEventListener("touchstart", () => {
-        cards.forEach(c => c.classList.remove("active"));
-        card.classList.add("active");
-      });
-    });
-    document.addEventListener("click", (e) => {
-      if (!e.target.closest(".testimonial-card")) {
-        cards.forEach(c => c.classList.remove("active"));
-      }
-    });
-  </script>
+        // Hero Background Auto Change
+        const heroImages = [
+            "images/campany.jpg",
+            "images/company2.jpg",
+            "images/company3.jpg",
+            "images/company4.jpg",
+            "images/company5.jpg"
+        ];
 
-  <script>
-    const menuToggle = document.getElementById("menu-toggle");
-    const navbar = document.getElementById("navbar");
-    if (menuToggle && navbar) {
-      menuToggle.addEventListener("click", () => {
-        navbar.classList.toggle("active");
-      });
-    }
-  </script>
+        let bgIndex = 0;
+        const heroSection = document.getElementById("heroSection");
 
+        setInterval(() => {
+            bgIndex = (bgIndex + 1) % heroImages.length;
+            heroSection.style.backgroundImage =
+                `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)), url('${heroImages[bgIndex]}')`;
+        }, 5000);
+
+    </script>
 </body>
+
 </html>

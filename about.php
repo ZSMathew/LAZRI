@@ -494,7 +494,7 @@ nav ul li a.active::after {
                     <div class="card-header"><img src="./images/ino.jpg" alt="Inocenti Gabriel"></div>
                     <div class="card-body">
                         <h3>Inocenti Gabriel</h3>
-                        <p><strong>CEO & Founder</strong></p>
+                        <p><strong>CEO </strong></p>
                         <p>Analyst and company development expert.</p>
                     </div>
                 </div>
@@ -502,7 +502,7 @@ nav ul li a.active::after {
                     <div class="card-header"><img src="images/lucy.jpg" alt="Lucy Nguzo"></div>
                     <div class="card-body">
                         <h3>Lucy Nguzo</h3>
-                        <p><strong>Chief Executive Secretary & Founder</strong></p>
+                        <p><strong>Chief Executive Secretary </strong></p>
                         <p>Chief assistant to the CEO and company records keeper.</p>
                     </div>
                 </div>
@@ -510,7 +510,7 @@ nav ul li a.active::after {
                     <div class="card-header"><img src="images/raynell.jpg" alt="Raynell Robert"></div>
                     <div class="card-body">
                         <h3>Raynell Robert</h3>
-                        <p><strong>CFO & Founder</strong></p>
+                        <p><strong>CFO </strong></p>
                         <p>Accountant and financial affairs manager.</p>
                     </div>
                 </div>
@@ -518,7 +518,7 @@ nav ul li a.active::after {
                     <div class="card-header"><img src="images/ZAKARIA.jpg" alt="Zakaria Stephano"></div>
                     <div class="card-body">
                         <h3>Zakaria Stephano</h3>
-                        <p><strong>COO, CHRO & Founder</strong></p>
+                        <p><strong>COO, CHRO </strong></p>
                         <p>Manager of all company operations & Human Resources.</p>
                     </div>
                 </div>
@@ -526,7 +526,7 @@ nav ul li a.active::after {
                     <div class="card-header"><img src="images/anthony.png" alt="Anthony Kapinga"></div>
                     <div class="card-body">
                         <h3>Anthony Kapinga</h3>
-                        <p><strong>CMO, CTO & Founder</strong></p>
+                        <p><strong>CMO, CTO </strong></p>
                         <p>Chief technology and innovation engineer & Head of marketing and public relations.</p>
                     </div>
                 </div>

@@ -245,26 +245,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->close();
     }
 
-// CHANGE HERE: Use DB for password
+// CHANGE PASSWORD
 if (isset($_POST['change_password'])) {
+
     $current = $_POST['current_pass'] ?? '';
-    $new = $_POST['new_pass'] ?? '';
+    $new     = $_POST['new_pass'] ?? '';
     $confirm = $_POST['confirm_pass'] ?? '';
 
+    // Get admin details
     $res = $conn->query("SELECT * FROM admin WHERE username='admin' LIMIT 1");
-    if($res && $admin = $res->fetch_assoc()){
-        if(password_verify($current, $admin['password'])){
-            if($new === $confirm){
-                $new_hash = password_hash($new, PASSWORD_DEFAULT);
-                $stmt = $conn->prepare("UPDATE admin SET password=? WHERE id=?");
-                $stmt->bind_param('si', $new_hash, $admin['id']);
-                if($stmt->execute()) $msg = 'Password changed successfully.';
-                else $msg = 'Error: '.$stmt->error;
-                $stmt->close();
-            } else $msg='New passwords do not match.';
-        } else $msg='Current password incorrect.';
-    } else $msg='Admin account not found.';
+
+    if ($res && $admin = $res->fetch_assoc()) {
+
+        // Verify current password
+        if (!password_verify($current, $admin['password'])) {
+            $_SESSION['flash'] = "Current password incorrect.";
+            header("Location: admin_dashboard.php#settings");
+            exit;
+        }
+
+        // Check if new passwords match
+        if ($new !== $confirm) {
+            $_SESSION['flash'] = "New passwords do not match.";
+            header("Location: admin_dashboard.php#settings");
+            exit;
+        }
+
+        // Update password
+        $new_hash = password_hash($new, PASSWORD_DEFAULT);
+        $stmt = $conn->prepare("UPDATE admin SET password=? WHERE id=?");
+        $stmt->bind_param("si", $new_hash, $admin['id']);
+
+        if ($stmt->execute()) {
+            $_SESSION['flash'] = "Password changed successfully.";
+        } else {
+            $_SESSION['flash'] = "Error updating password: " . $stmt->error;
+        }
+
+        $stmt->close();
+        header("Location: admin_dashboard.php#settings");
+        exit;
+
+    } else {
+        $_SESSION['flash'] = "Admin account not found.";
+        header("Location: admin_dashboard.php#settings");
+        exit;
+    }
 }
+
 // Handle comment replies
 if(isset($_POST['send_reply'])){
     $id = intval($_POST['comment_id']);

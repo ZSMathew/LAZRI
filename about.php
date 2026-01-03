@@ -515,7 +515,7 @@ nav ul li a.active::after {
                     </div>
                 </div>
                 <div class="card" tabindex="0" data-aos="fade-up" data-aos-delay="400">
-                    <div class="card-header"><img src="images/ZAKARIA.jpg" alt="Zakaria Stephano"></div>
+                    <div class="card-header"><img src="images/ZAKARIA.jpeg" alt="Zakaria Stephano"></div>
                     <div class="card-body">
                         <h3>Zakaria Stephano</h3>
                         <p><strong>COO, CHRO </strong></p>
@@ -523,7 +523,7 @@ nav ul li a.active::after {
                     </div>
                 </div>
                 <div class="card" tabindex="0" data-aos="fade-up" data-aos-delay="500">
-                    <div class="card-header"><img src="images/anthony.png" alt="Anthony Kapinga"></div>
+                    <div class="card-header"><img src="images/anthony.jpeg" alt="Anthony Kapinga"></div>
                     <div class="card-body">
                         <h3>Anthony Kapinga</h3>
                         <p><strong>CMO, CTO </strong></p>
@@ -543,9 +543,23 @@ nav ul li a.active::after {
                     <p>To offer high-quality, affordable and customer-centric solutions that empower businesses and individuals to thrive in the digital era.</p>
                     <div style="margin-top:10px;"><a class="btn" href="our_service.html">Get our services</a></div>
                 </div>
-                <div style="flex:1; min-width:220px; display:grid; place-items:center;">
-                    <svg width="220" height="120" viewBox="0 0 220 120" xmlns="http://www.w3.org/2000/svg"><rect width="220" height="120" rx="10" fill="#f3f4f6"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#9ca3af" font-size="12">Illustration / Image</text></svg>
-                </div>
+                <div style="flex:1; min-width:220px; display:flex; justify-content:center;">
+    <div style="
+        width:420px;
+        height:310px;
+        border-radius:10px;
+        overflow:hidden;
+        background:#f3f4f6;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+    ">
+        <img src="images/become.png" 
+             alt="Mission Image"
+             style="width:100%; height:100%; object-fit:cover;">
+    </div>
+</div>
+
             </div>
         </div>
     </section>

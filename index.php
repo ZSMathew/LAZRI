@@ -218,6 +218,12 @@
 
         /* ===== HERO SECTION ===== */
         .hero-container {
+            background-image:
+                linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)),
+                url("images/campany.jpg");
+        }
+
+        .hero-container {
             width: 100%;
             height: 86vh;
             display: flex;
@@ -228,7 +234,8 @@
             color: #f5f7fa;
             background-size: cover;
             background-position: center;
-            transition: background-image 1s ease-in-out;
+            transition: background-image 0.4s ease-in-out;
+
         }
 
         .hero-content {
@@ -1292,6 +1299,15 @@
         let bgIndex = 0;
         const heroSection = document.getElementById("heroSection");
 
+        // ✅ Set first background IMMEDIATELY
+        heroSection.style.backgroundImage =
+            `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)), url('${heroImages[0]}')`;
+        heroImages.forEach(src => {
+            const img = new Image();
+            img.src = src;
+        });
+
+        // 🔁 Change background every 5 seconds
         setInterval(() => {
             bgIndex = (bgIndex + 1) % heroImages.length;
             heroSection.style.backgroundImage =

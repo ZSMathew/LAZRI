@@ -65,7 +65,9 @@
 
 <body>
     <div class="card">
-        <h1><i>This service is currently not available, still in process.</i></h1>
+        <h1><i>This service is currently not available, still in process<br>
+    Contact with Us for more information!
+    </i></h1>
 
         <button class="btn" onclick="history.back()">⬅ Back</button>
     </div>

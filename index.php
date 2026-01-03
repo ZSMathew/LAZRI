@@ -1135,8 +1135,8 @@
 
         <div class="testi-grid">
             <div class="testi-card">
-                <img src="images/ino.jpg" />
-                <h3>Innocent Gabriel</h3>
+        <img src="images/nob.jpeg" />
+        <h3>Norbert Cuthbert.</h3>
                 <p>“Very professional team. Delivered exactly what I needed.”</p>
                 <div class="testi-stars">★★★★★</div>
             </div>

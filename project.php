@@ -11,7 +11,6 @@ try {
                    ELSE '🚀 Upcoming'
                END as category_display
         FROM projects 
-        WHERE status = 'active'
         ORDER BY created_at DESC
     ");
 } catch (Exception $e) {
@@ -401,7 +400,13 @@ header.sidebar-open .mobile-header {
         <?php foreach ($projects as $project): ?>
           <div class="project-card <?php echo htmlspecialchars($project['category']); ?>">
             <?php if (!empty($project['image'])): ?>
-              <img src="<?php echo htmlspecialchars($project['image']); ?>" 
+              <?php 
+                $imagePath = 'uploads/' . htmlspecialchars($project['image']);
+                if (!file_exists($imagePath)) {
+                  $imagePath = htmlspecialchars($project['image']);
+                }
+              ?>
+              <img src="<?php echo $imagePath; ?>" 
                    alt="<?php echo htmlspecialchars($project['title']); ?>" 
                    class="project-image" loading="lazy">
             <?php else: ?>

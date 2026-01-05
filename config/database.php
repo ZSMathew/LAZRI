@@ -1,5 +1,5 @@
 <?php
-require_once 'config/supabase_config.php';
+require_once __DIR__ . '/supabase_config.php';
 
 class Database {
     private static $pdo = null;
@@ -59,7 +59,8 @@ class Database {
         }
         
         $stmt->execute();
-        return self::connect()->lastInsertId();
+        $result = $stmt->fetch();
+        return $result['id'] ?? null;
     }
     
     public static function update($table, $data, $where, $whereParams = []) {
@@ -89,3 +90,4 @@ class Database {
     }
 }
 ?>
+

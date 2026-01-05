@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -9,202 +10,203 @@
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
     <style>
-        :root {
-   --page-bg: #f8fbff;
-  --accent: #0047FF;
-  --dark-blue: #053a9b;
-  --gray: #f3f4f6;
-  --muted: black;
-  --white: #ffffff;
-  --shadow: 0 4px 10px rgba(0,0,0,0.1);
-  --radius: 12px;
-  --sidebar-width: 220px;
+         :root {
+            --page-bg: #f8fbff;
+            --accent: #0047FF;
+            --dark-blue: #053a9b;
+            --gray: #f3f4f6;
+            --muted: black;
+            --white: #ffffff;
+            --shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            --radius: 12px;
+            --sidebar-width: 220px;
         }
-
+        
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
-
+        
         body {
             font-family: "Segoe UI", Arial, sans-serif;
             background: var(--page-bg);
             color: #0f1724;
             line-height: 1.5;
         }
-
         /* ====== HEADER ====== */
-header {
-  background: var(--dark-blue);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 24px;
-  box-shadow: var(--shadow);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-header img { 
-  height: 50px; 
-}
-
-nav ul {
-  display: flex;
-  gap: 20px;
-  list-style: none;
-}
-nav ul li {
-  position: relative; 
-}
-nav ul li a {
-  position: relative;
-  text-decoration: none;
-  color: var(--white);
-  font-weight: 500;
-  padding: 8px 12px;
-  transition: color 0.3s;
-}
-nav ul li a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 2px;
-  width: 0%;
-  background: #ffd700;
-  transition: width 0.3s ease;
-}
-nav ul li a:hover {
-  color: #ffd700;
-}
-nav ul li a:hover::after {
-  width: 100%; 
-}
-nav ul li a.active {
-  color: #ffd700;
-  font-weight: bold;
-}
-nav ul li a.active::after { 
-  width: 100%;
-}  
-
-/* Hamburger button */
-.menu-toggle {
-  display: none;
-  font-size: 28px;
-  cursor: pointer;
-  color: #fff;
-}
-
-/* Logo + company name */
-.logo-center {
-  display: flex;
-  align-items: center;
-}
-.logo-center img {
-  height: 45px;
-  margin-right: 10px;
-}
-.company-name {
-  font-weight: bold;
-  font-size: 16px;
-  color: #fff;
-}
-
-/* ===== MOBILE SIDEBAR ===== */
-@media (max-width: 768px) {
-  header {
-    flex-direction: column;
-    padding: 0;
-  }
-
-  .mobile-header {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 12px;
-    padding: 10px;
-    width: 100%;
-    background: var(--dark-blue);
-    color: #fff;
-    position: relative;
-    transition: transform 0.35s cubic-bezier(.2,.9,.3,1);
-  }
-
-  .menu-toggle {
-    display: block;
-    font-size: 28px;
-    cursor: pointer;
-    color: #fff;
-  }
-
-  .logo-center img {
-    height: 42px;
-    margin-left: 45px;
-  }
-  .company-name {
-    font-size: 15px;
-    white-space: nowrap;
-    margin-left: 10px;
-  }
-
-  .sidebar {
-    position: fixed;
-    left: -70%;
-    top: 0;
-    height: auto;
-    width: 60%;
-    max-width: 300px;
-    background: var(--dark-blue);
-    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.3);
-    transition: left 0.32s cubic-bezier(.25,.8,.25,1);
-    padding: 70px 0 20px 0;
-    border-bottom-right-radius: 12px;
-    z-index: 2000;
-    overflow-y: auto;
-  }
-
-  .sidebar.active {
-    left: 0;
-  }
-
-  .sidebar ul {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 0 20px;
-  }
-
-  .sidebar ul li a {
-    color: #fff;
-    display: block;
-    padding: 12px;
-    text-decoration: none;
-    border-radius: 6px;
-    transition: background 0.3s, color 0.3s;
-  }
-
-  .sidebar ul li a:hover {
-    background: rgba(255, 255, 255, 0.12);
-    color: #ffd700;
-  }
-
-  .close-btn {
-    position: absolute;
-    top: 12px;
-    right: 15px;
-    font-size: 28px;
-    cursor: pointer;
-    color: #fff;
-  }
-
-  header.sidebar-open .mobile-header {
-    transform: translateX(var(--sidebar-width));
-  }
-}
+        
+        header {
+            background: var(--dark-blue);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 24px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        header img {
+            height: 50px;
+        }
+        
+        nav ul {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+        
+        nav ul li {
+            position: relative;
+        }
+        
+        nav ul li a {
+            position: relative;
+            text-decoration: none;
+            color: var(--white);
+            font-weight: 500;
+            padding: 8px 12px;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 2px;
+            width: 0%;
+            background: #ffd700;
+            transition: width 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: #ffd700;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        nav ul li a.active {
+            color: #ffd700;
+            font-weight: bold;
+        }
+        
+        nav ul li a.active::after {
+            width: 100%;
+        }
+        /* Hamburger button */
+        
+        .menu-toggle {
+            display: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #fff;
+        }
+        /* Logo + company name */
+        
+        .logo-center {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-center img {
+            height: 45px;
+            margin-right: 10px;
+        }
+        
+        .company-name {
+            font-weight: bold;
+            font-size: 16px;
+            color: #fff;
+        }
+        /* ===== MOBILE SIDEBAR ===== */
+        
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 0;
+            }
+            .mobile-header {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 12px;
+                padding: 10px;
+                width: 100%;
+                background: var(--dark-blue);
+                color: #fff;
+                position: relative;
+                transition: transform 0.35s cubic-bezier(.2, .9, .3, 1);
+            }
+            .menu-toggle {
+                display: block;
+                font-size: 28px;
+                cursor: pointer;
+                color: #fff;
+            }
+            .logo-center img {
+                height: 42px;
+                margin-left: 45px;
+            }
+            .company-name {
+                font-size: 15px;
+                white-space: nowrap;
+                margin-left: 10px;
+            }
+            .sidebar {
+                position: fixed;
+                left: -70%;
+                top: 0;
+                height: auto;
+                width: 60%;
+                max-width: 300px;
+                background: var(--dark-blue);
+                box-shadow: 4px 0 12px rgba(0, 0, 0, 0.3);
+                transition: left 0.32s cubic-bezier(.25, .8, .25, 1);
+                padding: 70px 0 20px 0;
+                border-bottom-right-radius: 12px;
+                z-index: 2000;
+                overflow-y: auto;
+            }
+            .sidebar.active {
+                left: 0;
+            }
+            .sidebar ul {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+                padding: 0 20px;
+            }
+            .sidebar ul li a {
+                color: #fff;
+                display: block;
+                padding: 12px;
+                text-decoration: none;
+                border-radius: 6px;
+                transition: background 0.3s, color 0.3s;
+            }
+            .sidebar ul li a:hover {
+                background: rgba(255, 255, 255, 0.12);
+                color: #ffd700;
+            }
+            .close-btn {
+                position: absolute;
+                top: 12px;
+                right: 15px;
+                font-size: 28px;
+                cursor: pointer;
+                color: #fff;
+            }
+            header.sidebar-open .mobile-header {
+                transform: translateX(var(--sidebar-width));
+            }
+        }
+        
         section {
             padding: 60px 20px;
             max-width: 1200px;
@@ -212,61 +214,63 @@ nav ul li a.active::after {
             text-align: center;
             scroll-margin-top: 84px;
         }
-
+        
         section h2 {
             font-size: 32px;
             margin-bottom: 10px;
             color: #111;
         }
-
+        
         section p {
             color: #666;
             margin-bottom: 40px;
             text-align: left;
         }
-
+        
         .section-card {
             background: #fff;
             padding: 22px;
             border-radius: 12px;
-            border: 1px solid rgba(0,0,0,0.04);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
             max-width: 1100px;
             margin: 0 auto 30px;
             text-align: left;
         }
-
-.team-container {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-.team-container .card {
-    width: 100%;
-    max-width: 210px;
-}
+        
+        .team-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .team-container .card {
+            width: 100%;
+            max-width: 210px;
+        }
+        
         .card {
             background: #fff;
             border-radius: 12px;
-            border: 1px solid rgba(0,0,0,0.04);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
             margin: 0 auto;
             transition: transform .22s ease, box-shadow .22s ease;
             cursor: pointer;
         }
-
+        
         .card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 18px 36px rgba(0,0,0,0.18);
+            box-shadow: 0 18px 36px rgba(0, 0, 0, 0.18);
         }
-
+        
         .card-header {
             background: var(--accent);
             height: 80px;
             position: relative;
         }
-
+        
         .card-header img {
             width: 100px;
             height: 100px;
@@ -280,28 +284,28 @@ nav ul li a.active::after {
             background: #fff;
             transition: transform .22s ease;
         }
-
+        
         .card:hover .card-header img {
             transform: translateX(-50%) scale(1.06);
         }
-
+        
         .card-body {
             padding: 60px 20px 20px;
             text-align: center;
         }
-
+        
         .card-body h3 {
             margin: 10px 0 5px;
             font-size: 20px;
             color: #2c3e50;
         }
-
+        
         .card-body p {
             margin: 5px 0;
             font-size: 14px;
             color: #555;
         }
-
+        
         .btn {
             display: inline-block;
             padding: 10px 20px;
@@ -311,27 +315,27 @@ nav ul li a.active::after {
             text-decoration: none;
             font-weight: 700;
         }
-
+        
         .btn:hover {
             background: #0033cc;
         }
-
         /* Core Values */
+        
         #core-values {
             margin-top: 30px;
             text-align: center;
         }
-
+        
         .cv-wrapper {
-            background: rgba(255,255,255,0.95);
+            background: rgba(255, 255, 255, 0.95);
             padding: 24px;
             border-radius: 12px;
             max-width: 1100px;
             margin: 0 auto;
-            border: 1px solid rgba(0,0,0,0.04);
-            box-shadow: 0 10px 28px rgba(0,0,0,0.18);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
         }
-
+        
         #core-values h2 {
             margin: 0 0 8px 0;
             color: #111;
@@ -339,7 +343,7 @@ nav ul li a.active::after {
             text-transform: uppercase;
             letter-spacing: .6px;
         }
-
+        
         #core-values p.lead {
             margin: 6px 0 18px 0;
             color: #6b7280;
@@ -347,13 +351,13 @@ nav ul li a.active::after {
             max-width: 900px;
             text-transform: lowercase;
         }
-
+        
         .values-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 14px;
         }
-
+        
         .value-card {
             display: flex;
             gap: 12px;
@@ -361,17 +365,17 @@ nav ul li a.active::after {
             background: #fff;
             padding: 18px;
             border-radius: 10px;
-            border: 1px solid rgba(0,0,0,0.04);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
             transition: transform .18s ease, box-shadow .18s ease;
             cursor: pointer;
         }
-
+        
         .value-card:hover {
             transform: translateY(-6px);
-            box-shadow: 0 18px 36px rgba(0,0,0,0.12);
+            box-shadow: 0 18px 36px rgba(0, 0, 0, 0.12);
         }
-
+        
         .value-icon {
             width: 46px;
             height: 46px;
@@ -381,107 +385,126 @@ nav ul li a.active::after {
             place-items: center;
             color: #fff;
         }
-
+        
         .value-icon svg {
             width: 22px;
             height: 22px;
         }
-
+        
         .value-icon svg path {
             fill: currentColor;
         }
-
+        
         .value-content h3 {
             margin: 0 0 8px 0;
             color: var(--accent);
             font-size: 18px;
         }
-
+        
         .value-content p {
             margin: 0;
             color: #555;
             font-size: 16px;
             line-height: 1.6;
         }
-
         /* colored icons */
-        .values-grid .value-card:nth-child(1) .value-icon {
-             background: linear-gradient(135deg, #7c3aed, #4f46e5);}
-        .values-grid .value-card:nth-child(2) .value-icon {
-             background: linear-gradient(135deg, #06b6d4, #0891b2);}
-        .values-grid .value-card:nth-child(3) .value-icon { 
-            background: linear-gradient(135deg, #10b981, #059669);}
-        .values-grid .value-card:nth-child(4) .value-icon {
-             background: linear-gradient(135deg, #f59e0b, #d97706);}
-        .values-grid .value-card:nth-child(5) .value-icon { 
-            background: linear-gradient(135deg, #fb7185, #f97316);}
-        .values-grid .value-card:nth-child(6) .value-icon {
-             background: linear-gradient(135deg, #6366f1, #4338ca);}
         
-        /* Responsive */
-/* Large screens – 5 cards inline */
-@media(min-width: 1100px) {
-    .team-container .card {
-        max-width: calc((100% - 80px) / 5);
-    }
-}
-
-/* Medium screens – 3 cards inline */
-@media(max-width: 1000px) and (min-width: 700px) {
-    .team-container .card {
-        max-width: calc((100% - 40px) / 3);
-    }
-}
-
-/* Tablets – 2 cards inline */
-@media(max-width: 700px) and (min-width: 480px) {
-    .team-container .card {
-        max-width: calc((100% - 20px) / 2);
-    }
-}
-
-/* Small phones – 1 card per row */
-@media(max-width: 480px) {
-    .team-container .card {
-        max-width: 100%;
-    }
-}
-
-@media(max-width:900px){
-    .values-grid{grid-template-columns:repeat(2,1fr);
-    }
-}
-    @media(max-width:520px){
-            .values-grid{grid-template-columns:1fr;}
-            .value-content p{font-size:15px;line-height:1.5;}
-            .value-content h3{font-size:17px;}
+        .values-grid .value-card:nth-child(1) .value-icon {
+            background: linear-gradient(135deg, #7c3aed, #4f46e5);
         }
         
+        .values-grid .value-card:nth-child(2) .value-icon {
+            background: linear-gradient(135deg, #06b6d4, #0891b2);
+        }
+        
+        .values-grid .value-card:nth-child(3) .value-icon {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+        
+        .values-grid .value-card:nth-child(4) .value-icon {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+        }
+        
+        .values-grid .value-card:nth-child(5) .value-icon {
+            background: linear-gradient(135deg, #fb7185, #f97316);
+        }
+        
+        .values-grid .value-card:nth-child(6) .value-icon {
+            background: linear-gradient(135deg, #6366f1, #4338ca);
+        }
+        /* Responsive */
+        /* Large screens – 5 cards inline */
+        
+        @media(min-width: 1100px) {
+            .team-container .card {
+                max-width: calc((100% - 80px) / 5);
+            }
+        }
+        /* Medium screens – 3 cards inline */
+        
+        @media(max-width: 1000px) and (min-width: 700px) {
+            .team-container .card {
+                max-width: calc((100% - 40px) / 3);
+            }
+        }
+        /* Tablets – 2 cards inline */
+        
+        @media(max-width: 700px) and (min-width: 480px) {
+            .team-container .card {
+                max-width: calc((100% - 20px) / 2);
+            }
+        }
+        /* Small phones – 1 card per row */
+        
+        @media(max-width: 480px) {
+            .team-container .card {
+                max-width: 100%;
+            }
+        }
+        
+        @media(max-width:900px) {
+            .values-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media(max-width:520px) {
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+            .value-content p {
+                font-size: 15px;
+                line-height: 1.5;
+            }
+            .value-content h3 {
+                font-size: 17px;
+            }
+        }
     </style>
 </head>
 
 <body>
 
     <header>
-  <div class="mobile-header">
-    <div class="menu-toggle" id="menu-toggle">☰</div>
-    <a href="index.html" class="logo-center">
-      <img src="./images/Logo2.png" alt="Lazri Company Logo">
-    </a>
-    <span class="company-name">LAZRI Company</span>
-  </div>
+        <div class="mobile-header">
+            <div class="menu-toggle" id="menu-toggle">☰</div>
+            <a href="index.html" class="logo-center">
+                <img src="./images/Logo2.png" alt="Lazri Company Logo">
+            </a>
+            <span class="company-name">LAZRI Company</span>
+        </div>
 
-  <nav id="navbar" class="sidebar">
-    <span class="close-btn" id="close-btn">&times;</span>
-    <ul>
-      <li><a href="index.html"><b>Home</b></a></li>
-      <li><a href="our_service.html"><b>Our Services</b></a></li>
-      <li><a href="Project.html"><b>Our Projects</b></a></li>
-      <li><a href="about.html" class="active"><b>About Us</b></a></li>
-      <li><a href="contact.html"><b>Contact Us</b></a></li>
-    </ul>
-  </nav>
-</header>
+        <nav id="navbar" class="sidebar">
+            <span class="close-btn" id="close-btn">&times;</span>
+            <ul>
+                <li><a href="index.php"><b>Home</b></a></li>
+                <li><a href="our_service.php"><b>Our Services</b></a></li>
+                <li><a href="Project.php"><b>Our Projects</b></a></li>
+                <li><a href="about.php" class="active"><b>About Us</b></a></li>
+                <li><a href="contact.php"><b>Contact Us</b></a></li>
+            </ul>
+        </nav>
+    </header>
     <!-- Team Section -->
     <section data-aos="fade-up">
         <div class="section-card">
@@ -493,7 +516,7 @@ nav ul li a.active::after {
                     <div class="card-header"><img src="./images/ino.jpg" alt="Inocenti Gabriel"></div>
                     <div class="card-body">
                         <h3>Inocenti Gabriel</h3>
-                        <p><strong>CEO & Founder</strong></p>
+                        <p><strong>CEO </strong></p>
                         <p>Analyst and company development expert.</p>
                     </div>
                 </div>
@@ -501,7 +524,7 @@ nav ul li a.active::after {
                     <div class="card-header"><img src="images/lucy.jpg" alt="Lucy Nguzo"></div>
                     <div class="card-body">
                         <h3>Lucy Nguzo</h3>
-                        <p><strong>Chief Executive Secretary & Founder</strong></p>
+                        <p><strong>Chief Executive Secretary </strong></p>
                         <p>Chief assistant to the CEO and company records keeper.</p>
                     </div>
                 </div>
@@ -509,23 +532,23 @@ nav ul li a.active::after {
                     <div class="card-header"><img src="images/raynell.jpg" alt="Raynell Robert"></div>
                     <div class="card-body">
                         <h3>Raynell Robert</h3>
-                        <p><strong>CFO & Founder</strong></p>
+                        <p><strong>CFO </strong></p>
                         <p>Accountant and financial affairs manager.</p>
                     </div>
                 </div>
                 <div class="card" tabindex="0" data-aos="fade-up" data-aos-delay="400">
-                    <div class="card-header"><img src="images/ZAKARIA.jpg" alt="Zakaria Stephano"></div>
+                    <div class="card-header"><img src="images/ZAKARIA.jpeg" alt="Zakaria Stephano"></div>
                     <div class="card-body">
                         <h3>Zakaria Stephano</h3>
-                        <p><strong>COO, CHRO & Founder</strong></p>
+                        <p><strong>COO, CHRO </strong></p>
                         <p>Manager of all company operations & Human Resources.</p>
                     </div>
                 </div>
                 <div class="card" tabindex="0" data-aos="fade-up" data-aos-delay="500">
-                    <div class="card-header"><img src="images/anthony.png" alt="Anthony Kapinga"></div>
+                    <div class="card-header"><img src="images/anthony.jpeg" alt="Anthony Kapinga"></div>
                     <div class="card-body">
                         <h3>Anthony Kapinga</h3>
-                        <p><strong>CMO, CTO & Founder</strong></p>
+                        <p><strong>CMO, CTO </strong></p>
                         <p>Chief technology and innovation engineer & Head of marketing and public relations.</p>
                     </div>
                 </div>
@@ -542,9 +565,21 @@ nav ul li a.active::after {
                     <p>To offer high-quality, affordable and customer-centric solutions that empower businesses and individuals to thrive in the digital era.</p>
                     <div style="margin-top:10px;"><a class="btn" href="our_service.html">Get our services</a></div>
                 </div>
-                <div style="flex:1; min-width:220px; display:grid; place-items:center;">
-                    <svg width="220" height="120" viewBox="0 0 220 120" xmlns="http://www.w3.org/2000/svg"><rect width="220" height="120" rx="10" fill="#f3f4f6"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#9ca3af" font-size="12">Illustration / Image</text></svg>
+                <div style="flex:1; min-width:220px; display:flex; justify-content:center;">
+                    <div style="
+        width:420px;
+        height:310px;
+        border-radius:10px;
+        overflow:hidden;
+        background:#f3f4f6;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+    ">
+                        <img src="images/become.png" alt="Mission Image" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
                 </div>
+
             </div>
         </div>
     </section>
@@ -657,22 +692,25 @@ nav ul li a.active::after {
     <!-- AOS JS -->
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script>
-        AOS.init({ once:true });
+        AOS.init({
+            once: true
+        });
 
-const menuToggle = document.getElementById('menu-toggle');
-const sidebar = document.getElementById('navbar');
-const closeBtn = document.getElementById('close-btn');
-const header = document.querySelector('header');
+        const menuToggle = document.getElementById('menu-toggle');
+        const sidebar = document.getElementById('navbar');
+        const closeBtn = document.getElementById('close-btn');
+        const header = document.querySelector('header');
 
-menuToggle.addEventListener('click', () => {
-  sidebar.classList.add('active');
-  header.classList.add('sidebar-open');
-});
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.add('active');
+            header.classList.add('sidebar-open');
+        });
 
-closeBtn.addEventListener('click', () => {
-  sidebar.classList.remove('active');
-  header.classList.remove('sidebar-open');
-});
-</script>
+        closeBtn.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            header.classList.remove('sidebar-open');
+        });
+    </script>
 </body>
+
 </html>

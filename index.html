@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-         :root {
+        :root {
             --blue: #0b66ff;
             --dark-blue: #053a9b;
             --gray: #f3f4f6;
@@ -18,13 +18,13 @@
             --radius: 12px;
             --sidebar-width: 220px;
         }
-        
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
-        
+
         body {
             font-family: "Segoe UI", Arial, sans-serif;
             line-height: 1.6;
@@ -32,8 +32,8 @@
             margin: 0;
             padding: 0;
         }
+
         /* ====== HEADER ====== */
-        
         header {
             background: var(--dark-blue);
             display: flex;
@@ -45,21 +45,21 @@
             top: 0;
             z-index: 1000;
         }
-        
+
         header img {
             height: 50px;
         }
-        
+
         nav ul {
             display: flex;
             gap: 20px;
             list-style: none;
         }
-        
+
         nav ul li {
             position: relative;
         }
-        
+
         nav ul li a {
             position: relative;
             text-decoration: none;
@@ -68,7 +68,7 @@
             padding: 8px 12px;
             transition: color 0.3s;
         }
-        
+
         nav ul li a::after {
             content: "";
             position: absolute;
@@ -79,55 +79,56 @@
             background: var(--white);
             transition: width 0.3s ease;
         }
-        
+
         nav ul li a:hover {
             color: #ffd700;
         }
-        
+
         nav ul li a:hover::after {
             width: 100%;
         }
-        
+
         nav ul li a.active {
             color: #ffd700;
             font-weight: bold;
         }
-        
+
         nav ul li a.active::after {
             width: 100%;
         }
+
         /* Hamburger button */
-        
         .menu-toggle {
             display: none;
             font-size: 28px;
             cursor: pointer;
             color: #fff;
         }
+
         /* Logo + company name */
-        
         .logo-center {
             display: flex;
             align-items: center;
         }
-        
+
         .logo-center img {
             height: 45px;
             margin-right: 10px;
         }
-        
+
         .company-name {
             font-weight: bold;
             font-size: 16px;
             color: #fff;
         }
+
         /* ===== MOBILE SIDEBAR ===== */
-        
         @media (max-width: 768px) {
             header {
                 flex-direction: column;
                 padding: 0;
             }
+
             .mobile-header {
                 display: flex;
                 align-items: center;
@@ -140,21 +141,25 @@
                 position: relative;
                 transition: transform 0.35s cubic-bezier(.2, .9, .3, 1);
             }
+
             .menu-toggle {
                 display: block;
                 font-size: 28px;
                 cursor: pointer;
                 color: #fff;
             }
+
             .logo-center img {
                 height: 42px;
                 margin-left: 45px;
             }
+
             .company-name {
                 font-size: 15px;
                 white-space: nowrap;
                 margin-left: 10px;
             }
+
             .sidebar {
                 position: fixed;
                 left: -70%;
@@ -170,9 +175,11 @@
                 z-index: 2000;
                 overflow-y: auto;
             }
+
             .sidebar.active {
                 left: 0;
             }
+
             .sidebar ul {
                 display: flex;
                 flex-direction: column;
@@ -180,6 +187,7 @@
                 gap: 10px;
                 padding: 0 20px;
             }
+
             .sidebar ul li a {
                 color: #fff;
                 display: block;
@@ -188,10 +196,12 @@
                 border-radius: 6px;
                 transition: background 0.3s, color 0.3s;
             }
+
             .sidebar ul li a:hover {
                 background: rgba(255, 255, 255, 0.12);
                 color: #ffd700;
             }
+
             .close-btn {
                 position: absolute;
                 top: 12px;
@@ -200,12 +210,19 @@
                 cursor: pointer;
                 color: #fff;
             }
+
             header.sidebar-open .mobile-header {
                 transform: translateX(var(--sidebar-width));
             }
         }
+
         /* ===== HERO SECTION ===== */
-        
+        .hero-container {
+            background-image:
+                linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)),
+                url("images/campany.jpg");
+        }
+
         .hero-container {
             width: 100%;
             height: 86vh;
@@ -217,24 +234,25 @@
             color: #f5f7fa;
             background-size: cover;
             background-position: center;
-            transition: background-image 1s ease-in-out;
+            transition: background-image 0.4s ease-in-out;
+
         }
-        
+
         .hero-content {
             max-width: 850px;
         }
-        
+
         .hero-title {
             font-size: 3rem;
             font-weight: 700;
             margin-bottom: 15px;
         }
-        
+
         .hero-subtitle {
             font-size: 1.2rem;
             margin-bottom: 25px;
         }
-        
+
         .hero-btn {
             background: #0b66ff;
             color: white;
@@ -245,24 +263,25 @@
             font-weight: bold;
             transition: 0.3s;
         }
-        
+
         .hero-btn:hover {
             background: #053a9b;
         }
+
+
         /* ===== ICON FEATURES SECTION ===== */
-        
         .features-section {
             padding: 60px 20px;
             text-align: center;
             background: white;
         }
-        
+
         .features-title {
             font-size: 2.3rem;
             margin-bottom: 40px;
             color: #053a9b;
         }
-        
+
         .features-container {
             max-width: 1200px;
             margin: auto;
@@ -270,7 +289,7 @@
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 25px;
         }
-        
+
         .feature-box {
             background: #f5f7fa;
             padding: 25px;
@@ -278,41 +297,42 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             transition: 0.3s;
         }
-        
+
         .feature-box:hover {
             transform: translateY(-8px);
             box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
         }
-        
+
         .feature-box i {
             font-size: 40px;
             color: #0b66ff;
             margin-bottom: 15px;
         }
-        
+
         .feature-box h3 {
             font-size: 1.3rem;
             margin-bottom: 10px;
         }
-        
+
         .feature-box p {
             font-size: 0.95rem;
             color: #444;
         }
+
+
         /* ===== SERVICES PREVIEW ===== */
-        
         .services-preview {
             background: #f5f7fa;
             padding: 70px 20px;
             text-align: center;
         }
-        
+
         .services-preview h2 {
             font-size: 2.4rem;
             margin-bottom: 35px;
             color: #053a9b;
         }
-        
+
         .service-grid {
             max-width: 1200px;
             margin: auto;
@@ -320,7 +340,7 @@
             grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
             gap: 25px;
         }
-        
+
         .service-card {
             background: white;
             border-radius: 12px;
@@ -329,23 +349,23 @@
             transition: 0.3s;
             text-align: center;
         }
-        
+
         .service-card:hover {
             transform: translateY(-10px);
         }
-        
+
         .service-card img {
             width: 100%;
             height: 180px;
             object-fit: cover;
             border-radius: 10px;
         }
-        
+
         .service-card h3 {
             margin: 12px 0;
             color: #004aad;
         }
-        
+
         .service-link {
             margin-top: 30px;
             display: inline-block;
@@ -357,24 +377,25 @@
             transition: 0.3s;
             font-weight: bold;
         }
-        
+
         .service-link:hover {
             background: #003080;
         }
+
+
         /* ===== TESTIMONIAL Section Short Version ===== */
-        
         .short-testimonials {
             background: #f3f4f6;
             padding: 70px 20px;
             text-align: center;
         }
-        
+
         .short-testimonials h2 {
             font-size: 2.2rem;
             margin-bottom: 40px;
             color: #053a9b;
         }
-        
+
         .testi-grid {
             max-width: 1000px;
             margin: auto;
@@ -382,8 +403,10 @@
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 25px;
         }
+
+
         /* Stats section */
-        
+
         .stats-section {
             display: flex;
             justify-content: center;
@@ -395,20 +418,20 @@
             background-color: white;
             align-items: flex-start;
         }
-        
+
         .stat-box {
             text-align: center;
             max-width: 280px;
             width: 250px;
         }
-        
+
         .circle-wrapper {
             position: relative;
             width: 160px;
             height: 160px;
             margin: 0 auto 20px
         }
-        
+
         .circle-outer {
             width: 100%;
             height: 100%;
@@ -417,7 +440,7 @@
             border-radius: 50%;
             animation: spin 6s linear infinite
         }
-        
+
         .circle-inner {
             position: absolute;
             top: 50%;
@@ -427,7 +450,7 @@
             font-weight: 700;
             color: var(--dark-blue)
         }
-        
+
         .stat-title {
             font-weight: 700;
             text-transform: uppercase;
@@ -435,45 +458,50 @@
             color: var(--dark-blue);
             letter-spacing: 0.6px
         }
-        
+
         .stat-desc {
             font-size: 15px;
             line-height: 1.6;
             text-align: left;
             color: var(--muted)
         }
-        
+
         @keyframes spin {
             from {
                 transform: rotate(0)
             }
+
             to {
                 transform: rotate(360deg)
             }
         }
-        
+
         @media (max-width:768px) {
             .team-container {
                 padding: 28px 12px
             }
+
             .stats-section {
                 padding: 28px 12px
             }
+
             .circle-inner {
                 font-size: 34px
             }
         }
-        
+
         @media (prefers-reduced-motion:reduce) {
             .circle-outer {
                 animation: none
             }
+
             .card {
                 transition: none
             }
         }
+
         /* Modal styles */
-        
+
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -484,11 +512,11 @@
             padding: 20px;
             z-index: 1200
         }
-        
+
         .modal-overlay[aria-hidden="false"] {
             display: flex
         }
-        
+
         .modal {
             background: var(--glass);
             backdrop-filter: blur(6px);
@@ -498,46 +526,46 @@
             box-shadow: 0 18px 50px rgba(6, 8, 15, 0.4);
             overflow: hidden
         }
-        
+
         .modal-content {
             display: flex;
             gap: 20px;
             padding: 20px
         }
-        
+
         .modal-left {
             min-width: 160px;
             display: flex;
             flex-direction: column;
             align-items: center
         }
-        
+
         .modal-left img {
             width: 120px;
             height: 120px;
             border-radius: 12px;
             object-fit: cover
         }
-        
+
         .modal-right {
             flex: 1
         }
-        
+
         .modal-right h2 {
             margin: 0 0 6px
         }
-        
+
         .modal-right p {
             margin: 4px 0;
             color: var(--muted)
         }
-        
+
         .modal-highlights {
             margin-top: 8px;
             padding-left: 18px;
             color: var(--muted)
         }
-        
+
         .modal-actions {
             display: flex;
             gap: 8px;
@@ -546,7 +574,7 @@
             border-top: 1px solid rgba(15, 23, 36, 0.05);
             background: transparent
         }
-        
+
         .modal-close {
             background: transparent;
             border: 0;
@@ -555,7 +583,7 @@
             padding: 8px;
             cursor: pointer
         }
-        
+
         .primary-action {
             background: var(--blue);
             color: #fff;
@@ -564,14 +592,15 @@
             border: 0;
             cursor: pointer
         }
+
         /* Make modal focusable outline visible */
-        
+
         .primary-action:focus,
         .modal-close:focus {
             outline: 3px solid rgba(0, 150, 255, 0.18);
             outline-offset: 2px
         }
-        
+
         .testi-card {
             background: white;
             padding: 20px;
@@ -579,11 +608,11 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             transition: 0.3s;
         }
-        
+
         .testi-card:hover {
             transform: translateY(-10px);
         }
-        
+
         .testi-card img {
             width: 80px;
             height: 80px;
@@ -591,35 +620,36 @@
             object-fit: cover;
             margin-bottom: 12px;
         }
-        
+
         .testi-stars {
             color: #ffd700;
             margin-top: 10px;
         }
-        
+
         @media(max-width:768px) {
             .hero-title {
                 font-size: 2.1rem;
             }
+
             .hero-container {
                 height: 70vh;
             }
         }
+
         /* Footer */
-        
         .footer {
             background: black;
             padding: 50px 20px 30px;
             position: relative;
         }
-        
+
         .footer-container {
             display: flex;
             justify-content: space-between;
             flex-wrap: wrap;
             margin-left: 4rem;
         }
-        
+
         .footer-column {
             flex: 1;
             padding: 20px;
@@ -627,28 +657,28 @@
             position: relative;
             align-content: center;
         }
-        
+
         .footer h2 {
             font-size: 24px;
             font-weight: 50px;
             margin-bottom: 15px;
             color: white;
         }
-        
+
         .footer p,
         .footer a,
         .footer span {
             font-size: 15px;
         }
+
         /* Social Icons */
-        
         .social-icons {
             display: flex;
             gap: 15px;
             margin-bottom: 20px;
             margin-top: 20px;
         }
-        
+
         .social-icons a {
             display: flex;
             justify-content: center;
@@ -662,62 +692,62 @@
             text-decoration: none;
             transition: all 0.3s ease;
         }
-        
+
         .social-icons a:hover {
             background: blue;
             color: white;
             transform: scale(1.1);
         }
+
         /* Navigation under social */
-        
         .footer-nav {
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
-        
+
         .footer-nav a {
             color: #fff;
             text-decoration: none;
             transition: transform 0.3s ease;
         }
-        
+
         .footer-nav a:hover {
             transform: translateY(5px);
             color: blue;
         }
+
         /* Middle column services */
-        
         .footer-services {
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
-        
+
         .footer-services a {
             color: #fff;
             text-decoration: none;
             transition: transform 0.3s ease, color 0.3s ease;
         }
-        
+
         .footer-services a:hover {
             transform: translateX(10px);
             color: blue;
         }
+
         /* Right column contact */
-        
         .contact-info {
             display: flex;
             flex-direction: column;
             gap: 15px;
         }
-        
+
         .contact-item {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-        
+
         .contact-item i {
             display: flex;
             justify-content: center;
@@ -730,36 +760,36 @@
             font-size: 20px;
             transition: all 0.3s ease;
         }
-        
+
         .contact-item i:hover {
             background: blue;
             color: white;
         }
-        
+
         .contact-item a {
             color: #fff;
             text-decoration: none;
             transition: color 0.3s ease;
         }
-        
+
         .footer-bottom {
             border-top: 1px solid black;
             font-size: 13px;
             color: white;
             display: flex;
         }
-        
+
         .links {
             list-style: none;
             padding: 0;
         }
-        
+
         .links li {
             margin: 8px 0;
             font-size: 15px;
             position: relative;
         }
-        
+
         .links li a {
             color: #fff;
             text-decoration: none;
@@ -767,20 +797,22 @@
             display: inline-block;
             transition: color 0.3s ease;
         }
+
+
+
         /* hover:  links */
-        
         .links li a:hover {
             color: darkblue;
         }
-        
+
         .links li a:hover::before {
             color: darkblue;
         }
-        
+
         .footer-links {
             margin: 15px 0 90;
         }
-        
+
         .footer-links a {
             margin: 0 10px;
             color: white;
@@ -788,137 +820,164 @@
             text-decoration: none;
             transition: color 0.3s ease;
         }
-        
+
         .footer-links a:hover {
             color: darkblue;
             /* consistent na links zingine */
         }
+
         /* ===== MOBILE FIXES ===== */
-        
         @media (max-width: 768px) {
             .footer h2 {
                 font-size: 20px;
             }
+
             .footer p,
             .footer a,
             .footer span {
                 font-size: 16px;
             }
+
             .social-icons a {
                 width: 40px;
                 height: 40px;
                 font-size: 18px;
             }
+
             .scroll-top {
                 width: 40px;
                 height: 40px;
             }
+
             .scroll-top i {
                 font-size: 18px;
             }
         }
+
         /* Responsive */
-        
         @media (max-width: 992px) {
             .split-container {
                 grid-template-columns: 1fr;
             }
+
             .left-side {
                 padding: 40px 30px;
                 text-align: center;
                 align-items: center;
             }
+
             .right-side {
                 padding: 40px 30px;
             }
         }
+
         /* =================== RESPONSIVE DESIGN =================== */
+
         /* Tablet (768px and below) */
-        
         @media (max-width: 992px) {
             header {
                 flex-direction: column;
                 align-items: flex-start;
             }
+
             nav ul {
                 flex-wrap: wrap;
                 gap: 12px;
             }
+
             .hero {
                 flex-direction: column;
                 text-align: center;
             }
+
             .hero-text {
                 font-size: 22px;
             }
+
             .hero-img img {
                 width: 100%;
                 height: auto;
             }
+
             .footer-container {
                 flex-direction: column;
                 margin-left: 0;
             }
+
             .footer-column {
                 margin-bottom: 20px;
             }
+
             .footer-bottom {
                 flex-direction: column;
                 text-align: center;
             }
+
             .footer-links {
                 margin-left: 0 !important;
                 margin-top: 10px;
             }
         }
+
         /* Mobile (480px and below) */
-        
         @media (max-width: 576px) {
             header {
                 padding: 10px;
                 flex-direction: column;
             }
+
             nav ul {
                 flex-direction: column;
                 gap: 8px;
                 align-items: flex-start;
             }
+
             nav ul li a {
                 font-size: 14px;
                 padding: 6px 8px;
             }
+
             .hero {
                 padding: 20px;
             }
+
             .hero-text {
                 font-size: 18px;
             }
+
             .hero-box {
                 font-size: 14px;
             }
+
             .services-section h2 {
                 font-size: 1.8rem;
             }
+
             .testimonial-card {
                 width: 100%;
             }
+
             .footer h2 {
                 font-size: 20px;
             }
+
             .footer p,
             .footer a,
             .footer span {
                 font-size: 16px;
             }
+
             .social-icons a {
                 width: 40px;
                 height: 40px;
                 font-size: 18px;
             }
+
             .scroll-top {
                 width: 40px;
                 height: 40px;
             }
+
             .scroll-top i {
                 font-size: 18px;
             }
@@ -940,11 +999,11 @@
         <nav id="navbar" class="sidebar">
             <span class="close-btn" id="close-btn">&times;</span>
             <ul>
-                <li><a href="index.html" class="active"><b>Home</b></a></li>
-                <li><a href="our_service.html"><b>Our Services</b></a></li>
-                <li><a href="Project.html"><b>Our Projects</b></a></li>
-                <li><a href="about.html"><b>About Us</b></a></li>
-                <li><a href="contact.html"><b>Contact Us</b></a></li>
+                <li><a href="index.php" class="active"><b>Home</b></a></li>
+                <li><a href="our_service.php"><b>Our Services</b></a></li>
+                <li><a href="Project.php"><b>Our Projects</b></a></li>
+                <li><a href="about.php"><b>About Us</b></a></li>
+                <li><a href="contact.php"><b>Contact Us</b></a></li>
             </ul>
         </nav>
     </header>
@@ -952,8 +1011,9 @@
     <div class="hero-container" id="heroSection">
         <div class="hero-content">
             <h1 class="hero-title">Empowering Your Business With Smart ICT Solutions</h1>
-            <p class="hero-subtitle">We deliver fast, reliable and modern ICT services to helping businesses innovate, automate, and succeed with modern digital tools.</p>
-            <a href="our_service.html" class="hero-btn">Explore Our Services</a>
+            <p class="hero-subtitle">We deliver fast, reliable and modern ICT services to helping businesses innovate,
+                automate, and succeed with modern digital tools.</p>
+            <a href="our_service.php" class="hero-btn">Explore Our Services</a>
         </div>
     </div>
 
@@ -1016,7 +1076,7 @@
             </div>
         </div>
 
-        <a href="our service.html" class="service-link">View All Services</a>
+        <a href="our_service.php" class="service-link">View All Services</a>
     </section>
 
     <!-- projects -->
@@ -1051,7 +1111,8 @@
             </div>
             <div class="stat-title">Projects In</div>
             <div class="stat-desc">
-                ▪ Poster and Banners Design.<br> ▪ Flyers and Card flyers Design.<br> ▪ Business card and Events card Design.<br> ▪ Printing Services (T-shirts, Caps, and other Materials).<br> ▪ Logo Design.
+                ▪ Poster and Banners Design.<br> ▪ Flyers and Card flyers Design.<br> ▪ Business card and Events card
+                Design.<br> ▪ Printing Services (T-shirts, Caps, and other Materials).<br> ▪ Logo Design.
             </div>
         </div>
 
@@ -1062,7 +1123,8 @@
             </div>
             <div class="stat-title">Projects In</div>
             <div class="stat-desc">
-                ▪ Software Maintenance & Installation.<br> ▪ Hardware Maintenance and Repair.<br> ▪ Componats Replacement.
+                ▪ Software Maintenance & Installation.<br> ▪ Hardware Maintenance and Repair.<br> ▪ Componats
+                Replacement.
             </div>
         </div>
 
@@ -1073,22 +1135,22 @@
 
         <div class="testi-grid">
             <div class="testi-card">
-                <img src="images/nob.jpeg" />
-                <h3>Norbert Cuthbert.</h3>
+        <img src="images/nob.jpeg" />
+        <h3>Norbert Cuthbert.</h3>
                 <p>“Very professional team. Delivered exactly what I needed.”</p>
                 <div class="testi-stars">★★★★★</div>
             </div>
 
             <div class="testi-card">
-                <img src="images/Grace.jpeg" />
-                <h3>Grace Emasson</h3>
+                <img src="images/lucy.jpg" />
+                <h3>Lucy Nguzo</h3>
                 <p>“Amazing experience. Highly recommended for business branding!”</p>
                 <div class="testi-stars">★★★★★</div>
             </div>
 
             <div class="testi-card">
-                <img src="images/Bahati2.jpeg" />
-                <h3>Bahati Omary</h3>
+                <img src="images/anthony.png" />
+                <h3>Anthony Kapinga</h3>
                 <p>“Great technical expertise and fast delivery.”</p>
                 <div class="testi-stars">★★★★☆</div>
             </div>
@@ -1104,7 +1166,8 @@
             <div class="footer-column">
                 <h2 style="font-size: 45px;">Let's Work Together</h2>
                 <p style="color: #fff;">
-                    Welcome to Lazri’s course catalog — your gateway to quality education for personal and professional growth.
+                    Welcome to Lazri’s course catalog — your gateway to quality education for personal and professional
+                    growth.
                 </p>
 
                 <div class="social-icons">
@@ -1118,11 +1181,11 @@
 
                 <div class="footer-nav">
                     <ul class="links">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="our_service.html">Services</a></li>
-                        <li><a href="Project.html">Projects</a></li>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="index.php">Home</a></li>
+                        <li><a href="our_service.php">Services</a></li>
+                        <li><a href="Project.php">Projects</a></li>
+                        <li><a href="about.php">About Us</a></li>
+                        <li><a href="contact.php">Contact</a></li>
                     </ul>
                 </div>
             </div>
@@ -1132,12 +1195,12 @@
                 <h2>Online Services</h2>
                 <div class="footer-services">
                     <ul class="links">
-                        <li><a href="online.html">Web Hosting</a></li>
-                        <li><a href="online.html">Domains</a></li>
-                        <li><a href="online.html">Certification Portal</a></li>
-                        <li><a href="online.html">Digital Makerting</a></li>
-                        <li><a href="online.html">Emails</a></li>
-                        <li><a href="online.html">Mantainance</a></li>
+                        <li><a href="online.php">Web Hosting</a></li>
+                        <li><a href="online.php">Domains</a></li>
+                        <li><a href="online.php">Certification Portal</a></li>
+                        <li><a href="online.php">Digital Makerting</a></li>
+                        <li><a href="online.php">Emails</a></li>
+                        <li><a href="online.php">Mantainance</a></li>
                     </ul>
                 </div>
             </div>
@@ -1152,47 +1215,50 @@
                             <i class="fas fa-phone phone-icon"></i>
                         </a>
                         <span>
-              <br>
-              <a href="tel:+255713569816" style="color: #fff; text-decoration: none;">+255 713 569 816</a><br>
-              <a href="tel:+255713453464" style="color: #fff; text-decoration: none;">+255 713 453 464</a>
-            </span>
+                            <br>
+                            <a href="tel:+255713569816" style="color: #fff; text-decoration: none;">+255 713 569
+                                816</a><br>
+                            <a href="tel:+255713453464" style="color: #fff; text-decoration: none;">+255 713 453 464</a>
+                        </span>
                     </div>
                 </div>
                 <div class="contact-item">
                     <a href="https://mail.google.com/mail/?view=cm&fs=1&to=lazricompany@gmail.com" target="_blank"><i
-              class="fas fa-envelope"></i></a>
+                            class="fas fa-envelope"></i></a>
                     <span>
-            <a href="mailto:info@lazri.org">info@lazri.org</a><br>
-            <a href="mailto:lazriinfo@gmail.com">lazriinfo@gmail.com</a>
-          </span>
+                        <a href="mailto:info@lazri.org">info@lazri.org</a><br>
+                        <a href="mailto:lazriinfo@gmail.com">lazriinfo@gmail.com</a>
+                    </span>
                 </div>
 
                 <div class="contact-item">
                     <a href="https://whatsapp.com/channel/0029VbBVGNg0rGiKKpfRg23W" target="_blank"><i
-              class="fas fa-whatsapp"></i></a>
+                            class="fas fa-whatsapp"></i></a>
                     <span>
-            <a href="https://whatsapp.com/channel/0029VbBVGNg0rGiKKpfRg23W">WhatsApp Channel</a><br>
+                        <a href="https://whatsapp.com/channel/0029VbBVGNg0rGiKKpfRg23W">WhatsApp Channel</a><br>
 
-        </div>
+                </div>
 
-        <div class="contact-item">
-          <a href="https://www.google.com/maps/place/POSTA,+DAR+ES+SALAAM/@-6.8131835,39.2883643,17z" target="_blank">
-            <i class="fas fa-map-marker-alt"></i>
-          </a>
-          <span style="color: #fff;">Dar es Salaam, Tanzania</span>
+                <div class="contact-item">
+                    <a href="https://www.google.com/maps/place/POSTA,+DAR+ES+SALAAM/@-6.8131835,39.2883643,17z"
+                        target="_blank">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </a>
+                    <span style="color: #fff;">Dar es Salaam, Tanzania</span>
                 </div>
             </div>
         </div>
         </div>
         <!-- Footer Bottom -->
         <div class="footer-bottom">
-            <p id="copyright" style="margin: 1.5rem 0rem 0rem 2rem;">Copyright © 2025 - Lazri Company Limited. | All rights reserved
-            </p>
+            <p id="copyright" style="margin: 1.5rem 0rem 0rem 2rem;">Copyright © 2025 - Lazri Company Limited. | All
+                rights
+                reserved</p>
             <div class="footer-links" style="margin-left: 23rem;">
-                <a href="privecy_policy.html" id="pp">Privacy Policy</a> |
+                <a href="privecy_policy.php" id="pp">Privacy Policy</a> |
                 <a href="mailto:info@lazri.co.tz" id="sm">Staff Mail</a> |
-                <a href="faq.html" id="faq">FAQs</a> |
-                <a href="terms_&_conditions.html" id="tc">Terms and Conditions</a>
+                <a href="faq.php" id="faq">FAQs</a> |
+                <a href="terms_&_conditions.php" id="tc">Terms and Conditions</a>
             </div>
         </div>
 
@@ -1233,11 +1299,21 @@
         let bgIndex = 0;
         const heroSection = document.getElementById("heroSection");
 
+        // ✅ Set first background IMMEDIATELY
+        heroSection.style.backgroundImage =
+            `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)), url('${heroImages[0]}')`;
+        heroImages.forEach(src => {
+            const img = new Image();
+            img.src = src;
+        });
+
+        // 🔁 Change background every 5 seconds
         setInterval(() => {
             bgIndex = (bgIndex + 1) % heroImages.length;
             heroSection.style.backgroundImage =
                 `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)), url('${heroImages[bgIndex]}')`;
         }, 5000);
+
     </script>
 </body>
 

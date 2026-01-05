@@ -1,21 +1,24 @@
 <?php
-// ====== DB Connection ======
-$host = "localhost";
-$user = "root";
-$pass = "";
-$db   = "lazri"; 
+require_once 'config/database.php';
 
-$conn = new mysqli($host, $user, $pass, $db);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+// Fetch projects from Supabase
+try {
+    $projects = Database::fetchAll("
+        SELECT *, 
+               CASE 
+                   WHEN category = 'completed' THEN '✅ Completed'
+                   WHEN category = 'ongoing' THEN '🔄 Ongoing'
+                   ELSE '🚀 Upcoming'
+               END as category_display
+        FROM projects 
+        WHERE status = 'active'
+        ORDER BY created_at DESC
+    ");
+} catch (Exception $e) {
+    $projects = [];
+    error_log("Error fetching projects: " . $e->getMessage());
 }
-
-// Kusoma projects zote
-$sql = "SELECT * FROM projects ORDER BY created_at DESC";
-$result = $conn->query($sql);
-?>
-<!DOCTYPE html> 
+?><!DOCTYPE html> 
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -392,25 +395,36 @@ header.sidebar-open .mobile-header {
     </div>
 
     <!-- Projects Section -->
-    <section>
-      <div class="projects-grid">
-        <?php if ($result->num_rows > 0): ?>
-          <?php while($row = $result->fetch_assoc()): ?>
-            <div class="project-card <?php echo htmlspecialchars($row['category']); ?>">
-              <img src="uploads/<?php echo htmlspecialchars($row['image']); ?>" 
-                   alt="<?php echo htmlspecialchars($row['title']); ?>" 
+ <section>
+    <div class="projects-grid">
+      <?php if (!empty($projects)): ?>
+        <?php foreach ($projects as $project): ?>
+          <div class="project-card <?php echo htmlspecialchars($project['category']); ?>">
+            <?php if (!empty($project['image'])): ?>
+              <img src="<?php echo htmlspecialchars($project['image']); ?>" 
+                   alt="<?php echo htmlspecialchars($project['title']); ?>" 
                    class="project-image" loading="lazy">
-              <div class="project-content">
-                <h3><?php echo htmlspecialchars($row['title']); ?></h3>
-                <p><?php echo htmlspecialchars($row['description']); ?></p>
-              </div>
+            <?php else: ?>
+              <img src="./images/default-project.jpg" 
+                   alt="Default Project" 
+                   class="project-image" loading="lazy">
+            <?php endif; ?>
+            <div class="project-content">
+              <h3><?php echo htmlspecialchars($project['title']); ?></h3>
+              <p><?php echo htmlspecialchars($project['description']); ?></p>
+              <small class="project-category">
+                <?php echo htmlspecialchars($project['category_display']); ?>
+              </small>
             </div>
-          <?php endwhile; ?>
-        <?php else: ?>
-          <p style="text-align:center; color:red;">No projects uploaded yet.</p>
-        <?php endif; ?>
-      </div>
-    </section>
+          </div>
+        <?php endforeach; ?>
+      <?php else: ?>
+        <div class="no-projects">
+          <p style="text-align:center; color:#666;">No projects uploaded yet.</p>
+        </div>
+      <?php endif; ?>
+    </div>
+  </section>
   </main>
 
   <!-- Footer -->

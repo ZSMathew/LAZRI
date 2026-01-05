@@ -1,6 +1,8 @@
 <?php
 // admin_dashboard.php
 session_start();
+require_once 'config/database.php';
+
 if (isset($_SESSION['flash'])) {
     $msg = $_SESSION['flash'];
     unset($_SESSION['flash']);
@@ -12,17 +14,6 @@ if (!isset($_SESSION['csrf'])) {
 }
 $csrf = $_SESSION['csrf'];
 
-/* ====== DB CONFIG ====== */
-$DB_HOST = 'localhost';
-$DB_USER = 'root';
-$DB_PASS = '';
-$DB_NAME = 'lazri';
-
-$conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
-if ($conn->connect_error) {
-    die('DB connection failed: ' . $conn->connect_error);
-}
-
 // Helper
 function e($s){ return htmlspecialchars($s, ENT_QUOTES); }
 
@@ -32,24 +23,19 @@ if (isset($_POST['action']) && $_POST['action'] === 'login') {
     $p = $_POST['password'];
 
     // Fetch from database
-    $stmt = $conn->prepare("SELECT * FROM admin WHERE username = ? LIMIT 1");
-    $stmt->bind_param("s", $u);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    try {
+        $admin = Database::fetchOne("SELECT * FROM admin WHERE username = :username LIMIT 1", ['username' => $u]);
 
-    if ($result->num_rows === 1) {
-        $admin = $result->fetch_assoc();
-
-        if (password_verify($p, $admin['password'])) {
+        if ($admin && password_verify($p, $admin['password'])) {
             $_SESSION['admin'] = true;
             header("Location: admin_dashboard.php");
             exit;
         } else {
             $error = "Incorrect login credentials.";
         }
-
-    } else {
-        $error = "Incorrect login credentials.";
+    } catch (Exception $e) {
+        $error = "Login error. Please try again.";
+        error_log("Login error: " . $e->getMessage());
     }
 }
 
@@ -164,9 +150,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Project add/edit
     if (isset($_POST['form']) && $_POST['form'] === 'project') {
-        $title = $conn->real_escape_string($_POST['title']);
-        $desc  = $conn->real_escape_string($_POST['description']);
-        $category = $conn->real_escape_string($_POST['category']);
+        $title = trim($_POST['title']);
+        $desc  = trim($_POST['description']);
+        $category = trim($_POST['category']);
         $id = isset($_POST['id']) ? intval($_POST['id']) : 0;
 
         $imageName = '';
@@ -182,67 +168,72 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        if ($id > 0) {
-            if ($imageName) {
-                $sql = "UPDATE projects SET title=?, description=?, category=?, image=? WHERE id=?";
-                $stmt = $conn->prepare($sql);
-                $stmt->bind_param('ssssi', $title, $desc, $category, $imageName, $id);
+        try {
+            if ($id > 0) {
+                // Update existing project
+                $data = [
+                    'title' => $title,
+                    'description' => $desc,
+                    'category' => $category
+                ];
+                if ($imageName) {
+                    $data['image'] = $imageName;
+                }
+                Database::update('projects', $data, 'id = :id', ['id' => $id]);
+                $_SESSION['flash'] = "Project updated successfully.";
+                header("Location: admin_dashboard.php#projects");
+                exit;
             } else {
-                $sql = "UPDATE projects SET title=?, description=?, category=? WHERE id=?";
-                $stmt = $conn->prepare($sql);
-                $stmt->bind_param('sssi', $title, $desc, $category, $id);
+                // Insert new project
+                $data = [
+                    'title' => $title,
+                    'description' => $desc,
+                    'category' => $category,
+                    'image' => $imageName,
+                    'created_at' => date('Y-m-d H:i:s')
+                ];
+                Database::insert('projects', $data);
+                $_SESSION['flash'] = "Project added successfully.";
+                header("Location: admin_dashboard.php#projects");
+                exit;
             }
-          if ($stmt->execute()) {
-    $_SESSION['flash'] = "Project updated successfully.";
-    header("Location: admin_dashboard.php#projects");
-    exit;
-}
- else $msg = 'Error: '.$stmt->error;
-            $stmt->close();
-        } else {
-            $sql = "INSERT INTO projects (title, description, category, image, created_at) VALUES (?, ?, ?, ?, NOW())";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param('ssss', $title, $desc, $category, $imageName);
-            if ($stmt->execute()) {
-    $_SESSION['flash'] = "Project added successfully.";
-    header("Location: admin_dashboard.php#projects");
-    exit;
-}
- else $msg = 'Error: '.$stmt->error;
-            $stmt->close();
+        } catch (Exception $e) {
+            $msg = 'Error: ' . $e->getMessage();
+            error_log("Project save error: " . $e->getMessage());
         }
     }
 
     // Delete project
     if (isset($_POST['delete_project'])) {
         $pid = intval($_POST['delete_project']);
-        $res = $conn->query("SELECT image FROM projects WHERE id={$pid}");
-        if ($res && $row = $res->fetch_assoc()) {
-            if (!empty($row['image']) && file_exists(__DIR__.'/uploads/'.$row['image'])) @unlink(__DIR__.'/uploads/'.$row['image']);
+        try {
+            // Get image before deleting
+            $project = Database::fetchOne("SELECT image FROM projects WHERE id = :id", ['id' => $pid]);
+            if ($project && !empty($project['image']) && file_exists(__DIR__.'/uploads/'.$project['image'])) {
+                @unlink(__DIR__.'/uploads/'.$project['image']);
+            }
+            Database::delete('projects', 'id = :id', ['id' => $pid]);
+            $_SESSION['flash'] = "Project deleted successfully.";
+            header("Location: admin_dashboard.php#projects");
+            exit;
+        } catch (Exception $e) {
+            $msg = 'Error: ' . $e->getMessage();
+            error_log("Project delete error: " . $e->getMessage());
         }
-        $stmt = $conn->prepare("DELETE FROM projects WHERE id=?");
-        $stmt->bind_param('i',$pid);
-        if ($stmt->execute()) {
-    $_SESSION['flash'] = "Project deleted successfully.";
-    header("Location: admin_dashboard.php#projects");
-    exit;
-}
- else $msg = 'Error: '.$stmt->error;
-        $stmt->close();
     }
 
     // Delete order
     if (isset($_POST['delete_order'])) {
         $oid = intval($_POST['delete_order']);
-        $stmt = $conn->prepare("DELETE FROM orders WHERE id=?");
-        $stmt->bind_param('i',$oid);
-        if ($stmt->execute()) {
-    $_SESSION['flash'] = "Order deleted successfully.";
-    header("Location: admin_dashboard.php#orders");
-    exit;
-}
- else $msg = 'Error: '.$stmt->error;
-        $stmt->close();
+        try {
+            Database::delete('orders', 'id = :id', ['id' => $oid]);
+            $_SESSION['flash'] = "Order deleted successfully.";
+            header("Location: admin_dashboard.php#orders");
+            exit;
+        } catch (Exception $e) {
+            $msg = 'Error: ' . $e->getMessage();
+            error_log("Order delete error: " . $e->getMessage());
+        }
     }
 
 // CHANGE PASSWORD
@@ -252,42 +243,39 @@ if (isset($_POST['change_password'])) {
     $new     = $_POST['new_pass'] ?? '';
     $confirm = $_POST['confirm_pass'] ?? '';
 
-    // Get admin details
-    $res = $conn->query("SELECT * FROM admin WHERE username='admin' LIMIT 1");
+    try {
+        // Get admin details
+        $admin = Database::fetchOne("SELECT * FROM admin WHERE username = :username LIMIT 1", ['username' => 'admin']);
 
-    if ($res && $admin = $res->fetch_assoc()) {
+        if ($admin) {
+            // Verify current password
+            if (!password_verify($current, $admin['password'])) {
+                $_SESSION['flash'] = "Current password incorrect.";
+                header("Location: admin_dashboard.php#settings");
+                exit;
+            }
 
-        // Verify current password
-        if (!password_verify($current, $admin['password'])) {
-            $_SESSION['flash'] = "Current password incorrect.";
-            header("Location: admin_dashboard.php#settings");
-            exit;
-        }
+            // Check if new passwords match
+            if ($new !== $confirm) {
+                $_SESSION['flash'] = "New passwords do not match.";
+                header("Location: admin_dashboard.php#settings");
+                exit;
+            }
 
-        // Check if new passwords match
-        if ($new !== $confirm) {
-            $_SESSION['flash'] = "New passwords do not match.";
-            header("Location: admin_dashboard.php#settings");
-            exit;
-        }
-
-        // Update password
-        $new_hash = password_hash($new, PASSWORD_DEFAULT);
-        $stmt = $conn->prepare("UPDATE admin SET password=? WHERE id=?");
-        $stmt->bind_param("si", $new_hash, $admin['id']);
-
-        if ($stmt->execute()) {
+            // Update password
+            $new_hash = password_hash($new, PASSWORD_DEFAULT);
+            Database::update('admin', ['password' => $new_hash], 'id = :id', ['id' => $admin['id']]);
             $_SESSION['flash'] = "Password changed successfully.";
+            header("Location: admin_dashboard.php#settings");
+            exit;
         } else {
-            $_SESSION['flash'] = "Error updating password: " . $stmt->error;
+            $_SESSION['flash'] = "Admin account not found.";
+            header("Location: admin_dashboard.php#settings");
+            exit;
         }
-
-        $stmt->close();
-        header("Location: admin_dashboard.php#settings");
-        exit;
-
-    } else {
-        $_SESSION['flash'] = "Admin account not found.";
+    } catch (Exception $e) {
+        $_SESSION['flash'] = "Error updating password: " . $e->getMessage();
+        error_log("Password change error: " . $e->getMessage());
         header("Location: admin_dashboard.php#settings");
         exit;
     }
@@ -296,51 +284,64 @@ if (isset($_POST['change_password'])) {
 // Handle comment replies
 if(isset($_POST['send_reply'])){
     $id = intval($_POST['comment_id']);
-    $reply = $conn->real_escape_string($_POST['reply']);
+    $reply = trim($_POST['reply']);
     $email = $_POST['email'];
 
-    // Save reply in DB
-    $conn->query("UPDATE comments SET reply='$reply' WHERE id=$id");
+    try {
+        // Save reply in DB
+        Database::update('comments', ['reply' => $reply], 'id = :id', ['id' => $id]);
 
-    // Send email
-    $subject = "Reply from Lazri Company";
-    $headers = "From: noreply@lazri.com\r\n";
+        // Send email
+        $subject = "Reply from Lazri Company";
+        $headers = "From: noreply@lazri.com\r\n";
+        mail($email, $subject, $reply, $headers);
 
-    mail($email, $subject, $reply, $headers);
-
-    $msg = "Reply sent successfully!";
+        $_SESSION['flash'] = "Reply sent successfully!";
+        header("Location: admin_dashboard.php#comments");
+        exit;
+    } catch (Exception $e) {
+        $msg = "Error sending reply: " . $e->getMessage();
+        error_log("Comment reply error: " . $e->getMessage());
+    }
 }
 
 }
 // Fetch dashboard data
-$projects_res = $conn->query("SELECT * FROM projects ORDER BY created_at DESC");
-$orders_res   = $conn->query("SELECT * FROM orders ORDER BY id DESC");
-$projects_count = $projects_res ? $projects_res->num_rows : 0;
-$orders_count   = $orders_res ? $orders_res->num_rows : 0;
-$comments_count = 0; 
-
-// Fetch comments
-$comments_res = $conn->query("SELECT * FROM comments ORDER BY id DESC");
-$comments_count = $comments_res->num_rows;
+try {
+    $projects = Database::fetchAll("SELECT * FROM projects ORDER BY created_at DESC");
+    $orders = Database::fetchAll("SELECT * FROM orders ORDER BY id DESC");
+    $comments = Database::fetchAll("SELECT * FROM comments ORDER BY id DESC");
+    
+    $projects_count = count($projects);
+    $orders_count = count($orders);
+    $comments_count = count($comments);
+} catch (Exception $e) {
+    error_log("Dashboard data fetch error: " . $e->getMessage());
+    $projects = [];
+    $orders = [];
+    $comments = [];
+    $projects_count = 0;
+    $orders_count = 0;
+    $comments_count = 0;
+}
 ?>
 <?php
 if (isset($_POST['action']) && $_POST['action'] === 'update_status') {
     $id = intval($_POST['id']);
-    $status = $conn->real_escape_string($_POST['status']);
-    $type = $_POST['type']; // Project au Order
+    $status = trim($_POST['status']);
+    $type = $_POST['type']; // Project or Order
 
-    if ($type === 'project') {
-        $sql = "UPDATE projects SET status='$status' WHERE id=$id";
-    } else {
-        $sql = "UPDATE orders SET status='$status' WHERE id=$id";
-    }
-
-    if ($conn->query($sql)) {
+    try {
+        if ($type === 'project') {
+            Database::update('projects', ['status' => $status], 'id = :id', ['id' => $id]);
+        } else {
+            Database::update('orders', ['status' => $status], 'id = :id', ['id' => $id]);
+        }
         echo json_encode(['success' => true, 'status' => $status]);
-    } else {
-        echo json_encode(['success' => false, 'error' => $conn->error]);
+    } catch (Exception $e) {
+        echo json_encode(['success' => false, 'error' => $e->getMessage()]);
     }
-    exit; // ⚠️ Hii ni muhimu kwa AJAX isirudishe HTML yote
+    exit;
 }
 ?>
 
@@ -733,11 +734,11 @@ input:hover {
 <!-- Projects -->
 <div id="tab-projects" class="tab card" style="display:none">
 <h3>Projects</h3>
-<?php if($projects_res && $projects_res->num_rows>0){ ?>
+<?php if(!empty($projects)){ ?>
 <table>
 <thead><tr><th>Image</th><th>Title</th><th>Category</th><th>Created</th><th>Actions</th></tr></thead>
 <tbody>
-<?php while($p=$projects_res->fetch_assoc()){ ?>
+<?php foreach($projects as $p){ ?>
 <tr>
 <td><?php if(!empty($p['image']) && file_exists(__DIR__.'/uploads/'.$p['image'])){ ?><img class="thumb" src="uploads/<?php echo e($p['image']); ?>"><?php } else echo '-'; ?></td>
 <td><?php echo e($p['title']); ?></td>
@@ -766,11 +767,11 @@ input:hover {
 <!-- Orders -->
 <div id="tab-orders" class="tab card" style="display:none">
 <h3>Orders</h3>
-<?php if($orders_res && $orders_res->num_rows>0){ ?>
+<?php if(!empty($orders)){ ?>
 <table>
 <thead><tr><th>#</th><th>Full Name</th><th>Email</th><th>Phone</th><th>Service</th><th>Status</th><th>Actions</th></tr></thead>
 <tbody>
-<?php while($o=$orders_res->fetch_assoc()){ ?>
+<?php foreach($orders as $o){ ?>
 <tr>
 <td><?php echo e($o['id']); ?></td>
 <td><?php echo e($o['fullname']); ?></td>
@@ -781,9 +782,9 @@ input:hover {
 <td>
 <form class="inline update-status-form" data-id="<?php echo $o['id']; ?>">
 <select onchange="syncStatus(<?php echo $o['id']; ?>, this.value)">
-    <option value="pending" <?php if($o['status']=='pending') echo 'selected'; ?>>Pending</option>
-    <option value="processing" <?php if($o['status']=='processing') echo 'selected'; ?>>Processing</option>
-    <option value="completed" <?php if($o['status']=='completed') echo 'selected'; ?>>Completed</option>
+    <option value="pending" <?php if(($o['status']??'')=='pending') echo 'selected'; ?>>Pending</option>
+    <option value="processing" <?php if(($o['status']??'')=='processing') echo 'selected'; ?>>Processing</option>
+    <option value="completed" <?php if(($o['status']??'')=='completed') echo 'selected'; ?>>Completed</option>
 </select>
 
 </form>
@@ -806,7 +807,7 @@ input:hover {
 
 <?php if($comments_count > 0): ?>
     
-    <?php while($c = $comments_res->fetch_assoc()): ?>
+    <?php foreach($comments as $c): ?>
     
     <div style="
         background:#fff;
@@ -843,7 +844,7 @@ input:hover {
 
     </div>
 
-    <?php endwhile; ?>
+    <?php endforeach; ?>
 
 <?php else: ?>
     <p class="small">No comments yet.</p>
@@ -1036,5 +1037,4 @@ function syncStatus(orderId, newStatus) {
 
 </body>
 </html>
-<?php $conn->close(); ?>
         

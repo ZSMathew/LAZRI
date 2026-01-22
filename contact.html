@@ -684,7 +684,6 @@ nav ul li a.active::after {
   </div>
 
   <nav id="navbar" class="sidebar">
-    <span class="close-btn" id="close-btn">&times;</span>
     <ul>
       <li><a href="index.html"><b>Home</b></a></li>
       <li><a href="our_service.html"><b>Our Services</b></a></li>
@@ -860,17 +859,11 @@ nav ul li a.active::after {
 
 const menuToggle = document.getElementById('menu-toggle');
 const sidebar = document.getElementById('navbar');
-const closeBtn = document.getElementById('close-btn');
 const header = document.querySelector('header');
 
 menuToggle.addEventListener('click', () => {
   sidebar.classList.add('active');
   header.classList.add('sidebar-open');
-});
-
-closeBtn.addEventListener('click', () => {
-  sidebar.classList.remove('active');
-  header.classList.remove('sidebar-open');
 });
   </script>
 </body>
